@@ -1,0 +1,110 @@
+networks:
+  falcon_net:
+
+volumes:
+  postgres_data:
+
+services:
+  # --- FastAPI Backend --
+  # The build context now points directly to your backend_src directory.
+  falcon_ai:
+    build:
+      context: ./backend_src
+      dockerfile: Dockerfile
+    container_name: falcon_ai
+    environment:
+      - MCP_CYBERCHEF_URL=http://cyberchef_api:8001
+      - MCP_RAG_URL=http://rag_server:8002
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/metrics
+      - TOKEN_SECRET_KEY=a-secure-default-secret-for-dev
+    # This volume mount is for development, allowing you to change code
+    # without rebuilding the image.
+    volumes:
+      - ./backend_src:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - cyberchef_api
+      - db
+      - rag_server
+    networks:
+      - falcon_net
+
+  # --- Next.js Frontend ---
+  # The build context now points directly to your frontend_src directory.
+  frontend:
+    build:
+      context: ./frontend_src
+      dockerfile: Dockerfile
+    container_name: falcon_frontend
+    ports:
+      - "3001:3001"
+    # This volume mount is for development.
+    volumes:
+      - ./frontend_src:/app
+      - /app/node_modules
+    depends_on:
+      - falcon_ai
+    networks:
+      - falcon_net
+
+  # --- Database --
+  db:
+    image: postgres:16-alpine
+    container_name: falcon_db
+    environment:
+      - POSTGRES_DB=metrics
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - falcon_net
+
+  # --- RAG Knowledge Base Server ---
+  rag_server:
+    build:
+      context: ./mcp_servers/rag_mcp_server
+      dockerfile: Dockerfile
+    container_name: rag_server
+    volumes:
+      - ./knowledge_base:/app/knowledge_base
+    expose:
+      - "8002"
+    environment:
+      - PORT=8002
+      - HOST=0.0.0.0
+    networks:
+      - falcon_net
+
+  # --- Node.js CyberChef backend ---
+  cyberchef_backend:
+    build:
+      context: ./mcp_servers/cyberchef_backend
+      dockerfile: Dockerfile
+    container_name: cyberchef_backend
+    expose:
+      - "3001" # This is an internal port, different from the frontend's 3001
+    networks:
+      - falcon_net
+
+  # --- MCP wrapper around CyberChef backend ---
+  cyberchef_api:
+    build:
+      context: ./mcp_servers/cyberchef_api_mcp_server
+      dockerfile: Dockerfile
+    container_name: cyberchef_api
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CYBERCHEF_BACKEND_URL=http://cyberchef_backend:3001
+    expose:
+      - "8001"
+    ports:
+      - "8001:8001"
+    depends_on:
+      - cyberchef_backend
+    networks:
+      - falcon_net
