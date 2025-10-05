@@ -5,8 +5,6 @@ volumes:
   postgres_data:
 
 services:
-  # --- FastAPI Backend --
-  # The build context now points directly to your backend_src directory.
   falcon_ai:
     build:
       context: ./backend_src
@@ -16,10 +14,8 @@ services:
       - MCP_CYBERCHEF_URL=http://cyberchef_api:8001
       - MCP_RAG_URL=http://rag_server:8002
       - PYTHONUNBUFFERED=1
-      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/metrics
-      - TOKEN_SECRET_KEY=a-secure-default-secret-for-dev
-    # This volume mount is for development, allowing you to change code
-    # without rebuilding the image.
+      - DATABASE_URL=postgresql+psycopg2://postgres:${POSTGRES_PASSWORD}@db:5432/metrics
+      - TOKEN_SECRET_KEY=${TOKEN_SECRET_KEY}
     volumes:
       - ./backend_src:/app
     ports:
@@ -31,8 +27,6 @@ services:
     networks:
       - falcon_net
 
-  # --- Next.js Frontend ---
-  # The build context now points directly to your frontend_src directory.
   frontend:
     build:
       context: ./frontend_src
@@ -49,14 +43,13 @@ services:
     networks:
       - falcon_net
 
-  # --- Database --
   db:
     image: postgres:16-alpine
     container_name: falcon_db
     environment:
       - POSTGRES_DB=metrics
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -64,7 +57,6 @@ services:
     networks:
       - falcon_net
 
-  # --- RAG Knowledge Base Server ---
   rag_server:
     build:
       context: ./mcp_servers/rag_mcp_server
@@ -80,18 +72,16 @@ services:
     networks:
       - falcon_net
 
-  # --- Node.js CyberChef backend ---
   cyberchef_backend:
     build:
       context: ./mcp_servers/cyberchef_backend
       dockerfile: Dockerfile
     container_name: cyberchef_backend
     expose:
-      - "3001" # This is an internal port, different from the frontend's 3001
+      - "3001"
     networks:
       - falcon_net
 
-  # --- MCP wrapper around CyberChef backend ---
   cyberchef_api:
     build:
       context: ./mcp_servers/cyberchef_api_mcp_server
