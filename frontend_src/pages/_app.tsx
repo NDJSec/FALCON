@@ -1,8 +1,11 @@
 import type { AppProps } from "next/app";
 import "../styles/global.css";
+import { ServersProvider } from "../shared/ServersContext";
 
-// This is the root component for your Next.js application.
-// The global CSS is imported here to apply styles to all pages.
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <ServersProvider>
+      <Component {...pageProps} />
+    </ServersProvider>
+  );
 }

@@ -4,6 +4,7 @@ from typing import List, Optional, Any, Dict
 from fastapi import FastAPI, HTTPException, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+from pydantic import BaseModel
 
 # Correctly import from the backend package
 from backend.models import (
@@ -36,6 +37,9 @@ logger = logging.getLogger(__name__)
 # This dictionary will hold the initialized MCP client.
 app_state: Dict[str, Any] = {}
 
+class ServerToggleRequest(BaseModel):
+    active_servers: List[str]
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -45,7 +49,6 @@ async def lifespan(app: FastAPI):
 
     # Initialize the Multi-Server MCP Client on startup.
     try:
-        # FIX: Append the required /sse endpoint to the MCP server URLs from config.
         server_config = {
             name: {"url": f"{details['url']}/sse", "transport": "sse"}
             for name, details in config.MCP_SERVER_URLS.items()
@@ -95,6 +98,33 @@ async def get_tools(client: MCPClient = Depends(get_mcp_client)):
     except Exception as e:
         logger.error(f"Failed to get tools from MCP client: {e}")
         raise HTTPException(status_code=500, detail="Could not retrieve tools.")
+
+@app.get("/servers")
+async def get_mcp_servers() -> Dict[str, Dict[str, str]]:
+    """
+    Returns the list of available MCP servers and their configurations.
+    This lets the frontend know which servers exist and can be toggled on/off.
+    """
+    try:
+        return config.MCP_SERVER_URLS
+    except Exception as e:
+        logger.error(f"Failed to load MCP servers: {e}")
+        raise HTTPException(status_code=500, detail="Could not retrieve MCP servers.")
+
+@app.post("/servers/toggle")
+async def toggle_servers(
+    toggle_req: ServerToggleRequest,
+    client: MCPClient = Depends(get_mcp_client),
+):
+    """
+    Activates or deactivates specific MCP servers dynamically.
+    """
+    try:
+        client.set_active_servers(toggle_req.active_servers)
+        return {"status": "ok", "active_servers": toggle_req.active_servers}
+    except Exception as e:
+        logger.error(f"Failed to toggle servers: {e}")
+        raise HTTPException(status_code=500, detail="Could not toggle MCP servers.")
 
 
 @app.get("/models")

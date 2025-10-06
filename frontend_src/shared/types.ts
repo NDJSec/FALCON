@@ -19,6 +19,15 @@ export type ModelProviders = {
   [provider: string]: string[];
 };
 
+export type Config = {
+  pcapAnalyzer: boolean;
+  llmIntegration: boolean;
+  forensicToolkit: boolean;
+  visualizer: boolean;
+  deobfuscationEngine: boolean;
+  chatInterface: boolean;
+};
+
 // --- API Request Payloads ---
 
 export type ChatRequest = {
