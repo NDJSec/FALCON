@@ -1,0 +1,569 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FALCON API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/tools": {
+      "get": {
+        "summary": "Get Tools",
+        "description": "List all available tools from connected MCP servers.\n\nArgs:\n    client: MCPClient dependency injected by FastAPI.\n\nReturns:\n    List[ToolOut]: List of available tools.\n\nRaises:\n    HTTPException: If tools cannot be retrieved.",
+        "operationId": "get_tools_tools_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ToolOut"
+                  },
+                  "type": "array",
+                  "title": "Response Get Tools Tools Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/servers": {
+      "get": {
+        "summary": "Get Mcp Servers",
+        "description": "Returns the list of available MCP servers and their configurations.\n\nReturns:\n    Dict[str, Dict[str, str]]: Dictionary of server names and configuration details.\n\nRaises:\n    HTTPException: If the server configuration cannot be retrieved.",
+        "operationId": "get_mcp_servers_servers_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "type": "object",
+                  "title": "Response Get Mcp Servers Servers Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/servers/toggle": {
+      "post": {
+        "summary": "Toggle Servers",
+        "description": "Activates or deactivates specific MCP servers dynamically.\n\nArgs:\n    toggle_req: Request containing list of active servers.\n    client: MCPClient dependency.\n\nReturns:\n    Dict[str, Any]: Status and list of active servers.\n\nRaises:\n    HTTPException: If server toggling fails.",
+        "operationId": "toggle_servers_servers_toggle_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServerToggleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Toggle Servers Servers Toggle Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/models": {
+      "get": {
+        "summary": "Get Models",
+        "description": "Returns a dictionary of available models grouped by provider.\n\nReturns:\n    Dict[str, List[str]]: Available LLM models per provider.",
+        "operationId": "get_models_models_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "type": "object",
+                  "title": "Response Get Models Models Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat": {
+      "post": {
+        "summary": "Chat Endpoint",
+        "description": "Handles a chat request, runs the agent, and returns a response.\n\nArgs:\n    chat_req: ChatRequest object containing user input and settings.\n    client: MCPClient dependency.\n\nReturns:\n    ChatResponse: The assistant's response and conversation ID.\n\nRaises:\n    HTTPException: If token is invalid or processing fails.",
+        "operationId": "chat_endpoint_chat_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback": {
+      "post": {
+        "summary": "Feedback Endpoint",
+        "description": "Logs user feedback for a specific message.\n\nArgs:\n    feedback_req: FeedbackRequest containing message ID and feedback.\n\nReturns:\n    Dict[str, str]: Status of the logging operation.",
+        "operationId": "feedback_endpoint_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Feedback Endpoint Feedback Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversations/{token}": {
+      "get": {
+        "summary": "List Conversations",
+        "description": "Lists all conversations for a given user token.\n\nArgs:\n    token: User token to identify the user.\n\nReturns:\n    List[ConversationOut]: List of conversations.\n\nRaises:\n    HTTPException: If token is invalid.",
+        "operationId": "list_conversations_conversations__token__get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConversationOut"
+                  },
+                  "title": "Response List Conversations Conversations  Token  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages/{conversation_id}": {
+      "get": {
+        "summary": "Get Messages",
+        "description": "Retrieves all messages for a specific conversation.\n\nArgs:\n    conversation_id: ID of the conversation to fetch messages for.\n\nReturns:\n    List[MessageOut]: List of messages in the conversation.",
+        "operationId": "get_messages_messages__conversation_id__get",
+        "parameters": [
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Conversation Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageOut"
+                  },
+                  "title": "Response Get Messages Messages  Conversation Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversations/new/{token}": {
+      "post": {
+        "summary": "New Conversation",
+        "description": "Creates a new, empty conversation for a user.\n\nArgs:\n    token: User token for which to create a conversation.\n\nReturns:\n    Dict[str, str]: Newly created conversation ID.\n\nRaises:\n    HTTPException: If token is invalid or conversation creation fails.",
+        "operationId": "new_conversation_conversations_new__token__post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response New Conversation Conversations New  Token  Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChatRequest": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "api_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Api Key",
+            "default": ""
+          },
+          "use_mcp": {
+            "type": "boolean",
+            "title": "Use Mcp",
+            "default": true
+          },
+          "conversation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conversation Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token",
+          "prompt",
+          "provider",
+          "model"
+        ],
+        "title": "ChatRequest",
+        "description": "Request model for sending a chat message to the assistant.\n\nAttributes:\n    token: User authentication token.\n    prompt: The user's input message.\n    provider: LLM provider to use (e.g., \"OpenAI\", \"Gemini\").\n    model: Model name to use from the provider.\n    api_key: Optional API key for the provider.\n    use_mcp: Whether to fetch tools from MCP servers.\n    conversation_id: Optional conversation ID for ongoing chats."
+      },
+      "ChatResponse": {
+        "properties": {
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          },
+          "conversation_id": {
+            "type": "string",
+            "title": "Conversation Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "answer",
+          "conversation_id"
+        ],
+        "title": "ChatResponse",
+        "description": "Response model returned after processing a chat request.\n\nAttributes:\n    answer: The assistant's response text.\n    conversation_id: The conversation ID associated with this response."
+      },
+      "ConversationOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "started_at": {
+            "type": "string",
+            "title": "Started At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "started_at"
+        ],
+        "title": "ConversationOut",
+        "description": "Represents a conversation record for output to the frontend.\n\nAttributes:\n    id: Unique identifier for the conversation.\n    started_at: Timestamp when the conversation started."
+      },
+      "FeedbackRequest": {
+        "properties": {
+          "message_id": {
+            "type": "integer",
+            "title": "Message Id"
+          },
+          "feedback": {
+            "type": "integer",
+            "title": "Feedback"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message_id",
+          "feedback"
+        ],
+        "title": "FeedbackRequest",
+        "description": "Request model for submitting feedback on a message.\n\nAttributes:\n    message_id: ID of the message being rated.\n    feedback: Feedback value (1 for thumbs up, -1 for thumbs down)."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MessageOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "feedback": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feedback"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "content"
+        ],
+        "title": "MessageOut",
+        "description": "Represents a message record for output to the frontend.\n\nAttributes:\n    id: Unique identifier for the message.\n    role: Role of the sender ('user' or 'assistant').\n    content: The message content.\n    feedback: Optional feedback value (1 or -1)."
+      },
+      "ServerToggleRequest": {
+        "properties": {
+          "active_servers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Active Servers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "active_servers"
+        ],
+        "title": "ServerToggleRequest",
+        "description": "Request schema for activating/deactivating MCP servers."
+      },
+      "ToolOut": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "ToolOut",
+        "description": "Represents a tool available from MCP servers.\n\nAttributes:\n    name: Name of the tool."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
