@@ -229,10 +229,10 @@ Project Link: [https://github.com/NDJSec/FALCON](https://github.com/NDJSec/FALCO
 [contributors-shield]: https://img.shields.io/github/contributors/NDJSec/FALCON.svg?style=for-the-badge
 [contributors-url]: https://github.com/NDJSec/FALCON/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/NDJSec/FALCON.svg?style=for-the-badge
-[forks-url]: https://github.com/NDJSec/FALCON/network/members
+[forks-url]: https://github.com/NDJSec/FALCON/forks
 [stars-shield]: https://img.shields.io/github/stars/NDJSec/FALCON.svg?style=for-the-badge
 [stars-url]: https://github.com/NDJSec/FALCON/stargazers
 [issues-shield]: https://img.shields.io/github/issues/NDJSec/FALCON.svg?style=for-the-badge
 [issues-url]: https://github.com/NDJSec/FALCON/issues
 [license-shield]: https://img.shields.io/github/license/NDJSec/FALCON.svg?style=for-the-badge
-[license-url]: https://github.com/NDJSec/FALCON/blob/master/LICENSE.txt
+[license-url]: https://github.com/NDJSec/FALCON/blob/main/LICENSE
