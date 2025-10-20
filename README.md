@@ -87,8 +87,8 @@
 
 [![FALCON Screen Shot][product-screenshot]]
 
-TribeAI is an agentic framework that leverages MCP servers to provide an
-external chat-based server to aid CTF particpants. Additionally, TribeAI
+FALCON is an agentic framework that leverages MCP servers to provide an
+external chat-based server to aid CTF particpants. Additionally, FALCON
 provides logging to gain insights into human-AI interaction.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -107,7 +107,7 @@ provides logging to gain insights into human-AI interaction.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Setting up TribeAI, setup has been wrapped into Docker containers controlled with Docker Compose. While, bare-metal installation is possible, for networking ease of use. Deployment should be done with Docker.
+Setting up FALCON, setup has been wrapped into Docker containers controlled with Docker Compose. While, bare-metal installation is possible, for networking ease of use. Deployment should be done with Docker.
 
 ### Prerequisites
 
