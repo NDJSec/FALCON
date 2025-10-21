@@ -222,11 +222,6 @@ async def chat_endpoint(chat_req: ChatRequest, token: str = Depends(oauth2_schem
         tools=tools,
     )
 
-    # --- Log user message ---
-    logged_conv_id = log_message(token, conversation_id, role="user", content=chat_req.prompt)
-    if not logged_conv_id:
-        raise HTTPException(status_code=401, detail="Could not log message.")
-
     # --- Get assistant response ---
     try:
         answer, conv_id = await get_chat_response(
@@ -238,9 +233,6 @@ async def chat_endpoint(chat_req: ChatRequest, token: str = Depends(oauth2_schem
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error generating response: {e}")
-
-    # --- Log assistant message ---
-    log_message(token, conversation_id, role="assistant", content=answer)
 
     return ChatResponse(answer=answer, conversation_id=conversation_id)
 
