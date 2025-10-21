@@ -6,6 +6,7 @@ export default function ConfigPage() {
   const router = useRouter();
   const { servers, setServers } = useContext(ServersContext);
 
+  const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
   const handleToggle = async (server: string) => {
@@ -19,7 +20,10 @@ export default function ConfigPage() {
     try {
       const res = await fetch(`${API_URL}/servers/toggle`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+             ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({ active_servers: activeServers }),
       });
       if (!res.ok) throw new Error(`Failed to toggle servers: ${res.status}`);

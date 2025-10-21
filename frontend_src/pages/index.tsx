@@ -9,18 +9,15 @@ import {
   apiSendMessage,
   apiSendFeedback,
 } from "../utils/apiClient";
-import {
-  Message,
-  Conversation,
-  ModelProviders,
-} from "../shared/types";
+import { Message, Conversation, ModelProviders } from "../shared/types";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  // --- State Management ---
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<{ username: string; email: string } | null>(null);
+  const [isVerifying, setIsVerifying] = useState(true);
   const [tokenValid, setTokenValid] = useState(false);
   const [apiKey, setApiKey] = useState("");
 
@@ -37,19 +34,20 @@ export default function Home() {
 
   const { servers } = useContext(ServersContext);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  // --- Effects ---
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+  // --- Scroll to bottom when messages change ---
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // --- Load models and tools on first load ---
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        // Fetch available models
         const fetchedModels = await apiGetModels();
         setModels(fetchedModels);
         if (fetchedModels && Object.keys(fetchedModels).length > 0) {
@@ -58,9 +56,7 @@ export default function Home() {
           setModel(fetchedModels[firstProvider][0]);
         }
 
-        // Fetch initial tools (backend decides which servers are active)
-        const fetchedTools = await apiGetTools();
-        // Here we don't need to pass servers; backend already knows active servers
+        await apiGetTools(); // backend handles active servers
       } catch (error) {
         console.error("Failed to fetch initial data:", error);
       }
@@ -68,30 +64,72 @@ export default function Home() {
     fetchInitialData();
   }, []);
 
-  // --- Event Handlers ---
-  const handleTokenValidation = async () => {
-    if (!token) {
-      setTokenValid(false);
+  // --- Verify JWT token and fetch user ---
+useEffect(() => {
+  const verifyToken = async () => {
+    let storedToken = localStorage.getItem("access_token");
+    if (!storedToken) {
+      setIsVerifying(false);
+      router.push("/login");
       return;
     }
+
     try {
-      const convos = await apiGetConversations(token);
-      setConversations(convos);
-      setTokenValid(true);
-      if (convos.length > 0) {
-        handleConversationSelect(convos[0].id);
-      } else {
-        setMessages([{ role: "assistant", content: 'Token is valid. Start a new chat to begin.' }]);
-        setActiveConversationId(null);
+      const res = await fetch(`${API_URL}/auth/me`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
+
+      if (res.status === 401) {
+        const refreshRes = await fetch(`${API_URL}/auth/refresh`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: storedToken }),
+        });
+
+        if (!refreshRes.ok) throw new Error("Token refresh failed");
+
+        const refreshData = await refreshRes.json();
+        if (refreshData.access_token) {
+          localStorage.setItem("access_token", refreshData.access_token);
+          storedToken = refreshData.access_token;
+        } else {
+          localStorage.removeItem("access_token");
+          router.push("/login");
+          return;
+        }
       }
-    } catch (error) {
-      console.error("Token validation failed:", error);
+
+      const dataRes = await fetch(`${API_URL}/auth/me`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
+      if (!dataRes.ok) throw new Error("Invalid token");
+      const data = await dataRes.json();
+
+      setToken(storedToken);
+      setUser({ username: data.username, email: data.email });
+      setTokenValid(true);
+
+      // storedToken is guaranteed to be a string here
+      const convos = await apiGetConversations(storedToken);
+      setConversations(convos);
+      if (convos.length > 0) handleConversationSelect(convos[0].id);
+
+    } catch (err) {
+      console.warn("Auth verification failed:", err);
+      localStorage.removeItem("access_token");
+      setToken(null);
+      setUser(null);
       setTokenValid(false);
-      setConversations([]);
-      setMessages([{ role: "assistant", content: 'Invalid token. Please check and try again.' }]);
+      router.push("/login");
+    } finally {
+      setIsVerifying(false);
     }
   };
 
+  verifyToken();
+}, []);
+
+  // --- Conversation Handlers ---
   const handleConversationSelect = async (id: string) => {
     setActiveConversationId(id);
     try {
@@ -99,12 +137,12 @@ export default function Home() {
       setMessages(history);
     } catch (error) {
       console.error("Failed to load conversation history:", error);
-      setMessages([{ role: 'assistant', content: 'Failed to load conversation history.' }]);
+      setMessages([{ role: "assistant", content: "Failed to load conversation history." }]);
     }
   };
 
   const handleNewChat = async () => {
-    if (!tokenValid) return;
+    if (!tokenValid || !token) return;
     try {
       const response = await apiNewConversation(token);
       const newId = response.conversation_id;
@@ -116,8 +154,9 @@ export default function Home() {
     }
   };
 
+  // --- Messaging Handlers ---
   const handleSendMessage = async () => {
-    if (!prompt.trim() || isLoading || !activeConversationId) return;
+    if (!prompt.trim() || isLoading || !activeConversationId || !token) return;
 
     const userMessage: Message = { role: "user", content: prompt };
     setMessages((prev) => [...prev, userMessage]);
@@ -129,22 +168,26 @@ export default function Home() {
         .filter(([_, enabled]) => enabled)
         .map(([name]) => name);
 
-      const response = await apiSendMessage({
-        token,
-        prompt: prompt.trim(),
-        provider,
-        model,
-        api_key: apiKey,
-        use_mcp: activeServerNames.length > 0,
-        conversation_id: activeConversationId,
-      });
+      const response = await apiSendMessage(
+        {
+          prompt: prompt.trim(),
+          provider,
+          model,
+          api_key: apiKey,
+          use_mcp: activeServerNames.length > 0,
+          conversation_id: activeConversationId,
+          token: token,
+        }
+      );
 
       const assistantMessage: Message = { role: "assistant", content: response.answer };
       setMessages((prev) => [...prev, assistantMessage]);
-
     } catch (error) {
-      const errorMessage: Message = { role: "assistant", content: `Error: ${error instanceof Error ? error.message : 'An unknown error occurred.'}` };
-      setMessages(prev => [...prev, errorMessage]);
+      const errorMessage: Message = {
+        role: "assistant",
+        content: `Error: ${error instanceof Error ? error.message : "Unknown error."}`,
+      };
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -159,28 +202,40 @@ export default function Home() {
   };
 
   const getPlaceholderText = () => {
-    if (!tokenValid) return "Please enter and validate your token.";
+    if (!tokenValid) return "Please log in to start chatting.";
     if (!activeConversationId) return "Start a new chat to begin.";
     return "Ask me something...";
   };
 
-  // --- Render ---
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    setToken(null);
+    setUser(null);
+    setTokenValid(false);
+    router.push("/login");
+  };
+
   return (
-    <div className={`chat-layout ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+    <div className={`chat-layout ${sidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
       <aside className="sidebar">
         <button className="sidebar-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
-          {sidebarOpen ? '‹' : '›'}
+          {sidebarOpen ? "‹" : "›"}
         </button>
         <div className="sidebar-content">
           <div className="user-box">
-            <h3>User Authentication</h3>
-            <div className="token-input-group">
-              <input type="text" value={token} onChange={(e) => setToken(e.target.value)} placeholder="Enter User Token" />
-              <button onClick={handleTokenValidation} className="validate-btn">Validate</button>
-            </div>
-            <span className={`token-status ${tokenValid ? "valid" : "invalid"}`}>
-              {token ? (tokenValid ? "● Token Valid" : "● Token Invalid") : ""}
-            </span>
+            <h3>Authenticated User</h3>
+            {isVerifying ? (
+              <p>Verifying session...</p>
+            ) : user ? (
+              <>
+                <p><strong>{user.username}</strong></p>
+                <p style={{ fontSize: "0.8rem", color: "#666" }}>{user.email}</p>
+                <button className="validate-btn" onClick={handleLogout}>Logout</button>
+              </>
+            ) : (
+              <p>Not logged in</p>
+            )}
           </div>
 
           {tokenValid && (
@@ -260,7 +315,9 @@ export default function Home() {
             }}
             disabled={!tokenValid || isLoading || !activeConversationId}
           />
-          <button onClick={handleSendMessage} disabled={!tokenValid || isLoading || !activeConversationId}>Send</button>
+          <button onClick={handleSendMessage} disabled={!tokenValid || isLoading || !activeConversationId}>
+            Send
+          </button>
         </div>
       </main>
     </div>

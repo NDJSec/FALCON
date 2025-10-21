@@ -1,5 +1,6 @@
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
+
 
 # --- Request Models ---
 
@@ -8,7 +9,6 @@ class ChatRequest(BaseModel):
     Request model for sending a chat message to the assistant.
 
     Attributes:
-        token: User authentication token.
         prompt: The user's input message.
         provider: LLM provider to use (e.g., "OpenAI", "Gemini").
         model: Model name to use from the provider.
@@ -16,7 +16,6 @@ class ChatRequest(BaseModel):
         use_mcp: Whether to fetch tools from MCP servers.
         conversation_id: Optional conversation ID for ongoing chats.
     """
-    token: str
     prompt: str
     provider: str
     model: str
@@ -27,7 +26,6 @@ class ChatRequest(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "token": "abc123",
                 "prompt": "Summarize the latest FALCON system log activity.",
                 "provider": "openai",
                 "model": "gpt-4o",
@@ -142,3 +140,12 @@ class ToolOut(BaseModel):
                 "name": "query_knowledge_base"
             }
         }
+
+class RegisterRequest(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str

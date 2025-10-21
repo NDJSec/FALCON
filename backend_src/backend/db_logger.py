@@ -10,7 +10,7 @@ from sqlalchemy import (
     func,
     BigInteger,
     Boolean,
-    SmallInteger,
+    SmallInteger, LargeBinary,
 )
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker, Session
 from sqlalchemy.dialects.postgresql import UUID
@@ -18,6 +18,7 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.messages import HumanMessage, AIMessage
 
 from backend import config
+from backend.auth_utils import decode_access_token
 
 
 Base = declarative_base()
@@ -30,6 +31,7 @@ class User(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, nullable=False)
     username = Column(String, unique=True, nullable=False)
+    password_hash = Column(LargeBinary, nullable=False)
     is_active = Column(Boolean, default=False, nullable=False)
     created_at = Column(TIMESTAMP, server_default=func.now())
 
@@ -73,26 +75,35 @@ def init_db() -> None:
     """
     Base.metadata.create_all(bind=engine)
 
+def _get_user_from_jwt(jwt_token: str, db: Session) -> Optional[User]:
+    try:
+        payload = decode_access_token(jwt_token)
+        username = payload.get("sub")
+        if not username:
+            return None
+        return db.query(User).filter_by(username=username).first()
+    except Exception:
+        return None
 
-def is_valid_token(token: str) -> bool:
+def is_valid_token(jwt_token: str) -> bool:
     """
     Checks if a user token exists in the database and the user is marked as active.
 
     Args:
-        token: The user token to validate.
+        jwt_token: The user jwt token to validate.
 
     Returns:
         True if the token is valid and active, False otherwise.
     """
-    if not token:
+    if not jwt_token:
         return False
     with SessionLocal() as session:
-        user: Optional[User] = session.query(User).filter_by(username=token).first()
+        user: Optional[User] = _get_user_from_jwt(jwt_token, session)
         return user is not None and user.is_active
 
 
 def log_message(
-    token: str,
+    jwt_token: str,
     conversation_id: Optional[str],
     role: str,
     content: str,
@@ -105,7 +116,7 @@ def log_message(
     If the user token is invalid or the user is inactive, no action is taken.
 
     Args:
-        token: The user's authentication token.
+        jwt_token: The user's authentication token.
         conversation_id: The ID of the current conversation. Can be None to start a new one.
         role: The role of the message sender ("user" or "assistant").
         content: The text content of the message.
@@ -114,7 +125,7 @@ def log_message(
         The string representation of the conversation ID, or None if logging failed.
     """
     with SessionLocal() as session:
-        user: Optional[User] = session.query(User).filter_by(username=token).first()
+        user: Optional[User] = _get_user_from_jwt(jwt_token, session)
         if not user or not user.is_active:
             return None
 
@@ -161,18 +172,18 @@ def log_feedback(message_id: int, feedback: int) -> None:
         session.commit()
 
 
-def load_conversations_for_token(token: str) -> List[Dict[str, Any]]:
+def load_conversations_for_token(jwt_token: str) -> List[Dict[str, Any]]:
     """
     Retrieves all conversations for a given user token.
 
     Args:
-        token: The user's authentication token.
+        jwt_token: The user's authentication token.
 
     Returns:
         A list of Conversation objects, ordered from newest to oldest.
     """
     with SessionLocal() as session:
-        user: Optional[User] = session.query(User).filter_by(username=token).first()
+        user: Optional[User] = _get_user_from_jwt(jwt_token, session)
         if not user:
             return []
         conversations = (
@@ -220,18 +231,18 @@ def load_messages_for_conversation(conversation_id: str) -> List[Dict[str, Any]]
             return []
 
 
-def create_new_conversation(token: str) -> Optional[str]:
+def create_new_conversation(jwt_token: str) -> Optional[str]:
     """
     Creates a new, empty conversation for a validated, active user.
 
     Args:
-        token: The user's authentication token.
+        jwt_token: The user's authentication token.
 
     Returns:
         The string representation of the new conversation ID, or None if the user is invalid.
     """
     with SessionLocal() as session:
-        user: Optional[User] = session.query(User).filter_by(username=token).first()
+        user: Optional[User] = _get_user_from_jwt(jwt_token, session)
         if not user or not user.is_active:
             return None
 
@@ -242,7 +253,6 @@ def create_new_conversation(token: str) -> Optional[str]:
 
         return str(conversation.id)
 
-# FIX: Add the missing function to convert DB messages to LangChain history format.
 def get_messages_for_history(conversation_id: Optional[str]) -> ChatMessageHistory:
     """
     Retrieves messages for a conversation and formats them for LangChain history.

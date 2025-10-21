@@ -24,9 +24,12 @@ from backend.db_logger import (
     create_new_conversation,
     is_valid_token,
 )
+from backend.auth_router import auth_router
 from backend.llm_utils import get_agent_executor, get_chat_response, AVAILABLE_PROVIDERS
 from backend.mcp_client import MCPClient
 from backend import config
+
+from backend.auth_utils import get_current_user
 
 # Configure logging
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
@@ -85,6 +88,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(auth_router)
 
 
 # --- Dependencies ---
@@ -188,7 +192,8 @@ def get_models() -> Dict[str, List[str]]:
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(
     chat_req: ChatRequest,
-    client: MCPClient = Depends(get_mcp_client)
+    client: MCPClient = Depends(get_mcp_client),
+    current_user: str = Depends(get_current_user)
 ) -> ChatResponse:
     """
     Handles a chat request, runs the agent, and returns a response.
@@ -203,9 +208,6 @@ async def chat_endpoint(
     Raises:
         HTTPException: If token is invalid or processing fails.
     """
-    if not is_valid_token(chat_req.token):
-        raise HTTPException(status_code=403, detail="Invalid token")
-
     tools = await client.get_tools() if chat_req.use_mcp else []
 
     agent_executor = get_agent_executor(
@@ -221,7 +223,7 @@ async def chat_endpoint(
         answer, conv_id = await get_chat_response(
             agent_executor=agent_executor,
             prompt=chat_req.prompt,
-            token=chat_req.token,
+            token=current_user,
             conv_id=chat_req.conversation_id,
             history=history,
         )
@@ -246,23 +248,18 @@ def feedback_endpoint(feedback_req: FeedbackRequest) -> Dict[str, str]:
     return {"status": "ok"}
 
 
-@app.get("/conversations/{token}", response_model=List[ConversationOut])
-def list_conversations(token: str) -> List[ConversationOut]:
+@app.get("/conversations", response_model=List[ConversationOut])
+def list_conversations(current_user: str = Depends(get_current_user)) -> List[ConversationOut]:
     """
     Lists all conversations for a given user token.
 
     Args:
-        token: User token to identify the user.
+        current_user: User str to identify the user.
 
     Returns:
         List[ConversationOut]: List of conversations.
-
-    Raises:
-        HTTPException: If token is invalid.
     """
-    if not is_valid_token(token):
-        raise HTTPException(status_code=403, detail="Invalid token")
-    return load_conversations_for_token(token)
+    return load_conversations_for_token(current_user)
 
 
 @app.get("/messages/{conversation_id}", response_model=List[MessageOut])
@@ -279,8 +276,8 @@ def get_messages(conversation_id: str) -> List[MessageOut]:
     return load_messages_for_conversation(conversation_id)
 
 
-@app.post("/conversations/new/{token}", response_model=Dict[str, str])
-def new_conversation(token: str) -> Dict[str, str]:
+@app.post("/conversations/new", response_model=Dict[str, str])
+def new_conversation(current_user: str = Depends(get_current_user)) -> Dict[str, str]:
     """
     Creates a new, empty conversation for a user.
 
@@ -293,9 +290,7 @@ def new_conversation(token: str) -> Dict[str, str]:
     Raises:
         HTTPException: If token is invalid or conversation creation fails.
     """
-    if not is_valid_token(token):
-        raise HTTPException(status_code=403, detail="Invalid token")
-    conversation_id = create_new_conversation(token)
+    conversation_id = create_new_conversation(current_user)
     if not conversation_id:
         raise HTTPException(status_code=500, detail="Could not create new conversation.")
     return {"conversation_id": conversation_id}
