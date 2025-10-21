@@ -1,6 +1,6 @@
 import logging
 from typing import Dict, List, Optional
-from langchain.tools import StructuredTool
+from langchain_classic.tools import StructuredTool
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
 logger = logging.getLogger(__name__)
