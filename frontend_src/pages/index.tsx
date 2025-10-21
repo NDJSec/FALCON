@@ -65,69 +65,72 @@ export default function Home() {
   }, []);
 
   // --- Verify JWT token and fetch user ---
-useEffect(() => {
-  const verifyToken = async () => {
-    let storedToken = localStorage.getItem("access_token");
-    if (!storedToken) {
-      setIsVerifying(false);
-      router.push("/login");
-      return;
-    }
-
-    try {
-      const res = await fetch(`${API_URL}/auth/me`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      });
-
-      if (res.status === 401) {
-        const refreshRes = await fetch(`${API_URL}/auth/refresh`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token: storedToken }),
-        });
-
-        if (!refreshRes.ok) throw new Error("Token refresh failed");
-
-        const refreshData = await refreshRes.json();
-        if (refreshData.access_token) {
-          localStorage.setItem("access_token", refreshData.access_token);
-          storedToken = refreshData.access_token;
-        } else {
-          localStorage.removeItem("access_token");
-          router.push("/login");
-          return;
-        }
+  useEffect(() => {
+    const verifyToken = async () => {
+      let storedToken = localStorage.getItem("access_token");
+      if (!storedToken) {
+        setIsVerifying(false);
+        router.push("/login");
+        return;
       }
 
-      const dataRes = await fetch(`${API_URL}/auth/me`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      });
-      if (!dataRes.ok) throw new Error("Invalid token");
-      const data = await dataRes.json();
+      try {
+        const fetchUser = async (tokenToUse: string) => {
+          const res = await fetch(`${API_URL}/auth/me`, {
+            headers: { Authorization: `Bearer ${tokenToUse}` },
+          });
+          if (!res.ok) throw res;
+          return res.json();
+        };
 
-      setToken(storedToken);
-      setUser({ username: data.username, email: data.email });
-      setTokenValid(true);
+        let data;
+        try {
+          data = await fetchUser(storedToken);
+        } catch (err: any) {
+          if (err.status === 401) {
+            // Attempt token refresh
+            const refreshRes = await fetch(`${API_URL}/auth/refresh`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ token: storedToken }),
+            });
 
-      // storedToken is guaranteed to be a string here
-      const convos = await apiGetConversations(storedToken);
-      setConversations(convos);
-      if (convos.length > 0) handleConversationSelect(convos[0].id);
+            if (!refreshRes.ok) throw new Error("Token refresh failed");
+            const refreshData = await refreshRes.json();
+            if (!refreshData.access_token) throw new Error("No new access token");
 
-    } catch (err) {
-      console.warn("Auth verification failed:", err);
-      localStorage.removeItem("access_token");
-      setToken(null);
-      setUser(null);
-      setTokenValid(false);
-      router.push("/login");
-    } finally {
-      setIsVerifying(false);
-    }
-  };
+            localStorage.setItem("access_token", refreshData.access_token);
+            storedToken = refreshData.access_token;
 
-  verifyToken();
-}, []);
+            // Retry fetching user
+            data = await fetchUser(storedToken);
+          } else {
+            throw err;
+          }
+        }
+
+        setToken(storedToken);
+        setUser({ username: data.username, email: data.email });
+        setTokenValid(true);
+
+        // Load conversations
+        const convos = await apiGetConversations(storedToken);
+        setConversations(convos);
+        if (convos.length > 0) handleConversationSelect(convos[0].id);
+      } catch (err) {
+        console.warn("Auth verification failed:", err);
+        localStorage.removeItem("access_token");
+        setToken(null);
+        setUser(null);
+        setTokenValid(false);
+        router.push("/login");
+      } finally {
+        setIsVerifying(false);
+      }
+    };
+
+    verifyToken();
+  }, []);
 
   // --- Conversation Handlers ---
   const handleConversationSelect = async (id: string) => {
@@ -156,42 +159,43 @@ useEffect(() => {
 
   // --- Messaging Handlers ---
   const handleSendMessage = async () => {
-    if (!prompt.trim() || isLoading || !activeConversationId || !token) return;
+  if (!prompt.trim() || isLoading || !activeConversationId || !token) return;
 
-    const userMessage: Message = { role: "user", content: prompt };
-    setMessages((prev) => [...prev, userMessage]);
-    setPrompt("");
-    setIsLoading(true);
+  const userMessage: Message = { role: "user", content: prompt };
+  setMessages((prev) => [...prev, userMessage]);
+  setPrompt("");
+  setIsLoading(true);
 
-    try {
-      const activeServerNames = Object.entries(servers)
-        .filter(([_, enabled]) => enabled)
-        .map(([name]) => name);
+  try {
+    const activeServerNames = Object.entries(servers)
+      .filter(([_, enabled]) => enabled)
+      .map(([name]) => name);
 
-      const response = await apiSendMessage(
-        {
-          prompt: prompt.trim(),
-          provider,
-          model,
-          api_key: apiKey,
-          use_mcp: activeServerNames.length > 0,
-          conversation_id: activeConversationId,
-          token: token,
-        }
-      );
+    const response = await apiSendMessage(
+      {
+        prompt: prompt.trim(),
+        provider,
+        model,
+        api_key: apiKey,
+        use_mcp: activeServerNames.length > 0,
+        conversation_id: activeConversationId,
+      },
+      token
+    );
 
-      const assistantMessage: Message = { role: "assistant", content: response.answer };
-      setMessages((prev) => [...prev, assistantMessage]);
-    } catch (error) {
-      const errorMessage: Message = {
-        role: "assistant",
-        content: `Error: ${error instanceof Error ? error.message : "Unknown error."}`,
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const assistantMessage: Message = { role: "assistant", content: response.answer };
+    setMessages((prev) => [...prev, assistantMessage]);
+  } catch (error) {
+    const errorMessage: Message = {
+      role: "assistant",
+      content: `Error: ${error instanceof Error ? error.message : "Unknown error."}`,
+    };
+    setMessages((prev) => [...prev, errorMessage]);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleSendFeedback = async (messageId: number, feedback: number) => {
     try {
