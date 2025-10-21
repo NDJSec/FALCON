@@ -14,11 +14,9 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker, Session
 from sqlalchemy.dialects.postgresql import UUID
-# FIX: Add imports for LangChain message history objects
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.messages import HumanMessage, AIMessage
 
-# FIX: Import the database URL from the central config file
 from backend import config
 
 
