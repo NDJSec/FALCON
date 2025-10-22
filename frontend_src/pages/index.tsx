@@ -75,7 +75,7 @@ export default function Home() {
       }
 
       try {
-        const fetchUser = async (tokenToUse: string) => {
+        const fetchUser = async (tokenToUse: string | null) => {
           const res = await fetch(`${API_URL}/auth/me`, {
             headers: { Authorization: `Bearer ${tokenToUse}` },
           });
@@ -114,7 +114,7 @@ export default function Home() {
         setTokenValid(true);
 
         // Load conversations
-        const convos = await apiGetConversations(storedToken);
+        const convos = await apiGetConversations();
         setConversations(convos);
         if (convos.length > 0) handleConversationSelect(convos[0].id);
       } catch (err) {
@@ -147,7 +147,7 @@ export default function Home() {
   const handleNewChat = async () => {
     if (!tokenValid || !token) return;
     try {
-      const response = await apiNewConversation(token);
+      const response = await apiNewConversation();
       const newId = response.conversation_id;
       setConversations([{ id: newId, started_at: new Date().toISOString() }, ...conversations]);
       setActiveConversationId(newId);

@@ -60,10 +60,9 @@ export const apiGetConversations = (): Promise<Conversation[]> =>
 export const apiGetMessagesForConversation = (conversationId: string): Promise<Message[]> =>
   fetcher(`${API_BASE}/messages/${conversationId}`);
 
-export const apiNewConversation = (token: string): Promise<NewConversationResponse> =>
+export const apiNewConversation = (): Promise<NewConversationResponse> =>
   fetcher(`${API_BASE}/conversations/new`, {
     method: "POST",
-    headers: { Authorization: `Bearer ${token}` },
   });
 // --- Tools & Models ---
 export const apiGetTools = (): Promise<Tool[]> => fetcher(`${API_BASE}/tools`);
