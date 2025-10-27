@@ -24,9 +24,12 @@ from backend.db_logger import (
     create_new_conversation,
     is_valid_token,
 )
+from backend.auth_router import auth_router
 from backend.llm_utils import get_agent_executor, get_chat_response, AVAILABLE_PROVIDERS
 from backend.mcp_client import MCPClient
 from backend import config
+from backend.auth_utils import get_current_user
+from backend.auth_utils import oauth2_scheme
 
 # Configure logging
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
@@ -85,6 +88,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(auth_router)
 
 
 # --- Dependencies ---
@@ -186,28 +190,31 @@ def get_models() -> Dict[str, List[str]]:
 
 
 @app.post("/chat", response_model=ChatResponse)
-async def chat_endpoint(
-    chat_req: ChatRequest,
-    client: MCPClient = Depends(get_mcp_client)
-) -> ChatResponse:
+async def chat_endpoint(chat_req: ChatRequest, token: str = Depends(oauth2_scheme)) -> ChatResponse:
     """
-    Handles a chat request, runs the agent, and returns a response.
-
-    Args:
-        chat_req: ChatRequest object containing user input and settings.
-        client: MCPClient dependency.
-
-    Returns:
-        ChatResponse: The assistant's response and conversation ID.
-
-    Raises:
-        HTTPException: If token is invalid or processing fails.
+    Handles a chat request for a validated user using JWT token.
+    Creates a new conversation if needed, logs messages, and returns assistant response.
     """
-    if not is_valid_token(chat_req.token):
-        raise HTTPException(status_code=403, detail="Invalid token")
+    # --- Validate user and create conversation if needed ---
+    if chat_req.conversation_id:
+        conversation_id = chat_req.conversation_id
+    else:
+        conversation_id = create_new_conversation(token)
+        if not conversation_id:
+            raise HTTPException(status_code=401, detail="Invalid or inactive token.")
 
-    tools = await client.get_tools() if chat_req.use_mcp else []
+    # --- Prepare LangChain history ---
+    history = get_messages_for_history(conversation_id)
 
+    # --- Prepare tools ---
+    tools: list = []
+    if chat_req.use_mcp:
+        mcp_client: MCPClient = app_state.get("mcp_client")
+        if not mcp_client:
+            raise HTTPException(status_code=503, detail="MCP client unavailable.")
+        tools = await mcp_client.get_tools()
+
+    # --- Create agent executor ---
     agent_executor = get_agent_executor(
         provider=chat_req.provider,
         model=chat_req.model,
@@ -215,21 +222,19 @@ async def chat_endpoint(
         tools=tools,
     )
 
-    history = get_messages_for_history(chat_req.conversation_id)
-
+    # --- Get assistant response ---
     try:
         answer, conv_id = await get_chat_response(
             agent_executor=agent_executor,
             prompt=chat_req.prompt,
-            token=chat_req.token,
-            conv_id=chat_req.conversation_id,
+            token=token,
+            conv_id=conversation_id,
             history=history,
         )
-        return ChatResponse(answer=answer, conversation_id=conv_id)
     except Exception as e:
-        logger.exception(f"Error during chat processing for token {chat_req.token}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Error generating response: {e}")
 
+    return ChatResponse(answer=answer, conversation_id=conversation_id)
 
 @app.post("/feedback")
 def feedback_endpoint(feedback_req: FeedbackRequest) -> Dict[str, str]:
@@ -246,22 +251,8 @@ def feedback_endpoint(feedback_req: FeedbackRequest) -> Dict[str, str]:
     return {"status": "ok"}
 
 
-@app.get("/conversations/{token}", response_model=List[ConversationOut])
-def list_conversations(token: str) -> List[ConversationOut]:
-    """
-    Lists all conversations for a given user token.
-
-    Args:
-        token: User token to identify the user.
-
-    Returns:
-        List[ConversationOut]: List of conversations.
-
-    Raises:
-        HTTPException: If token is invalid.
-    """
-    if not is_valid_token(token):
-        raise HTTPException(status_code=403, detail="Invalid token")
+@app.get("/conversations", response_model=List[ConversationOut])
+def list_conversations(token: str = Depends(oauth2_scheme)) -> List[ConversationOut]:
     return load_conversations_for_token(token)
 
 
@@ -279,22 +270,11 @@ def get_messages(conversation_id: str) -> List[MessageOut]:
     return load_messages_for_conversation(conversation_id)
 
 
-@app.post("/conversations/new/{token}", response_model=Dict[str, str])
-def new_conversation(token: str) -> Dict[str, str]:
+@app.post("/conversations/new", response_model=Dict[str, str])
+def new_conversation(token: str = Depends(oauth2_scheme)) -> Dict[str, str]:
     """
-    Creates a new, empty conversation for a user.
-
-    Args:
-        token: User token for which to create a conversation.
-
-    Returns:
-        Dict[str, str]: Newly created conversation ID.
-
-    Raises:
-        HTTPException: If token is invalid or conversation creation fails.
+    Creates a new conversation using a JWT token.
     """
-    if not is_valid_token(token):
-        raise HTTPException(status_code=403, detail="Invalid token")
     conversation_id = create_new_conversation(token)
     if not conversation_id:
         raise HTTPException(status_code=500, detail="Could not create new conversation.")

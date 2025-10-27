@@ -96,7 +96,7 @@ async def get_chat_response(
 
     # Log user message
     log_message(
-        token=token,
+        jwt_token=token,
         conversation_id=final_conv_id,
         role="user",
         content=prompt,
@@ -145,7 +145,7 @@ async def get_chat_response(
 
     # Log the assistant's response
     log_message(
-        token=token,
+        jwt_token=token,
         conversation_id=final_conv_id,
         role="assistant",
         content=answer,
