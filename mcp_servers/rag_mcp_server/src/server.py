@@ -1,6 +1,6 @@
 import os
 import logging
-from typing import List
+from typing import Optional
 
 from langchain_community.document_loaders import (
     DirectoryLoader,
@@ -11,7 +11,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.vectorstores import VectorStoreRetriever
-
+from document_loaders import (
+    SVDLoader,
+)
 # This is the updated import for the FastMCP server
 from fastmcp import FastMCP
 
@@ -31,7 +33,8 @@ mcp = FastMCP(
     name="RAG Knowledge Base Server",
 )
 
-def setup_retriever() -> VectorStoreRetriever:
+
+def setup_retriever() -> Optional[VectorStoreRetriever]:
     """
     Loads documents from the knowledge base directory, processes them into a
     searchable vector store, and returns a retriever object.
@@ -51,7 +54,7 @@ def setup_retriever() -> VectorStoreRetriever:
     logger.info(f"Attempting to load documents from '{KNOWLEDGE_BASE_DIR}'")
     try:
         docs = []
-        
+
         pdf_loader = DirectoryLoader(
             KNOWLEDGE_BASE_DIR,
             glob="**/*.pdf",
@@ -69,6 +72,15 @@ def setup_retriever() -> VectorStoreRetriever:
             show_progress=True,
         )
         docs.extend(md_loader.load())
+
+        svd_loader = DirectoryLoader(
+            KNOWLEDGE_BASE_DIR,
+            glob="**/*.svd",
+            loader_cls=SVDLoader,
+            use_multithreading=True,
+            show_progress=True,
+        )
+        docs.extend(svd_loader.load())
 
         if not docs:
             logger.warning("No documents were successfully loaded.")
@@ -89,8 +101,9 @@ def setup_retriever() -> VectorStoreRetriever:
     logger.info("Creating vector store...")
     vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
     logger.info("Vector store created successfully.")
-    
+
     return vectorstore.as_retriever()
+
 
 @mcp.tool()
 def query_knowledge_base(query: str) -> str:
@@ -102,15 +115,16 @@ def query_knowledge_base(query: str) -> str:
     global retriever
     if retriever is None:
         return "Error: The knowledge base retriever is not available or failed to initialize."
-    
+
     logger.info(f"Querying knowledge base with: '{query}'")
     results = retriever.invoke(query)
-    
+
     if not results:
         return "No relevant information found in the knowledge base."
-        
+
     formatted_results = "\n\n---\n\n".join([doc.page_content for doc in results])
     return f"Found the following information in the knowledge base:\n\n{formatted_results}"
+
 
 def main() -> None:
     global retriever
@@ -128,6 +142,7 @@ def main() -> None:
         host="0.0.0.0",
         port="8002"
     )
+
 
 if __name__ == "__main__":
     main()

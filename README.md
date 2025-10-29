@@ -85,7 +85,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![FALCON Screen Shot][product-screenshot]]
+![FALCON Screen Shot][product-screenshot]
 
 FALCON is an agentic framework that leverages MCP servers to provide an
 external chat-based server to aid CTF particpants. Additionally, FALCON
@@ -144,18 +144,12 @@ The only required prerequsite is Docker and Docker compose. For installation of 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Generating User Tokens
+### Generating User Account
 
-FALCON works on whitelisting tokens, where each user has their own individual token to ID them and their chats within the system. To create this token, use the following instructions.
+FALCON works with user accounts, where each user has their own individual account to ID them and their chats within the system. 
+To create this account, simply follow the instructions in the register page to create the account. 
 
-Login into the falcon-ai container and run the following commands:
-
-```bash
-cd app
-
-python3 token_manager.py whitelist [email]
-```
-
+![Register Example][register_example]
 <!-- USAGE EXAMPLES -->
 ## Usage
 
@@ -170,14 +164,17 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 * [x] UI Framework setup
 * [x] API Key support
+* [x] User Accounts/Login (with JWT authentication)
 * [ ] Multi-LLM Support
   * [x] Gemini
-  * [x] OpenAI
+  * [ ] OpenAI
   * [ ] Ollama
 * [x] MCP Support
   * [x] CyberChef
+  * [ ] Ghidra
   * [ ] File Parser
   * [ ] Binwalk
+  * [x] Local Knowledge Base
 
 See the [open issues](https://github.com/NDJSec/FALCON/issues) for a full list of proposed features (and known issues).
 
@@ -236,3 +233,5 @@ Project Link: [https://github.com/NDJSec/FALCON](https://github.com/NDJSec/FALCO
 [issues-url]: https://github.com/NDJSec/FALCON/issues
 [license-shield]: https://img.shields.io/github/license/NDJSec/FALCON.svg?style=for-the-badge
 [license-url]: https://github.com/NDJSec/FALCON/blob/main/LICENSE
+[product-screenshot]: images/product_screenshot.jpg
+[register_example]: images/register.jpg
