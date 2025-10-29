@@ -77,6 +77,8 @@ def setup_retriever() -> Optional[VectorStoreRetriever]:
             KNOWLEDGE_BASE_DIR,
             glob="**/*.svd",
             loader_cls=SVDLoader,
+            loader_kwargs={"max_workers": 8},
+            max_concurrency=os.cpu_count() or 8,
             use_multithreading=True,
             show_progress=True,
         )

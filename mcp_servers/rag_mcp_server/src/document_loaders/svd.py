@@ -1,102 +1,190 @@
 import logging
-from pathlib import PurePath, Path
-from typing import Union, Iterator
+from pathlib import Path, PurePath
+from typing import Union, Iterator, List
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
+from cmsis_svd.model import (
+    SVDField,
+    SVDRegister,
+    SVDFieldArray,
+    SVDRegisterClusterArray,
+    SVDRegisterArray,
+    SVDRegisterCluster,
+)
 from langchain_core.document_loaders import BaseLoader
 from langchain_core.documents import Document
 
-from .cmis_svd.parser import SVDParser
+from cmsis_svd.parser import SVDParser
 
 logger = logging.getLogger(__name__)
 
-class SVDLoader(BaseLoader):
-    def __init__(
-        self,
-        file_path: Union[str, PurePath],
-    ) -> None:
 
-        """Initialize with a file path.
+class SVDLoader(BaseLoader):
+    """Threaded SVD loader that parses CMSIS-SVD files into LangChain documents."""
+
+    def __init__(self, file_path: Union[str, PurePath], max_workers: int = 8) -> None:
+        """
+        Initialize with a path to an SVD file.
 
         Args:
-            file_path: The path to the directory of SVDs to load.
-
-        Returns:
-            This method does not directly return data. Use the `load`, `lazy_load` or
-            `aload` methods to retrieve parsed documents with content and metadata.
+            file_path: Path to the .svd or .xml file to load.
+            max_workers: Number of threads for parallel register processing.
         """
-        self.file_path = str(file_path)
+        path = Path(file_path).resolve()
+        if not path.exists():
+            raise FileNotFoundError(f"SVD file not found: {path}")
+        if not path.is_file():
+            raise ValueError(f"Expected a file, got directory: {path}")
+        if path.suffix.lower() not in {".svd", ".xml"}:
+            raise ValueError(f"Invalid file extension '{path.suffix}'. Expected .svd or .xml")
+
+        self.file_path = str(path)
+        self.max_workers = max_workers
 
     def load(self) -> list[Document]:
+        """Load all parsed documents eagerly."""
         return list(self.lazy_load())
 
-
     def lazy_load(self) -> Iterator[Document]:
+        """Safely stream parsed SVD documents lazily (device → peripheral → register)."""
         try:
             parser = SVDParser.for_xml_file(self.file_path)
             device = parser.get_device()
         except Exception as e:
-            logger.error(f"Failed to parse SVD file {self.file_path}: {e}")
+            logger.exception(f"Failed to parse SVD file {self.file_path}: {e}")
             return
 
-        # Device-level document
+        # --- Device-level document ---
         yield Document(
             page_content=(
-                f"Device: {device.name}\nVendor: {device.vendor}\n"
-                f"Description: {device.description}\nVersion: {device.version}"
+                f"Device: {device.name}\n"
+                f"Vendor: {device.vendor}\n"
+                f"Description: {device.description}\n"
+                f"Version: {device.version}"
             ),
             metadata={
-                "type": "device",
+                "level": "device",
                 "file_path": self.file_path,
                 "device_name": device.name,
                 "vendor": device.vendor,
             },
         )
 
-        """
-        # Peripheral and register-level documents
-        for p in device.peripherals:
-            yield Document(
+        peripherals = getattr(device, "peripherals", []) or []
+        if not peripherals:
+            logger.warning(f"No peripherals found in {self.file_path}")
+            return
+
+        # --- Process peripherals in parallel ---
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            futures = {
+                executor.submit(self._process_peripheral, device, p): p.name for p in peripherals
+            }
+
+            for future in as_completed(futures):
+                try:
+                    for doc in future.result():
+                        yield doc
+                except Exception as e:
+                    logger.warning(
+                        f"Peripheral processing failed ({futures[future]}) in {self.file_path}: {e}"
+                    )
+
+    def _process_peripheral(self, device, peripheral) -> List[Document]:
+        """Process a single peripheral and its registers."""
+        docs = [
+            Document(
                 page_content=(
-                    f"Peripheral: {p.name}\n"
-                    f"Description: {p.description}\n"
-                    f"Base address: 0x{p.base_address:X}\n"
-                    f"Access: {p.access or 'N/A'}"
+                    f"Peripheral: {peripheral.name}\n"
+                    f"Description: {getattr(peripheral, 'description', 'No description')}\n"
+                    f"Base address: 0x{getattr(peripheral, 'base_address', 0):X}\n"
+                    f"Access: {getattr(peripheral, 'access', 'N/A')}"
                 ),
                 metadata={
-                    "type": "peripheral",
+                    "level": "peripheral",
                     "file_path": self.file_path,
                     "device_name": device.name,
-                    "peripheral": p.name,
-                    "base_address": p.base_address,
+                    "peripheral_name": peripheral.name,
+                    "base_address": getattr(peripheral, "base_address", None),
                 },
             )
+        ]
 
-            if p.registers:
-                for r in p.registers:
-                    field_lines = []
-                    if r.fields:
-                        for f in r.fields:
-                            field_lines.append(
-                                f"- {f.name}: {f.description or 'No description'} "
-                                f"(bits {f.bit_offset}:{f.bit_offset + f.bit_width - 1})"
-                            )
+        registers = getattr(peripheral, "registers", None)
+        if not registers:
+            return docs
 
-                    yield Document(
-                        page_content=(
-                                f"Register: {r.name}\n"
-                                f"Description: {r.description or 'No description'}\n"
-                                f"Offset: 0x{r.address_offset:X}\n"
-                                f"Access: {r.access or 'N/A'}\n"
-                                f"Reset: {r.reset_value}\n\n"
-                                f"Fields:\n" + "\n".join(field_lines)
-                        ),
-                        metadata={
-                            "type": "register",
-                            "file_path": self.file_path,
-                            "device_name": device.name,
-                            "peripheral": p.name,
-                            "register": r.name,
-                            "address_offset": r.address_offset,
-                        },
-                    )
-        """
+        # Collect register-level documents
+        for doc in self._process_registers(device, peripheral, registers):
+            docs.append(doc)
+        return docs
+
+    def _process_registers(
+        self,
+        device,
+        peripheral,
+        registers: List[
+            Union[
+                SVDRegister,
+                SVDRegisterArray,
+                SVDRegisterCluster,
+                SVDRegisterClusterArray,
+            ]
+        ],
+    ) -> Iterator[Document]:
+        """Recursively process registers, arrays, and clusters."""
+        for reg in registers:
+            try:
+                if isinstance(reg, SVDRegister):
+                    yield from self._emit_register(device, peripheral, reg)
+
+                elif isinstance(reg, SVDRegisterArray):
+                    if reg.meta_register:
+                        yield from self._emit_register(device, peripheral, reg.meta_register)
+                    for r in getattr(reg, "registers", []) or []:
+                        yield from self._emit_register(device, peripheral, r)
+
+                elif isinstance(reg, SVDRegisterCluster):
+                    if getattr(reg, "registers", None):
+                        yield from self._process_registers(device, peripheral, reg.registers)
+                    if getattr(reg, "clusters", None):
+                        yield from self._process_registers(device, peripheral, reg.clusters)
+
+                elif isinstance(reg, SVDRegisterClusterArray):
+                    if reg.meta_cluster:
+                        yield from self._process_registers(device, peripheral, reg.meta_cluster.registers)
+                    for cluster in getattr(reg, "clusters", []) or []:
+                        yield from self._process_registers(device, peripheral, cluster.registers)
+
+                else:
+                    logger.debug(f"Skipping unsupported register type {type(reg)} in {peripheral.name}")
+
+            except Exception as e:
+                logger.debug(f"Failed to process register in {peripheral.name}: {e}")
+
+    def _emit_register(self, device, peripheral, register: SVDRegister) -> Iterator[Document]:
+        """Emit a simplified register document (no field recursion)."""
+        try:
+            yield Document(
+                page_content=(
+                    f"Register: {register.name}\n"
+                    f"Peripheral: {peripheral.name}\n"
+                    f"Device: {device.name}\n"
+                    f"Description: {getattr(register, 'description', 'No description')}\n"
+                    f"Offset: 0x{getattr(register, 'address_offset', 0):X}\n"
+                    f"Access: {getattr(register, 'access', 'N/A')}\n"
+                    f"Reset value: {getattr(register, 'reset_value', 'Unknown')}"
+                ),
+                metadata={
+                    "level": "register",
+                    "file_path": self.file_path,
+                    "device_name": device.name,
+                    "vendor": getattr(device, "vendor", "Unknown"),
+                    "peripheral_name": peripheral.name,
+                    "register_name": register.name,
+                    "address_offset": getattr(register, "address_offset", None),
+                },
+            )
+        except Exception as e:
+            logger.debug(f"Failed to emit register {getattr(register, 'name', '?')} in {peripheral.name}: {e}")
+
