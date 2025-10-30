@@ -21,9 +21,12 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - cyberchef_api
-      - db
-      - rag_server
+      db:
+        condition: service_healthy
+      cyberchef_api:
+        condition: service_started
+      rag_server:
+        condition: service_started
     networks:
       - falcon_net
 
@@ -44,7 +47,7 @@ services:
       - falcon_net
 
   db:
-    image: postgres:16-alpine
+    image: timescale/timescaledb:latest-pg16
     container_name: falcon_db
     environment:
       - POSTGRES_DB=metrics
@@ -52,10 +55,16 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
     ports:
       - "5432:5432"
     networks:
       - falcon_net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d metrics" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   rag_server:
     build:
@@ -69,8 +78,13 @@ services:
     environment:
       - PORT=8002
       - HOST=0.0.0.0
+      - DATABASE_URL=postgresql+psycopg2://postgres:${POSTGRES_PASSWORD}@db:5432/metrics
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - db
     networks:
       - falcon_net
+    command: ["python", "/app/src/check_and_build.py"]
 
   cyberchef_backend:
     build:
