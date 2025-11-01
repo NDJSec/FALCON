@@ -56,15 +56,18 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - ./restore_kb.sh:/docker-entrypoint-initdb.d/restore_kb.sh
+      - ./data/knowledge_base.dump:/docker-entrypoint-initdb.d/knowledge_base.dump:ro
     ports:
       - "5432:5432"
     networks:
       - falcon_net
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d metrics" ]
-      interval: 5s
-      timeout: 5s
-      retries: 10
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d metrics && [ -f /var/lib/postgresql/data/kb_ready.flag ]" ]
+      interval: 120s   # Check every 2 minutes
+      timeout: 15s     # Allow up to 15s for pg_isready to respond
+      retries: 10      # 10 * 2min = ~20 minutes max wait time
+      start_period: 30s  # Give Postgres some warm-up time before checks begin
 
   rag_server:
     build:
@@ -81,10 +84,10 @@ services:
       - DATABASE_URL=postgresql+psycopg2://postgres:${POSTGRES_PASSWORD}@db:5432/metrics
       - PYTHONUNBUFFERED=1
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - falcon_net
-    command: ["python", "/app/src/check_and_build.py"]
 
   cyberchef_backend:
     build:
