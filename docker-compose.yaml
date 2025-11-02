@@ -115,3 +115,23 @@ services:
       - cyberchef_backend
     networks:
       - falcon_net
+
+  index_builder:
+    build:
+      context: ./mcp_servers/rag_mcp_server
+      dockerfile: Dockerfile
+    container_name: falcon_index_builder
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:${POSTGRES_PASSWORD}@db:5432/metrics
+      - PYTHONUNBUFFERED=1
+      - BUILD_MODE=1
+    volumes:
+      - ./knowledge_base:/app/knowledge_base:ro
+      - ./data:/tmp
+    entrypoint: [ "python", "/app/src/build_index.py" ]
+    profiles: [ "builder" ]
+    networks:
+      - falcon_net

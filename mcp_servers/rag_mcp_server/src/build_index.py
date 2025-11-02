@@ -183,6 +183,33 @@ def main():
 
     logger.info(f"🎉 Index build complete! Processed {processed_files} files, {total_chunks} total chunks.")
 
+    dump_path = Path("/tmp/knowledge_base.dump")
+    logger.info(f"📦 Exporting database to {dump_path} ...")
+
+    try:
+        import subprocess
+
+        subprocess.run(
+            [
+                "pg_dump",
+                "-U", "postgres",
+                "-d", "metrics",
+                "-Fc", "-b", "-v",
+                "-t", "langchain_pg_embedding",
+                "-t", "langchain_pg_collection",
+                "-f", str(dump_path)
+            ],
+            env={**os.environ, "PGPASSWORD": os.getenv("POSTGRES_PASSWORD", "")},
+            check=True,
+        )
+
+        logger.info(f"✅ Database export complete at {dump_path}")
+
+    except subprocess.CalledProcessError as e:
+        logger.error(f"❌ pg_dump failed with return code {e.returncode}")
+    except Exception as e:
+        logger.error(f"❌ Unexpected error during pg_dump: {e}")
+
 
 # ------------------------------------------------------------
 if __name__ == "__main__":
