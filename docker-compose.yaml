@@ -21,9 +21,12 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - cyberchef_api
-      - db
-      - rag_server
+      db:
+        condition: service_healthy
+      cyberchef_api:
+        condition: service_started
+      rag_server:
+        condition: service_started
     networks:
       - falcon_net
 
@@ -44,7 +47,7 @@ services:
       - falcon_net
 
   db:
-    image: postgres:16-alpine
+    image: timescale/timescaledb:latest-pg16
     container_name: falcon_db
     environment:
       - POSTGRES_DB=metrics
@@ -52,10 +55,19 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - ./restore_kb.sh:/docker-entrypoint-initdb.d/restore_kb.sh
+      - ./data/knowledge_base.dump:/docker-entrypoint-initdb.d/knowledge_base.dump:ro
     ports:
       - "5432:5432"
     networks:
       - falcon_net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d metrics && [ -f /var/lib/postgresql/data/kb_ready.flag ]" ]
+      interval: 120s   # Check every 2 minutes
+      timeout: 15s     # Allow up to 15s for pg_isready to respond
+      retries: 10      # 10 * 2min = ~20 minutes max wait time
+      start_period: 30s  # Give Postgres some warm-up time before checks begin
 
   rag_server:
     build:
@@ -69,6 +81,11 @@ services:
     environment:
       - PORT=8002
       - HOST=0.0.0.0
+      - DATABASE_URL=postgresql+psycopg2://postgres:${POSTGRES_PASSWORD}@db:5432/metrics
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
       - falcon_net
 
@@ -96,5 +113,25 @@ services:
       - "8001:8001"
     depends_on:
       - cyberchef_backend
+    networks:
+      - falcon_net
+
+  index_builder:
+    build:
+      context: ./mcp_servers/rag_mcp_server
+      dockerfile: Dockerfile
+    container_name: falcon_index_builder
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:${POSTGRES_PASSWORD}@db:5432/metrics
+      - PYTHONUNBUFFERED=1
+      - BUILD_MODE=1
+    volumes:
+      - ./knowledge_base:/app/knowledge_base:ro
+      - ./data:/tmp
+    entrypoint: [ "python", "/app/src/build_index.py" ]
+    profiles: [ "builder" ]
     networks:
       - falcon_net

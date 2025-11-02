@@ -253,6 +253,15 @@ def feedback_endpoint(feedback_req: FeedbackRequest) -> Dict[str, str]:
 
 @app.get("/conversations", response_model=List[ConversationOut])
 def list_conversations(token: str = Depends(oauth2_scheme)) -> List[ConversationOut]:
+    """
+    Retrieves all conversations for a specific user.
+
+    Args:
+        token: JWT token for a specific user
+
+    Returns:
+        List[ConversationOut]: List of conversations for the user.
+    """
     return load_conversations_for_token(token)
 
 
