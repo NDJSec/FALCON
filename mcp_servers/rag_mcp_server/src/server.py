@@ -58,6 +58,7 @@ def setup_retriever() -> Optional[VectorStoreRetriever]:
             connection_string=DATABASE_URL,
             embedding_function=embeddings,
             collection_name=COLLECTION_NAME,
+            use_jsonb=True
         )
 
         logger.info("Validating vector store connection...")
