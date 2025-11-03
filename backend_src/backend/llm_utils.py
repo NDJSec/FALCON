@@ -5,7 +5,6 @@ from backend.db_logger import log_message
 from langchain.agents import create_agent
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
-from langchain_community.chat_message_histories import ChatMessageHistory
 
 from google.api_core.exceptions import ResourceExhausted
 from openai import RateLimitError, AuthenticationError
@@ -70,7 +69,6 @@ async def get_chat_response(
     prompt: str,
     token: str,
     conv_id: Optional[str],
-    history: ChatMessageHistory,
 ) -> Tuple[str, str]:
     """
     Handles a chat request asynchronously, including history loading and logging.

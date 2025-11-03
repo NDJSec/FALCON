@@ -15,8 +15,6 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker, Session
 from sqlalchemy.dialects.postgresql import UUID
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_core.messages import HumanMessage, AIMessage
 
 from backend import config
 from backend.auth_utils import decode_access_token
@@ -181,17 +179,3 @@ def create_new_conversation(jwt_token: str) -> Optional[str]:
         session.refresh(conversation)
 
         return str(conversation.id)
-
-
-def get_messages_for_history(conversation_id: Optional[str]) -> ChatMessageHistory:
-    history = ChatMessageHistory()
-    if not conversation_id:
-        return history
-
-    messages = load_messages_for_conversation(conversation_id)
-    for msg in messages:
-        if msg["role"] == "user":
-            history.add_message(HumanMessage(content=msg["content"]))
-        elif msg["role"].startswith("assistant"):
-            history.add_message(AIMessage(content=msg["content"]))
-    return history

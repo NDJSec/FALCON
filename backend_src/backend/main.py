@@ -22,7 +22,6 @@ from backend.db_logger import (
     log_feedback,
     load_conversations_for_token,
     load_messages_for_conversation,
-    get_messages_for_history,
     create_new_conversation,
     is_valid_token,
 )
@@ -222,8 +221,6 @@ async def chat_endpoint(chat_req: ChatRequest, token: str = Depends(oauth2_schem
         if not conversation_id:
             raise HTTPException(status_code=401, detail="Invalid or inactive token.")
 
-    # --- Prepare LangChain history ---
-    history = get_messages_for_history(conversation_id)
 
     # --- Prepare tools ---
     tools: list = []
@@ -249,7 +246,6 @@ async def chat_endpoint(chat_req: ChatRequest, token: str = Depends(oauth2_schem
             prompt=chat_req.prompt,
             token=token,
             conv_id=conversation_id,
-            history=history,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error generating response: {e}")
