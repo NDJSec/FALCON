@@ -132,6 +132,12 @@ export default function Home() {
     verifyToken();
   }, []);
 
+  useEffect(() => {
+    if (models[provider] && models[provider].length > 0) {
+      setModel(models[provider][0]);
+    }
+  }, [provider, models]);
+
   // --- Conversation Handlers ---
   const handleConversationSelect = async (id: string) => {
     setActiveConversationId(id);
