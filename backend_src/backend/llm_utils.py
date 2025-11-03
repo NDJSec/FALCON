@@ -1,8 +1,10 @@
 import logging
-from typing import Any, Dict, List, Optional, Tuple
+import requests
+from typing import Any, Dict, List, Optional, Tuple, Iterable, Union
 
 from backend.db_logger import log_message
 from langchain.agents import create_agent
+from langchain_ollama import ChatOllama
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 
@@ -17,7 +19,19 @@ logger = logging.getLogger(name=__name__)
 AVAILABLE_PROVIDERS: Dict[str, List[str]] = {
     "Gemini": ["gemini-2.5-flash", "gemini-1.5-flash"],
     "OpenAI": ["gpt-4o-mini", "gpt-4o"],
+    "Ollama": [],
 }
+
+def list_ollama_models() -> List[str]:
+    """Query Ollama for available models."""
+    try:
+        res = requests.get(f"{config.OLLAMA_URL}/api/tags", timeout=5)
+        if res.status_code == 200:
+            return [m["name"] for m in res.json().get("models", [])]
+        return []
+    except Exception as e:
+        logger.warning(f"Could not reach Ollama: {e}")
+        return []
 
 
 def get_agent_executor(
@@ -50,6 +64,8 @@ def get_agent_executor(
         )
     elif provider == "OpenAI":
         llm = ChatOpenAI(model=model, api_key=api_key, temperature=0.2, max_tokens=4096)
+    elif provider == "Ollama":
+        llm = ChatOllama(model=model, temperature=0.2, base_url=config.OLLAMA_URL)
     else:
         raise ValueError(f"Unsupported provider: {provider}")
 
@@ -106,6 +122,7 @@ async def get_chat_response(
             },
             config={"configurable": {"session_id": final_conv_id, "thread_id": final_conv_id}},
         )
+        logger.info(f"Message: {response["messages"][-1].content}")
     except (ResourceExhausted, RateLimitError) as e:
         logger.warning(f"Rate/Quota exceeded: {e}")
         return (
@@ -122,7 +139,13 @@ async def get_chat_response(
         )
 
     # Extract assistant output
-    answer: str = response["messages"][-1].content[0].get("text", "").strip()
+    answer: Union[str, Iterable] = response["messages"][-1].content
+
+    if isinstance(answer, Iterable):
+        answer = answer
+    else:
+        answer = answer[0].get("text", "").strip()
+
     if not answer:
         steps = response.get("intermediate_steps", [])
         if steps:

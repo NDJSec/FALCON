@@ -26,7 +26,7 @@ from backend.db_logger import (
     is_valid_token,
 )
 from backend.auth_router import auth_router
-from backend.llm_utils import get_agent_executor, get_chat_response, AVAILABLE_PROVIDERS
+from backend.llm_utils import get_agent_executor, get_chat_response, AVAILABLE_PROVIDERS, list_ollama_models
 from backend.mcp_client import MCPClient
 from backend import config
 from backend.auth_utils import get_current_user
@@ -204,7 +204,9 @@ def get_models() -> Dict[str, List[str]]:
     Returns:
         Dict[str, List[str]]: Available LLM models per provider.
     """
-    return AVAILABLE_PROVIDERS
+    providers = AVAILABLE_PROVIDERS.copy()
+    providers["Ollama"] = list_ollama_models()
+    return providers
 
 
 @app.post("/chat", response_model=ChatResponse)
