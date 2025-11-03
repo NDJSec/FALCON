@@ -4,6 +4,8 @@ from typing import List, Optional, Any, Dict
 from fastapi import FastAPI, HTTPException, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+
+from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 from pydantic import BaseModel
 
 from backend.models import (
@@ -56,6 +58,17 @@ async def lifespan(app: FastAPI):
     logger.info("Application startup...")
     init_db()
 
+    checkpointer_gen = AsyncPostgresSaver.from_conn_string(
+        config.DATABASE_URL.replace(
+            "postgresql+psycopg2://", "postgresql://", 1
+        )
+    )
+    checkpointer = await checkpointer_gen.__aenter__()
+    await checkpointer.setup()
+
+    app.state.checkpointer = checkpointer
+    app.state.checkpointer_gen = checkpointer_gen
+
     try:
         server_config: Dict[str, Dict[str, str]] = {
             name: {"url": f"{details['url']}/sse", "transport": "sse"}
@@ -71,8 +84,14 @@ async def lifespan(app: FastAPI):
 
     # --- Shutdown ---
     logger.info("Application shutdown...")
+    await checkpointer_gen.__aexit__(None, None, None)
     app_state.clear()
 
+def get_checkpointer(request: Request):
+    cp = request.app.state.checkpointer
+    if cp is None:
+        raise HTTPException(status_code=503, detail="Checkpointer not initialized")
+    return cp
 
 app = FastAPI(
     title="FALCON API",
@@ -190,7 +209,7 @@ def get_models() -> Dict[str, List[str]]:
 
 
 @app.post("/chat", response_model=ChatResponse)
-async def chat_endpoint(chat_req: ChatRequest, token: str = Depends(oauth2_scheme)) -> ChatResponse:
+async def chat_endpoint(chat_req: ChatRequest, token: str = Depends(oauth2_scheme), checkpointer = Depends(get_checkpointer)) -> ChatResponse:
     """
     Handles a chat request for a validated user using JWT token.
     Creates a new conversation if needed, logs messages, and returns assistant response.
@@ -216,6 +235,7 @@ async def chat_endpoint(chat_req: ChatRequest, token: str = Depends(oauth2_schem
 
     # --- Create agent executor ---
     agent_executor = get_agent_executor(
+        checkpointer=checkpointer,
         provider=chat_req.provider,
         model=chat_req.model,
         api_key=chat_req.api_key,

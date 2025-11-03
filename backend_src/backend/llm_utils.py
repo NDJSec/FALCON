@@ -2,15 +2,15 @@ import logging
 from typing import Any, Dict, List, Optional, Tuple
 
 from backend.db_logger import log_message
+from langchain.agents import create_agent
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
-from langchain_classic.agents import AgentExecutor, create_tool_calling_agent
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_core.runnables.history import RunnableWithMessageHistory
 
 from google.api_core.exceptions import ResourceExhausted
 from openai import RateLimitError, AuthenticationError
+
+from backend import config
 
 logger = logging.getLogger(name=__name__)
 
@@ -22,15 +22,17 @@ AVAILABLE_PROVIDERS: Dict[str, List[str]] = {
 
 
 def get_agent_executor(
+    checkpointer,
     provider: str,
     model: str,
     api_key: Optional[str],
     tools: List[Any]
-) -> AgentExecutor:
+):
     """
     Initialize a LangChain agent executor with the specified provider and tools.
 
     Args:
+        checkpointer: Postgres Checkpointer instance for short-term storage.
         provider: The LLM provider, e.g., "Gemini" or "OpenAI".
         model: The model name to use from the provider.
         api_key: API key for the provider.
@@ -42,6 +44,7 @@ def get_agent_executor(
     Raises:
         ValueError: If the provider is unsupported.
     """
+
     if provider == "Gemini":
         llm = ChatGoogleGenerativeAI(
             model=model, google_api_key=api_key, temperature=0.2, max_output_tokens=4096
@@ -51,24 +54,19 @@ def get_agent_executor(
     else:
         raise ValueError(f"Unsupported provider: {provider}")
 
-    prompt_template = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                "You are a helpful assistant specializing in hardware forensics and reverse engineering.",
-            ),
-            MessagesPlaceholder(variable_name="chat_history"),
-            ("human", "{input}"),
-            MessagesPlaceholder(variable_name="agent_scratchpad"),
-        ]
+
+    agent_executor = create_agent(
+        model=llm,
+        tools=tools,
+        system_prompt="You are a helpful assistant specializing in hardware forensics and reverse engineering.",
+        checkpointer=checkpointer
     )
 
-    agent = create_tool_calling_agent(llm=llm, tools=tools, prompt=prompt_template)
-    return AgentExecutor(agent=agent, tools=tools, verbose=True)
+    return agent_executor
 
 
 async def get_chat_response(
-    agent_executor: AgentExecutor,
+    agent_executor,
     prompt: str,
     token: str,
     conv_id: Optional[str],
@@ -103,18 +101,12 @@ async def get_chat_response(
         source_ip="api",
     )
 
-    # Wrap the agent with message history
-    agent_with_history = RunnableWithMessageHistory(
-        runnable=agent_executor,
-        get_session_history=lambda session_id: history,
-        input_messages_key="input",
-        history_messages_key="chat_history",
-    )
-
     try:
-        response: Dict[str, Any] = await agent_with_history.ainvoke(
-            input={"input": prompt},
-            config={"configurable": {"session_id": final_conv_id}},
+        response: Dict[str, Any] = await agent_executor.ainvoke(
+            {
+                "messages": [{"role": "user", "content": prompt}]
+            },
+            config={"configurable": {"session_id": final_conv_id, "thread_id": final_conv_id}},
         )
     except (ResourceExhausted, RateLimitError) as e:
         logger.warning(f"Rate/Quota exceeded: {e}")
@@ -132,7 +124,7 @@ async def get_chat_response(
         )
 
     # Extract assistant output
-    answer: str = response.get("output", "").strip()
+    answer: str = response["messages"][-1].content[0].get("text", "").strip()
     if not answer:
         steps = response.get("intermediate_steps", [])
         if steps:

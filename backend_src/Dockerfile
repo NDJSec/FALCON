@@ -4,6 +4,10 @@ FROM python:3.13-slim
 # Set the working directory
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 libpq-dev gcc \
+ && rm -rf /var/lib/apt/lists/*
+
 # Copy only the dependency definition file first to leverage Docker layer caching.
 COPY pyproject.toml ./
 
