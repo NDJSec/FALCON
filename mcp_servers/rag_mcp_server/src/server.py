@@ -2,7 +2,7 @@ import os
 import logging
 from typing import Optional
 
-from langchain_community.vectorstores import PGVector
+from langchain_postgres import PGVector
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.vectorstores import VectorStoreRetriever
 

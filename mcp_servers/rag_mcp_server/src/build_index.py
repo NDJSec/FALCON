@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List
 
 # --- Vector Store + Embeddings ---
-from langchain_community.vectorstores import PGVector
+from langchain_postgres import PGVector
 from langchain_huggingface import HuggingFaceEmbeddings
 
 # --- Document Loaders ---
