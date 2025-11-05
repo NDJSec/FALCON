@@ -141,7 +141,24 @@ The only required prerequsite is Docker and Docker compose. For installation of 
    ```sh
    docker-compose up --build
    ```
+   
+4. Build knowledge base (Optional)
+    
+    To build the local knowledge base,
+    you can use the prebuilt container
+    with the necessary scripts to create the knowledge base or update it.
+    
+    ```sh
+    docker compose --profile builder up index_builder
+    ```
+   
+   _Note: This script will dump and rebuild the entire knowledge base from the files in `knowledge_base`_
 
+5. Install Local Models
+    
+    ```sh
+    docker exec -it ollama ollama pull [model]
+    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Generating User Account
