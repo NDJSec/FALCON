@@ -25,22 +25,6 @@ This guide will walk you through setting up and running the complete FALCON appl
 
 ## Creating a Test User
 
-To use the application, you need a valid user token. You can insert a test user directly into the database with the following commands.
+To use the application, you need a valid user token. To create this account, simply follow the instructions in the register page to create the account.
 
-1. Connect to the database container:
-
-    `docker-compose exec db psql -U postgres -d metrics`
-
-2. Enable the UUID generation function (you only need to do this once):
-
-    `CREATE EXTENSION IF NOT EXISTS "pgcrypto";`
-
-3. Insert the test user:
-
-    `INSERT INTO users (id, email, username, is_active) VALUES (gen_random_uuid(), 'test@example.com', 'test-token', true);`
-
-4. Exit the SQL shell:
-
-    `\q`
-
-You can now use test-token in the user token field on the frontend to log in.
+![Register Example](../images/register.jpg)

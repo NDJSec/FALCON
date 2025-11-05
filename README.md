@@ -167,6 +167,7 @@ FALCON works with user accounts, where each user has their own individual accoun
 To create this account, simply follow the instructions in the register page to create the account. 
 
 ![Register Example][register_example]
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
