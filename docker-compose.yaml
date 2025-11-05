@@ -116,6 +116,18 @@ services:
     networks:
       - falcon_net
 
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    volumes:
+      - ./ollama_models:/root/.ollama/models  # persistent models directory
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    expose:
+      - "11434"  # internal API port
+    networks:
+      - falcon_net
+
   index_builder:
     build:
       context: ./mcp_servers/rag_mcp_server

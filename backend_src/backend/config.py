@@ -3,6 +3,9 @@ import os
 # --- Database Configuration ---
 DATABASE_URL = os.environ.get("DATABASE_URL", default="postgresql+psycopg2://postgres:postgres@db:5432/metrics")
 
+# --- Ollama Configuration ---
+OLLAMA_URL = os.environ.get("OLLAMA_URL", default="http://ollama:11434")
+
 # --- MCP Server URLs ---
 MCP_SERVER_URLS = {
     "cyberchef_api": {
