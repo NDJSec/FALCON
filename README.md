@@ -186,7 +186,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 * [ ] Multi-LLM Support
   * [x] Gemini
   * [ ] OpenAI
-  * [ ] Ollama
+  * [x] Ollama
 * [x] MCP Support
   * [x] CyberChef
   * [ ] Ghidra
