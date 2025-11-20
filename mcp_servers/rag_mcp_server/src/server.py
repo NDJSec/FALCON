@@ -6,6 +6,7 @@ from langchain_postgres import PGVector
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.vectorstores import VectorStoreRetriever
 
+
 from fastmcp import FastMCP
 
 # --- Logging Setup ---

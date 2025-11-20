@@ -3,9 +3,11 @@ from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from svd import SVDLoader
+    from dts import DTSLoader
 
 _module_lookup = {
     "SVDLoader": "document_loaders.svd",
+    "DTSLoader": "document_loaders.dts",
 }
 
 def __getattr__(name: str) -> Any:
@@ -16,4 +18,5 @@ def __getattr__(name: str) -> Any:
 
 __all__ = [
     "SVDLoader",
+    "DTSLoader",
 ]
