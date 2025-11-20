@@ -1,0 +1,88 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	model = "XENVM";             /* in zephyr/boards/xen/xenvm/xenvm.dts:21 */
+	compatible = "xen,xenvm";    /* in zephyr/boards/xen/xenvm/xenvm.dts:22 */
+	interrupt-parent = < &gic >; /* in zephyr/boards/xen/xenvm/xenvm.dts:23 */
+	#address-cells = < 0x2 >;    /* in zephyr/boards/xen/xenvm/xenvm.dts:24 */
+	#size-cells = < 0x2 >;       /* in zephyr/boards/xen/xenvm/xenvm.dts:25 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &ram;        /* in zephyr/boards/xen/xenvm/xenvm.dts:28 */
+		zephyr,console = &xen_hvc; /* in zephyr/boards/xen/xenvm/xenvm.dts:29 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm64/armv8-a.dtsi:10 */
+	soc {
+		#address-cells = < 0x1 >;  /* in zephyr/dts/arm64/armv8-a.dtsi:11 */
+		#size-cells = < 0x1 >;     /* in zephyr/dts/arm64/armv8-a.dtsi:12 */
+		compatible = "simple-bus"; /* in zephyr/dts/arm64/armv8-a.dtsi:13 */
+		ranges;                    /* in zephyr/dts/arm64/armv8-a.dtsi:14 */
+	};
+
+	/* node '/cpus' defined in zephyr/boards/xen/xenvm/xenvm.dts:32 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/boards/xen/xenvm/xenvm.dts:33 */
+		#size-cells = < 0x0 >;    /* in zephyr/boards/xen/xenvm/xenvm.dts:34 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/boards/xen/xenvm/xenvm.dts:36 */
+		cpu@0 {
+			device_type = "cpu";      /* in zephyr/boards/xen/xenvm/xenvm.dts:37 */
+			compatible = "arm,armv8"; /* in zephyr/boards/xen/xenvm/xenvm.dts:38 */
+			enable-method = "psci";   /* in zephyr/boards/xen/xenvm/xenvm.dts:39 */
+			reg = < 0x0 >;            /* in zephyr/boards/xen/xenvm/xenvm.dts:40 */
+		};
+	};
+
+	/* node '/psci' defined in zephyr/boards/xen/xenvm/xenvm.dts:44 */
+	psci {
+		compatible = "arm,psci-1.0",
+		             "arm,psci-0.2",
+		             "arm,psci";     /* in zephyr/boards/xen/xenvm/xenvm.dts:45 */
+		method = "hvc";              /* in zephyr/boards/xen/xenvm/xenvm.dts:46 */
+	};
+
+	/* node '/memory@40000000' defined in zephyr/boards/xen/xenvm/xenvm.dts:49 */
+	ram: memory@40000000 {
+		device_type = "mmio-sram";              /* in zephyr/boards/xen/xenvm/xenvm.dts:50 */
+		reg = < 0x0 0x40000000 0x0 0x1000000 >; /* in zephyr/boards/xen/xenvm/xenvm.dts:51 */
+	};
+
+	/* node '/interrupt-controller@3001000' defined in zephyr/boards/xen/xenvm/xenvm.dts:54 */
+	gic: interrupt-controller@3001000 {
+		compatible = "arm,gic-v2",
+		             "arm,gic";                                      /* in zephyr/boards/xen/xenvm/xenvm.dts:55 */
+		#interrupt-cells = < 0x4 >;                                  /* in zephyr/boards/xen/xenvm/xenvm.dts:56 */
+		#address-cells = < 0x0 >;                                    /* in zephyr/boards/xen/xenvm/xenvm.dts:57 */
+		interrupt-controller;                                        /* in zephyr/boards/xen/xenvm/xenvm.dts:58 */
+		reg = < 0x0 0x3001000 0x0 0x1000 0x0 0x3002000 0x0 0x2000 >; /* in zephyr/boards/xen/xenvm/xenvm.dts:59 */
+		phandle = < 0x1 >;                                           /* in zephyr/boards/xen/xenvm/xenvm.dts:23 */
+	};
+
+	/* node '/timer' defined in zephyr/boards/xen/xenvm/xenvm.dts:62 */
+	timer {
+		compatible = "arm,armv8-timer";                                      /* in zephyr/boards/xen/xenvm/xenvm.dts:63 */
+		interrupts = < 0x1 0xd 0x2 0xa0 0x1 0xe 0x2 0xa0 0x1 0xb 0x2 0xa0 >; /* in zephyr/boards/xen/xenvm/xenvm.dts:64 */
+		interrupt-parent = < &gic >;                                         /* in zephyr/boards/xen/xenvm/xenvm.dts:67 */
+	};
+
+	/* node '/hypervisor@38000000' defined in zephyr/boards/xen/xenvm/xenvm.dts:70 */
+	hypervisor: hypervisor@38000000 {
+		compatible = "xen,xen";                 /* in zephyr/boards/xen/xenvm/xenvm.dts:71 */
+		reg = < 0x0 0x38000000 0x0 0x1000000 >; /* in zephyr/boards/xen/xenvm/xenvm.dts:72 */
+		interrupts = < 0x1 0xf 0x4 0xa0 >;      /* in zephyr/boards/xen/xenvm/xenvm.dts:73 */
+		interrupt-parent = < &gic >;            /* in zephyr/boards/xen/xenvm/xenvm.dts:74 */
+	};
+
+	/* node '/hvc' defined in zephyr/boards/xen/xenvm/xenvm.dts:77 */
+	xen_hvc: hvc {
+		compatible = "xen,hvc-uart"; /* in zephyr/boards/xen/xenvm/xenvm.dts:78 */
+		status = "okay";             /* in zephyr/boards/xen/xenvm/xenvm.dts:79 */
+	};
+};

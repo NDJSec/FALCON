@@ -1,0 +1,712 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;              /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                 /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Analog Devices MAX32672FTHR"; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:15 */
+	compatible = "adi,max32672fthr";       /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:16 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,entropy = &trng;          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:17 */
+		zephyr,flash-controller = &flc0; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:18 */
+		zephyr,console = &uart0;         /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:19 */
+		zephyr,shell-uart = &uart0;      /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:20 */
+		zephyr,sram = &sram3;            /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:21 */
+		zephyr,flash = &flash0;          /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:22 */
+		zephyr,display = &ssd1306;       /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:23 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led1;      /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:57 */
+		led1 = &led2;      /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:58 */
+		led2 = &led3;      /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:59 */
+		sw0 = &pb1;        /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:60 */
+		watchdog0 = &wdt0; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:61 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:337 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/memory@20000000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:98 */
+		sram0: memory@20000000 {
+			compatible = "mmio-sram";    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:99 */
+			reg = < 0x20000000 0x4000 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:12 */
+		};
+
+		/* node '/soc/flash_controller@40029000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:103 */
+		flc0: flash_controller@40029000 {
+			compatible = "adi,max32-flash-controller"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:104 */
+			reg = < 0x40029000 0x400 >;                /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:105 */
+			#address-cells = < 0x1 >;                  /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:107 */
+			#size-cells = < 0x1 >;                     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:108 */
+			status = "okay";                           /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:109 */
+
+			/* node '/soc/flash_controller@40029000/flash@10000000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:111 */
+			flash0: flash@10000000 {
+				compatible = "soc-nv-flash";   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:112 */
+				reg = < 0x10000000 0x80000 >;  /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:113 */
+				write-block-size = < 0x10 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:114 */
+				erase-block-size = < 0x2000 >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:115 */
+			};
+		};
+
+		/* node '/soc/clock-controller@40000000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:119 */
+		gcr: clock-controller@40000000 {
+			reg = < 0x40000000 0x400 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:120 */
+			compatible = "adi,max32-gcr"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:121 */
+			#clock-cells = < 0x2 >;       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:122 */
+			clocks = < &clk_ipo >;        /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:123 */
+			sysclk-prescaler = < 0x1 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:124 */
+			status = "okay";              /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:125 */
+			phandle = < 0x3 >;            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:134 */
+		};
+
+		/* node '/soc/i2c0@4001d000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:128 */
+		i2c0: i2c0@4001d000 {
+			compatible = "adi,max32-i2c";  /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:129 */
+			reg = < 0x4001d000 0x1000 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:130 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:131 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:132 */
+			clock-frequency = < 0x186a0 >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:133 */
+			clocks = < &gcr 0x0 0xd >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:134 */
+			interrupts = < 0xd 0x0 >;      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:135 */
+			status = "disabled";           /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:136 */
+		};
+
+		/* node '/soc/i2c1@4001e000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:139 */
+		i2c1: i2c1@4001e000 {
+			compatible = "adi,max32-i2c";  /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:140 */
+			reg = < 0x4001e000 0x1000 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:141 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:142 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:143 */
+			clock-frequency = < 0x186a0 >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:144 */
+			clocks = < &gcr 0x0 0x1c >;    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:145 */
+			interrupts = < 0x24 0x0 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:146 */
+			status = "disabled";           /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:147 */
+		};
+
+		/* node '/soc/i2c2@4001f000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:150 */
+		i2c2: i2c2@4001f000 {
+			compatible = "adi,max32-i2c";                      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:151 */
+			reg = < 0x4001f000 0x1000 >;                       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:152 */
+			#address-cells = < 0x1 >;                          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:153 */
+			#size-cells = < 0x0 >;                             /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:154 */
+			interrupts = < 0x3e 0x0 >;                         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:157 */
+			clocks = < &gcr 0x1 0x15 >;                        /* in zephyr/dts/arm/adi/max32/max32672.dtsi:20 */
+			pinctrl-0 = < &i2c2a_scl_p0_18 &i2c2a_sda_p0_19 >; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:127 */
+			pinctrl-names = "default";                         /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:128 */
+			clock-frequency = < 0x61a80 >;                     /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:129 */
+			status = "okay";                                   /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:130 */
+
+			/* node '/soc/i2c2@4001f000/ssd1306@3d' defined in zephyr/boards/adi/max32672fthr/max32672fthr.dts:132 */
+			ssd1306: ssd1306@3d {
+				compatible = "solomon,ssd1306fb"; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:133 */
+				reg = < 0x3d >;                   /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:134 */
+				width = < 0x80 >;                 /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:135 */
+				height = < 0x20 >;                /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:136 */
+				segment-offset = < 0x0 >;         /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:137 */
+				page-offset = < 0x0 >;            /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:138 */
+				display-offset = < 0x0 >;         /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:139 */
+				multiplex-ratio = < 0x1f >;       /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:140 */
+				segment-remap;                    /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:141 */
+				com-invdir;                       /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:142 */
+				com-sequential;                   /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:143 */
+				prechargep = < 0x22 >;            /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:144 */
+				inversion-on;                     /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:145 */
+			};
+		};
+
+		/* node '/soc/pin-controller@40008000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:161 */
+		pinctrl: pin-controller@40008000 {
+			compatible = "adi,max32-pinctrl"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:162 */
+			#address-cells = < 0x1 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:163 */
+			#size-cells = < 0x1 >;            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:164 */
+			reg = < 0x40008000 0x2000 >;      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:165 */
+
+			/* node '/soc/pin-controller@40008000/gpio@40008000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:167 */
+			gpio0: gpio@40008000 {
+				reg = < 0x40008000 0x1000 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:168 */
+				compatible = "adi,max32-gpio"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:169 */
+				gpio-controller;               /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:170 */
+				#gpio-cells = < 0x2 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:171 */
+				clocks = < &gcr 0x0 0x0 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:172 */
+				interrupts = < 0x18 0x0 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:173 */
+				status = "okay";               /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:115 */
+				phandle = < 0xe >;             /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:30 */
+			};
+
+			/* node '/soc/pin-controller@40008000/gpio@40009000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:177 */
+			gpio1: gpio@40009000 {
+				reg = < 0x40009000 0x1000 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:178 */
+				compatible = "adi,max32-gpio"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:179 */
+				gpio-controller;               /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:180 */
+				#gpio-cells = < 0x2 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:181 */
+				interrupts = < 0x19 0x0 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:182 */
+				clocks = < &gcr 0x0 0x1 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:183 */
+				status = "okay";               /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:119 */
+			};
+
+			/* node '/soc/pin-controller@40008000/uart0a_rx_p0_8' defined in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:112 */
+			uart0a_rx_p0_8: uart0a_rx_p0_8 {
+				pinmux = < 0x801 >; /* in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:113 */
+				phandle = < 0x7 >;  /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:95 */
+			};
+
+			/* node '/soc/pin-controller@40008000/uart0a_tx_p0_9' defined in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:128 */
+			uart0a_tx_p0_9: uart0a_tx_p0_9 {
+				pinmux = < 0x901 >; /* in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:129 */
+				phandle = < 0x6 >;  /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:95 */
+			};
+
+			/* node '/soc/pin-controller@40008000/spi1a_miso_p0_14' defined in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:208 */
+			spi1a_miso_p0_14: spi1a_miso_p0_14 {
+				pinmux = < 0xe01 >; /* in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:209 */
+				phandle = < 0x9 >;  /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:159 */
+			};
+
+			/* node '/soc/pin-controller@40008000/spi1a_mosi_p0_15' defined in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:224 */
+			spi1a_mosi_p0_15: spi1a_mosi_p0_15 {
+				pinmux = < 0xf01 >; /* in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:225 */
+				phandle = < 0x8 >;  /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:159 */
+			};
+
+			/* node '/soc/pin-controller@40008000/spi1a_sck_p0_16' defined in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:240 */
+			spi1a_sck_p0_16: spi1a_sck_p0_16 {
+				pinmux = < 0x1001 >; /* in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:241 */
+				phandle = < 0xa >;   /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:159 */
+			};
+
+			/* node '/soc/pin-controller@40008000/spi1a_ss0_p0_17' defined in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:256 */
+			spi1a_ss0_p0_17: spi1a_ss0_p0_17 {
+				pinmux = < 0x1101 >; /* in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:257 */
+				phandle = < 0xb >;   /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:159 */
+			};
+
+			/* node '/soc/pin-controller@40008000/i2c2a_scl_p0_18' defined in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:272 */
+			i2c2a_scl_p0_18: i2c2a_scl_p0_18 {
+				pinmux = < 0x1201 >; /* in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:273 */
+				phandle = < 0x4 >;   /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:127 */
+			};
+
+			/* node '/soc/pin-controller@40008000/i2c2a_sda_p0_19' defined in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:284 */
+			i2c2a_sda_p0_19: i2c2a_sda_p0_19 {
+				pinmux = < 0x1301 >; /* in zephyr/dts/arm/adi/max32/max32672-pinctrl.dtsi:285 */
+				phandle = < 0x5 >;   /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:127 */
+			};
+		};
+
+		/* node '/soc/serial@40042000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:188 */
+		uart0: serial@40042000 {
+			compatible = "adi,max32-uart";                   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:189 */
+			reg = < 0x40042000 0x1000 >;                     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:190 */
+			clocks = < &gcr 0x0 0x9 >;                       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:191 */
+			clock-source = < 0x0 >;                          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:192 */
+			interrupts = < 0xe 0x0 >;                        /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:193 */
+			pinctrl-0 = < &uart0a_tx_p0_9 &uart0a_rx_p0_8 >; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:95 */
+			pinctrl-names = "default";                       /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:96 */
+			current-speed = < 0x1c200 >;                     /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:97 */
+			data-bits = < 0x8 >;                             /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:98 */
+			parity = "none";                                 /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:99 */
+			status = "okay";                                 /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:100 */
+		};
+
+		/* node '/soc/serial@40043000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:197 */
+		uart1: serial@40043000 {
+			compatible = "adi,max32-uart"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:198 */
+			reg = < 0x40043000 0x1000 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:199 */
+			clocks = < &gcr 0x0 0xa >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:200 */
+			clock-source = < 0x0 >;        /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:201 */
+			interrupts = < 0xf 0x0 >;      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:202 */
+			status = "disabled";           /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:203 */
+		};
+
+		/* node '/soc/serial@40044000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:206 */
+		uart2: serial@40044000 {
+			compatible = "adi,max32-uart"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:207 */
+			reg = < 0x40044000 0x1000 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:208 */
+			clocks = < &gcr 0x1 0x1 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:209 */
+			clock-source = < 0x0 >;        /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:210 */
+			interrupts = < 0x22 0x0 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:211 */
+			status = "disabled";           /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:212 */
+		};
+
+		/* node '/soc/trng@4004d000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:215 */
+		trng: trng@4004d000 {
+			compatible = "adi,max32-trng"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:216 */
+			reg = < 0x4004d000 0x1000 >;   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:217 */
+			clocks = < &gcr 0x1 0x2 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:218 */
+			status = "okay";               /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:123 */
+		};
+
+		/* node '/soc/watchdog@40003000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:222 */
+		wdt0: watchdog@40003000 {
+			compatible = "adi,max32-watchdog"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:223 */
+			reg = < 0x40003000 0x400 >;        /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:224 */
+			interrupts = < 0x1 0x0 >;          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:225 */
+			clocks = < &gcr 0x1 0x1b >;        /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:226 */
+			clock-source = < 0x0 >;            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:227 */
+			status = "okay";                   /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:154 */
+		};
+
+		/* node '/soc/adc@40034000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:231 */
+		adc: adc@40034000 {
+			reg = < 0x40034000 0x1000 >;      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:233 */
+			clocks = < &gcr 0x0 0x17 >;       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:234 */
+			#io-channel-cells = < 0x1 >;      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:236 */
+			interrupts = < 0x14 0x0 >;        /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:237 */
+			status = "disabled";              /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:240 */
+			compatible = "adi,max32-adc-sar",
+			             "adi,max32-adc";     /* in zephyr/dts/arm/adi/max32/max32672.dtsi:28 */
+			clock-source = < 0x0 >;           /* in zephyr/dts/arm/adi/max32/max32672.dtsi:29 */
+			clock-divider = < 0x10 >;         /* in zephyr/dts/arm/adi/max32/max32672.dtsi:30 */
+			channel-count = < 0x10 >;         /* in zephyr/dts/arm/adi/max32/max32672.dtsi:31 */
+			track-count = < 0x4 >;            /* in zephyr/dts/arm/adi/max32/max32672.dtsi:32 */
+			idle-count = < 0x0 >;             /* in zephyr/dts/arm/adi/max32/max32672.dtsi:33 */
+			vref-mv = < 0x4e2 >;              /* in zephyr/dts/arm/adi/max32/max32672.dtsi:34 */
+			resolution = < 0xc >;             /* in zephyr/dts/arm/adi/max32/max32672.dtsi:35 */
+		};
+
+		/* node '/soc/timer@40010000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:243 */
+		timer0: timer@40010000 {
+			compatible = "adi,max32-timer"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:244 */
+			reg = < 0x40010000 0x1000 >;    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:245 */
+			interrupts = < 0x5 0x0 >;       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:246 */
+			status = "disabled";            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:247 */
+			clocks = < &gcr 0x0 0xf >;      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:248 */
+			clock-source = < 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:249 */
+			prescaler = < 0x1 >;            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:250 */
+
+			/* node '/soc/timer@40010000/counter' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:252 */
+			counter {
+				compatible = "adi,max32-counter"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:253 */
+				status = "disabled";              /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:254 */
+			};
+
+			/* node '/soc/timer@40010000/pwm' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:257 */
+			pwm {
+				compatible = "adi,max32-pwm"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:258 */
+				status = "disabled";          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:259 */
+				#pwm-cells = < 0x3 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:260 */
+			};
+		};
+
+		/* node '/soc/timer@40011000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:264 */
+		timer1: timer@40011000 {
+			compatible = "adi,max32-timer"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:265 */
+			reg = < 0x40011000 0x1000 >;    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:266 */
+			interrupts = < 0x6 0x0 >;       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:267 */
+			status = "disabled";            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:268 */
+			clocks = < &gcr 0x0 0x10 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:269 */
+			clock-source = < 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:270 */
+			prescaler = < 0x1 >;            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:271 */
+
+			/* node '/soc/timer@40011000/counter' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:273 */
+			counter {
+				compatible = "adi,max32-counter"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:274 */
+				status = "disabled";              /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:275 */
+			};
+
+			/* node '/soc/timer@40011000/pwm' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:278 */
+			pwm {
+				compatible = "adi,max32-pwm"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:279 */
+				status = "disabled";          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:280 */
+				#pwm-cells = < 0x3 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:281 */
+			};
+		};
+
+		/* node '/soc/timer@40012000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:285 */
+		timer2: timer@40012000 {
+			compatible = "adi,max32-timer"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:286 */
+			reg = < 0x40012000 0x1000 >;    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:287 */
+			interrupts = < 0x7 0x0 >;       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:288 */
+			status = "disabled";            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:289 */
+			clocks = < &gcr 0x0 0x11 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:290 */
+			clock-source = < 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:291 */
+			prescaler = < 0x1 >;            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:292 */
+
+			/* node '/soc/timer@40012000/counter' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:294 */
+			counter {
+				compatible = "adi,max32-counter"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:295 */
+				status = "disabled";              /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:296 */
+			};
+
+			/* node '/soc/timer@40012000/pwm' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:299 */
+			pwm {
+				compatible = "adi,max32-pwm"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:300 */
+				status = "disabled";          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:301 */
+				#pwm-cells = < 0x3 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:302 */
+			};
+		};
+
+		/* node '/soc/timer@40013000' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:306 */
+		timer3: timer@40013000 {
+			compatible = "adi,max32-timer"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:307 */
+			reg = < 0x40013000 0x1000 >;    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:308 */
+			interrupts = < 0x8 0x0 >;       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:309 */
+			status = "disabled";            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:310 */
+			clocks = < &gcr 0x0 0x12 >;     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:311 */
+			clock-source = < 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:312 */
+			prescaler = < 0x1 >;            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:313 */
+
+			/* node '/soc/timer@40013000/counter' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:315 */
+			counter {
+				compatible = "adi,max32-counter"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:316 */
+				status = "disabled";              /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:317 */
+			};
+
+			/* node '/soc/timer@40013000/pwm' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:320 */
+			pwm {
+				compatible = "adi,max32-pwm"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:321 */
+				status = "disabled";          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:322 */
+				#pwm-cells = < 0x3 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:323 */
+			};
+		};
+
+		/* node '/soc/memory@20004000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:41 */
+		sram1: memory@20004000 {
+			compatible = "mmio-sram";    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:42 */
+			reg = < 0x20004000 0x4000 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:43 */
+		};
+
+		/* node '/soc/memory@20008000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:46 */
+		sram2: memory@20008000 {
+			compatible = "mmio-sram";     /* in zephyr/dts/arm/adi/max32/max32672.dtsi:47 */
+			reg = < 0x20008000 0x10000 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:48 */
+		};
+
+		/* node '/soc/memory@20018000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:51 */
+		sram3: memory@20018000 {
+			compatible = "mmio-sram";     /* in zephyr/dts/arm/adi/max32/max32672.dtsi:52 */
+			reg = < 0x20018000 0x10000 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:53 */
+		};
+
+		/* node '/soc/memory@20028000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:56 */
+		sram4: memory@20028000 {
+			compatible = "mmio-sram";    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:57 */
+			reg = < 0x20028000 0x1000 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:58 */
+		};
+
+		/* node '/soc/memory@20029000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:61 */
+		sram5: memory@20029000 {
+			compatible = "mmio-sram";    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:62 */
+			reg = < 0x20029000 0x1000 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:63 */
+		};
+
+		/* node '/soc/memory@2002a000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:66 */
+		sram6: memory@2002a000 {
+			compatible = "mmio-sram";    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:67 */
+			reg = < 0x2002a000 0x4000 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:68 */
+		};
+
+		/* node '/soc/memory@2002e000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:71 */
+		sram7: memory@2002e000 {
+			compatible = "mmio-sram";    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:72 */
+			reg = < 0x2002e000 0x4000 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:73 */
+		};
+
+		/* node '/soc/flash_controller@40029400' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:76 */
+		flc1: flash_controller@40029400 {
+			compatible = "adi,max32-flash-controller"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:77 */
+			reg = < 0x40029400 0x400 >;                /* in zephyr/dts/arm/adi/max32/max32672.dtsi:78 */
+			#address-cells = < 0x1 >;                  /* in zephyr/dts/arm/adi/max32/max32672.dtsi:80 */
+			#size-cells = < 0x1 >;                     /* in zephyr/dts/arm/adi/max32/max32672.dtsi:81 */
+			status = "okay";                           /* in zephyr/dts/arm/adi/max32/max32672.dtsi:82 */
+
+			/* node '/soc/flash_controller@40029400/flash@10080000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:84 */
+			flash1: flash@10080000 {
+				compatible = "soc-nv-flash";   /* in zephyr/dts/arm/adi/max32/max32672.dtsi:85 */
+				reg = < 0x10080000 0x80000 >;  /* in zephyr/dts/arm/adi/max32/max32672.dtsi:86 */
+				write-block-size = < 0x10 >;   /* in zephyr/dts/arm/adi/max32/max32672.dtsi:87 */
+				erase-block-size = < 0x2000 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:88 */
+			};
+		};
+
+		/* node '/soc/serial@40145000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:92 */
+		uart3: serial@40145000 {
+			compatible = "adi,max32-uart"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:93 */
+			reg = < 0x40145000 0x1000 >;   /* in zephyr/dts/arm/adi/max32/max32672.dtsi:94 */
+			clocks = < &gcr 0x2 0x2 >;     /* in zephyr/dts/arm/adi/max32/max32672.dtsi:95 */
+			clock-source = < 0x0 >;        /* in zephyr/dts/arm/adi/max32/max32672.dtsi:96 */
+			interrupts = < 0x58 0x0 >;     /* in zephyr/dts/arm/adi/max32/max32672.dtsi:97 */
+			status = "disabled";           /* in zephyr/dts/arm/adi/max32/max32672.dtsi:98 */
+		};
+
+		/* node '/soc/dma@40028000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:101 */
+		dma0: dma@40028000 {
+			compatible = "adi,max32-dma"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:102 */
+			reg = < 0x40028000 0x1000 >;  /* in zephyr/dts/arm/adi/max32/max32672.dtsi:103 */
+			clocks = < &gcr 0x0 0x5 >;    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:104 */
+			interrupts = < 0x1c 0x0 >,
+			             < 0x1d 0x0 >,
+			             < 0x1e 0x0 >,
+			             < 0x1f 0x0 >,
+			             < 0x44 0x0 >,
+			             < 0x45 0x0 >,
+			             < 0x46 0x0 >,
+			             < 0x47 0x0 >,
+			             < 0x48 0x0 >,
+			             < 0x49 0x0 >,
+			             < 0x4a 0x0 >,
+			             < 0x4b 0x0 >;    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:105 */
+			dma-channels = < 0xc >;       /* in zephyr/dts/arm/adi/max32/max32672.dtsi:107 */
+			#dma-cells = < 0x2 >;         /* in zephyr/dts/arm/adi/max32/max32672.dtsi:109 */
+			status = "okay";              /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:150 */
+		};
+
+		/* node '/soc/watchdog@40003400' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:112 */
+		wdt1: watchdog@40003400 {
+			compatible = "adi,max32-watchdog"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:113 */
+			reg = < 0x40003400 0x400 >;        /* in zephyr/dts/arm/adi/max32/max32672.dtsi:114 */
+			interrupts = < 0x39 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32672.dtsi:115 */
+			clocks = < &gcr 0x1 0x5 >;         /* in zephyr/dts/arm/adi/max32/max32672.dtsi:116 */
+			clock-source = < 0x0 >;            /* in zephyr/dts/arm/adi/max32/max32672.dtsi:117 */
+			status = "disabled";               /* in zephyr/dts/arm/adi/max32/max32672.dtsi:118 */
+		};
+
+		/* node '/soc/spi@40046000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:121 */
+		spi0: spi@40046000 {
+			compatible = "adi,max32-spi"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:122 */
+			reg = < 0x40046000 0x1000 >;  /* in zephyr/dts/arm/adi/max32/max32672.dtsi:123 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/arm/adi/max32/max32672.dtsi:124 */
+			#size-cells = < 0x0 >;        /* in zephyr/dts/arm/adi/max32/max32672.dtsi:125 */
+			clocks = < &gcr 0x0 0x6 >;    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:126 */
+			interrupts = < 0x10 0x0 >;    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:127 */
+			status = "disabled";          /* in zephyr/dts/arm/adi/max32/max32672.dtsi:128 */
+		};
+
+		/* node '/soc/spi@40047000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:131 */
+		spi1: spi@40047000 {
+			compatible = "adi,max32-spi";                                                          /* in zephyr/dts/arm/adi/max32/max32672.dtsi:132 */
+			reg = < 0x40047000 0x1000 >;                                                           /* in zephyr/dts/arm/adi/max32/max32672.dtsi:133 */
+			#address-cells = < 0x1 >;                                                              /* in zephyr/dts/arm/adi/max32/max32672.dtsi:134 */
+			#size-cells = < 0x0 >;                                                                 /* in zephyr/dts/arm/adi/max32/max32672.dtsi:135 */
+			clocks = < &gcr 0x0 0x7 >;                                                             /* in zephyr/dts/arm/adi/max32/max32672.dtsi:136 */
+			interrupts = < 0x11 0x0 >;                                                             /* in zephyr/dts/arm/adi/max32/max32672.dtsi:137 */
+			status = "okay";                                                                       /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:158 */
+			pinctrl-0 = < &spi1a_mosi_p0_15 &spi1a_miso_p0_14 &spi1a_sck_p0_16 &spi1a_ss0_p0_17 >; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:159 */
+			pinctrl-names = "default";                                                             /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:160 */
+		};
+
+		/* node '/soc/spi@40048000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:141 */
+		spi2: spi@40048000 {
+			compatible = "adi,max32-spi"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:142 */
+			reg = < 0x40048000 0x1000 >;  /* in zephyr/dts/arm/adi/max32/max32672.dtsi:143 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/arm/adi/max32/max32672.dtsi:144 */
+			#size-cells = < 0x0 >;        /* in zephyr/dts/arm/adi/max32/max32672.dtsi:145 */
+			clocks = < &gcr 0x0 0x8 >;    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:146 */
+			interrupts = < 0x12 0x0 >;    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:147 */
+			status = "disabled";          /* in zephyr/dts/arm/adi/max32/max32672.dtsi:148 */
+		};
+
+		/* node '/soc/timer@40114000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:151 */
+		lptimer0: timer@40114000 {
+			compatible = "adi,max32-timer"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:152 */
+			reg = < 0x40114000 0x1000 >;    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:153 */
+			interrupts = < 0x9 0x0 >;       /* in zephyr/dts/arm/adi/max32/max32672.dtsi:154 */
+			status = "disabled";            /* in zephyr/dts/arm/adi/max32/max32672.dtsi:155 */
+			clocks = < &gcr 0x2 0x0 >;      /* in zephyr/dts/arm/adi/max32/max32672.dtsi:156 */
+			clock-source = < 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32672.dtsi:157 */
+			prescaler = < 0x1 >;            /* in zephyr/dts/arm/adi/max32/max32672.dtsi:158 */
+
+			/* node '/soc/timer@40114000/counter' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:160 */
+			counter {
+				compatible = "adi,max32-counter"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:161 */
+				status = "disabled";              /* in zephyr/dts/arm/adi/max32/max32672.dtsi:162 */
+			};
+		};
+
+		/* node '/soc/timer@40115000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:166 */
+		lptimer1: timer@40115000 {
+			compatible = "adi,max32-timer"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:167 */
+			reg = < 0x40115000 0x1000 >;    /* in zephyr/dts/arm/adi/max32/max32672.dtsi:168 */
+			interrupts = < 0xa 0x0 >;       /* in zephyr/dts/arm/adi/max32/max32672.dtsi:169 */
+			status = "disabled";            /* in zephyr/dts/arm/adi/max32/max32672.dtsi:170 */
+			clocks = < &gcr 0x2 0x1 >;      /* in zephyr/dts/arm/adi/max32/max32672.dtsi:171 */
+			clock-source = < 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32672.dtsi:172 */
+			prescaler = < 0x1 >;            /* in zephyr/dts/arm/adi/max32/max32672.dtsi:173 */
+
+			/* node '/soc/timer@40115000/counter' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:175 */
+			counter {
+				compatible = "adi,max32-counter"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:176 */
+				status = "disabled";              /* in zephyr/dts/arm/adi/max32/max32672.dtsi:177 */
+			};
+		};
+
+		/* node '/soc/rtc_counter@40106000' defined in zephyr/dts/arm/adi/max32/max32672.dtsi:181 */
+		rtc_counter: rtc_counter@40106000 {
+			compatible = "adi,max32-rtc-counter"; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:182 */
+			reg = < 0x40106000 0x400 >;           /* in zephyr/dts/arm/adi/max32/max32672.dtsi:183 */
+			interrupts = < 0x3 0x0 >;             /* in zephyr/dts/arm/adi/max32/max32672.dtsi:184 */
+			status = "okay";                      /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:164 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:21 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:22 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:23 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:25 */
+		cpu0: cpu@0 {
+			device_type = "cpu";                   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:26 */
+			compatible = "arm,cortex-m4f";         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:27 */
+			reg = < 0x0 >;                         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:28 */
+			cpu-power-states = < &idle &suspend >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:29 */
+		};
+
+		/* node '/cpus/power-states' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:32 */
+		power-states {
+
+			/* node '/cpus/power-states/idle' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:34 */
+			idle: idle {
+				compatible = "zephyr,power-state"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:35 */
+				power-state-name = "runtime-idle"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:36 */
+				min-residency-us = < 0x32 >;       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:37 */
+				exit-latency-us = < 0x1 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:39 */
+				phandle = < 0xc >;                 /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:29 */
+			};
+
+			/* node '/cpus/power-states/suspend' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:43 */
+			suspend: suspend {
+				compatible = "zephyr,power-state";    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:44 */
+				power-state-name = "suspend-to-idle"; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:45 */
+				min-residency-us = < 0xc8 >;          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:46 */
+				exit-latency-us = < 0x19 >;           /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:48 */
+				phandle = < 0xd >;                    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:29 */
+			};
+		};
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:53 */
+	clocks {
+
+		/* node '/clocks/clk_ipo' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:54 */
+		clk_ipo: clk_ipo {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:55 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:56 */
+			clock-frequency = < 0x5f5e100 >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:57 */
+			status = "okay";                 /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:104 */
+			phandle = < 0x2 >;               /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:123 */
+		};
+
+		/* node '/clocks/clk_inro' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:68 */
+		clk_inro: clk_inro {
+			compatible = "fixed-clock";    /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:69 */
+			#clock-cells = < 0x0 >;        /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:70 */
+			status = "disabled";           /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:72 */
+			clock-frequency = < 0x13880 >; /* in zephyr/dts/arm/adi/max32/max32672.dtsi:16 */
+		};
+
+		/* node '/clocks/clk_ibro' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:75 */
+		clk_ibro: clk_ibro {
+			compatible = "fixed-clock";     /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:76 */
+			#clock-cells = < 0x0 >;         /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:77 */
+			clock-frequency = < 0x708000 >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:78 */
+			status = "disabled";            /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:79 */
+		};
+
+		/* node '/clocks/clk_ertco' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:82 */
+		clk_ertco: clk_ertco {
+			compatible = "fixed-clock";   /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:83 */
+			#clock-cells = < 0x0 >;       /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:84 */
+			clock-frequency = < 0x8000 >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:85 */
+			status = "okay";              /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:111 */
+		};
+
+		/* node '/clocks/clk_erfo' defined in zephyr/dts/arm/adi/max32/max32xxx.dtsi:89 */
+		clk_erfo: clk_erfo {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:90 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:91 */
+			clock-frequency = < 0x1e84800 >; /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:92 */
+			status = "disabled";             /* in zephyr/dts/arm/adi/max32/max32xxx.dtsi:93 */
+		};
+	};
+
+	/* node '/leds' defined in zephyr/boards/adi/max32672fthr/max32672fthr.dts:26 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:27 */
+
+		/* node '/leds/led_1' defined in zephyr/boards/adi/max32672fthr/max32672fthr.dts:29 */
+		led1: led_1 {
+			gpios = < &gpio0 0x2 0x1 >; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:30 */
+			label = "Red LED";          /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:31 */
+		};
+
+		/* node '/leds/led_2' defined in zephyr/boards/adi/max32672fthr/max32672fthr.dts:34 */
+		led2: led_2 {
+			gpios = < &gpio0 0x3 0x1 >; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:35 */
+			label = "Green LED";        /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:36 */
+		};
+
+		/* node '/leds/led_3' defined in zephyr/boards/adi/max32672fthr/max32672fthr.dts:39 */
+		led3: led_3 {
+			gpios = < &gpio0 0x4 0x1 >; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:40 */
+			label = "Blue LED";         /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:41 */
+		};
+	};
+
+	/* node '/buttons' defined in zephyr/boards/adi/max32672fthr/max32672fthr.dts:45 */
+	buttons {
+		compatible = "gpio-keys"; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:46 */
+
+		/* node '/buttons/pb1' defined in zephyr/boards/adi/max32672fthr/max32672fthr.dts:48 */
+		pb1: pb1 {
+			gpios = < &gpio0 0xa 0x11 >; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:49 */
+			label = "SW2";               /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:50 */
+			zephyr,code = < 0xb >;       /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:51 */
+		};
+	};
+
+	/* node '/feather_connector' defined in zephyr/boards/adi/max32672fthr/max32672fthr.dts:65 */
+	feather_header: feather_connector {
+		compatible = "adafruit-feather-header";    /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:66 */
+		#gpio-cells = < 0x2 >;                     /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:67 */
+		gpio-map-mask = < 0xffffffff 0xffffffc0 >; /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:68 */
+		gpio-map-pass-thru = < 0x0 0x3f >;         /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:69 */
+		gpio-map = < 0xc 0x0 &gpio0 0x13 0x0 >,
+		           < 0xd 0x0 &gpio0 0x12 0x0 >,
+		           < 0xe 0x0 &gpio0 0x19 0x0 >,
+		           < 0xf 0x0 &gpio0 0x18 0x0 >,
+		           < 0x10 0x0 &gpio0 0x11 0x0 >,
+		           < 0x11 0x0 &gpio0 0x17 0x0 >,
+		           < 0x12 0x0 &gpio0 0x7 0x0 >,
+		           < 0x13 0x0 &gpio0 0x6 0x0 >,
+		           < 0x14 0x0 &gpio0 0x5 0x0 >,
+		           < 0xa 0x0 &gpio0 0x1d 0x0 >,
+		           < 0x9 0x0 &gpio0 0x1c 0x0 >,
+		           < 0x8 0x0 &gpio0 0xe 0x0 >,
+		           < 0x7 0x0 &gpio0 0xf 0x0 >,
+		           < 0x6 0x0 &gpio0 0x10 0x0 >,
+		           < 0x5 0x0 &gpio0 0x1a 0x0 >,
+		           < 0x4 0x0 &gpio0 0x1b 0x0 >,
+		           < 0x3 0x0 &gpio0 0x16 0x0 >,
+		           < 0x2 0x0 &gpio0 0xd 0x0 >,
+		           < 0x1 0x0 &gpio0 0xc 0x0 >,
+		           < 0x0 0x0 &gpio0 0xb 0x0 >;     /* in zephyr/boards/adi/max32672fthr/max32672fthr.dts:70 */
+	};
+};

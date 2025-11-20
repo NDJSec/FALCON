@@ -1,0 +1,462 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;        /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;           /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "QEMU Cortex-R5";        /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:12 */
+	compatible = "xlnx,zynqmp-qemu"; /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:13 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &sram0;       /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:21 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:22 */
+		zephyr,console = &uart0;    /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:23 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:24 */
+		zephyr,ocm = &ocm;          /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:25 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-r.dtsi:10 */
+	soc {
+		#address-cells = < 0x1 >;    /* in zephyr/dts/arm/armv7-r.dtsi:11 */
+		#size-cells = < 0x1 >;       /* in zephyr/dts/arm/armv7-r.dtsi:12 */
+		compatible = "simple-bus";   /* in zephyr/dts/arm/armv7-r.dtsi:13 */
+		ranges;                      /* in zephyr/dts/arm/armv7-r.dtsi:14 */
+		interrupt-parent = < &gic >; /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:98 */
+
+		/* node '/soc/pinctrl@ff180000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:14 */
+		pinctrl: pinctrl@ff180000 {
+			reg = < 0xff180000 0xc80 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:15 */
+			compatible = "xlnx,pinctrl-zynqmp"; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:16 */
+		};
+
+		/* node '/soc/flash@c0000000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:19 */
+		flash0: flash@c0000000 {
+			compatible = "soc-nv-flash";    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:20 */
+			reg = < 0xc0000000 0x2000000 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:21 */
+		};
+
+		/* node '/soc/memory@fffc0000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:24 */
+		ocm: memory@fffc0000 {
+			compatible = "zephyr,memory-region",
+			             "xlnx,zynq-ocm";        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:25 */
+			reg = < 0xfffc0000 0x40000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:26 */
+			zephyr,memory-region = "OCM";        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:27 */
+		};
+
+		/* node '/soc/uart@ff000000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:30 */
+		uart0: uart@ff000000 {
+			compatible = "xlnx,xuartps";        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:31 */
+			reg = < 0xff000000 0x4c >;          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:32 */
+			interrupts = < 0x0 0x15 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:34 */
+			interrupt-names = "irq_0";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:36 */
+			status = "okay";                    /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:30 */
+			current-speed = < 0x1c200 >;        /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:31 */
+			clock-frequency = < 0x5f5e09d >;    /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:32 */
+		};
+
+		/* node '/soc/uart@ff010000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:39 */
+		uart1: uart@ff010000 {
+			compatible = "xlnx,xuartps";        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:40 */
+			reg = < 0xff010000 0x4c >;          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:41 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:42 */
+			interrupts = < 0x0 0x16 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:43 */
+			interrupt-names = "irq_0";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:45 */
+		};
+
+		/* node '/soc/timer@ff110000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:48 */
+		ttc0: timer@ff110000 {
+			compatible = "xlnx,ttcps";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:49 */
+			interrupts = < 0x0 0x24 0x2 0xa0 >,
+			             < 0x0 0x25 0x2 0xa0 >,
+			             < 0x0 0x26 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:51 */
+			interrupt-names = "irq_0",
+			                  "irq_1",
+			                  "irq_2";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:57 */
+			reg = < 0xff110000 0x1000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:58 */
+			status = "okay";                    /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:36 */
+			clock-frequency = < 0x4c4b40 >;     /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:37 */
+		};
+
+		/* node '/soc/timer@ff120000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:61 */
+		ttc1: timer@ff120000 {
+			compatible = "xlnx,ttcps";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:62 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:63 */
+			interrupts = < 0x0 0x27 0x2 0xa0 >,
+			             < 0x0 0x28 0x2 0xa0 >,
+			             < 0x0 0x29 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:64 */
+			interrupt-names = "irq_0",
+			                  "irq_1",
+			                  "irq_2";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:70 */
+			reg = < 0xff120000 0x1000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:71 */
+		};
+
+		/* node '/soc/timer@ff130000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:74 */
+		ttc2: timer@ff130000 {
+			compatible = "xlnx,ttcps";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:75 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:76 */
+			interrupts = < 0x0 0x2a 0x2 0xa0 >,
+			             < 0x0 0x2b 0x2 0xa0 >,
+			             < 0x0 0x2c 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:77 */
+			interrupt-names = "irq_0",
+			                  "irq_1",
+			                  "irq_2";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:83 */
+			reg = < 0xff130000 0x1000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:84 */
+		};
+
+		/* node '/soc/timer@ff140000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:87 */
+		ttc3: timer@ff140000 {
+			compatible = "xlnx,ttcps";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:88 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:89 */
+			interrupts = < 0x0 0x2d 0x2 0xa0 >,
+			             < 0x0 0x2e 0x2 0xa0 >,
+			             < 0x0 0x2f 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:90 */
+			interrupt-names = "irq_0",
+			                  "irq_1",
+			                  "irq_2";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:96 */
+			reg = < 0xff140000 0x1000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:97 */
+		};
+
+		/* node '/soc/ethernet@ff0b0000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:100 */
+		gem0: ethernet@ff0b0000 {
+			compatible = "xlnx,gem";            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:101 */
+			reg = < 0xff0b0000 0x1000 >,
+			      < 0xff5e0050 0x4 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:102 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:104 */
+			interrupts = < 0x0 0x39 0x2 0xa0 >,
+			             < 0x0 0x3a 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:105 */
+			interrupt-names = "irq_0",
+			                  "irq_1";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:109 */
+			mdio-phy-address = < 0x0 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:110 */
+			phy-poll-interval = < 0x3e8 >;      /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:111 */
+			link-speed = < 0x2 >;               /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:112 */
+			amba-ahb-burst-length = < 0x1 >;    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:113 */
+			hw-rx-buffer-size = < 0x3 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:114 */
+			hw-rx-buffer-offset = < 0x0 >;      /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:115 */
+			hw-tx-buffer-size-full;             /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:116 */
+			rx-buffer-descriptors = < 0x20 >;   /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:117 */
+			tx-buffer-descriptors = < 0x20 >;   /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:118 */
+			rx-buffer-size = < 0x200 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:119 */
+			tx-buffer-size = < 0x200 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:120 */
+			discard-rx-fcs;                     /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:121 */
+			unicast-hash;                       /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:122 */
+			full-duplex;                        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:123 */
+		};
+
+		/* node '/soc/ethernet@ff0c0000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:126 */
+		gem1: ethernet@ff0c0000 {
+			compatible = "xlnx,gem";            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:127 */
+			reg = < 0xff0c0000 0x1000 >,
+			      < 0xff5e0054 0x4 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:128 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:130 */
+			interrupts = < 0x0 0x3b 0x2 0xa0 >,
+			             < 0x0 0x3c 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:131 */
+			interrupt-names = "irq_0",
+			                  "irq_1";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:135 */
+			mdio-phy-address = < 0x0 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:136 */
+			phy-poll-interval = < 0x3e8 >;      /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:137 */
+			link-speed = < 0x2 >;               /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:138 */
+			amba-ahb-burst-length = < 0x1 >;    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:139 */
+			hw-rx-buffer-size = < 0x3 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:140 */
+			hw-rx-buffer-offset = < 0x0 >;      /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:141 */
+			hw-tx-buffer-size-full;             /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:142 */
+			rx-buffer-descriptors = < 0x20 >;   /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:143 */
+			tx-buffer-descriptors = < 0x20 >;   /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:144 */
+			rx-buffer-size = < 0x200 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:145 */
+			tx-buffer-size = < 0x200 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:146 */
+			discard-rx-fcs;                     /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:147 */
+			unicast-hash;                       /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:148 */
+			full-duplex;                        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:149 */
+		};
+
+		/* node '/soc/ethernet@ff0d0000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:152 */
+		gem2: ethernet@ff0d0000 {
+			compatible = "xlnx,gem";            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:153 */
+			reg = < 0xff0d0000 0x1000 >,
+			      < 0xff5e0058 0x4 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:154 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:156 */
+			interrupts = < 0x0 0x3d 0x2 0xa0 >,
+			             < 0x0 0x3e 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:157 */
+			interrupt-names = "irq_0",
+			                  "irq_1";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:161 */
+			mdio-phy-address = < 0x0 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:162 */
+			phy-poll-interval = < 0x3e8 >;      /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:163 */
+			link-speed = < 0x2 >;               /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:164 */
+			amba-ahb-burst-length = < 0x1 >;    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:165 */
+			hw-rx-buffer-size = < 0x3 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:166 */
+			hw-rx-buffer-offset = < 0x0 >;      /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:167 */
+			hw-tx-buffer-size-full;             /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:168 */
+			rx-buffer-descriptors = < 0x20 >;   /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:169 */
+			tx-buffer-descriptors = < 0x20 >;   /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:170 */
+			rx-buffer-size = < 0x200 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:171 */
+			tx-buffer-size = < 0x200 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:172 */
+			discard-rx-fcs;                     /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:173 */
+			unicast-hash;                       /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:174 */
+			full-duplex;                        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:175 */
+		};
+
+		/* node '/soc/ethernet@ff0e0000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:178 */
+		gem3: ethernet@ff0e0000 {
+			compatible = "xlnx,gem";            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:179 */
+			reg = < 0xff0e0000 0x1000 >,
+			      < 0xff5e005c 0x4 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:180 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:182 */
+			interrupts = < 0x0 0x3f 0x2 0xa0 >,
+			             < 0x0 0x40 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:183 */
+			interrupt-names = "irq_0",
+			                  "irq_1";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:187 */
+			mdio-phy-address = < 0x0 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:188 */
+			phy-poll-interval = < 0x3e8 >;      /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:189 */
+			link-speed = < 0x2 >;               /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:190 */
+			amba-ahb-burst-length = < 0x1 >;    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:191 */
+			hw-rx-buffer-size = < 0x3 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:192 */
+			hw-rx-buffer-offset = < 0x0 >;      /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:193 */
+			hw-tx-buffer-size-full;             /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:194 */
+			rx-buffer-descriptors = < 0x20 >;   /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:195 */
+			tx-buffer-descriptors = < 0x20 >;   /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:196 */
+			rx-buffer-size = < 0x200 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:197 */
+			tx-buffer-size = < 0x200 >;         /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:198 */
+			discard-rx-fcs;                     /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:199 */
+			unicast-hash;                       /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:200 */
+			full-duplex;                        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:201 */
+		};
+
+		/* node '/soc/gpio@ff0a0000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:204 */
+		psgpio: gpio@ff0a0000 {
+			compatible = "xlnx,ps-gpio";        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:205 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:206 */
+			reg = < 0xff0a0000 0x1000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:207 */
+			interrupts = < 0x0 0x10 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:208 */
+			interrupt-names = "irq_0";          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:210 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:212 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:213 */
+
+			/* node '/soc/gpio@ff0a0000/psgpio_bank@0' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:215 */
+			psgpio_bank0: psgpio_bank@0 {
+				compatible = "xlnx,ps-gpio-bank"; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:216 */
+				reg = < 0x0 >;                    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:217 */
+				gpio-controller;                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:218 */
+				#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:219 */
+				ngpios = < 0x1a >;                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:220 */
+				status = "okay";                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:221 */
+			};
+
+			/* node '/soc/gpio@ff0a0000/psgpio_bank@1' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:224 */
+			psgpio_bank1: psgpio_bank@1 {
+				compatible = "xlnx,ps-gpio-bank"; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:225 */
+				reg = < 0x1 >;                    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:226 */
+				gpio-controller;                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:227 */
+				#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:228 */
+				ngpios = < 0x1a >;                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:229 */
+				status = "okay";                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:230 */
+			};
+
+			/* node '/soc/gpio@ff0a0000/psgpio_bank@2' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:233 */
+			psgpio_bank2: psgpio_bank@2 {
+				compatible = "xlnx,ps-gpio-bank"; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:234 */
+				reg = < 0x2 >;                    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:235 */
+				gpio-controller;                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:236 */
+				#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:237 */
+				ngpios = < 0x1a >;                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:238 */
+				status = "okay";                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:239 */
+			};
+
+			/* node '/soc/gpio@ff0a0000/psgpio_bank@3' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:242 */
+			psgpio_bank3: psgpio_bank@3 {
+				compatible = "xlnx,ps-gpio-bank"; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:243 */
+				reg = < 0x3 >;                    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:244 */
+				gpio-controller;                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:245 */
+				#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:246 */
+				ngpios = < 0x20 >;                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:247 */
+				status = "okay";                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:248 */
+			};
+
+			/* node '/soc/gpio@ff0a0000/psgpio_bank@4' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:251 */
+			psgpio_bank4: psgpio_bank@4 {
+				compatible = "xlnx,ps-gpio-bank"; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:252 */
+				reg = < 0x4 >;                    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:253 */
+				gpio-controller;                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:254 */
+				#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:255 */
+				ngpios = < 0x20 >;                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:256 */
+				status = "okay";                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:257 */
+			};
+
+			/* node '/soc/gpio@ff0a0000/psgpio_bank@5' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:260 */
+			psgpio_bank5: psgpio_bank@5 {
+				compatible = "xlnx,ps-gpio-bank"; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:261 */
+				reg = < 0x5 >;                    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:262 */
+				gpio-controller;                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:263 */
+				#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:264 */
+				ngpios = < 0x20 >;                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:265 */
+				status = "okay";                  /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:266 */
+			};
+		};
+
+		/* node '/soc/i2c@ff020000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:270 */
+		i2c0: i2c@ff020000 {
+			compatible = "cdns,i2c";            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:271 */
+			reg = < 0xff020000 0x1000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:272 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:273 */
+			interrupts = < 0x0 0x11 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:274 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:276 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:277 */
+			fifo-depth = < 0x10 >;              /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:278 */
+		};
+
+		/* node '/soc/i2c@ff030000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:281 */
+		i2c1: i2c@ff030000 {
+			compatible = "cdns,i2c";            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:282 */
+			reg = < 0xff030000 0x1000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:283 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:284 */
+			interrupts = < 0x0 0x12 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:285 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:287 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:288 */
+			fifo-depth = < 0x10 >;              /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:289 */
+		};
+
+		/* node '/soc/memory-controller@fd070000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:292 */
+		mc: memory-controller@fd070000 {
+			compatible = "xlnx,zynqmp-ddrc-2.40a"; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:293 */
+			status = "disabled";                   /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:294 */
+			interrupts = < 0x0 0x70 0x2 0xa0 >;    /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:295 */
+			reg = < 0xfd070000 0x30000 >;          /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:297 */
+		};
+
+		/* node '/soc/spi@ff040000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:300 */
+		spi0: spi@ff040000 {
+			compatible = "cdns,spi";            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:301 */
+			reg = < 0xff040000 0x1000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:302 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:303 */
+			interrupts = < 0x0 0x13 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:304 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:306 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:307 */
+			fifo-width = < 0x8 >;               /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:308 */
+			rx-fifo-depth = < 0x80 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:309 */
+			tx-fifo-depth = < 0x80 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:310 */
+		};
+
+		/* node '/soc/spi@ff050000' defined in zephyr/dts/arm/xilinx/zynqmp.dtsi:313 */
+		spi1: spi@ff050000 {
+			compatible = "cdns,spi";            /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:314 */
+			reg = < 0xff050000 0x1000 >;        /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:315 */
+			status = "disabled";                /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:316 */
+			interrupts = < 0x0 0x14 0x2 0xa0 >; /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:317 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:319 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:320 */
+			fifo-width = < 0x8 >;               /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:321 */
+			rx-fifo-depth = < 0x80 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:322 */
+			tx-fifo-depth = < 0x80 >;           /* in zephyr/dts/arm/xilinx/zynqmp.dtsi:323 */
+		};
+
+		/* node '/soc/zynqmp-ipi@ff310000' defined in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:22 */
+		rpu0_ipi: zynqmp-ipi@ff310000 {
+			status = "disabled";                    /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:23 */
+			compatible = "xlnx,zynqmp-ipi-mailbox"; /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:24 */
+			#address-cells = < 0x1 >;               /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:25 */
+			#size-cells = < 0x1 >;                  /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:26 */
+			reg = < 0xff310000 0x10000 >;           /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:28 */
+			reg-names = "host_ipi_reg";             /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:29 */
+			interrupts = < 0x0 0x21 0x2 0xa0 >;     /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:30 */
+			local-ipi-id = < 0x1 >;                 /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:32 */
+
+			/* node '/soc/zynqmp-ipi@ff310000/mailbox@ff990200' defined in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:34 */
+			rpu0_apu_mailbox: mailbox@ff990200 {
+				remote-ipi-id = < 0x0 >;              /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:35 */
+				reg = < 0xff990200 0x20 >,
+				      < 0xff990220 0x20 >,
+				      < 0xff990040 0x20 >,
+				      < 0xff990060 0x20 >;            /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:36 */
+				reg-names = "local_request_region",
+				            "local_response_region",
+				            "remote_request_region",
+				            "remote_response_region"; /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:40 */
+			};
+
+			/* node '/soc/zynqmp-ipi@ff310000/mailbox@ff990260' defined in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:46 */
+			rpu0_rpu1_mailbox: mailbox@ff990260 {
+				remote-ipi-id = < 0x2 >;              /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:47 */
+				reg = < 0xff990260 0x20 >,
+				      < 0xff990280 0x20 >,
+				      < 0xff990420 0x20 >,
+				      < 0xff990440 0x20 >;            /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:48 */
+				reg-names = "local_request_region",
+				            "local_response_region",
+				            "remote_request_region",
+				            "remote_response_region"; /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:53 */
+			};
+		};
+
+		/* node '/soc/zynqmp-ipi@ff320000' defined in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:60 */
+		rpu1_ipi: zynqmp-ipi@ff320000 {
+			status = "disabled";                    /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:61 */
+			#address-cells = < 0x1 >;               /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:62 */
+			#size-cells = < 0x1 >;                  /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:63 */
+			compatible = "xlnx,zynqmp-ipi-mailbox"; /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:64 */
+			local-ipi-id = < 0x2 >;                 /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:65 */
+			reg = < 0xff320000 0x10000 >;           /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:67 */
+			reg-names = "host_ipi_reg";             /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:68 */
+			interrupts = < 0x0 0x22 0x2 0xa0 >;     /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:70 */
+
+			/* node '/soc/zynqmp-ipi@ff320000/mailbox@ff990400' defined in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:73 */
+			rpu1_apu_mailbox: mailbox@ff990400 {
+				remote-ipi-id = < 0x0 >;              /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:74 */
+				reg = < 0xff990400 0x20 >,
+				      < 0xff990420 0x20 >,
+				      < 0xff990080 0x20 >,
+				      < 0xff9900a0 0x20 >;            /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:75 */
+				reg-names = "local_request_region",
+				            "local_response_region",
+				            "remote_request_region",
+				            "remote_response_region"; /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:79 */
+			};
+
+			/* node '/soc/zynqmp-ipi@ff320000/mailbox@ff990420' defined in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:85 */
+			rpu1_rpu0_mailbox: mailbox@ff990420 {
+				remote-ipi-id = < 0x1 >;              /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:86 */
+				reg = < 0xff990420 0x20 >,
+				      < 0xff990440 0x20 >,
+				      < 0xff990260 0x20 >,
+				      < 0xff990280 0x20 >;            /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:87 */
+				reg-names = "local_request_region",
+				            "local_response_region",
+				            "remote_request_region",
+				            "remote_response_region"; /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:91 */
+			};
+		};
+
+		/* node '/soc/interrupt-controller@f9000000' defined in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:100 */
+		gic: interrupt-controller@f9000000 {
+			compatible = "arm,gic-v1",
+			             "arm,gic";      /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:101 */
+			reg = < 0xf9000000 0x1000 >,
+			      < 0xf9001000 0x100 >;  /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:102 */
+			interrupt-controller;        /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:104 */
+			#interrupt-cells = < 0x4 >;  /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:105 */
+			status = "okay";             /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:106 */
+			phandle = < 0x1 >;           /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:98 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:10 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:11 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:12 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:14 */
+		cpu@0 {
+			device_type = "cpu";           /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:15 */
+			compatible = "arm,cortex-r5f"; /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:16 */
+			reg = < 0x0 >;                 /* in zephyr/dts/arm/xilinx/zynqmp_rpu.dtsi:17 */
+		};
+	};
+
+	/* node '/memory@4000000' defined in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:15 */
+	sram0: memory@4000000 {
+		compatible = "mmio-sram";      /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:16 */
+		reg = < 0x4000000 0x4000000 >; /* in zephyr/boards/qemu/cortex_r5/qemu_cortex_r5.dts:17 */
+	};
+};

@@ -1,0 +1,226 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:11 */
+/ {
+	#address-cells = < 0x1 >;       /* in zephyr/dts/riscv/egis/egis_et171.dtsi:12 */
+	#size-cells = < 0x1 >;          /* in zephyr/dts/riscv/egis/egis_et171.dtsi:13 */
+	model = "Egis ET171C";          /* in zephyr/boards/egis/egis_et171/egis_et171.dts:12 */
+	compatible = "egis,egis_et171"; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:13 */
+
+	/* node '/cpus' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:15 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:16 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/riscv/egis/egis_et171.dtsi:17 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:19 */
+		cpu0: cpu@0 {
+			compatible = "andestech,andescore-v5",
+			             "riscv";                   /* in zephyr/dts/riscv/egis/egis_et171.dtsi:20 */
+			device_type = "cpu";                    /* in zephyr/dts/riscv/egis/egis_et171.dtsi:21 */
+			reg = < 0x0 >;                          /* in zephyr/dts/riscv/egis/egis_et171.dtsi:22 */
+			riscv,isa = "rv32imafc_zicsr_zifencei"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:23 */
+			mmu-type = "riscv,sv32";                /* in zephyr/dts/riscv/egis/egis_et171.dtsi:24 */
+			i-cache-line-size = < 0x20 >;           /* in zephyr/dts/riscv/egis/egis_et171.dtsi:25 */
+			d-cache-line-size = < 0x20 >;           /* in zephyr/dts/riscv/egis/egis_et171.dtsi:26 */
+
+			/* node '/cpus/cpu@0/interrupt-controller' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:28 */
+			cpu0_intc: interrupt-controller {
+				compatible = "riscv,cpu-intc"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:29 */
+				#address-cells = < 0x0 >;      /* in zephyr/dts/riscv/egis/egis_et171.dtsi:30 */
+				#interrupt-cells = < 0x1 >;    /* in zephyr/dts/riscv/egis/egis_et171.dtsi:31 */
+				interrupt-controller;          /* in zephyr/dts/riscv/egis/egis_et171.dtsi:32 */
+				phandle = < 0x1 >;             /* in zephyr/dts/riscv/egis/egis_et171.dtsi:57 */
+			};
+		};
+	};
+
+	/* node '/memory@0' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:37 */
+	sram: memory@0 {
+		device_type = "memory";   /* in zephyr/dts/riscv/egis/egis_et171.dtsi:38 */
+		compatible = "mmio-sram"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:39 */
+		reg = < 0x0 0x60000 >;    /* in zephyr/dts/riscv/egis/egis_et171.dtsi:40 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:43 */
+	soc {
+		#address-cells = < 0x1 >;  /* in zephyr/dts/riscv/egis/egis_et171.dtsi:44 */
+		#size-cells = < 0x1 >;     /* in zephyr/dts/riscv/egis/egis_et171.dtsi:45 */
+		compatible = "egis,et171"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:46 */
+		ranges;                    /* in zephyr/dts/riscv/egis/egis_et171.dtsi:47 */
+
+		/* node '/soc/interrupt-controller@e4000000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:49 */
+		plic0: interrupt-controller@e4000000 {
+			compatible = "sifive,plic-1.0.0",
+			             "andestech,nceplic100";      /* in zephyr/dts/riscv/egis/egis_et171.dtsi:50 */
+			#address-cells = < 0x1 >;                 /* in zephyr/dts/riscv/egis/egis_et171.dtsi:51 */
+			#interrupt-cells = < 0x2 >;               /* in zephyr/dts/riscv/egis/egis_et171.dtsi:52 */
+			interrupt-controller;                     /* in zephyr/dts/riscv/egis/egis_et171.dtsi:53 */
+			reg = < 0xe4000000 0x2000000 >;           /* in zephyr/dts/riscv/egis/egis_et171.dtsi:54 */
+			riscv,max-priority = < 0xff >;            /* in zephyr/dts/riscv/egis/egis_et171.dtsi:55 */
+			riscv,ndev = < 0x3ff >;                   /* in zephyr/dts/riscv/egis/egis_et171.dtsi:56 */
+			interrupts-extended = < &cpu0_intc 0xb >; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:57 */
+			status = "okay";                          /* in zephyr/boards/egis/egis_et171/egis_et171.dts:59 */
+			phandle = < 0x2 >;                        /* in zephyr/dts/riscv/egis/egis_et171.dtsi:89 */
+		};
+
+		/* node '/soc/interrupt-controller@e6400000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:60 */
+		plic_sw: interrupt-controller@e6400000 {
+			compatible = "sifive,plic-1.0.0",
+			             "andestech,nceplic100";      /* in zephyr/dts/riscv/egis/egis_et171.dtsi:61 */
+			#address-cells = < 0x1 >;                 /* in zephyr/dts/riscv/egis/egis_et171.dtsi:62 */
+			#interrupt-cells = < 0x2 >;               /* in zephyr/dts/riscv/egis/egis_et171.dtsi:63 */
+			interrupt-controller;                     /* in zephyr/dts/riscv/egis/egis_et171.dtsi:64 */
+			reg = < 0xe6400000 0x400000 >;            /* in zephyr/dts/riscv/egis/egis_et171.dtsi:65 */
+			riscv,max-priority = < 0xff >;            /* in zephyr/dts/riscv/egis/egis_et171.dtsi:66 */
+			riscv,ndev = < 0x3ff >;                   /* in zephyr/dts/riscv/egis/egis_et171.dtsi:67 */
+			interrupts-extended = < &cpu0_intc 0x3 >; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:68 */
+		};
+
+		/* node '/soc/timer@e6000000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:71 */
+		mtimer: timer@e6000000 {
+			compatible = "riscv,machine-timer";       /* in zephyr/dts/riscv/egis/egis_et171.dtsi:72 */
+			reg-names = "mtime",
+			            "mtimecmp";                   /* in zephyr/dts/riscv/egis/egis_et171.dtsi:73 */
+			reg = < 0xe6000000 0x8 0xe6000008 0x8 >;  /* in zephyr/dts/riscv/egis/egis_et171.dtsi:74 */
+			interrupts-extended = < &cpu0_intc 0x7 >; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:75 */
+		};
+
+		/* node '/soc/syscon@f0100000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:78 */
+		syscon: syscon@f0100000 {
+			compatible = "syscon",
+			             "egis,et171-aosmu"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:79 */
+			reg = < 0xf0100000 0x1000 >;     /* in zephyr/dts/riscv/egis/egis_et171.dtsi:80 */
+			status = "disabled";             /* in zephyr/dts/riscv/egis/egis_et171.dtsi:81 */
+		};
+
+		/* node '/soc/serial@f0200020' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:84 */
+		uart0: serial@f0200020 {
+			compatible = "ns16550";          /* in zephyr/dts/riscv/egis/egis_et171.dtsi:85 */
+			reg = < 0xf0200020 0x1000 >;     /* in zephyr/dts/riscv/egis/egis_et171.dtsi:86 */
+			reg-shift = < 0x2 >;             /* in zephyr/dts/riscv/egis/egis_et171.dtsi:87 */
+			interrupts = < 0x14 0x1 >;       /* in zephyr/dts/riscv/egis/egis_et171.dtsi:88 */
+			interrupt-parent = < &plic0 >;   /* in zephyr/dts/riscv/egis/egis_et171.dtsi:89 */
+			status = "okay";                 /* in zephyr/boards/egis/egis_et171/egis_et171.dts:63 */
+			clock-frequency = < 0x1133b0e >; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:64 */
+			current-speed = < 0x9600 >;      /* in zephyr/boards/egis/egis_et171/egis_et171.dts:65 */
+		};
+
+		/* node '/soc/pit@f0400000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:93 */
+		pit0: pit@f0400000 {
+			compatible = "andestech,atcpit100"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:94 */
+			reg = < 0xf0400000 0x1000 >;        /* in zephyr/dts/riscv/egis/egis_et171.dtsi:95 */
+			interrupts = < 0x16 0x1 >;          /* in zephyr/dts/riscv/egis/egis_et171.dtsi:96 */
+			interrupt-parent = < &plic0 >;      /* in zephyr/dts/riscv/egis/egis_et171.dtsi:97 */
+			clock-frequency = < 0x3938700 >;    /* in zephyr/dts/riscv/egis/egis_et171.dtsi:98 */
+			prescaler = < 0x258 >;              /* in zephyr/dts/riscv/egis/egis_et171.dtsi:99 */
+			status = "okay";                    /* in zephyr/boards/egis/egis_et171/egis_et171.dts:73 */
+		};
+
+		/* node '/soc/rtc@f0600000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:103 */
+		rtc0: rtc@f0600000 {
+			compatible = "andestech,atcrtc100"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:104 */
+			reg = < 0xf0600000 0x1000 >;        /* in zephyr/dts/riscv/egis/egis_et171.dtsi:105 */
+			interrupts = < 0x1f 0x1 >;          /* in zephyr/dts/riscv/egis/egis_et171.dtsi:106 */
+			interrupt-parent = < &plic0 >;      /* in zephyr/dts/riscv/egis/egis_et171.dtsi:107 */
+			wakeup-source;                      /* in zephyr/dts/riscv/egis/egis_et171.dtsi:108 */
+			status = "disabled";                /* in zephyr/dts/riscv/egis/egis_et171.dtsi:109 */
+		};
+
+		/* node '/soc/gpio@f0700000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:112 */
+		gpio0: gpio@f0700000 {
+			compatible = "andestech,atcgpio100"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:113 */
+			reg = < 0xf0700000 0x1000 >;         /* in zephyr/dts/riscv/egis/egis_et171.dtsi:114 */
+			interrupts = < 0x15 0x1 >;           /* in zephyr/dts/riscv/egis/egis_et171.dtsi:115 */
+			interrupt-parent = < &plic0 >;       /* in zephyr/dts/riscv/egis/egis_et171.dtsi:116 */
+			gpio-controller;                     /* in zephyr/dts/riscv/egis/egis_et171.dtsi:117 */
+			ngpios = < 0x11 >;                   /* in zephyr/dts/riscv/egis/egis_et171.dtsi:118 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/riscv/egis/egis_et171.dtsi:119 */
+			status = "okay";                     /* in zephyr/boards/egis/egis_et171/egis_et171.dts:69 */
+			phandle = < 0x3 >;                   /* in zephyr/boards/egis/egis_et171/egis_et171.dts:35 */
+		};
+
+		/* node '/soc/i2c@f0a00000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:123 */
+		i2c0: i2c@f0a00000 {
+			compatible = "andestech,atciic100"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:124 */
+			reg = < 0xf0a00000 0x1000 >;        /* in zephyr/dts/riscv/egis/egis_et171.dtsi:125 */
+			interrupts = < 0x13 0x1 >;          /* in zephyr/dts/riscv/egis/egis_et171.dtsi:126 */
+			interrupt-parent = < &plic0 >;      /* in zephyr/dts/riscv/egis/egis_et171.dtsi:127 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/riscv/egis/egis_et171.dtsi:128 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/riscv/egis/egis_et171.dtsi:129 */
+			status = "disabled";                /* in zephyr/dts/riscv/egis/egis_et171.dtsi:130 */
+		};
+
+		/* node '/soc/dma@f0c00000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:133 */
+		dma0: dma@f0c00000 {
+			compatible = "andestech,atcdmacx00"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:134 */
+			reg = < 0xf0c00000 0x1000 >;         /* in zephyr/dts/riscv/egis/egis_et171.dtsi:135 */
+			interrupts = < 0x10 0x1 >;           /* in zephyr/dts/riscv/egis/egis_et171.dtsi:136 */
+			interrupt-parent = < &plic0 >;       /* in zephyr/dts/riscv/egis/egis_et171.dtsi:137 */
+			dma-channels = < 0x8 >;              /* in zephyr/dts/riscv/egis/egis_et171.dtsi:138 */
+			dma-requests = < 0x10 >;             /* in zephyr/dts/riscv/egis/egis_et171.dtsi:139 */
+			chain-transfer = < 0x1 >;            /* in zephyr/dts/riscv/egis/egis_et171.dtsi:140 */
+			#dma-cells = < 0x3 >;                /* in zephyr/dts/riscv/egis/egis_et171.dtsi:141 */
+			status = "okay";                     /* in zephyr/boards/egis/egis_et171/egis_et171.dts:77 */
+		};
+
+		/* node '/soc/wdt@f0500000' defined in zephyr/dts/riscv/egis/egis_et171.dtsi:145 */
+		wdt: wdt@f0500000 {
+			compatible = "andestech,atcwdt200"; /* in zephyr/dts/riscv/egis/egis_et171.dtsi:146 */
+			reg = < 0xf0500000 0x1000 >;        /* in zephyr/dts/riscv/egis/egis_et171.dtsi:147 */
+			interrupts = < 0x14 0x1 >;          /* in zephyr/dts/riscv/egis/egis_et171.dtsi:148 */
+			interrupt-parent = < &plic0 >;      /* in zephyr/dts/riscv/egis/egis_et171.dtsi:149 */
+			status = "okay";                    /* in zephyr/boards/egis/egis_et171/egis_et171.dts:81 */
+		};
+	};
+
+	/* node '/aliases' defined in zephyr/boards/egis/egis_et171/egis_et171.dts:15 */
+	aliases {
+		watchdog0 = &wdt;  /* in zephyr/boards/egis/egis_et171/egis_et171.dts:16 */
+		led0 = &gpio_led0; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:17 */
+		led1 = &gpio_led1; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:18 */
+		gpio-0 = &gpio0;   /* in zephyr/boards/egis/egis_et171/egis_et171.dts:19 */
+		counter-0 = &pit0; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:20 */
+	};
+
+	/* node '/chosen' defined in zephyr/boards/egis/egis_et171/egis_et171.dts:23 */
+	chosen {
+		zephyr,console = &uart0;    /* in zephyr/boards/egis/egis_et171/egis_et171.dts:24 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:25 */
+		zephyr,sram = &sram;        /* in zephyr/boards/egis/egis_et171/egis_et171.dts:26 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/egis/egis_et171/egis_et171.dts:27 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/egis/egis_et171/egis_et171.dts:30 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:31 */
+
+		/* node '/leds/led0' defined in zephyr/boards/egis/egis_et171/egis_et171.dts:33 */
+		gpio_led0: led0 {
+			label = "LED0";             /* in zephyr/boards/egis/egis_et171/egis_et171.dts:34 */
+			gpios = < &gpio0 0x0 0x1 >; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:35 */
+		};
+
+		/* node '/leds/led1' defined in zephyr/boards/egis/egis_et171/egis_et171.dts:38 */
+		gpio_led1: led1 {
+			label = "LED1";             /* in zephyr/boards/egis/egis_et171/egis_et171.dts:39 */
+			gpios = < &gpio0 0x1 0x1 >; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:40 */
+		};
+	};
+
+	/* node '/flash@80000000' defined in zephyr/boards/egis/egis_et171/egis_et171.dts:44 */
+	flash0: flash@80000000 {
+		compatible = "soc-nv-flash";   /* in zephyr/boards/egis/egis_et171/egis_et171.dts:45 */
+		reg = < 0x80000000 0x100000 >; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:46 */
+	};
+
+	/* node '/clocks' defined in zephyr/boards/egis/egis_et171/egis_et171.dts:49 */
+	clocks {
+
+		/* node '/clocks/clk_mtimer' defined in zephyr/boards/egis/egis_et171/egis_et171.dts:50 */
+		clk_mtimer: clk_mtimer {
+			compatible = "fixed-clock";      /* in zephyr/boards/egis/egis_et171/egis_et171.dts:51 */
+			clock-frequency = < 0x1133b0e >; /* in zephyr/boards/egis/egis_et171/egis_et171.dts:52 */
+			status = "disabled";             /* in zephyr/boards/egis/egis_et171/egis_et171.dts:53 */
+		};
+	};
+};

@@ -1,0 +1,89 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                  /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                     /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "QEMU X86 (Lakemont) emulator";    /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:21 */
+	compatible = "qemu,x86_lakemont_emulator"; /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:22 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &dram0;       /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:29 */
+		zephyr,console = &uart0;    /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:30 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:31 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		uart-0 = &uart0; /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:25 */
+	};
+
+	/* node '/cpus' defined in zephyr/dts/x86/intel/lakemont.dtsi:11 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/x86/intel/lakemont.dtsi:12 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/x86/intel/lakemont.dtsi:13 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/x86/intel/lakemont.dtsi:15 */
+		cpu@0 {
+			device_type = "cpu";           /* in zephyr/dts/x86/intel/lakemont.dtsi:16 */
+			compatible = "intel,lakemont",
+			             "intel,x86";      /* in zephyr/dts/x86/intel/lakemont.dtsi:17 */
+			d-cache-line-size = < 0x40 >;  /* in zephyr/dts/x86/intel/lakemont.dtsi:18 */
+			reg = < 0x0 >;                 /* in zephyr/dts/x86/intel/lakemont.dtsi:19 */
+		};
+	};
+
+	/* node '/ioapic@fec00000' defined in zephyr/dts/x86/intel/lakemont.dtsi:23 */
+	intc: ioapic@fec00000 {
+		compatible = "intel,ioapic"; /* in zephyr/dts/x86/intel/lakemont.dtsi:24 */
+		reg = < 0xfec00000 0x1000 >; /* in zephyr/dts/x86/intel/lakemont.dtsi:25 */
+		interrupt-controller;        /* in zephyr/dts/x86/intel/lakemont.dtsi:26 */
+		#interrupt-cells = < 0x3 >;  /* in zephyr/dts/x86/intel/lakemont.dtsi:27 */
+		phandle = < 0x1 >;           /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:46 */
+	};
+
+	/* node '/loapic@fee00000' defined in zephyr/dts/x86/intel/lakemont.dtsi:30 */
+	intc_loapic: loapic@fee00000 {
+		compatible = "intel,loapic"; /* in zephyr/dts/x86/intel/lakemont.dtsi:31 */
+		reg = < 0xfee00000 0x1000 >; /* in zephyr/dts/x86/intel/lakemont.dtsi:32 */
+		interrupt-controller;        /* in zephyr/dts/x86/intel/lakemont.dtsi:33 */
+		#interrupt-cells = < 0x3 >;  /* in zephyr/dts/x86/intel/lakemont.dtsi:34 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/x86/intel/lakemont.dtsi:42 */
+	soc {
+		#address-cells = < 0x1 >;  /* in zephyr/dts/x86/intel/lakemont.dtsi:43 */
+		#size-cells = < 0x1 >;     /* in zephyr/dts/x86/intel/lakemont.dtsi:44 */
+		compatible = "simple-bus"; /* in zephyr/dts/x86/intel/lakemont.dtsi:45 */
+		ranges;                    /* in zephyr/dts/x86/intel/lakemont.dtsi:46 */
+
+		/* node '/soc/uart@3f8' defined in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:40 */
+		uart0: uart@3f8 {
+			compatible = "ns16550";         /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:41 */
+			reg = < 0x3f8 0x100 >;          /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:42 */
+			io-mapped;                      /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:43 */
+			clock-frequency = < 0x1c2000 >; /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:44 */
+			interrupts = < 0x4 0x100 0x3 >; /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:45 */
+			interrupt-parent = < &intc >;   /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:46 */
+			current-speed = < 0x1c200 >;    /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:47 */
+			reg-shift = < 0x2 >;            /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:48 */
+			status = "okay";                /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:49 */
+		};
+
+		/* node '/soc/hpet@fed00000' defined in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:52 */
+		hpet: hpet@fed00000 {
+			compatible = "intel,hpet";    /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:53 */
+			reg = < 0xfed00000 0x400 >;   /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:54 */
+			interrupts = < 0x2 0x0 0x4 >; /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:55 */
+			interrupt-parent = < &intc >; /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:56 */
+			status = "okay";              /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:58 */
+		};
+	};
+
+	/* node '/memory@0' defined in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:34 */
+	dram0: memory@0 {
+		device_type = "memory"; /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:35 */
+		reg = < 0x0 0x400000 >; /* in zephyr/boards/qemu/x86/qemu_x86_lakemont.dts:36 */
+	};
+};

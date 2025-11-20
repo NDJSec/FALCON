@@ -1,0 +1,733 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                                  /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                                     /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Silicon Labs BRD2605A (SiWx917 DK2605A Dev Kit)"; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:15 */
+	compatible = "silabs,siwx917_dk2605a",
+	             "silabs,siwg917";                             /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:16 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		silabs,sleeptimer = &sysrtc0;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:14 */
+		zephyr,entropy = &rng0;                  /* in zephyr/dts/arm/silabs/siwg917.dtsi:16 */
+		zephyr,flash = &flash0;                  /* in zephyr/dts/arm/silabs/siwg917.dtsi:17 */
+		zephyr,flash-controller = &flashctrl0;   /* in zephyr/dts/arm/silabs/siwg917.dtsi:18 */
+		zephyr,bt-hci = &bt_hci0;                /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:19 */
+		zephyr,code-partition = &code_partition; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:20 */
+		zephyr,console = &ulpuart;               /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:21 */
+		zephyr,shell-uart = &ulpuart;            /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:22 */
+		zephyr,sram = &sram0;                    /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:23 */
+		zephyr,uart-pipe = &ulpuart;             /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:24 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		dht0 = &si7021; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:28 */
+		led0 = &led0;   /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:29 */
+		led1 = &led1;   /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:30 */
+		led2 = &led2;   /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:31 */
+		sw0 = &button0; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:32 */
+		sw1 = &button1; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:33 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;               /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;                  /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		interrupt-parent = < &nvic >;           /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                                 /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+		compatible = "silabs,siwg917m111mgtba",
+		             "silabs,siwg917",
+		             "silabs,siwx91x",
+		             "simple-bus";              /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:13 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x6 >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:459 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/clock@46000000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:98 */
+		clock0: clock@46000000 {
+			compatible = "silabs,siwx91x-clock"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:99 */
+			reg = < 0x46000000 0x100 >,
+			      < 0x46000800 0x100 >,
+			      < 0x24041400 0x100 >,
+			      < 0x24048000 0x200 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:100 */
+			#clock-cells = < 0x1 >;              /* in zephyr/dts/arm/silabs/siwg917.dtsi:104 */
+			status = "okay";                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:105 */
+			phandle = < 0x2 >;                   /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:117 */
+		};
+
+		/* node '/soc/pinctrl@46130000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:108 */
+		pinctrl0: pinctrl@46130000 {
+			compatible = "silabs,siwx91x-pinctrl"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:109 */
+			reg = < 0x46130000 0x1000 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:110 */
+
+			/* node '/soc/pinctrl@46130000/psram_default' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:9 */
+			psram_default: psram_default {
+				phandle = < 0x3 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:118 */
+
+				/* node '/soc/pinctrl@46130000/psram_default/group' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:10 */
+				group {
+					pinmux = < 0x10fcc043 >,
+					         < 0x11fcc053 >,
+					         < 0x12fcc063 >,
+					         < 0x14fcc083 >,
+					         < 0x15fcc093 >,
+					         < 0x13fcc073 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:11 */
+				};
+			};
+
+			/* node '/soc/pinctrl@46130000/ulpuart_default' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:20 */
+			ulpuart_default: ulpuart_default {
+				phandle = < 0x5 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:89 */
+
+				/* node '/soc/pinctrl@46130000/ulpuart_default/out' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:21 */
+				out {
+					pinmux = < 0xff0ffb04 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:22 */
+				};
+
+				/* node '/soc/pinctrl@46130000/ulpuart_default/in' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:25 */
+				in {
+					pinmux = < 0xff0ff904 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:26 */
+				};
+			};
+
+			/* node '/soc/pinctrl@46130000/ulpi2c_default' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:30 */
+			ulpi2c_default: ulpi2c_default {
+				phandle = < 0x6 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:97 */
+
+				/* node '/soc/pinctrl@46130000/ulpi2c_default/group' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:31 */
+				group {
+					pinmux = < 0xff13f604 >,
+					         < 0xff13f704 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a-pinctrl.dtsi:32 */
+				};
+			};
+		};
+
+		/* node '/soc/flash-controller@12000000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:113 */
+		flashctrl0: flash-controller@12000000 {
+			compatible = "silabs,siwx91x-flash-controller"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:114 */
+			reg = < 0x12000000 0x200 >;                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:115 */
+			#address-cells = < 0x1 >;                       /* in zephyr/dts/arm/silabs/siwg917.dtsi:116 */
+			#size-cells = < 0x1 >;                          /* in zephyr/dts/arm/silabs/siwg917.dtsi:117 */
+
+			/* node '/soc/flash-controller@12000000/flash@8000000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:119 */
+			flash0: flash@8000000 {
+				compatible = "soc-nv-flash";   /* in zephyr/dts/arm/silabs/siwg917.dtsi:120 */
+				write-block-size = < 0x1 >;    /* in zephyr/dts/arm/silabs/siwg917.dtsi:121 */
+				erase-block-size = < 0x1000 >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:122 */
+				reg = < 0x8000000 0x800000 >;  /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:19 */
+
+				/* node '/soc/flash-controller@12000000/flash@8000000/partitions' defined in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:21 */
+				partitions {
+					compatible = "fixed-partitions"; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:72 */
+					#address-cells = < 0x1 >;        /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:73 */
+					#size-cells = < 0x1 >;           /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:74 */
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@0' defined in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:27 */
+					mbr_nwp_partition: partition@0 {
+						label = "mbr_nwp";     /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:28 */
+						reg = < 0x0 0x11000 >; /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:29 */
+					};
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@11000' defined in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:32 */
+					code_nwp_partition: partition@11000 {
+						label = "code_nwp";         /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:33 */
+						reg = < 0x11000 0x1df000 >; /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:34 */
+					};
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@1f0000' defined in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:37 */
+					mbr_partition: partition@1f0000 {
+						label = "mbr";              /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:38 */
+						reg = < 0x1f0000 0x11000 >; /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:39 */
+					};
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@201000' defined in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:42 */
+					hdr_partition: partition@201000 {
+						label = "hdr";             /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:43 */
+						reg = < 0x201000 0x1000 >; /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:44 */
+					};
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@400000' defined in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:49 */
+					ota_swap_partition: partition@400000 {
+						label = "ota_swap";          /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:53 */
+						reg = < 0x400000 0x3cf000 >; /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:54 */
+					};
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@7cf000' defined in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:57 */
+					storage_nwp_partition: partition@7cf000 {
+						label = "storage_nwp";      /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:58 */
+						reg = < 0x7cf000 0x28000 >; /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:59 */
+					};
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@7f7000' defined in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:62 */
+					storage_shared_partition: partition@7f7000 {
+						label = "storage_shared";  /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:63 */
+						reg = < 0x7f7000 0x5000 >; /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:64 */
+					};
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@7fc000' defined in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:67 */
+					backup_bootloader_partition: partition@7fc000 {
+						label = "backup_bootloader"; /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:68 */
+						reg = < 0x7fc000 0x4000 >;   /* in zephyr/dts/arm/silabs/siwg917m111mgtba.dtsi:69 */
+					};
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@202000' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:76 */
+					code_partition: partition@202000 {
+						reg = < 0x202000 0x1f6000 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:77 */
+						label = "code_partition";    /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:78 */
+					};
+
+					/* node '/soc/flash-controller@12000000/flash@8000000/partitions/partition@3f8000' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:81 */
+					storage_partition: partition@3f8000 {
+						reg = < 0x3f8000 0x8000 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:82 */
+						label = "storage";         /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:83 */
+					};
+				};
+			};
+		};
+
+		/* node '/soc/memory-controller@12040000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:126 */
+		memc: memory-controller@12040000 {
+			compatible = "silabs,siwx91x-qspi-memory"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:127 */
+			reg = < 0x12040000 0x200 >;                /* in zephyr/dts/arm/silabs/siwg917.dtsi:128 */
+			#address-cells = < 0x1 >;                  /* in zephyr/dts/arm/silabs/siwg917.dtsi:129 */
+			#size-cells = < 0x1 >;                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:130 */
+			clocks = < &clock0 0xb >;                  /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:117 */
+			pinctrl-0 = < &psram_default >;            /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:118 */
+			pinctrl-names = "default";                 /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:119 */
+			device-id = [ 0D 5D 00 00 00 00 00 00 ];   /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:120 */
+			fast-freq = < 0x8954400 >;                 /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:121 */
+			normal-freq = < 0x1f78a40 >;               /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:122 */
+			status = "okay";                           /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:123 */
+
+			/* node '/soc/memory-controller@12040000/psram@a000000' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:125 */
+			psram: psram@a000000 {
+				compatible = "zephyr,memory-region",
+				             "mmio-sram";            /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:126 */
+				reg = < 0xa000000 0x800000 >;        /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:127 */
+				zephyr,memory-attr = < 0x100000 >;   /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:128 */
+				zephyr,memory-region = "psram";      /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:129 */
+			};
+		};
+
+		/* node '/soc/siwx91x-soc-pd' defined in zephyr/dts/arm/silabs/siwg917.dtsi:134 */
+		siwx91x_soc_pd: siwx91x-soc-pd {
+			compatible = "silabs,siwx91x-power-domain"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:135 */
+			#power-domain-cells = < 0x0 >;              /* in zephyr/dts/arm/silabs/siwg917.dtsi:136 */
+			zephyr,pm-device-runtime-auto;              /* in zephyr/dts/arm/silabs/siwg917.dtsi:137 */
+			status = "okay";                            /* in zephyr/dts/arm/silabs/siwg917.dtsi:138 */
+			phandle = < 0x4 >;                          /* in zephyr/dts/arm/silabs/siwg917.dtsi:148 */
+		};
+
+		/* node '/soc/uart@24041800' defined in zephyr/dts/arm/silabs/siwg917.dtsi:141 */
+		ulpuart: uart@24041800 {
+			compatible = "ns16550";              /* in zephyr/dts/arm/silabs/siwg917.dtsi:142 */
+			reg = < 0x24041800 0x1000 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:143 */
+			interrupts = < 0xc 0x0 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:144 */
+			reg-shift = < 0x2 >;                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:145 */
+			clocks = < &clock0 0x0 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:146 */
+			current-speed = < 0x1c200 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:147 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:148 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:149 */
+			pinctrl-0 = < &ulpuart_default >;    /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:89 */
+			pinctrl-names = "default";           /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:90 */
+			status = "okay";                     /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:91 */
+		};
+
+		/* node '/soc/uart@44000000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:153 */
+		uart0: uart@44000000 {
+			compatible = "ns16550";              /* in zephyr/dts/arm/silabs/siwg917.dtsi:154 */
+			reg = < 0x44000000 0x1000 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:155 */
+			interrupts = < 0x26 0x0 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:156 */
+			reg-shift = < 0x2 >;                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:157 */
+			clocks = < &clock0 0x3 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:158 */
+			current-speed = < 0x1c200 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:159 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:160 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:161 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:162 */
+		};
+
+		/* node '/soc/uart@45020000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:165 */
+		uart1: uart@45020000 {
+			compatible = "ns16550";              /* in zephyr/dts/arm/silabs/siwg917.dtsi:166 */
+			reg = < 0x45020000 0x1000 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:167 */
+			interrupts = < 0x27 0x0 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:168 */
+			reg-shift = < 0x2 >;                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:169 */
+			clocks = < &clock0 0x4 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:170 */
+			current-speed = < 0x1c200 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:171 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:172 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:173 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:174 */
+		};
+
+		/* node '/soc/rng@45090000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:177 */
+		rng0: rng@45090000 {
+			compatible = "silabs,siwx91x-rng"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:178 */
+			reg = < 0x45090000 0x8 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:179 */
+		};
+
+		/* node '/soc/egpio@46130000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:182 */
+		egpio0: egpio@46130000 {
+			compatible = "silabs,siwx91x-gpio";  /* in zephyr/dts/arm/silabs/siwg917.dtsi:183 */
+			reg = < 0x46130000 0x1260 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:184 */
+			interrupts = < 0x34 0x0 >,
+			             < 0x35 0x0 >,
+			             < 0x36 0x0 >,
+			             < 0x37 0x0 >,
+			             < 0x38 0x0 >,
+			             < 0x39 0x0 >,
+			             < 0x3a 0x0 >,
+			             < 0x3b 0x0 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:185 */
+			interrupt-names = "PIN0",
+			                  "PIN1",
+			                  "PIN2",
+			                  "PIN3",
+			                  "PIN4",
+			                  "PIN5",
+			                  "PIN6",
+			                  "PIN7";            /* in zephyr/dts/arm/silabs/siwg917.dtsi:187 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:190 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:191 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:192 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:193 */
+
+			/* node '/soc/egpio@46130000/gpio@0' defined in zephyr/dts/arm/silabs/siwg917.dtsi:195 */
+			gpioa: gpio@0 {
+				compatible = "silabs,siwx91x-gpio-port";                           /* in zephyr/dts/arm/silabs/siwg917.dtsi:196 */
+				reg = < 0x0 >;                                                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:197 */
+				gpio-controller;                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:198 */
+				#gpio-cells = < 0x2 >;                                             /* in zephyr/dts/arm/silabs/siwg917.dtsi:199 */
+				ngpios = < 0x10 >;                                                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:200 */
+				gpio-reserved-ranges = < 0x0 0x6 >;                                /* in zephyr/dts/arm/silabs/siwg917.dtsi:201 */
+				silabs,pads = [ FF FF FF FF FF FF 01 02 03 04 05 06 07 FF FF 08 ]; /* in zephyr/dts/arm/silabs/siwg917.dtsi:202 */
+				status = "okay";                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:203 */
+				phandle = < 0xa >;                                                 /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:40 */
+			};
+
+			/* node '/soc/egpio@46130000/gpio@1' defined in zephyr/dts/arm/silabs/siwg917.dtsi:206 */
+			gpiob: gpio@1 {
+				compatible = "silabs,siwx91x-gpio-port";                           /* in zephyr/dts/arm/silabs/siwg917.dtsi:207 */
+				reg = < 0x1 >;                                                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:208 */
+				gpio-controller;                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:209 */
+				#gpio-cells = < 0x2 >;                                             /* in zephyr/dts/arm/silabs/siwg917.dtsi:210 */
+				ngpios = < 0x10 >;                                                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:211 */
+				silabs,pads = [ FF FF FF FF FF FF FF FF FF 00 00 00 00 00 00 09 ]; /* in zephyr/dts/arm/silabs/siwg917.dtsi:212 */
+				status = "okay";                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:213 */
+			};
+
+			/* node '/soc/egpio@46130000/gpio@2' defined in zephyr/dts/arm/silabs/siwg917.dtsi:216 */
+			gpioc: gpio@2 {
+				compatible = "silabs,siwx91x-gpio-port";                           /* in zephyr/dts/arm/silabs/siwg917.dtsi:217 */
+				reg = < 0x2 >;                                                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:218 */
+				gpio-controller;                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:219 */
+				#gpio-cells = < 0x2 >;                                             /* in zephyr/dts/arm/silabs/siwg917.dtsi:220 */
+				ngpios = < 0x10 >;                                                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:221 */
+				silabs,pads = [ 09 09 09 FF FF FF FF FF FF FF FF FF FF FF 0A 0B ]; /* in zephyr/dts/arm/silabs/siwg917.dtsi:222 */
+				status = "okay";                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:223 */
+			};
+
+			/* node '/soc/egpio@46130000/gpio@3' defined in zephyr/dts/arm/silabs/siwg917.dtsi:226 */
+			gpiod: gpio@3 {
+				compatible = "silabs,siwx91x-gpio-port";                           /* in zephyr/dts/arm/silabs/siwg917.dtsi:227 */
+				reg = < 0x3 >;                                                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:228 */
+				gpio-controller;                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:229 */
+				#gpio-cells = < 0x2 >;                                             /* in zephyr/dts/arm/silabs/siwg917.dtsi:230 */
+				ngpios = < 0xa >;                                                  /* in zephyr/dts/arm/silabs/siwg917.dtsi:231 */
+				silabs,pads = [ 0C 0D 0E 0F 10 11 12 13 14 15 FF FF FF FF FF FF ]; /* in zephyr/dts/arm/silabs/siwg917.dtsi:232 */
+				status = "okay";                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:233 */
+				phandle = < 0xb >;                                                 /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:45 */
+			};
+		};
+
+		/* node '/soc/egpio@2404c000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:237 */
+		egpio1: egpio@2404c000 {
+			compatible = "silabs,siwx91x-gpio";  /* in zephyr/dts/arm/silabs/siwg917.dtsi:238 */
+			reg = < 0x2404c000 0x1260 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:239 */
+			interrupts = < 0x12 0x0 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:240 */
+			interrupt-names = "ULP";             /* in zephyr/dts/arm/silabs/siwg917.dtsi:241 */
+			silabs,ulp;                          /* in zephyr/dts/arm/silabs/siwg917.dtsi:242 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:244 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:245 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:246 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:247 */
+
+			/* node '/soc/egpio@2404c000/ulpgpio@0' defined in zephyr/dts/arm/silabs/siwg917.dtsi:249 */
+			ulpgpio: ulpgpio@0 {
+				compatible = "silabs,siwx91x-gpio-port";                           /* in zephyr/dts/arm/silabs/siwg917.dtsi:250 */
+				reg = < 0x0 >;                                                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:251 */
+				gpio-controller;                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:252 */
+				#gpio-cells = < 0x2 >;                                             /* in zephyr/dts/arm/silabs/siwg917.dtsi:253 */
+				ngpios = < 0xc >;                                                  /* in zephyr/dts/arm/silabs/siwg917.dtsi:254 */
+				gpio-reserved-ranges = < 0x3 0x1 >;                                /* in zephyr/dts/arm/silabs/siwg917.dtsi:255 */
+				silabs,pads = [ 16 17 18 19 1A 1B 1C 1D 1E 1F 20 21 FF FF FF FF ]; /* in zephyr/dts/arm/silabs/siwg917.dtsi:256 */
+				status = "okay";                                                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:257 */
+			};
+		};
+
+		/* node '/soc/uulpgpio@24048600' defined in zephyr/dts/arm/silabs/siwg917.dtsi:261 */
+		uulpgpio: uulpgpio@24048600 {
+			compatible = "silabs,siwx91x-gpio-uulp"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:262 */
+			reg = < 0x24048600 0x30 >,
+			      < 0x12080000 0x18 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:263 */
+			reg-names = "ret",
+			            "int";                       /* in zephyr/dts/arm/silabs/siwg917.dtsi:264 */
+			interrupts = < 0x15 0x0 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:265 */
+			interrupt-names = "UULP";                /* in zephyr/dts/arm/silabs/siwg917.dtsi:266 */
+			gpio-controller;                         /* in zephyr/dts/arm/silabs/siwg917.dtsi:268 */
+			#gpio-cells = < 0x2 >;                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:269 */
+			ngpios = < 0x5 >;                        /* in zephyr/dts/arm/silabs/siwg917.dtsi:270 */
+			status = "okay";                         /* in zephyr/dts/arm/silabs/siwg917.dtsi:271 */
+			phandle = < 0xc >;                       /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:59 */
+		};
+
+		/* node '/soc/i2c@24040000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:274 */
+		ulpi2c: zephyr_i2c: i2c@24040000 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:275 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:276 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/silabs/siwg917.dtsi:277 */
+			reg = < 0x24040000 0x100 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:278 */
+			interrupts = < 0xd 0x0 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:279 */
+			interrupt-names = "i2c2";           /* in zephyr/dts/arm/silabs/siwg917.dtsi:280 */
+			clocks = < &clock0 0x1 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:281 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:96 */
+			pinctrl-0 = < &ulpi2c_default >;    /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:97 */
+			pinctrl-names = "default";          /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:98 */
+			status = "okay";                    /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:99 */
+
+			/* node '/soc/i2c@24040000/veml6035@29' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:101 */
+			veml6035: veml6035@29 {
+				compatible = "vishay,veml7700"; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:102 */
+				reg = < 0x29 >;                 /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:103 */
+			};
+
+			/* node '/soc/i2c@24040000/si7021@40' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:106 */
+			si7021: si7021@40 {
+				compatible = "silabs,si7006"; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:107 */
+				reg = < 0x40 >;               /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:108 */
+			};
+		};
+
+		/* node '/soc/i2c@44010000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:285 */
+		i2c0: i2c@44010000 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:286 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:287 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/silabs/siwg917.dtsi:288 */
+			reg = < 0x44010000 0x100 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:289 */
+			interrupts = < 0x2a 0x0 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:290 */
+			interrupt-names = "i2c0";           /* in zephyr/dts/arm/silabs/siwg917.dtsi:291 */
+			clocks = < &clock0 0x5 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:292 */
+			status = "disabled";                /* in zephyr/dts/arm/silabs/siwg917.dtsi:293 */
+		};
+
+		/* node '/soc/i2c@47040000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:296 */
+		i2c1: i2c@47040000 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:297 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:298 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/silabs/siwg917.dtsi:299 */
+			reg = < 0x47040000 0x100 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:300 */
+			interrupts = < 0x3d 0x0 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:301 */
+			interrupt-names = "i2c1";           /* in zephyr/dts/arm/silabs/siwg917.dtsi:302 */
+			clocks = < &clock0 0x6 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:303 */
+			status = "disabled";                /* in zephyr/dts/arm/silabs/siwg917.dtsi:304 */
+		};
+
+		/* node '/soc/dma@24078000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:307 */
+		ulpdma: dma@24078000 {
+			compatible = "silabs,siwx91x-dma";   /* in zephyr/dts/arm/silabs/siwg917.dtsi:308 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:309 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:310 */
+			reg = < 0x24078000 0x82c >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:311 */
+			interrupts = < 0xa 0x0 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:312 */
+			interrupt-names = "ulpdma";          /* in zephyr/dts/arm/silabs/siwg917.dtsi:313 */
+			clocks = < &clock0 0x2 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:314 */
+			silabs,sram-region = < &sram_dma1 >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:315 */
+			#dma-cells = < 0x1 >;                /* in zephyr/dts/arm/silabs/siwg917.dtsi:316 */
+			dma-channels = < 0xc >;              /* in zephyr/dts/arm/silabs/siwg917.dtsi:317 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:318 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:319 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:320 */
+		};
+
+		/* node '/soc/dma@44030000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:323 */
+		dma0: dma@44030000 {
+			compatible = "silabs,siwx91x-dma";   /* in zephyr/dts/arm/silabs/siwg917.dtsi:324 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:325 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:326 */
+			reg = < 0x44030000 0x82c >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:327 */
+			interrupts = < 0x21 0x0 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:328 */
+			interrupt-names = "dma0";            /* in zephyr/dts/arm/silabs/siwg917.dtsi:329 */
+			clocks = < &clock0 0x7 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:330 */
+			#dma-cells = < 0x1 >;                /* in zephyr/dts/arm/silabs/siwg917.dtsi:331 */
+			dma-channels = < 0x20 >;             /* in zephyr/dts/arm/silabs/siwg917.dtsi:332 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:333 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:334 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:335 */
+		};
+
+		/* node '/soc/gpdma@21080000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:338 */
+		gpdma: gpdma@21080000 {
+			compatible = "silabs,gpdma";              /* in zephyr/dts/arm/silabs/siwg917.dtsi:339 */
+			#address-cells = < 0x1 >;                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:340 */
+			#size-cells = < 0x0 >;                    /* in zephyr/dts/arm/silabs/siwg917.dtsi:341 */
+			reg = < 0x21080000 0x1720 >;              /* in zephyr/dts/arm/silabs/siwg917.dtsi:342 */
+			interrupts = < 0x1f 0x0 >;                /* in zephyr/dts/arm/silabs/siwg917.dtsi:343 */
+			interrupt-names = "gpdma";                /* in zephyr/dts/arm/silabs/siwg917.dtsi:344 */
+			clocks = < &clock0 0x12 >;                /* in zephyr/dts/arm/silabs/siwg917.dtsi:345 */
+			silabs,channel-reg-base = < 0x21081004 >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:346 */
+			silabs,dma-channel-count = < 0x8 >;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:347 */
+			#dma-cells = < 0x2 >;                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:348 */
+			power-domains = < &siwx91x_soc_pd >;      /* in zephyr/dts/arm/silabs/siwg917.dtsi:349 */
+			zephyr,pm-device-runtime-auto;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:350 */
+			status = "disabled";                      /* in zephyr/dts/arm/silabs/siwg917.dtsi:351 */
+		};
+
+		/* node '/soc/pwm@47070000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:354 */
+		pwm: pwm@47070000 {
+			compatible = "silabs,siwx91x-pwm";             /* in zephyr/dts/arm/silabs/siwg917.dtsi:355 */
+			#address-cells = < 0x1 >;                      /* in zephyr/dts/arm/silabs/siwg917.dtsi:356 */
+			#size-cells = < 0x0 >;                         /* in zephyr/dts/arm/silabs/siwg917.dtsi:357 */
+			reg = < 0x47070000 0x14c >;                    /* in zephyr/dts/arm/silabs/siwg917.dtsi:358 */
+			interrupts = < 0x30 0x0 >;                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:359 */
+			interrupt-names = "pwm";                       /* in zephyr/dts/arm/silabs/siwg917.dtsi:360 */
+			clocks = < &clock0 0x9 >;                      /* in zephyr/dts/arm/silabs/siwg917.dtsi:361 */
+			#pwm-cells = < 0x2 >;                          /* in zephyr/dts/arm/silabs/siwg917.dtsi:362 */
+			silabs,ch-prescaler = < 0x40 0x40 0x40 0x40 >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:363 */
+			power-domains = < &siwx91x_soc_pd >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:364 */
+			zephyr,pm-device-runtime-auto;                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:365 */
+			status = "disabled";                           /* in zephyr/dts/arm/silabs/siwg917.dtsi:366 */
+		};
+
+		/* node '/soc/rtc@24048200' defined in zephyr/dts/arm/silabs/siwg917.dtsi:369 */
+		rtc0: rtc@24048200 {
+			compatible = "silabs,siwx91x-rtc"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:370 */
+			reg = < 0x24048200 0x40 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:371 */
+			interrupts = < 0x1c 0x0 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:372 */
+			interrupt-names = "rtc";           /* in zephyr/dts/arm/silabs/siwg917.dtsi:373 */
+			clocks = < &clock0 0xc >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:374 */
+			status = "disabled";               /* in zephyr/dts/arm/silabs/siwg917.dtsi:375 */
+		};
+
+		/* node '/soc/wdt@24048300' defined in zephyr/dts/arm/silabs/siwg917.dtsi:378 */
+		watchdog: wdt@24048300 {
+			compatible = "silabs,siwx91x-wdt"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:379 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:380 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/silabs/siwg917.dtsi:381 */
+			reg = < 0x24048300 0x1c >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:382 */
+			interrupts = < 0x14 0x0 >;         /* in zephyr/dts/arm/silabs/siwg917.dtsi:383 */
+			interrupt-names = "watchdog";      /* in zephyr/dts/arm/silabs/siwg917.dtsi:384 */
+			clocks = < &clock0 0x8 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:385 */
+			status = "okay";                   /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:142 */
+		};
+
+		/* node '/soc/sysrtc@24048c00' defined in zephyr/dts/arm/silabs/siwg917.dtsi:389 */
+		sysrtc0: sysrtc@24048c00 {
+			compatible = "silabs,sysrtc"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:390 */
+			reg = < 0x24048c00 0x78 >;    /* in zephyr/dts/arm/silabs/siwg917.dtsi:391 */
+			interrupts = < 0x16 0x0 >;    /* in zephyr/dts/arm/silabs/siwg917.dtsi:392 */
+			interrupt-names = "sysrtc";   /* in zephyr/dts/arm/silabs/siwg917.dtsi:393 */
+			clock-frequency = < 0x7d00 >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:394 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:395 */
+			status = "okay";              /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:113 */
+		};
+
+		/* node '/soc/spi@45030000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:399 */
+		spi0: spi@45030000 {
+			compatible = "silabs,gspi";          /* in zephyr/dts/arm/silabs/siwg917.dtsi:400 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:401 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:402 */
+			reg = < 0x45030000 0xbc >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:403 */
+			interrupts = < 0x2e 0x0 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:404 */
+			interrupt-names = "gspi";            /* in zephyr/dts/arm/silabs/siwg917.dtsi:405 */
+			clocks = < &clock0 0xa >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:406 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:407 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:408 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:409 */
+		};
+
+		/* node '/soc/i2s@47050000' defined in zephyr/dts/arm/silabs/siwg917.dtsi:412 */
+		i2s0: i2s@47050000 {
+			compatible = "silabs,siwx91x-i2s";   /* in zephyr/dts/arm/silabs/siwg917.dtsi:413 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:414 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:415 */
+			reg = < 0x47050000 0x200 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:416 */
+			interrupts = < 0x40 0x0 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:417 */
+			interrupt-names = "i2s0";            /* in zephyr/dts/arm/silabs/siwg917.dtsi:418 */
+			silabs,channel-group = < 0x0 >;      /* in zephyr/dts/arm/silabs/siwg917.dtsi:419 */
+			silabs,max-channel-count = < 0x2 >;  /* in zephyr/dts/arm/silabs/siwg917.dtsi:420 */
+			clocks = < &clock0 0xd >,
+			         < &clock0 0xe >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:421 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:422 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:423 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:424 */
+		};
+
+		/* node '/soc/i2s@24040400' defined in zephyr/dts/arm/silabs/siwg917.dtsi:427 */
+		ulpi2s: i2s@24040400 {
+			compatible = "silabs,siwx91x-i2s";   /* in zephyr/dts/arm/silabs/siwg917.dtsi:428 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:429 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:430 */
+			reg = < 0x24040400 0x200 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:431 */
+			interrupts = < 0xe 0x0 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:432 */
+			interrupt-names = "ulpi2s";          /* in zephyr/dts/arm/silabs/siwg917.dtsi:433 */
+			silabs,channel-group = < 0x0 >;      /* in zephyr/dts/arm/silabs/siwg917.dtsi:434 */
+			silabs,max-channel-count = < 0x1 >;  /* in zephyr/dts/arm/silabs/siwg917.dtsi:435 */
+			clocks = < &clock0 0xf >,
+			         < &clock0 0x10 >;           /* in zephyr/dts/arm/silabs/siwg917.dtsi:436 */
+			power-domains = < &siwx91x_soc_pd >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:438 */
+			zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:439 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:440 */
+		};
+
+		/* node '/soc/adc@24043800' defined in zephyr/dts/arm/silabs/siwg917.dtsi:443 */
+		adc0: adc@24043800 {
+			compatible = "silabs,siwx91x-adc";      /* in zephyr/dts/arm/silabs/siwg917.dtsi:444 */
+			#address-cells = < 0x1 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:445 */
+			#size-cells = < 0x0 >;                  /* in zephyr/dts/arm/silabs/siwg917.dtsi:446 */
+			reg = < 0x24043800 0x214 >;             /* in zephyr/dts/arm/silabs/siwg917.dtsi:447 */
+			interrupts = < 0xb 0x0 >;               /* in zephyr/dts/arm/silabs/siwg917.dtsi:448 */
+			interrupt-names = "adc0";               /* in zephyr/dts/arm/silabs/siwg917.dtsi:449 */
+			silabs,adc-sampling-rate = < 0x186a0 >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:450 */
+			clocks = < &clock0 0x11 >;              /* in zephyr/dts/arm/silabs/siwg917.dtsi:451 */
+			#io-channel-cells = < 0x1 >;            /* in zephyr/dts/arm/silabs/siwg917.dtsi:452 */
+			status = "disabled";                    /* in zephyr/dts/arm/silabs/siwg917.dtsi:453 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/silabs/siwg917.dtsi:21 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:22 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/silabs/siwg917.dtsi:23 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/silabs/siwg917.dtsi:25 */
+		cpu0: cpu@0 {
+			compatible = "arm,cortex-m4f";                                /* in zephyr/dts/arm/silabs/siwg917.dtsi:26 */
+			reg = < 0x0 >;                                                /* in zephyr/dts/arm/silabs/siwg917.dtsi:27 */
+			cpu-power-states = < &pstate_ps4_standby &pstate_ps4_sleep >; /* in zephyr/dts/arm/silabs/siwg917.dtsi:28 */
+		};
+
+		/* node '/cpus/power-states' defined in zephyr/dts/arm/silabs/siwg917.dtsi:31 */
+		power-states {
+
+			/* node '/cpus/power-states/ps4_standby' defined in zephyr/dts/arm/silabs/siwg917.dtsi:32 */
+			pstate_ps4_standby: ps4_standby {
+				compatible = "zephyr,power-state"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:33 */
+				power-state-name = "runtime-idle"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:34 */
+				phandle = < 0x8 >;                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:28 */
+			};
+
+			/* node '/cpus/power-states/ps4_sleep' defined in zephyr/dts/arm/silabs/siwg917.dtsi:37 */
+			pstate_ps4_sleep: ps4_sleep {
+				compatible = "zephyr,power-state";    /* in zephyr/dts/arm/silabs/siwg917.dtsi:38 */
+				power-state-name = "suspend-to-idle"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:39 */
+				min-residency-us = < 0x186a0 >;       /* in zephyr/dts/arm/silabs/siwg917.dtsi:40 */
+				exit-latency-us = < 0xbb8 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:41 */
+				phandle = < 0x9 >;                    /* in zephyr/dts/arm/silabs/siwg917.dtsi:28 */
+			};
+		};
+	};
+
+	/* node '/memory@0' defined in zephyr/dts/arm/silabs/siwg917.dtsi:49 */
+	nwp_reserved: memory@0 {
+		compatible = "zephyr,memory-region",
+		             "mmio-sram";                  /* in zephyr/dts/arm/silabs/siwg917.dtsi:50 */
+		reg = < 0x0 0x400 >;                       /* in zephyr/dts/arm/silabs/siwg917.dtsi:51 */
+		zephyr,memory-region = "NWP_RESERVED_RAM"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:52 */
+	};
+
+	/* node '/memory@400' defined in zephyr/dts/arm/silabs/siwg917.dtsi:55 */
+	sram0: memory@400 {
+		compatible = "mmio-sram"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:56 */
+		reg = < 0x400 0x3fc00 >;  /* in zephyr/dts/arm/silabs/siwg917.dtsi:67 */
+	};
+
+	/* node '/memory-dma@24061c00' defined in zephyr/dts/arm/silabs/siwg917.dtsi:70 */
+	sram_dma1: memory-dma@24061c00 {
+		compatible = "zephyr,memory-region",
+		             "mmio-sram";            /* in zephyr/dts/arm/silabs/siwg917.dtsi:71 */
+		reg = < 0x24061c00 0x400 >;          /* in zephyr/dts/arm/silabs/siwg917.dtsi:72 */
+		zephyr,memory-region = "dma1";       /* in zephyr/dts/arm/silabs/siwg917.dtsi:73 */
+		zephyr,memory-attr = < 0x200000 >;   /* in zephyr/dts/arm/silabs/siwg917.dtsi:74 */
+		phandle = < 0x7 >;                   /* in zephyr/dts/arm/silabs/siwg917.dtsi:315 */
+	};
+
+	/* node '/nwp' defined in zephyr/dts/arm/silabs/siwg917.dtsi:77 */
+	nwp: nwp {
+		compatible = "silabs,siwx91x-nwp";               /* in zephyr/dts/arm/silabs/siwg917.dtsi:78 */
+		power-profile = "deep-sleep-with-ram-retention"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:79 */
+		stack-size = < 0x2800 >;                         /* in zephyr/dts/arm/silabs/siwg917.dtsi:80 */
+		interrupt-parent = < &nvic >;                    /* in zephyr/dts/arm/silabs/siwg917.dtsi:81 */
+		interrupts = < 0x1e 0x0 >,
+		             < 0x4a 0x0 >;                       /* in zephyr/dts/arm/silabs/siwg917.dtsi:82 */
+		interrupt-names = "nwp_stack",
+		                  "nwp_irq";                     /* in zephyr/dts/arm/silabs/siwg917.dtsi:83 */
+		status = "okay";                                 /* in zephyr/dts/arm/silabs/siwg917.dtsi:84 */
+
+		/* node '/nwp/bt_hci' defined in zephyr/dts/arm/silabs/siwg917.dtsi:86 */
+		bt_hci0: bt_hci {
+			compatible = "silabs,siwx91x-bt-hci"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:87 */
+			status = "okay";                      /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:134 */
+		};
+
+		/* node '/nwp/wifi' defined in zephyr/dts/arm/silabs/siwg917.dtsi:91 */
+		wifi0: wifi {
+			compatible = "silabs,siwx91x-wifi"; /* in zephyr/dts/arm/silabs/siwg917.dtsi:92 */
+			status = "okay";                    /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:138 */
+		};
+	};
+
+	/* node '/leds' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:36 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:37 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:39 */
+		led0: led_0 {
+			gpios = < &gpioa 0xf 0x0 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:40 */
+			label = "LED0";             /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:41 */
+		};
+
+		/* node '/leds/led_1' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:44 */
+		led1: led_1 {
+			gpios = < &gpiod 0x2 0x0 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:45 */
+			label = "LED1";             /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:46 */
+		};
+
+		/* node '/leds/led_2' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:49 */
+		led2: led_2 {
+			gpios = < &gpiod 0x3 0x0 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:50 */
+			label = "LED2";             /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:51 */
+		};
+	};
+
+	/* node '/buttons' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:55 */
+	buttons {
+		compatible = "gpio-keys"; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:56 */
+
+		/* node '/buttons/button_0' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:58 */
+		button0: button_0 {
+			gpios = < &uulpgpio 0x2 0x1 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:59 */
+			zephyr,code = < 0xb >;         /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:60 */
+		};
+
+		/* node '/buttons/button_1' defined in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:63 */
+		button1: button_1 {
+			gpios = < &gpiod 0x1 0x1 >; /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:64 */
+			zephyr,code = < 0x2 >;      /* in zephyr/boards/silabs/dev_kits/siwx917_dk2605a/siwx917_dk2605a.dts:65 */
+		};
+	};
+};

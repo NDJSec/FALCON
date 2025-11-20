@@ -1,0 +1,828 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	model = "DA1469x series Development Kit Pro"; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:13 */
+	compatible = "renesas,da1469x_dk_pro";        /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:14 */
+	#address-cells = < 0x1 >;                     /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:15 */
+	#size-cells = < 0x1 >;                        /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:16 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,entropy = &trng;                      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:16 */
+		zephyr,flash-controller = &flash_controller; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:17 */
+		zephyr,sram = &sram0;                        /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:19 */
+		zephyr,flash = &flash0;                      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:20 */
+		zephyr,console = &uart;                      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:21 */
+		zephyr,shell-uart = &uart;                   /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:22 */
+		zephyr,code-partition = &slot0_partition;    /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:23 */
+		zephyr,bt-hci = &bt_hci_da1469x;             /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:24 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &red_led;    /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:125 */
+		watchdog0 = &wdog;  /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:126 */
+		sw0 = &user_button; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:127 */
+		rtc = &rtc;         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:128 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv8-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv8-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv8-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv8-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv8-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv8-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv8-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv8-m.dtsi:14 */
+			compatible = "arm,v8m-nvic";         /* in zephyr/dts/arm/armv8-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv8-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv8-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv8-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x4 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:437 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv8-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv8-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv8m-systick"; /* in zephyr/dts/arm/armv8-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv8-m.dtsi:23 */
+		};
+
+		/* node '/soc/memory@20000000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:174 */
+		sram0: memory@20000000 {
+			compatible = "mmio-sram";     /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:175 */
+			reg = < 0x20000000 0x80000 >; /* in zephyr/dts/arm/renesas/smartbond/da14699.dtsi:6 */
+		};
+
+		/* node '/soc/memory@32000000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:178 */
+		psram: memory@32000000 {
+			compatible = "zephyr,memory-region"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:179 */
+			device_type = "memory";              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:180 */
+			reg = < 0x32000000 0x2000000 >;      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:181 */
+			zephyr,memory-region = "PSRAM";      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:182 */
+			status = "disabled";                 /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:183 */
+		};
+
+		/* node '/soc/memory@16000000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:186 */
+		qspif: memory@16000000 {
+			compatible = "zephyr,memory-region"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:187 */
+			reg = < 0x16000000 0x2000000 >;      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:188 */
+			zephyr,memory-region = "QSPIF";      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:189 */
+		};
+
+		/* node '/soc/flash-controller@38000000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:192 */
+		flash_controller: flash-controller@38000000 {
+			compatible = "renesas,smartbond-flash-controller"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:193 */
+			reg = < 0x38000000 0xb0 >;                         /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:194 */
+			#address-cells = < 0x1 >;                          /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:196 */
+			#size-cells = < 0x1 >;                             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:197 */
+			read-cs-idle-delay = < 0x32 >;                     /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:199 */
+			erase-cs-idle-delay = < 0x32 >;                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:200 */
+
+			/* node '/soc/flash-controller@38000000/flash@16000000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:202 */
+			flash0: flash@16000000 {
+				compatible = "soc-nv-flash";   /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:203 */
+				erase-block-size = < 0x1000 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:204 */
+				write-block-size = < 0x1 >;    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:205 */
+				reg = < 0x16000000 0x400000 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:139 */
+
+				/* node '/soc/flash-controller@38000000/flash@16000000/partitions' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:141 */
+				partitions {
+					compatible = "fixed-partitions"; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:142 */
+					#address-cells = < 0x1 >;        /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:143 */
+					#size-cells = < 0x1 >;           /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:144 */
+
+					/* node '/soc/flash-controller@38000000/flash@16000000/partitions/partition@2400' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:159 */
+					boot_partition: partition@2400 {
+						label = "mcuboot";       /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:160 */
+						reg = < 0x2400 0xdc00 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:161 */
+					};
+
+					/* node '/soc/flash-controller@38000000/flash@16000000/partitions/partition@10000' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:163 */
+					slot0_partition: partition@10000 {
+						label = "image-0";         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:164 */
+						reg = < 0x10000 0x80000 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:165 */
+					};
+
+					/* node '/soc/flash-controller@38000000/flash@16000000/partitions/partition@90000' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:167 */
+					slot1_partition: partition@90000 {
+						label = "image-1";         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:168 */
+						reg = < 0x90000 0x80000 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:169 */
+					};
+
+					/* node '/soc/flash-controller@38000000/flash@16000000/partitions/partition@110000' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:171 */
+					storage_partition: partition@110000 {
+						label = "storage";         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:172 */
+						reg = < 0x110000 0x8000 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:173 */
+					};
+				};
+			};
+		};
+
+		/* node '/soc/pin-controller@50020a00' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:209 */
+		pinctrl: pin-controller@50020a00 {
+			compatible = "renesas,smartbond-pinctrl"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:210 */
+			reg = < 0x50020a00 0x100 >;               /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:211 */
+			#address-cells = < 0x1 >;                 /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:212 */
+			#size-cells = < 0x1 >;                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:213 */
+
+			/* node '/soc/pin-controller@50020a00/gpio@50020a00' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:215 */
+			gpio0: gpio@50020a00 {
+				compatible = "renesas,smartbond-gpio";                                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:216 */
+				gpio-controller;                                                          /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:217 */
+				#gpio-cells = < 0x2 >;                                                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:218 */
+				port = < 0x0 >;                                                           /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:219 */
+				ngpios = < 0x20 >;                                                        /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:220 */
+				reg = < 0x50020a00 0x14 0x50020a18 0x80 0x50000070 0xc 0x50000114 0x24 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:221 */
+				reg-names = "data",
+				            "mode",
+				            "latch",
+				            "wkup";                                                       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:225 */
+				interrupts = < 0x26 0x0 >;                                                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:226 */
+				status = "okay";                                                          /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:179 */
+				phandle = < 0x5 >;                                                        /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:191 */
+			};
+
+			/* node '/soc/pin-controller@50020a00/gpio@50020a04' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:229 */
+			gpio1: gpio@50020a04 {
+				compatible = "renesas,smartbond-gpio";                                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:230 */
+				gpio-controller;                                                          /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:231 */
+				#gpio-cells = < 0x2 >;                                                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:232 */
+				port = < 0x1 >;                                                           /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:233 */
+				ngpios = < 0x17 >;                                                        /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:234 */
+				reg = < 0x50020a04 0x14 0x50020a98 0x5c 0x5000007c 0xc 0x50000118 0x24 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:235 */
+				reg-names = "data",
+				            "mode",
+				            "latch",
+				            "wkup";                                                       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:239 */
+				interrupts = < 0x27 0x0 >;                                                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:240 */
+				status = "okay";                                                          /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:183 */
+				phandle = < 0x12 >;                                                       /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:35 */
+			};
+
+			/* node '/soc/pin-controller@50020a00/uart_default' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:9 */
+			uart_default: uart_default {
+				phandle = < 0x4 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:189 */
+
+				/* node '/soc/pin-controller@50020a00/uart_default/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:10 */
+				group1 {
+					pinmux = < 0x89 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:11 */
+				};
+
+				/* node '/soc/pin-controller@50020a00/uart_default/group2' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:14 */
+				group2 {
+					pinmux = < 0x48 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:15 */
+					bias-pull-up;      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:16 */
+				};
+			};
+
+			/* node '/soc/pin-controller@50020a00/i2c_default' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:20 */
+			i2c_default: i2c_default {
+				phandle = < 0x6 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:228 */
+
+				/* node '/soc/pin-controller@50020a00/i2c_default/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:21 */
+				group1 {
+					pinmux = < 0x59f >,
+					         < 0x55e >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:22 */
+					bias-pull-up;       /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:24 */
+				};
+			};
+
+			/* node '/soc/pin-controller@50020a00/i2c_sleep' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:28 */
+			i2c_sleep: i2c_sleep {
+				phandle = < 0x7 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:229 */
+
+				/* node '/soc/pin-controller@50020a00/i2c_sleep/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:29 */
+				group1 {
+					pinmux = < 0x1f >,
+					         < 0x1e >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:30 */
+					bias-pull-up;      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:32 */
+				};
+			};
+
+			/* node '/soc/pin-controller@50020a00/i2c2_default' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:36 */
+			i2c2_default: i2c2_default {
+				phandle = < 0x8 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:234 */
+
+				/* node '/soc/pin-controller@50020a00/i2c2_default/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:37 */
+				group1 {
+					pinmux = < 0x61c >,
+					         < 0x5dd >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:38 */
+					bias-pull-up;       /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:40 */
+				};
+			};
+
+			/* node '/soc/pin-controller@50020a00/i2c2_sleep' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:44 */
+			i2c2_sleep: i2c2_sleep {
+				phandle = < 0x9 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:235 */
+
+				/* node '/soc/pin-controller@50020a00/i2c2_sleep/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:45 */
+				group1 {
+					pinmux = < 0x1c >,
+					         < 0x1d >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:46 */
+					bias-pull-up;      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:48 */
+				};
+			};
+
+			/* node '/soc/pin-controller@50020a00/display_controller_default' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:52 */
+			display_controller_default: display_controller_default {
+
+				/* node '/soc/pin-controller@50020a00/display_controller_default/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:53 */
+				group1 {
+					pinmux = < 0xb22 >,
+					         < 0xb23 >,
+					         < 0xb24 >,
+					         < 0xb25 >,
+					         < 0xb27 >,
+					         < 0xb28 >,
+					         < 0xb1b >,
+					         < 0xb1c >,
+					         < 0xb1d >,
+					         < 0xb1e >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:54 */
+				};
+			};
+
+			/* node '/soc/pin-controller@50020a00/spi_sleep' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:82 */
+			spi_sleep: spi_sleep {
+				phandle = < 0xb >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:241 */
+
+				/* node '/soc/pin-controller@50020a00/spi_sleep/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:83 */
+				group1 {
+					pinmux = < 0x15 >,
+					         < 0x18 >,
+					         < 0x1a >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:84 */
+				};
+			};
+
+			/* node '/soc/pin-controller@50020a00/spi_controller' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:90 */
+			spi_controller: spi_controller {
+				phandle = < 0xa >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:240 */
+
+				/* node '/soc/pin-controller@50020a00/spi_controller/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:91 */
+				group1 {
+					pinmux = < 0x3d5 >,
+					         < 0x39a >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:92 */
+					output-enable;      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:94 */
+				};
+
+				/* node '/soc/pin-controller@50020a00/spi_controller/group2' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:97 */
+				group2 {
+					pinmux = < 0x358 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:98 */
+					input-enable;       /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:99 */
+				};
+			};
+
+			/* node '/soc/pin-controller@50020a00/spi2_sleep' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:103 */
+			spi2_sleep: spi2_sleep {
+				phandle = < 0xd >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:247 */
+
+				/* node '/soc/pin-controller@50020a00/spi2_sleep/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:104 */
+				group1 {
+					pinmux = < 0x23 >,
+					         < 0x24 >,
+					         < 0x25 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:105 */
+				};
+			};
+
+			/* node '/soc/pin-controller@50020a00/spi2_controller' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:111 */
+			spi2_controller: spi2_controller {
+				phandle = < 0xc >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:246 */
+
+				/* node '/soc/pin-controller@50020a00/spi2_controller/group1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:112 */
+				group1 {
+					pinmux = < 0x4e3 >,
+					         < 0x4a5 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:113 */
+					output-enable;      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:115 */
+				};
+
+				/* node '/soc/pin-controller@50020a00/spi2_controller/group2' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:118 */
+				group2 {
+					pinmux = < 0x464 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:119 */
+					input-enable;       /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro-pinctrl.dtsi:120 */
+				};
+			};
+		};
+
+		/* node '/soc/rtc@50000400' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:244 */
+		rtc: rtc@50000400 {
+			compatible = "renesas,smartbond-rtc"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:245 */
+			reg = < 0x50000400 0x98 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:246 */
+			interrupts = < 0x12 0x0 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:247 */
+			alarms-count = < 0x1 >;               /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:248 */
+			status = "disabled";                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:249 */
+		};
+
+		/* node '/soc/watchdog@50000700' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:252 */
+		wdog: watchdog@50000700 {
+			compatible = "renesas,smartbond-watchdog"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:253 */
+			reg = < 0x50000700 0x8 >;                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:254 */
+			status = "okay";                           /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:255 */
+		};
+
+		/* node '/soc/timer@50010200' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:258 */
+		timer1: timer@50010200 {
+			compatible = "renesas,smartbond-timer"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:259 */
+			reg = < 0x50010200 0x300 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:260 */
+			clock-src = < &lp_clk >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:261 */
+			interrupts = < 0x10 0x0 >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:262 */
+			prescaler = < 0x1 >;                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:263 */
+			status = "disabled";                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:264 */
+		};
+
+		/* node '/soc/timer@50010300' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:267 */
+		timer2: timer@50010300 {
+			compatible = "renesas,smartbond-timer"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:268 */
+			reg = < 0x50010300 0x300 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:269 */
+			clock-src = < &divn_clk >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:270 */
+			interrupts = < 0x11 0x0 >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:271 */
+			prescaler = < 0x20 >;                   /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:272 */
+			status = "reserved";                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:273 */
+		};
+
+		/* node '/soc/timer@50040a00' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:276 */
+		timer3: timer@50040a00 {
+			compatible = "renesas,smartbond-timer"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:277 */
+			reg = < 0x50040a00 0x300 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:278 */
+			clock-src = < &lp_clk >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:279 */
+			interrupts = < 0x22 0x0 >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:280 */
+			prescaler = < 0x1f >;                   /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:281 */
+			status = "disabled";                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:282 */
+		};
+
+		/* node '/soc/timer@50040b00' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:285 */
+		timer4: timer@50040b00 {
+			compatible = "renesas,smartbond-timer"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:286 */
+			reg = < 0x50040b00 0x300 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:287 */
+			clock-src = < &divn_clk >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:288 */
+			interrupts = < 0x23 0x0 >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:289 */
+			prescaler = < 0x20 >;                   /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:290 */
+			status = "disabled";                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:291 */
+		};
+
+		/* node '/soc/uart@50020000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:294 */
+		uart: uart@50020000 {
+			compatible = "renesas,smartbond-uart"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:295 */
+			reg = < 0x50020000 0x100 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:296 */
+			periph-clock-config = < 0x1 >;         /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:297 */
+			interrupts = < 0x5 0x0 >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:298 */
+			current-speed = < 0x1c200 >;           /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:187 */
+			status = "okay";                       /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:188 */
+			pinctrl-0 = < &uart_default >;         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:189 */
+			pinctrl-names = "default";             /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:190 */
+			rx-wake-gpios = < &gpio0 0x8 0x1 >;    /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:191 */
+		};
+
+		/* node '/soc/uart@50020100' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:302 */
+		uart2: uart@50020100 {
+			compatible = "renesas,smartbond-uart"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:303 */
+			reg = < 0x50020100 0x100 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:304 */
+			periph-clock-config = < 0x2 >;         /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:305 */
+			interrupts = < 0x6 0x0 >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:306 */
+			hw-flow-control-supported;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:307 */
+			status = "disabled";                   /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:308 */
+		};
+
+		/* node '/soc/uart@50020200' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:311 */
+		uart3: uart@50020200 {
+			compatible = "renesas,smartbond-uart"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:312 */
+			reg = < 0x50020200 0x100 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:313 */
+			periph-clock-config = < 0x8 >;         /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:314 */
+			interrupts = < 0x7 0x0 >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:315 */
+			hw-flow-control-supported;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:316 */
+			status = "disabled";                   /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:317 */
+		};
+
+		/* node '/soc/adc@50030900' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:320 */
+		adc: adc@50030900 {
+			compatible = "renesas,smartbond-adc"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:321 */
+			reg = < 0x50030900 0x1c >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:322 */
+			interrupts = < 0x1b 0x0 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:323 */
+			status = "disabled";                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:324 */
+			#io-channel-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:325 */
+		};
+
+		/* node '/soc/sdadc@50020800' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:328 */
+		sdadc: sdadc@50020800 {
+			compatible = "renesas,smartbond-sdadc"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:329 */
+			reg = < 0x50020800 0x1c >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:330 */
+			interrupts = < 0x1c 0x0 >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:331 */
+			clock-freq = < 0x2 >;                   /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:332 */
+			status = "disabled";                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:333 */
+			#io-channel-cells = < 0x1 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:334 */
+		};
+
+		/* node '/soc/crypto@30040000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:337 */
+		crypto: crypto@30040000 {
+			compatible = "renesas,smartbond-crypto"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:338 */
+			reg = < 0x30040000 0x200 >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:339 */
+			interrupts = < 0x1d 0x0 >;               /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:340 */
+			status = "disabled";                     /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:341 */
+		};
+
+		/* node '/soc/trng@50040c00' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:344 */
+		trng: trng@50040c00 {
+			compatible = "renesas,smartbond-trng"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:345 */
+			reg = < 0x50040c00 0xc >;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:346 */
+			interrupts = < 0x18 0x0 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:347 */
+			status = "okay";                       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:348 */
+		};
+
+		/* node '/soc/i2c@50020600' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:351 */
+		i2c: mikrobus_1_i2c: mikrobus_i2c: i2c@50020600 {
+			compatible = "renesas,smartbond-i2c"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:352 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:353 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:354 */
+			reg = < 0x50020600 0x100 >;           /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:355 */
+			periph-clock-config = < 0x200 >;      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:356 */
+			interrupts = < 0x8 0x0 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:357 */
+			status = "disabled";                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:358 */
+			pinctrl-0 = < &i2c_default >;         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:228 */
+			pinctrl-1 = < &i2c_sleep >;           /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:229 */
+			pinctrl-names = "default",
+			                "sleep";              /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:230 */
+		};
+
+		/* node '/soc/i2c@50020700' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:361 */
+		i2c2: i2c@50020700 {
+			compatible = "renesas,smartbond-i2c"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:362 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:363 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:364 */
+			reg = < 0x50020700 0x100 >;           /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:365 */
+			periph-clock-config = < 0x800 >;      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:366 */
+			interrupts = < 0x9 0x0 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:367 */
+			status = "disabled";                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:368 */
+			pinctrl-0 = < &i2c2_default >;        /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:234 */
+			pinctrl-1 = < &i2c2_sleep >;          /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:235 */
+			pinctrl-names = "default",
+			                "sleep";              /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:236 */
+		};
+
+		/* node '/soc/lcdc@30030000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:371 */
+		lcdc: lcdc@30030000 {
+			compatible = "renesas,smartbond-display"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:372 */
+			reg = < 0x30030000 0x18c >;               /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:373 */
+			interrupts = < 0x20 0x0 >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:374 */
+			status = "disabled";                      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:375 */
+		};
+
+		/* node '/soc/spi@50020300' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:378 */
+		spi: mikrobus_1_spi: mikrobus_spi: spi@50020300 {
+			compatible = "renesas,smartbond-spi"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:379 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:380 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:381 */
+			reg = < 0x50020300 0x100 >;           /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:382 */
+			periph-clock-config = < 0x20 >;       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:383 */
+			interrupts = < 0xa 0x0 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:384 */
+			status = "disabled";                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:385 */
+			pinctrl-0 = < &spi_controller >;      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:240 */
+			pinctrl-1 = < &spi_sleep >;           /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:241 */
+			pinctrl-names = "default",
+			                "sleep";              /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:242 */
+		};
+
+		/* node '/soc/spi@50020400' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:388 */
+		spi2: spi@50020400 {
+			compatible = "renesas,smartbond-spi"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:389 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:390 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:391 */
+			reg = < 0x50020400 0x100 >;           /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:392 */
+			periph-clock-config = < 0x80 >;       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:393 */
+			interrupts = < 0xb 0x0 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:394 */
+			status = "disabled";                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:395 */
+			pinctrl-0 = < &spi2_controller >;     /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:246 */
+			pinctrl-1 = < &spi2_sleep >;          /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:247 */
+			pinctrl-names = "default",
+			                "sleep";              /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:248 */
+		};
+
+		/* node '/soc/usb@50040000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:398 */
+		usbd: zephyr_udc0: usb@50040000 {
+			reg = < 0x50040000 0x1b0 >;               /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:400 */
+			dmas = < &dma 0x0 0x6 >,
+			       < &dma 0x1 0x6 >;                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:401 */
+			dma-names = "rx",
+			            "tx";                         /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:403 */
+			dma-min-transfer-size = < 0x41 >;         /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:404 */
+			fifo-read-threshold = < 0x4 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:405 */
+			ep-out-buf-size = < 0x8 0x40 0x40 0x40 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:406 */
+			interrupts = < 0xf 0x0 >,
+			             < 0x15 0x0 >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:407 */
+			maximum-speed = "full-speed";             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:408 */
+			num-bidir-endpoints = < 0x4 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:409 */
+			compatible = "renesas,smartbond-usbd";    /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:195 */
+			status = "okay";                          /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:196 */
+		};
+
+		/* node '/soc/dma@50040800' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:413 */
+		dma: dma@50040800 {
+			compatible = "renesas,smartbond-dma"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:414 */
+			reg = < 0x50040800 0x110 >;           /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:415 */
+			interrupts = < 0x1 0x0 >;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:416 */
+			status = "okay";                      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:417 */
+			dma-channels = < 0x8 >;               /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:418 */
+			block-count = < 0x1 >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:419 */
+			#dma-cells = < 0x2 >;                 /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:420 */
+			phandle = < 0xe >;                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:401 */
+		};
+
+		/* node '/soc/qspic2@34000000' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:423 */
+		memc: qspic2@34000000 {
+			compatible = "renesas,smartbond-nor-psram"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:424 */
+			reg = < 0x34000000 0x48 >;                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:425 */
+			status = "disabled";                        /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:426 */
+		};
+	};
+
+	/* node '/lvgl_pointer' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:20 */
+	lvgl_pointer {
+		compatible = "zephyr,lvgl-pointer-input"; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:28 */
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:24 */
+	cpus: cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:25 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:26 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:28 */
+		cpu@0 {
+			compatible = "arm,cortex-m33f";  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:29 */
+			reg = < 0x0 >;                   /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:30 */
+			clock-frequency = < 0x1e84800 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:31 */
+			cpu-power-states = < &standby >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:32 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:34 */
+			#size-cells = < 0x1 >;           /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:35 */
+
+			/* node '/cpus/cpu@0/mpu@e000ed90' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:37 */
+			mpu: mpu@e000ed90 {
+				compatible = "arm,armv8m-mpu"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:38 */
+				reg = < 0xe000ed90 0x40 >;     /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:39 */
+			};
+		};
+
+		/* node '/cpus/power-states' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:43 */
+		power-states {
+
+			/* node '/cpus/power-states/standby' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:44 */
+			standby: standby {
+				compatible = "zephyr,power-state"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:45 */
+				power-state-name = "standby";      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:46 */
+				min-residency-us = < 0x1f4 >;      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:47 */
+				exit-latency-us = < 0x64 >;        /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:48 */
+				phandle = < 0xf >;                 /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:32 */
+			};
+		};
+	};
+
+	/* node '/crg' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:53 */
+	crg {
+
+		/* node '/crg/osc' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:54 */
+		osc: osc {
+
+			/* node '/crg/osc/rc32k' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:55 */
+			rc32k: rc32k {
+				compatible = "renesas,smartbond-lp-osc"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:56 */
+				clock-frequency = < 0x7d00 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:57 */
+				#clock-cells = < 0x0 >;                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:58 */
+				status = "okay";                         /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:59 */
+			};
+
+			/* node '/crg/osc/xtal32k' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:62 */
+			xtal32k: xtal32k {
+				compatible = "renesas,smartbond-lp-osc"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:63 */
+				clock-frequency = < 0x8000 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:64 */
+				settle-time = < 0x1f40 >;                /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:65 */
+				#clock-cells = < 0x0 >;                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:66 */
+				status = "okay";                         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:208 */
+				phandle = < 0x11 >;                      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:220 */
+			};
+
+			/* node '/crg/osc/rcx' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:70 */
+			rcx: rcx {
+				compatible = "renesas,smartbond-lp-osc"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:71 */
+				clock-frequency = < 0x3a98 >;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:72 */
+				#clock-cells = < 0x0 >;                  /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:73 */
+				status = "disabled";                     /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:216 */
+			};
+
+			/* node '/crg/osc/rc32m' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:77 */
+			rc32m: rc32m {
+				compatible = "fixed-clock";      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:78 */
+				clock-frequency = < 0x1e84800 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:79 */
+				#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:80 */
+				status = "disabled";             /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:200 */
+			};
+
+			/* node '/crg/osc/xtal32m' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:84 */
+			xtal32m: xtal32m {
+				compatible = "fixed-clock";      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:85 */
+				clock-frequency = < 0x1e84800 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:86 */
+				#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:87 */
+				status = "okay";                 /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:204 */
+				phandle = < 0x10 >;              /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:224 */
+			};
+
+			/* node '/crg/osc/pll' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:91 */
+			pll: pll {
+				compatible = "fixed-clock";      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:92 */
+				clock-frequency = < 0x5b8d800 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:93 */
+				#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:94 */
+				status = "disabled";             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:95 */
+			};
+		};
+
+		/* node '/crg/divn_clk' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:99 */
+		divn_clk: divn_clk {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:100 */
+			clock-frequency = < 0x1e84800 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:101 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:102 */
+			status = "okay";                 /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:103 */
+			phandle = < 0x3 >;               /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:270 */
+		};
+
+		/* node '/crg/sys_clk' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:106 */
+		sys_clk: sys_clk {
+			compatible = "renesas,smartbond-sys-clk"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:107 */
+			status = "okay";                          /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:110 */
+			clock-src = < &xtal32m >;                 /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:224 */
+		};
+
+		/* node '/crg/lp_clk' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:113 */
+		lp_clk: lp_clk {
+			compatible = "renesas,smartbond-lp-clk"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:114 */
+			status = "okay";                         /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:116 */
+			clock-src = < &xtal32k >;                /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:220 */
+			phandle = < 0x2 >;                       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:261 */
+		};
+
+		/* node '/crg/regulators' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:119 */
+		regulators {
+			compatible = "renesas,smartbond-regulator"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:120 */
+
+			/* node '/crg/regulators/VDD' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:122 */
+			vdd: VDD {
+				regulator-init-microvolt = < 0xdbba0 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:123 */
+				regulator-boot-on;                      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:124 */
+				renesas,regulator-sleep-ldo;            /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:125 */
+				renesas,regulator-dcdc-vbat-high;       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:126 */
+				renesas,regulator-dcdc-vbat-low;        /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:127 */
+			};
+
+			/* node '/crg/regulators/VDD_CLAMP' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:130 */
+			vdd_clamp: VDD_CLAMP {
+				regulator-boot-on;                      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:131 */
+				regulator-always-on;                    /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:132 */
+				regulator-init-microvolt = < 0xac5d0 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:133 */
+			};
+
+			/* node '/crg/regulators/VDD_SLEEP' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:136 */
+			vdd_sleep: VDD_SLEEP {
+				regulator-boot-on;                      /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:137 */
+				regulator-init-microvolt = < 0xb71b0 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:138 */
+			};
+
+			/* node '/crg/regulators/V14' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:141 */
+			v14: V14 {
+				regulator-init-microvolt = < 0x155cc0 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:142 */
+				regulator-boot-on;                       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:143 */
+				renesas,regulator-dcdc-vbat-high;        /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:144 */
+				renesas,regulator-dcdc-vbat-low;         /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:145 */
+			};
+
+			/* node '/crg/regulators/V18' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:148 */
+			v18: V18 {
+				regulator-init-microvolt = < 0x1b7740 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:149 */
+				regulator-boot-on;                       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:150 */
+				renesas,regulator-dcdc-vbat-high;        /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:151 */
+			};
+
+			/* node '/crg/regulators/V18P' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:154 */
+			v18p: V18P {
+				regulator-init-microvolt = < 0x1b7740 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:155 */
+				regulator-boot-on;                       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:156 */
+				renesas,regulator-sleep-ldo;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:157 */
+				renesas,regulator-dcdc-vbat-high;        /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:158 */
+			};
+
+			/* node '/crg/regulators/V30' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:161 */
+			v30: V30 {
+				regulator-init-microvolt = < 0x2dc6c0 >; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:162 */
+				regulator-boot-on;                       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:163 */
+				renesas,regulator-sleep-ldo;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:164 */
+				renesas,regulator-v30-vbus;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:165 */
+				renesas,regulator-v30-vbat;              /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:166 */
+				renesas,regulator-v30-clamp;             /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:167 */
+				renesas,regulator-v30-ref-bandgap;       /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:168 */
+			};
+		};
+	};
+
+	/* node '/bt_hci_da1469x' defined in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:430 */
+	bt_hci_da1469x: bt_hci_da1469x {
+		compatible = "renesas,bt-hci-da1469x"; /* in zephyr/dts/arm/renesas/smartbond/da1469x.dtsi:431 */
+		status = "okay";                       /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:252 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:31 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:32 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:34 */
+		red_led: led_0 {
+			gpios = < &gpio1 0x1 0x0 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:35 */
+		};
+	};
+
+	/* node '/gpio_keys' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:39 */
+	gpio_keys {
+		compatible = "gpio-keys"; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:40 */
+
+		/* node '/gpio_keys/button' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:42 */
+		user_button: button {
+			label = "User (K1)";         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:43 */
+			gpios = < &gpio0 0x6 0x11 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:44 */
+			zephyr,code = < 0xb >;       /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:45 */
+		};
+	};
+
+	/* node '/connector' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:49 */
+	arduino_header: connector {
+		compatible = "arduino-header-r3";          /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:50 */
+		#gpio-cells = < 0x2 >;                     /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:51 */
+		gpio-map-mask = < 0xffffffff 0xffffffc0 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:52 */
+		gpio-map-pass-thru = < 0x0 0x3f >;         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:53 */
+		gpio-map = < 0x0 0x0 &gpio1 0x9 0x0 >,
+		           < 0x1 0x0 &gpio0 0x19 0x0 >,
+		           < 0x2 0x0 &gpio0 0x8 0x0 >,
+		           < 0x3 0x0 &gpio0 0x9 0x0 >,
+		           < 0x4 0x0 &gpio1 0xd 0x0 >,
+		           < 0x5 0x0 &gpio1 0xc 0x0 >,
+		           < 0x6 0x0 &gpio1 0x2 0x0 >,
+		           < 0x7 0x0 &gpio1 0x3 0x0 >,
+		           < 0x8 0x0 &gpio1 0x4 0x0 >,
+		           < 0x9 0x0 &gpio1 0x5 0x0 >,
+		           < 0xa 0x0 &gpio1 0x7 0x0 >,
+		           < 0xb 0x0 &gpio1 0x8 0x0 >,
+		           < 0xc 0x0 &gpio0 0x11 0x0 >,
+		           < 0xd 0x0 &gpio0 0x12 0x0 >,
+		           < 0xe 0x0 &gpio0 0x13 0x0 >,
+		           < 0xf 0x0 &gpio0 0x14 0x0 >,
+		           < 0x10 0x0 &gpio0 0x15 0x0 >,
+		           < 0x11 0x0 &gpio0 0x18 0x0 >,
+		           < 0x12 0x0 &gpio0 0x1a 0x0 >,
+		           < 0x13 0x0 &gpio0 0x1b 0x0 >,
+		           < 0x14 0x0 &gpio0 0x1c 0x0 >,
+		           < 0x15 0x0 &gpio0 0x1d 0x0 >;   /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:54 */
+	};
+
+	/* node '/mikrobus-connector-1' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:78 */
+	mikrobus_1_header: mikrobus_header: mikrobus-connector-1 {
+		compatible = "mikro-bus";                  /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:79 */
+		#gpio-cells = < 0x2 >;                     /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:80 */
+		gpio-map-mask = < 0xffffffff 0xffffffc0 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:81 */
+		gpio-map-pass-thru = < 0x0 0x3f >;         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:82 */
+		gpio-map = < 0x0 0x0 &gpio1 0x9 0x0 >,
+		           < 0x1 0x0 &gpio0 0xc 0x0 >,
+		           < 0x2 0x0 &gpio0 0x14 0x0 >,
+		           < 0x3 0x0 &gpio0 0x15 0x0 >,
+		           < 0x4 0x0 &gpio0 0x18 0x0 >,
+		           < 0x5 0x0 &gpio0 0x1a 0x0 >,
+		           < 0x6 0x0 &gpio1 0x1 0x1 >,
+		           < 0x7 0x0 &gpio0 0x1b 0x0 >,
+		           < 0x8 0x0 &gpio0 0x1c 0x0 >,
+		           < 0x9 0x0 &gpio0 0x1d 0x0 >,
+		           < 0xa 0x0 &gpio0 0x1e 0x0 >,
+		           < 0xb 0x0 &gpio0 0x1f 0x0 >;    /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:83 */
+	};
+
+	/* node '/mikrobus-connector-2' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:101 */
+	mikrobus_2_header: mikrobus-connector-2 {
+		compatible = "mikro-bus";                  /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:102 */
+		#gpio-cells = < 0x2 >;                     /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:103 */
+		gpio-map-mask = < 0xffffffff 0xffffffc0 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:104 */
+		gpio-map-pass-thru = < 0x0 0x3f >;         /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:105 */
+		gpio-map = < 0x0 0x0 &gpio0 0x19 0x0 >,
+		           < 0x1 0x0 &gpio0 0xc 0x0 >,
+		           < 0x2 0x0 &gpio1 0x2 0x0 >,
+		           < 0x3 0x0 &gpio1 0x3 0x0 >,
+		           < 0x4 0x0 &gpio1 0x4 0x0 >,
+		           < 0x5 0x0 &gpio1 0x5 0x0 >,
+		           < 0x6 0x0 &gpio1 0x6 0x0 >,
+		           < 0x7 0x0 &gpio1 0x7 0x0 >,
+		           < 0x8 0x0 &gpio1 0x8 0x0 >,
+		           < 0x9 0x0 &gpio0 0x11 0x0 >,
+		           < 0xa 0x0 &gpio0 0x12 0x0 >,
+		           < 0xb 0x0 &gpio0 0x13 0x0 >;    /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:106 */
+	};
+
+	/* node '/system-clock' defined in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:131 */
+	sysclk: system-clock {
+		compatible = "fixed-clock";      /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:132 */
+		clock-frequency = < 0x1e84800 >; /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:133 */
+		#clock-cells = < 0x0 >;          /* in zephyr/boards/renesas/da1469x_dk_pro/da1469x_dk_pro.dts:134 */
+	};
+};

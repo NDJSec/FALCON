@@ -1,0 +1,599 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                 /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                    /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "we_ophelia1ev_nrf52805";         /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:13 */
+	compatible = "we,we-ophelia1ev-nrf52805"; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:14 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,bt-hci = &bt_hci_controller;          /* in zephyr/dts/arm/nordic/nrf52805.dtsi:14 */
+		zephyr,entropy = &rng;                       /* in zephyr/dts/arm/nordic/nrf52805.dtsi:15 */
+		zephyr,flash-controller = &flash_controller; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:16 */
+		zephyr,console = &uart0;                     /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:17 */
+		zephyr,shell-uart = &uart0;                  /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:18 */
+		zephyr,uart-mcumgr = &uart0;                 /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:19 */
+		zephyr,bt-mon-uart = &uart0;                 /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:20 */
+		zephyr,bt-c2h-uart = &uart0;                 /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:21 */
+		zephyr,sram = &sram0;                        /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:22 */
+		zephyr,flash = &flash0;                      /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:23 */
+		zephyr,code-partition = &slot0_partition;    /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:24 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led0;               /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:53 */
+		led1 = &led1;               /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:54 */
+		sw0 = &button0;             /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:55 */
+		mcuboot-button0 = &button0; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:56 */
+		mcuboot-led0 = &led0;       /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:57 */
+		watchdog0 = &wdt0;          /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:58 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/nordic/nrf52805_caaa.dtsi:21 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:351 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+			status = "disabled";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:356 */
+		};
+
+		/* node '/soc/ficr@10000000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:40 */
+		ficr: ficr@10000000 {
+			compatible = "nordic,nrf-ficr"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:41 */
+			reg = < 0x10000000 0x1000 >;    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:42 */
+			#nordic,ficr-cells = < 0x1 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:43 */
+			status = "okay";                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:44 */
+		};
+
+		/* node '/soc/uicr@10001000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:47 */
+		uicr: uicr@10001000 {
+			compatible = "nordic,nrf-uicr"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:48 */
+			reg = < 0x10001000 0x1000 >;    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:49 */
+			status = "okay";                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:50 */
+			gpio-as-nreset;                 /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:71 */
+		};
+
+		/* node '/soc/memory@20000000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:53 */
+		sram0: memory@20000000 {
+			compatible = "mmio-sram";           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:54 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:55 */
+			#size-cells = < 0x1 >;              /* in zephyr/dts/arm/nordic/nrf52805.dtsi:56 */
+			reg = < 0x20000000 0x6000 >;        /* in zephyr/dts/arm/nordic/nrf52805_caaa.dtsi:15 */
+			ranges = < 0x0 0x20000000 0x6000 >; /* in zephyr/dts/arm/nordic/nrf52805_caaa.dtsi:16 */
+		};
+
+		/* node '/soc/clock@40000000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:59 */
+		clock: clock@40000000 {
+			compatible = "nordic,nrf-clock"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:60 */
+			reg = < 0x40000000 0x1000 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:61 */
+			interrupts = < 0x0 0x1 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:62 */
+			status = "okay";                 /* in zephyr/dts/arm/nordic/nrf52805.dtsi:63 */
+		};
+
+		/* node '/soc/power@40000000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:66 */
+		power: power@40000000 {
+			compatible = "nordic,nrf-power"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:67 */
+			reg = < 0x40000000 0x1000 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:68 */
+			interrupts = < 0x0 0x1 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:69 */
+			status = "okay";                 /* in zephyr/dts/arm/nordic/nrf52805.dtsi:70 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:71 */
+			#size-cells = < 0x1 >;           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:72 */
+
+			/* node '/soc/power@40000000/gpregret1@4000051c' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:74 */
+			gpregret1: gpregret1@4000051c {
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:75 */
+				#size-cells = < 0x1 >;              /* in zephyr/dts/arm/nordic/nrf52805.dtsi:76 */
+				compatible = "nordic,nrf-gpregret"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:77 */
+				reg = < 0x4000051c 0x1 >;           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:78 */
+				status = "okay";                    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:79 */
+			};
+
+			/* node '/soc/power@40000000/gpregret2@40000520' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:82 */
+			gpregret2: gpregret2@40000520 {
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:83 */
+				#size-cells = < 0x1 >;              /* in zephyr/dts/arm/nordic/nrf52805.dtsi:84 */
+				compatible = "nordic,nrf-gpregret"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:85 */
+				reg = < 0x40000520 0x1 >;           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:86 */
+				status = "okay";                    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:87 */
+			};
+
+			/* node '/soc/power@40000000/regulator@40000578' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:90 */
+			reg: regulator@40000578 {
+				compatible = "nordic,nrf5x-regulator"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:91 */
+				reg = < 0x40000578 0x1 >;              /* in zephyr/dts/arm/nordic/nrf52805.dtsi:92 */
+				regulator-name = "REG";                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:93 */
+				regulator-initial-mode = < 0x1 >;      /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:63 */
+			};
+		};
+
+		/* node '/soc/bprot@40000000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:98 */
+		bprot: bprot@40000000 {
+			compatible = "nordic,nrf-bprot"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:99 */
+			reg = < 0x40000000 0x1000 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:100 */
+			status = "okay";                 /* in zephyr/dts/arm/nordic/nrf52805.dtsi:101 */
+		};
+
+		/* node '/soc/radio@40001000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:104 */
+		radio: radio@40001000 {
+			compatible = "nordic,nrf-radio"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:105 */
+			reg = < 0x40001000 0x1000 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:106 */
+			interrupts = < 0x1 0x1 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:107 */
+			status = "okay";                 /* in zephyr/dts/arm/nordic/nrf52805.dtsi:108 */
+			ble-2mbps-supported;             /* in zephyr/dts/arm/nordic/nrf52805.dtsi:109 */
+
+			/* node '/soc/radio@40001000/bt_hci_controller' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:114 */
+			bt_hci_controller: bt_hci_controller {
+				compatible = "zephyr,bt-hci-ll-sw-split"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:115 */
+				status = "okay";                          /* in zephyr/dts/arm/nordic/nrf52805.dtsi:116 */
+			};
+		};
+
+		/* node '/soc/uart@40002000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:120 */
+		uart0: uart@40002000 {
+			reg = < 0x40002000 0x1000 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:124 */
+			interrupts = < 0x2 0x1 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:125 */
+			compatible = "nordic,nrf-uarte"; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:99 */
+			status = "okay";                 /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:100 */
+			current-speed = < 0x1c200 >;     /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:101 */
+			pinctrl-0 = < &uart0_default >;  /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:102 */
+			pinctrl-1 = < &uart0_sleep >;    /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:103 */
+			pinctrl-names = "default",
+			                "sleep";         /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:104 */
+		};
+
+		/* node '/soc/i2c@40003000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:129 */
+		i2c0: i2c@40003000 {
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:138 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/nordic/nrf52805.dtsi:139 */
+			reg = < 0x40003000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:140 */
+			interrupts = < 0x3 0x1 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:141 */
+			easydma-maxcnt-bits = < 0xe >; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:142 */
+			zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:144 */
+			compatible = "nordic,nrf-twi"; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:83 */
+			status = "okay";               /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:84 */
+			pinctrl-0 = < &i2c0_default >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:85 */
+			pinctrl-1 = < &i2c0_sleep >;   /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:86 */
+			pinctrl-names = "default",
+			                "sleep";       /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:87 */
+		};
+
+		/* node '/soc/spi@40004000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:147 */
+		spi0: spi@40004000 {
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:156 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/nordic/nrf52805.dtsi:157 */
+			reg = < 0x40004000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:158 */
+			interrupts = < 0x4 0x1 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:159 */
+			max-frequency = < 0x7a1200 >;  /* in zephyr/dts/arm/nordic/nrf52805.dtsi:160 */
+			easydma-maxcnt-bits = < 0xe >; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:161 */
+			compatible = "nordic,nrf-spi"; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:91 */
+			status = "okay";               /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:92 */
+			pinctrl-0 = < &spi0_default >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:93 */
+			pinctrl-1 = < &spi0_sleep >;   /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:94 */
+			pinctrl-names = "default",
+			                "sleep";       /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:95 */
+		};
+
+		/* node '/soc/gpiote@40006000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:165 */
+		gpiote: gpiote0: gpiote@40006000 {
+			compatible = "nordic,nrf-gpiote"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:166 */
+			reg = < 0x40006000 0x1000 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:167 */
+			interrupts = < 0x6 0x5 >;         /* in zephyr/dts/arm/nordic/nrf52805.dtsi:168 */
+			instance = < 0x0 >;               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:170 */
+			status = "okay";                  /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:79 */
+			phandle = < 0x8 >;                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:345 */
+		};
+
+		/* node '/soc/adc@40007000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:173 */
+		adc: adc@40007000 {
+			compatible = "nordic,nrf-saadc"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:174 */
+			reg = < 0x40007000 0x1000 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:175 */
+			interrupts = < 0x7 0x1 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:176 */
+			#io-channel-cells = < 0x1 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:178 */
+			zephyr,pm-device-runtime-auto;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:179 */
+			status = "okay";                 /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:67 */
+		};
+
+		/* node '/soc/timer@40008000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:182 */
+		timer0: timer@40008000 {
+			compatible = "nordic,nrf-timer"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:183 */
+			status = "disabled";             /* in zephyr/dts/arm/nordic/nrf52805.dtsi:184 */
+			reg = < 0x40008000 0x1000 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:185 */
+			cc-num = < 0x4 >;                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:186 */
+			max-bit-width = < 0x20 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:187 */
+			interrupts = < 0x8 0x1 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:188 */
+			prescaler = < 0x0 >;             /* in zephyr/dts/arm/nordic/nrf52805.dtsi:189 */
+		};
+
+		/* node '/soc/timer@40009000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:192 */
+		timer1: timer@40009000 {
+			compatible = "nordic,nrf-timer"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:193 */
+			status = "disabled";             /* in zephyr/dts/arm/nordic/nrf52805.dtsi:194 */
+			reg = < 0x40009000 0x1000 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:195 */
+			cc-num = < 0x4 >;                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:196 */
+			max-bit-width = < 0x20 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:197 */
+			interrupts = < 0x9 0x1 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:198 */
+			prescaler = < 0x0 >;             /* in zephyr/dts/arm/nordic/nrf52805.dtsi:199 */
+			phandle = < 0x9 >;               /* in zephyr/dts/vendor/nordic/nrf_common.dtsi:42 */
+		};
+
+		/* node '/soc/timer@4000a000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:202 */
+		timer2: timer@4000a000 {
+			compatible = "nordic,nrf-timer"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:203 */
+			status = "disabled";             /* in zephyr/dts/arm/nordic/nrf52805.dtsi:204 */
+			reg = < 0x4000a000 0x1000 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:205 */
+			cc-num = < 0x4 >;                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:206 */
+			max-bit-width = < 0x20 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:207 */
+			interrupts = < 0xa 0x1 >;        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:208 */
+			prescaler = < 0x0 >;             /* in zephyr/dts/arm/nordic/nrf52805.dtsi:209 */
+		};
+
+		/* node '/soc/rtc@4000b000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:212 */
+		rtc0: rtc@4000b000 {
+			compatible = "nordic,nrf-rtc"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:213 */
+			reg = < 0x4000b000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:214 */
+			cc-num = < 0x3 >;              /* in zephyr/dts/arm/nordic/nrf52805.dtsi:215 */
+			interrupts = < 0xb 0x1 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:216 */
+			status = "disabled";           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:217 */
+			clock-frequency = < 0x8000 >;  /* in zephyr/dts/arm/nordic/nrf52805.dtsi:218 */
+			prescaler = < 0x1 >;           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:219 */
+		};
+
+		/* node '/soc/temp@4000c000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:222 */
+		temp: temp@4000c000 {
+			compatible = "nordic,nrf-temp"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:223 */
+			reg = < 0x4000c000 0x1000 >;    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:224 */
+			interrupts = < 0xc 0x1 >;       /* in zephyr/dts/arm/nordic/nrf52805.dtsi:225 */
+			status = "okay";                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:226 */
+		};
+
+		/* node '/soc/random@4000d000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:229 */
+		rng: random@4000d000 {
+			compatible = "nordic,nrf-rng"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:230 */
+			reg = < 0x4000d000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:231 */
+			interrupts = < 0xd 0x1 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:232 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:233 */
+		};
+
+		/* node '/soc/ecb@4000e000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:236 */
+		ecb: ecb@4000e000 {
+			compatible = "nordic,nrf-ecb"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:237 */
+			reg = < 0x4000e000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:238 */
+			interrupts = < 0xe 0x1 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:239 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:240 */
+		};
+
+		/* node '/soc/ccm@4000f000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:243 */
+		ccm: ccm@4000f000 {
+			compatible = "nordic,nrf-ccm"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:244 */
+			reg = < 0x4000f000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:245 */
+			interrupts = < 0xf 0x1 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:246 */
+			length-field-length-8-bits;    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:247 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:248 */
+		};
+
+		/* node '/soc/watchdog@40010000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:251 */
+		wdt: wdt0: watchdog@40010000 {
+			compatible = "nordic,nrf-wdt"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:252 */
+			reg = < 0x40010000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:253 */
+			interrupts = < 0x10 0x1 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:254 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:255 */
+		};
+
+		/* node '/soc/rtc@40011000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:258 */
+		rtc1: rtc@40011000 {
+			compatible = "nordic,nrf-rtc"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:259 */
+			reg = < 0x40011000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:260 */
+			cc-num = < 0x4 >;              /* in zephyr/dts/arm/nordic/nrf52805.dtsi:261 */
+			interrupts = < 0x11 0x1 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:262 */
+			status = "disabled";           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:263 */
+			clock-frequency = < 0x8000 >;  /* in zephyr/dts/arm/nordic/nrf52805.dtsi:264 */
+			prescaler = < 0x1 >;           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:265 */
+		};
+
+		/* node '/soc/qdec@40012000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:268 */
+		qdec: qdec0: qdec@40012000 {
+			compatible = "nordic,nrf-qdec"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:269 */
+			reg = < 0x40012000 0x1000 >;    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:270 */
+			interrupts = < 0x12 0x1 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:271 */
+			status = "disabled";            /* in zephyr/dts/arm/nordic/nrf52805.dtsi:272 */
+		};
+
+		/* node '/soc/egu@40014000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:275 */
+		egu0: swi0: egu@40014000 {
+			compatible = "nordic,nrf-egu",
+			             "nordic,nrf-swi"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:276 */
+			reg = < 0x40014000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:277 */
+			interrupts = < 0x14 0x1 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:278 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:279 */
+		};
+
+		/* node '/soc/egu@40015000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:282 */
+		egu1: swi1: egu@40015000 {
+			compatible = "nordic,nrf-egu",
+			             "nordic,nrf-swi"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:283 */
+			reg = < 0x40015000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:284 */
+			interrupts = < 0x15 0x1 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:285 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:286 */
+		};
+
+		/* node '/soc/swi@40016000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:289 */
+		swi2: swi@40016000 {
+			compatible = "nordic,nrf-swi"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:290 */
+			reg = < 0x40016000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:291 */
+			interrupts = < 0x16 0x1 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:292 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:293 */
+		};
+
+		/* node '/soc/swi@40017000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:296 */
+		swi3: swi@40017000 {
+			compatible = "nordic,nrf-swi"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:297 */
+			reg = < 0x40017000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:298 */
+			interrupts = < 0x17 0x1 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:299 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:300 */
+		};
+
+		/* node '/soc/swi@40018000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:303 */
+		swi4: swi@40018000 {
+			compatible = "nordic,nrf-swi"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:304 */
+			reg = < 0x40018000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:305 */
+			interrupts = < 0x18 0x1 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:306 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:307 */
+		};
+
+		/* node '/soc/swi@40019000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:310 */
+		swi5: swi@40019000 {
+			compatible = "nordic,nrf-swi"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:311 */
+			reg = < 0x40019000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:312 */
+			interrupts = < 0x19 0x1 >;     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:313 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:314 */
+		};
+
+		/* node '/soc/flash-controller@4001e000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:317 */
+		flash_controller: flash-controller@4001e000 {
+			compatible = "nordic,nrf52-flash-controller"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:318 */
+			reg = < 0x4001e000 0x1000 >;                  /* in zephyr/dts/arm/nordic/nrf52805.dtsi:319 */
+			partial-erase;                                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:320 */
+			#address-cells = < 0x1 >;                     /* in zephyr/dts/arm/nordic/nrf52805.dtsi:322 */
+			#size-cells = < 0x1 >;                        /* in zephyr/dts/arm/nordic/nrf52805.dtsi:323 */
+
+			/* node '/soc/flash-controller@4001e000/flash@0' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:325 */
+			flash0: flash@0 {
+				compatible = "soc-nv-flash";   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:326 */
+				erase-block-size = < 0x1000 >; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:327 */
+				write-block-size = < 0x4 >;    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:328 */
+				reg = < 0x0 0x30000 >;         /* in zephyr/dts/arm/nordic/nrf52805_caaa.dtsi:11 */
+
+				/* node '/soc/flash-controller@4001e000/flash@0/partitions' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:108 */
+				partitions {
+					compatible = "fixed-partitions"; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:109 */
+					#address-cells = < 0x1 >;        /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:110 */
+					#size-cells = < 0x1 >;           /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:111 */
+
+					/* node '/soc/flash-controller@4001e000/flash@0/partitions/partition@0' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:113 */
+					boot_partition: partition@0 {
+						label = "mcuboot";    /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:114 */
+						reg = < 0x0 0xc000 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:115 */
+					};
+
+					/* node '/soc/flash-controller@4001e000/flash@0/partitions/partition@c000' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:118 */
+					slot0_partition: partition@c000 {
+						label = "image-0";       /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:119 */
+						reg = < 0xc000 0xd000 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:120 */
+					};
+
+					/* node '/soc/flash-controller@4001e000/flash@0/partitions/partition@19000' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:123 */
+					slot1_partition: partition@19000 {
+						label = "image-1";        /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:124 */
+						reg = < 0x19000 0xd000 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:125 */
+					};
+
+					/* node '/soc/flash-controller@4001e000/flash@0/partitions/partition@26000' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:128 */
+					scratch_partition: partition@26000 {
+						label = "image-scratch";  /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:129 */
+						reg = < 0x26000 0x3000 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:130 */
+					};
+
+					/* node '/soc/flash-controller@4001e000/flash@0/partitions/partition@29000' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:133 */
+					storage_partition: partition@29000 {
+						label = "storage";        /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:134 */
+						reg = < 0x29000 0x7000 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:135 */
+					};
+				};
+			};
+		};
+
+		/* node '/soc/ppi@4001f000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:332 */
+		ppi: ppi@4001f000 {
+			compatible = "nordic,nrf-ppi"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:333 */
+			reg = < 0x4001f000 0x1000 >;   /* in zephyr/dts/arm/nordic/nrf52805.dtsi:334 */
+			status = "okay";               /* in zephyr/dts/arm/nordic/nrf52805.dtsi:335 */
+		};
+
+		/* node '/soc/gpio@50000000' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:338 */
+		gpio0: gpio@50000000 {
+			compatible = "nordic,nrf-gpio"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:339 */
+			gpio-controller;                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:340 */
+			reg = < 0x50000000 0x1000 >;    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:341 */
+			#gpio-cells = < 0x2 >;          /* in zephyr/dts/arm/nordic/nrf52805.dtsi:342 */
+			port = < 0x0 >;                 /* in zephyr/dts/arm/nordic/nrf52805.dtsi:344 */
+			gpiote-instance = < &gpiote >;  /* in zephyr/dts/arm/nordic/nrf52805.dtsi:345 */
+			status = "okay";                /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:75 */
+			phandle = < 0xa >;              /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:31 */
+		};
+	};
+
+	/* node '/pin-controller' defined in zephyr/dts/vendor/nordic/nrf_common.dtsi:26 */
+	pinctrl: pin-controller {
+		compatible = "nordic,nrf-pinctrl"; /* in zephyr/dts/vendor/nordic/nrf_common.dtsi:31 */
+
+		/* node '/pin-controller/i2c0_default' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:2 */
+		i2c0_default: i2c0_default {
+			phandle = < 0x4 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:85 */
+
+			/* node '/pin-controller/i2c0_default/group1' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:3 */
+			group1 {
+				psels = < 0xc000010 >,
+				        < 0xb000012 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:4 */
+			};
+		};
+
+		/* node '/pin-controller/i2c0_sleep' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:9 */
+		i2c0_sleep: i2c0_sleep {
+			phandle = < 0x5 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:86 */
+
+			/* node '/pin-controller/i2c0_sleep/group1' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:10 */
+			group1 {
+				psels = < 0xc000010 >,
+				        < 0xb000012 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:11 */
+				low-power-enable;      /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:13 */
+			};
+		};
+
+		/* node '/pin-controller/spi0_default' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:17 */
+		spi0_default: spi0_default {
+			phandle = < 0x6 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:93 */
+
+			/* node '/pin-controller/spi0_default/group1' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:18 */
+			group1 {
+				psels = < 0x400000e >,
+				        < 0x5000010 >,
+				        < 0x6000012 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:19 */
+			};
+		};
+
+		/* node '/pin-controller/spi0_sleep' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:25 */
+		spi0_sleep: spi0_sleep {
+			phandle = < 0x7 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:94 */
+
+			/* node '/pin-controller/spi0_sleep/group1' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:26 */
+			group1 {
+				psels = < 0x400000e >,
+				        < 0x5000010 >,
+				        < 0x6000012 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:27 */
+				low-power-enable;      /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:30 */
+			};
+		};
+
+		/* node '/pin-controller/uart0_default' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:34 */
+		uart0_default: uart0_default {
+			phandle = < 0x2 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:102 */
+
+			/* node '/pin-controller/uart0_default/group1' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:35 */
+			group1 {
+				psels = < 0x10 >,
+				        < 0x2000004 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:36 */
+			};
+
+			/* node '/pin-controller/uart0_default/group2' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:40 */
+			group2 {
+				psels = < 0x1000012 >,
+				        < 0x300000e >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:41 */
+				bias-pull-up;          /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:43 */
+			};
+		};
+
+		/* node '/pin-controller/uart0_sleep' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:47 */
+		uart0_sleep: uart0_sleep {
+			phandle = < 0x3 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:103 */
+
+			/* node '/pin-controller/uart0_sleep/group1' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:48 */
+			group1 {
+				psels = < 0x10 >,
+				        < 0x1000012 >,
+				        < 0x2000004 >,
+				        < 0x300000e >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:49 */
+				low-power-enable;      /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805-pinctrl.dtsi:53 */
+			};
+		};
+	};
+
+	/* node '/entropy_bt_hci' defined in zephyr/dts/vendor/nordic/nrf_common.dtsi:34 */
+	rng_hci: entropy_bt_hci {
+		compatible = "zephyr,bt-hci-entropy"; /* in zephyr/dts/vendor/nordic/nrf_common.dtsi:35 */
+		status = "disabled";                  /* in zephyr/dts/vendor/nordic/nrf_common.dtsi:36 */
+	};
+
+	/* node '/sw-pwm' defined in zephyr/dts/vendor/nordic/nrf_common.dtsi:39 */
+	sw_pwm: sw-pwm {
+		compatible = "nordic,nrf-sw-pwm"; /* in zephyr/dts/vendor/nordic/nrf_common.dtsi:40 */
+		status = "disabled";              /* in zephyr/dts/vendor/nordic/nrf_common.dtsi:41 */
+		generator = < &timer1 >;          /* in zephyr/dts/vendor/nordic/nrf_common.dtsi:42 */
+		clock-prescaler = < 0x0 >;        /* in zephyr/dts/vendor/nordic/nrf_common.dtsi:43 */
+		#pwm-cells = < 0x3 >;             /* in zephyr/dts/vendor/nordic/nrf_common.dtsi:44 */
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:19 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:20 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/nordic/nrf52805.dtsi:21 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:23 */
+		cpu@0 {
+			device_type = "cpu";          /* in zephyr/dts/arm/nordic/nrf52805.dtsi:24 */
+			compatible = "arm,cortex-m4"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:25 */
+			reg = < 0x0 >;                /* in zephyr/dts/arm/nordic/nrf52805.dtsi:26 */
+		};
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:30 */
+	clocks {
+
+		/* node '/clocks/hfxo' defined in zephyr/dts/arm/nordic/nrf52805.dtsi:31 */
+		hfxo: hfxo {
+			compatible = "nordic,nrf52-hfxo"; /* in zephyr/dts/arm/nordic/nrf52805.dtsi:32 */
+			clock-frequency = < 0x3d09000 >;  /* in zephyr/dts/arm/nordic/nrf52805.dtsi:33 */
+			startup-time-us = < 0x578 >;      /* in zephyr/dts/arm/nordic/nrf52805.dtsi:34 */
+			#clock-cells = < 0x0 >;           /* in zephyr/dts/arm/nordic/nrf52805.dtsi:35 */
+		};
+	};
+
+	/* node '/leds' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:27 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:28 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:30 */
+		led0: led_0 {
+			gpios = < &gpio0 0x0 0x0 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:31 */
+			label = "LED 0";            /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:32 */
+		};
+
+		/* node '/leds/led_1' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:35 */
+		led1: led_1 {
+			gpios = < &gpio0 0x1 0x0 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:36 */
+			label = "LED 1";            /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:37 */
+		};
+	};
+
+	/* node '/buttons' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:41 */
+	buttons {
+		compatible = "gpio-keys"; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:42 */
+
+		/* node '/buttons/button_0' defined in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:44 */
+		button0: button_0 {
+			label = "Example button";     /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:45 */
+			gpios = < &gpio0 0x14 0x11 >; /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:46 */
+			zephyr,code = < 0xb >;        /* in zephyr/boards/we/ophelia1ev/we_ophelia1ev_nrf52805.dts:47 */
+		};
+	};
+};

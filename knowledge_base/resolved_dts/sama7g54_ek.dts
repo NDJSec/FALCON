@@ -1,0 +1,1229 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;           /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;              /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "SAMA7G54-EK board";        /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:19 */
+	compatible = "microchip,sama7g5ek",
+	             "microchip,sama7g5",
+	             "microchip,sama7";     /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:20 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &ddram;        /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:31 */
+		zephyr,canbus = &mcan0;      /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:32 */
+		zephyr,console = &usart3;    /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:33 */
+		zephyr,entropy = &trng;      /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:34 */
+		zephyr,shell-uart = &usart3; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:35 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led_green;         /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:23 */
+		pwm-led0 = &pwm_led_green; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:24 */
+		sw0 = &button_user;        /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:25 */
+		sdhc0 = &sdmmc0;           /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:26 */
+		sdhc1 = &sdmmc1;           /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:27 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-a.dtsi:10 */
+	soc {
+		#address-cells = < 0x1 >;  /* in zephyr/dts/arm/armv7-a.dtsi:11 */
+		#size-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-a.dtsi:12 */
+		compatible = "simple-bus"; /* in zephyr/dts/arm/armv7-a.dtsi:13 */
+		ranges;                    /* in zephyr/dts/arm/armv7-a.dtsi:14 */
+
+		/* node '/soc/clock-controller@e001d050' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:42 */
+		clk32k: clock-controller@e001d050 {
+			compatible = "microchip,sama7g5-sckc",
+			             "microchip,sam9x60-sckc"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:43 */
+			reg = < 0xe001d050 0x4 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:44 */
+			clocks = < &slow_xtal >;               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:45 */
+			#clock-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:46 */
+			phandle = < 0xa >;                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:538 */
+		};
+
+		/* node '/soc/dma-controller@e2808000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:49 */
+		dma0: dma-controller@e2808000 {
+			compatible = "atmel,sam-xdmac";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:50 */
+			reg = < 0xe2808000 0x1000 >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:51 */
+			interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:52 */
+			interrupts = < 0x0 0x70 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:53 */
+			#dma-cells = < 0x2 >;               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:54 */
+			clocks = < &pmc 0x2 0x16 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:55 */
+			clock-names = "dma_clk";            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:56 */
+			status = "okay";                    /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:113 */
+		};
+
+		/* node '/soc/dma-controller@e280c000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:60 */
+		dma1: dma-controller@e280c000 {
+			compatible = "atmel,sam-xdmac";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:61 */
+			reg = < 0xe280c000 0x1000 >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:62 */
+			interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:63 */
+			interrupts = < 0x0 0x71 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:64 */
+			#dma-cells = < 0x2 >;               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:65 */
+			clocks = < &pmc 0x2 0x17 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:66 */
+			clock-names = "dma_clk";            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:67 */
+			status = "okay";                    /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:117 */
+		};
+
+		/* node '/soc/dma-controller@e1200000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:71 */
+		dma2: dma-controller@e1200000 {
+			compatible = "atmel,sam-xdmac";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:72 */
+			reg = < 0xe1200000 0x1000 >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:73 */
+			interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:74 */
+			interrupts = < 0x0 0x72 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:75 */
+			#dma-cells = < 0x2 >;               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:76 */
+			clocks = < &pmc 0x2 0x18 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:77 */
+			clock-names = "dma_clk";            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:78 */
+			status = "okay";                    /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:121 */
+		};
+
+		/* node '/soc/flexcom@e1818000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:82 */
+		flx0: flexcom@e1818000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:83 */
+			reg = < 0xe1818000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:84 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:85 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:86 */
+			ranges = < 0x0 0xe1818000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:87 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:88 */
+
+			/* node '/soc/flexcom@e1818000/i2c0@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:90 */
+			i2c0: i2c0@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:91 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:92 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:93 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:94 */
+				interrupts = < 0x0 0x26 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:95 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:96 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:97 */
+				clocks = < &pmc 0x2 0x26 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:98 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:99 */
+			};
+
+			/* node '/soc/flexcom@e1818000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:102 */
+			usart0: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:103 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:104 */
+				clocks = < &pmc 0x2 0x26 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:105 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:106 */
+				interrupts = < 0x0 0x26 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:107 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:108 */
+			};
+		};
+
+		/* node '/soc/flexcom@e181c000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:112 */
+		flx1: flexcom@e181c000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:113 */
+			reg = < 0xe181c000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:114 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:115 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:116 */
+			ranges = < 0x0 0xe181c000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:117 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:118 */
+
+			/* node '/soc/flexcom@e181c000/i2c1@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:120 */
+			i2c1: i2c1@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:121 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:122 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:123 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:124 */
+				interrupts = < 0x0 0x27 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:125 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:126 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:127 */
+				clocks = < &pmc 0x2 0x27 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:128 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:129 */
+			};
+
+			/* node '/soc/flexcom@e181c000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:132 */
+			usart1: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:133 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:134 */
+				clocks = < &pmc 0x2 0x27 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:135 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:136 */
+				interrupts = < 0x0 0x27 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:137 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:138 */
+			};
+		};
+
+		/* node '/soc/flexcom@e1820000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:142 */
+		flx2: flexcom@e1820000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:143 */
+			reg = < 0xe1820000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:144 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:145 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:146 */
+			ranges = < 0x0 0xe1820000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:147 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:148 */
+
+			/* node '/soc/flexcom@e1820000/i2c2@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:150 */
+			i2c2: i2c2@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:151 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:152 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:153 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:154 */
+				interrupts = < 0x0 0x28 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:155 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:156 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:157 */
+				clocks = < &pmc 0x2 0x28 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:158 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:159 */
+			};
+
+			/* node '/soc/flexcom@e1820000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:162 */
+			usart2: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:163 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:164 */
+				clocks = < &pmc 0x2 0x28 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:165 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:166 */
+				interrupts = < 0x0 0x28 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:167 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:168 */
+			};
+		};
+
+		/* node '/soc/flexcom@e1824000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:172 */
+		flx3: flexcom@e1824000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:173 */
+			reg = < 0xe1824000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:174 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:175 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:176 */
+			ranges = < 0x0 0xe1824000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:177 */
+			mchp,flexcom-mode = < 0x1 >;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:125 */
+			status = "okay";                      /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:126 */
+
+			/* node '/soc/flexcom@e1824000/i2c3@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:180 */
+			i2c3: i2c3@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:181 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:182 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:183 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:184 */
+				interrupts = < 0x0 0x29 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:185 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:186 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:187 */
+				clocks = < &pmc 0x2 0x29 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:188 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:189 */
+			};
+
+			/* node '/soc/flexcom@e1824000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:192 */
+			usart3: serial@200 {
+				compatible = "atmel,sam-usart";        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:193 */
+				reg = < 0x200 0x200 >;                 /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:194 */
+				clocks = < &pmc 0x2 0x29 >;            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:195 */
+				interrupt-parent = < &gic >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:196 */
+				interrupts = < 0x0 0x29 0x2 0xa0 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:197 */
+				current-speed = < 0x1c200 >;           /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:129 */
+				pinctrl-0 = < &pinctrl_flx3_default >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:130 */
+				pinctrl-names = "default";             /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:131 */
+				status = "okay";                       /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:132 */
+			};
+		};
+
+		/* node '/soc/flexcom@e2018000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:202 */
+		flx4: flexcom@e2018000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:203 */
+			reg = < 0xe2018000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:204 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:205 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:206 */
+			ranges = < 0x0 0xe2018000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:207 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:208 */
+
+			/* node '/soc/flexcom@e2018000/i2c4@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:210 */
+			i2c4: i2c4@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:211 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:212 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:213 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:214 */
+				interrupts = < 0x0 0x2a 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:215 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:216 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:217 */
+				clocks = < &pmc 0x2 0x2a >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:218 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:219 */
+			};
+
+			/* node '/soc/flexcom@e2018000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:222 */
+			usart4: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:223 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:224 */
+				clocks = < &pmc 0x2 0x2a >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:225 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:226 */
+				interrupts = < 0x0 0x2a 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:227 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:228 */
+			};
+		};
+
+		/* node '/soc/flexcom@e201c000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:232 */
+		flx5: flexcom@e201c000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:233 */
+			reg = < 0xe201c000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:234 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:235 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:236 */
+			ranges = < 0x0 0xe201c000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:237 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:238 */
+
+			/* node '/soc/flexcom@e201c000/i2c5@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:240 */
+			i2c5: i2c5@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:241 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:242 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:243 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:244 */
+				interrupts = < 0x0 0x2b 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:245 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:246 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:247 */
+				clocks = < &pmc 0x2 0x2b >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:248 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:249 */
+			};
+
+			/* node '/soc/flexcom@e201c000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:252 */
+			usart5: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:253 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:254 */
+				clocks = < &pmc 0x2 0x2b >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:255 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:256 */
+				interrupts = < 0x0 0x2b 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:257 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:258 */
+			};
+		};
+
+		/* node '/soc/flexcom@e2020000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:262 */
+		flx6: flexcom@e2020000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:263 */
+			reg = < 0xe2020000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:264 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:265 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:266 */
+			ranges = < 0x0 0xe2020000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:267 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:268 */
+
+			/* node '/soc/flexcom@e2020000/i2c6@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:270 */
+			i2c6: i2c6@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:271 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:272 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:273 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:274 */
+				interrupts = < 0x0 0x2c 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:275 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:276 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:277 */
+				clocks = < &pmc 0x2 0x2c >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:278 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:279 */
+			};
+
+			/* node '/soc/flexcom@e2020000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:282 */
+			usart6: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:283 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:284 */
+				clocks = < &pmc 0x2 0x2c >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:285 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:286 */
+				interrupts = < 0x0 0x2c 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:287 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:288 */
+			};
+		};
+
+		/* node '/soc/flexcom@e2024000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:292 */
+		flx7: flexcom@e2024000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:293 */
+			reg = < 0xe2024000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:294 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:295 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:296 */
+			ranges = < 0x0 0xe2024000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:297 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:298 */
+
+			/* node '/soc/flexcom@e2024000/i2c7@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:300 */
+			i2c7: i2c7@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:301 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:302 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:303 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:304 */
+				interrupts = < 0x0 0x2d 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:305 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:306 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:307 */
+				clocks = < &pmc 0x2 0x2d >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:308 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:309 */
+			};
+
+			/* node '/soc/flexcom@e2024000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:312 */
+			usart7: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:313 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:314 */
+				clocks = < &pmc 0x2 0x2d >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:315 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:316 */
+				interrupts = < 0x0 0x2d 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:317 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:318 */
+			};
+		};
+
+		/* node '/soc/flexcom@e2818000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:322 */
+		flx8: flexcom@e2818000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:323 */
+			reg = < 0xe2818000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:324 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:325 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:326 */
+			ranges = < 0x0 0xe2818000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:327 */
+			mchp,flexcom-mode = < 0x3 >;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:137 */
+			status = "okay";                      /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:138 */
+
+			/* node '/soc/flexcom@e2818000/i2c8@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:330 */
+			i2c8: i2c8@600 {
+				compatible = "atmel,sam-i2c-twi";      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:331 */
+				reg = < 0x600 0x200 >;                 /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:332 */
+				clock-frequency = < 0x186a0 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:333 */
+				interrupt-parent = < &gic >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:334 */
+				interrupts = < 0x0 0x2e 0x2 0xa0 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:335 */
+				#address-cells = < 0x1 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:336 */
+				#size-cells = < 0x0 >;                 /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:337 */
+				clocks = < &pmc 0x2 0x2e >;            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:338 */
+				pinctrl-0 = < &pinctrl_i2c8_default >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:141 */
+				pinctrl-names = "default";             /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:142 */
+				status = "okay";                       /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:143 */
+
+				/* node '/soc/flexcom@e2818000/i2c8@600/eeprom0@52' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:145 */
+				eeprom0: eeprom0@52 {
+					compatible = "atmel,24mac02e4",
+					             "atmel,at24";      /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:146 */
+					reg = < 0x52 >;                 /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:147 */
+					address-width = < 0x8 >;        /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:148 */
+					pagesize = < 0x10 >;            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:149 */
+					size = < 0x100 >;               /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:150 */
+					timeout = < 0x5 >;              /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:151 */
+					status = "okay";                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:152 */
+				};
+
+				/* node '/soc/flexcom@e2818000/i2c8@600/eeprom1@53' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:155 */
+				eeprom1: eeprom1@53 {
+					compatible = "atmel,24mac02e4",
+					             "atmel,at24";      /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:156 */
+					reg = < 0x53 >;                 /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:157 */
+					address-width = < 0x8 >;        /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:158 */
+					pagesize = < 0x10 >;            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:159 */
+					size = < 0x100 >;               /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:160 */
+					timeout = < 0x5 >;              /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:161 */
+					status = "okay";                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:162 */
+				};
+			};
+
+			/* node '/soc/flexcom@e2818000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:342 */
+			usart8: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:343 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:344 */
+				clocks = < &pmc 0x2 0x2e >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:345 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:346 */
+				interrupts = < 0x0 0x2e 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:347 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:348 */
+			};
+		};
+
+		/* node '/soc/flexcom@e281c000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:352 */
+		flx9: flexcom@e281c000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:353 */
+			reg = < 0xe281c000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:354 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:355 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:356 */
+			ranges = < 0x0 0xe281c000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:357 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:358 */
+
+			/* node '/soc/flexcom@e281c000/i2c9@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:360 */
+			i2c9: i2c9@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:361 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:362 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:363 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:364 */
+				interrupts = < 0x0 0x2f 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:365 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:366 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:367 */
+				clocks = < &pmc 0x2 0x2f >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:368 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:369 */
+			};
+
+			/* node '/soc/flexcom@e281c000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:372 */
+			usart9: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:373 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:374 */
+				clocks = < &pmc 0x2 0x2f >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:375 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:376 */
+				interrupts = < 0x0 0x2f 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:377 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:378 */
+			};
+		};
+
+		/* node '/soc/flexcom@e2820000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:382 */
+		flx10: flexcom@e2820000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:383 */
+			reg = < 0xe2820000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:384 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:385 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:386 */
+			ranges = < 0x0 0xe2820000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:387 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:388 */
+
+			/* node '/soc/flexcom@e2820000/i2c10@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:390 */
+			i2c10: i2c10@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:391 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:392 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:393 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:394 */
+				interrupts = < 0x0 0x30 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:395 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:396 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:397 */
+				clocks = < &pmc 0x2 0x30 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:398 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:399 */
+			};
+
+			/* node '/soc/flexcom@e2820000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:402 */
+			usart10: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:403 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:404 */
+				clocks = < &pmc 0x2 0x30 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:405 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:406 */
+				interrupts = < 0x0 0x30 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:407 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:408 */
+			};
+		};
+
+		/* node '/soc/flexcom@e2824000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:412 */
+		flx11: flexcom@e2824000 {
+			compatible = "microchip,sam-flexcom"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:413 */
+			reg = < 0xe2824000 0x200 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:414 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:415 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:416 */
+			ranges = < 0x0 0xe2824000 0x800 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:417 */
+			status = "disabled";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:418 */
+
+			/* node '/soc/flexcom@e2824000/i2c11@600' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:420 */
+			i2c11: i2c11@600 {
+				compatible = "atmel,sam-i2c-twi";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:421 */
+				reg = < 0x600 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:422 */
+				clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:423 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:424 */
+				interrupts = < 0x0 0x31 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:425 */
+				#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:426 */
+				#size-cells = < 0x0 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:427 */
+				clocks = < &pmc 0x2 0x31 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:428 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:429 */
+			};
+
+			/* node '/soc/flexcom@e2824000/serial@200' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:432 */
+			usart11: serial@200 {
+				compatible = "atmel,sam-usart";     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:433 */
+				reg = < 0x200 0x200 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:434 */
+				clocks = < &pmc 0x2 0x31 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:435 */
+				interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:436 */
+				interrupts = < 0x0 0x31 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:437 */
+				status = "disabled";                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:438 */
+			};
+		};
+
+		/* node '/soc/interrupt-controller@e8c11000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:442 */
+		gic: interrupt-controller@e8c11000 {
+			compatible = "arm,gic-v2",
+			             "arm,gic";      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:443 */
+			reg = < 0xe8c11000 0x1000 >,
+			      < 0xe8c12000 0x100 >;  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:444 */
+			interrupt-controller;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:445 */
+			#interrupt-cells = < 0x4 >;  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:446 */
+			phandle = < 0x2 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:52 */
+		};
+
+		/* node '/soc/mcan@e0828000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:449 */
+		mcan0: mcan@e0828000 {
+			compatible = "atmel,sam-can";                            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:450 */
+			reg = < 0xe0828000 0x100 >,
+			      < 0x100000 0x7800 >,
+			      < 0xe1626030 0x4 >;                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:451 */
+			reg-names = "m_can",
+			            "message_ram",
+			            "sram_sel";                                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:452 */
+			interrupt-parent = < &gic >;                             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:453 */
+			interrupts = < 0x0 0x3d 0x2 0xa0 >,
+			             < 0x0 0x7b 0x2 0xa0 >;                      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:454 */
+			interrupt-names = "int0",
+			                  "int1";                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:456 */
+			clocks = < &pmc 0x3 0x3d >;                              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:457 */
+			clock-names = "gck";                                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:458 */
+			bosch,mram-cfg = < 0x3400 0xf 0xf 0x8 0x8 0x0 0xf 0xf >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:459 */
+			status = "okay";                                         /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:214 */
+			pinctrl-0 = < &pinctrl_can0_default >;                   /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:215 */
+			pinctrl-names = "default";                               /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:216 */
+			phys = < &transceiver0 >;                                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:217 */
+		};
+
+		/* node '/soc/mcan@e082c000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:463 */
+		mcan1: mcan@e082c000 {
+			compatible = "atmel,sam-can";                            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:464 */
+			reg = < 0xe082c000 0x100 >,
+			      < 0x100000 0xbc00 >,
+			      < 0xe1626030 0x4 >;                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:465 */
+			reg-names = "m_can",
+			            "message_ram",
+			            "sram_sel";                                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:466 */
+			interrupt-parent = < &gic >;                             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:467 */
+			interrupts = < 0x0 0x3e 0x2 0xa0 >,
+			             < 0x0 0x7c 0x2 0xa0 >;                      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:468 */
+			interrupt-names = "int0",
+			                  "int1";                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:470 */
+			clocks = < &pmc 0x3 0x3e >;                              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:471 */
+			clock-names = "gck";                                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:472 */
+			bosch,mram-cfg = < 0x7800 0xf 0xf 0x8 0x8 0x0 0xf 0xf >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:473 */
+			status = "okay";                                         /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:221 */
+			pinctrl-0 = < &pinctrl_can1_default >;                   /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:222 */
+			pinctrl-names = "default";                               /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:223 */
+			phys = < &transceiver1 >;                                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:224 */
+		};
+
+		/* node '/soc/mcan@e0830000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:477 */
+		mcan2: mcan@e0830000 {
+			compatible = "atmel,sam-can";                            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:478 */
+			reg = < 0xe0830000 0x100 >,
+			      < 0x100000 0x10000 >,
+			      < 0xe1626030 0x4 >;                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:479 */
+			reg-names = "m_can",
+			            "message_ram",
+			            "sram_sel";                                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:480 */
+			interrupt-parent = < &gic >;                             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:481 */
+			interrupts = < 0x0 0x3f 0x2 0xa0 >,
+			             < 0x0 0x7d 0x2 0xa0 >;                      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:482 */
+			interrupt-names = "int0",
+			                  "int1";                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:484 */
+			clocks = < &pmc 0x3 0x3f >;                              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:485 */
+			clock-names = "gck";                                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:486 */
+			bosch,mram-cfg = < 0xbc00 0xf 0xf 0x8 0x8 0x0 0xf 0xf >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:487 */
+			status = "disabled";                                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:488 */
+		};
+
+		/* node '/soc/mcan@e0834000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:491 */
+		mcan3: mcan@e0834000 {
+			compatible = "atmel,sam-can";                         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:492 */
+			reg = < 0xe0834000 0x100 >,
+			      < 0x110000 0x4400 >,
+			      < 0xe1626030 0x4 >;                             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:493 */
+			reg-names = "m_can",
+			            "message_ram",
+			            "sram_sel";                               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:494 */
+			interrupt-parent = < &gic >;                          /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:495 */
+			interrupts = < 0x0 0x40 0x2 0xa0 >,
+			             < 0x0 0x7e 0x2 0xa0 >;                   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:496 */
+			interrupt-names = "int0",
+			                  "int1";                             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:498 */
+			clocks = < &pmc 0x3 0x40 >;                           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:499 */
+			clock-names = "gck";                                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:500 */
+			bosch,mram-cfg = < 0x0 0xf 0xf 0x8 0x8 0x0 0xf 0xf >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:501 */
+			status = "disabled";                                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:502 */
+		};
+
+		/* node '/soc/mcan@e0838000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:505 */
+		mcan4: mcan@e0838000 {
+			compatible = "atmel,sam-can";                            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:506 */
+			reg = < 0xe0838000 0x100 >,
+			      < 0x110000 0x8800 >,
+			      < 0xe1626030 0x4 >;                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:507 */
+			reg-names = "m_can",
+			            "message_ram",
+			            "sram_sel";                                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:508 */
+			interrupt-parent = < &gic >;                             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:509 */
+			interrupts = < 0x0 0x41 0x2 0xa0 >,
+			             < 0x0 0x7f 0x2 0xa0 >;                      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:510 */
+			interrupt-names = "int0",
+			                  "int1";                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:512 */
+			clocks = < &pmc 0x3 0x41 >;                              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:513 */
+			clock-names = "gck";                                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:514 */
+			bosch,mram-cfg = < 0x4400 0xf 0xf 0x8 0x8 0x0 0xf 0xf >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:515 */
+			status = "disabled";                                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:516 */
+		};
+
+		/* node '/soc/mcan@e083c000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:519 */
+		mcan5: mcan@e083c000 {
+			compatible = "atmel,sam-can";                            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:520 */
+			reg = < 0xe083c000 0x100 >,
+			      < 0x100000 0xcc00 >,
+			      < 0xe1626030 0x4 >;                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:521 */
+			reg-names = "m_can",
+			            "message_ram",
+			            "sram_sel";                                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:522 */
+			interrupt-parent = < &gic >;                             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:523 */
+			interrupts = < 0x0 0x42 0x2 0xa0 >,
+			             < 0x0 0x80 0x2 0xa0 >;                      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:524 */
+			interrupt-names = "int0",
+			                  "int1";                                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:526 */
+			clocks = < &pmc 0x3 0x42 >;                              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:527 */
+			clock-names = "gck";                                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:528 */
+			bosch,mram-cfg = < 0x8800 0xf 0xf 0x8 0x8 0x0 0xf 0xf >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:529 */
+			status = "disabled";                                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:530 */
+		};
+
+		/* node '/soc/rtc@e001d0a8' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:533 */
+		rtc: rtc@e001d0a8 {
+			compatible = "atmel,sam-rtc";      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:534 */
+			reg = < 0xe001d0a8 0x30 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:535 */
+			interrupt-parent = < &gic >;       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:536 */
+			interrupts = < 0x0 0x7 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:537 */
+			clocks = < &clk32k 0x1 >;          /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:538 */
+		};
+
+		/* node '/soc/memory@100000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:541 */
+		sram: memory@100000 {
+			compatible = "mmio-sram";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:542 */
+			reg = < 0x100000 0x20000 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:543 */
+		};
+
+		/* node '/soc/pinctrl@e0014000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:546 */
+		pinctrl: pinctrl@e0014000 {
+			compatible = "microchip,sama7g5-pinctrl"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:547 */
+			reg = < 0xe0014000 0x800 >;               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:548 */
+			#address-cells = < 0x1 >;                 /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:549 */
+			#size-cells = < 0x1 >;                    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:550 */
+			ranges = < 0xe0014000 0xe0014000 0x800 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:551 */
+
+			/* node '/soc/pinctrl@e0014000/gpio@e0014000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:553 */
+			pioa: gpio@e0014000 {
+				compatible = "microchip,sam-pio4"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:554 */
+				reg = < 0xe0014000 0x40 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:555 */
+				interrupt-parent = < &gic >;       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:556 */
+				interrupts = < 0x0 0xb 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:557 */
+				gpio-controller;                   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:558 */
+				#gpio-cells = < 0x2 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:559 */
+				clocks = < &pmc 0x2 0xb >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:560 */
+				phandle = < 0x12 >;                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:185 */
+			};
+
+			/* node '/soc/pinctrl@e0014000/gpio@e0014040' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:563 */
+			piob: gpio@e0014040 {
+				compatible = "microchip,sam-pio4"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:564 */
+				reg = < 0xe0014040 0x40 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:565 */
+				interrupt-parent = < &gic >;       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:566 */
+				interrupts = < 0x0 0xc 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:567 */
+				gpio-controller;                   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:568 */
+				#gpio-cells = < 0x2 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:569 */
+				clocks = < &pmc 0x2 0xb >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:570 */
+				phandle = < 0x16 >;                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:59 */
+			};
+
+			/* node '/soc/pinctrl@e0014000/gpio@e0014080' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:573 */
+			pioc: gpio@e0014080 {
+				compatible = "microchip,sam-pio4"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:574 */
+				reg = < 0xe0014080 0x40 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:575 */
+				interrupt-parent = < &gic >;       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:576 */
+				interrupts = < 0x0 0xd 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:577 */
+				gpio-controller;                   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:578 */
+				#gpio-cells = < 0x2 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:579 */
+				clocks = < &pmc 0x2 0xb >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:580 */
+				phandle = < 0x19 >;                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:99 */
+			};
+
+			/* node '/soc/pinctrl@e0014000/gpio@e00140c0' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:583 */
+			piod: gpio@e00140c0 {
+				compatible = "microchip,sam-pio4"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:584 */
+				reg = < 0xe00140c0 0x40 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:585 */
+				interrupt-parent = < &gic >;       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:586 */
+				interrupts = < 0x0 0xe 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:587 */
+				gpio-controller;                   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:588 */
+				#gpio-cells = < 0x2 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:589 */
+				clocks = < &pmc 0x2 0xb >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:590 */
+				phandle = < 0x17 >;                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:69 */
+			};
+
+			/* node '/soc/pinctrl@e0014000/gpio@e0014100' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:593 */
+			pioe: gpio@e0014100 {
+				compatible = "microchip,sam-pio4";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:594 */
+				reg = < 0xe0014100 0x40 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:595 */
+				interrupt-parent = < &gic >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:596 */
+				interrupts = < 0x0 0xf 0x2 0xa0 >;   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:597 */
+				gpio-controller;                     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:598 */
+				#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:599 */
+				clocks = < &pmc 0x2 0xb >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:600 */
+				gpio-reserved-ranges = < 0x8 0x18 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:601 */
+			};
+
+			/* node '/soc/pinctrl@e0014000/can0_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:228 */
+			pinctrl_can0_default: can0_default {
+				phandle = < 0x6 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:215 */
+
+				/* node '/soc/pinctrl@e0014000/can0_default/group1' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:229 */
+				group1 {
+					pinmux = < 0x24006c >,
+					         < 0x24006d >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:230 */
+					bias-disable;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:232 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/can1_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:236 */
+			pinctrl_can1_default: can1_default {
+				phandle = < 0x8 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:222 */
+
+				/* node '/soc/pinctrl@e0014000/can1_default/group1' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:237 */
+				group1 {
+					pinmux = < 0x24006e >,
+					         < 0x24006f >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:238 */
+					bias-disable;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:240 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/flx3_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:244 */
+			pinctrl_flx3_default: flx3_default {
+				phandle = < 0x4 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:130 */
+
+				/* node '/soc/pinctrl@e0014000/flx3_default/group1' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:245 */
+				group1 {
+					pinmux = < 0x560070 >,
+					         < 0x560071 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:246 */
+					bias-pull-up;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:248 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/gmac0_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:252 */
+			pinctrl_gmac0_default: gmac0_default {
+				phandle = < 0xf >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:170 */
+
+				/* node '/soc/pinctrl@e0014000/gmac0_default/group1' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:253 */
+				group1 {
+					pinmux = < 0x110010 >,
+					         < 0x110011 >,
+					         < 0x11001a >,
+					         < 0x11001b >,
+					         < 0x110013 >,
+					         < 0x110014 >,
+					         < 0x11001c >,
+					         < 0x11001d >,
+					         < 0x11000f >,
+					         < 0x11001e >,
+					         < 0x110012 >,
+					         < 0x110019 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:254 */
+					bias-disable;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:266 */
+				};
+
+				/* node '/soc/pinctrl@e0014000/gmac0_default/gmac0_txck_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:269 */
+				gmac0_txck_default {
+					pinmux = < 0x110018 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:270 */
+					bias-pull-up;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:271 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/gmac0_mdio_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:275 */
+			pinctrl_gmac0_mdio_default: gmac0_mdio_default {
+				phandle = < 0x11 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:178 */
+
+				/* node '/soc/pinctrl@e0014000/gmac0_mdio_default/group1' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:276 */
+				group1 {
+					pinmux = < 0x110016 >,
+					         < 0x110017 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:277 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/gmac1_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:282 */
+			pinctrl_gmac1_default: gmac1_default {
+				phandle = < 0x13 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:192 */
+
+				/* node '/soc/pinctrl@e0014000/gmac1_default/group1' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:283 */
+				group1 {
+					pinmux = < 0x17007e >,
+					         < 0x170076 >,
+					         < 0x170077 >,
+					         < 0x170075 >,
+					         < 0x170079 >,
+					         < 0x17007a >,
+					         < 0x17007b >,
+					         < 0x170078 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:284 */
+					bias-disable;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:292 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/gmac1_mdio_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:296 */
+			pinctrl_gmac1_mdio_default: gmac1_mdio_default {
+				phandle = < 0x15 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:201 */
+
+				/* node '/soc/pinctrl@e0014000/gmac1_mdio_default/group1' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:297 */
+				group1 {
+					pinmux = < 0x17007c >,
+					         < 0x17007d >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:298 */
+					bias-disable;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:300 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/i2c8_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:304 */
+			pinctrl_i2c8_default: i2c8_default {
+				phandle = < 0x5 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:141 */
+
+				/* node '/soc/pinctrl@e0014000/i2c8_default/group1' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:305 */
+				group1 {
+					pinmux = < 0x22004e >,
+					         < 0x22004d >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:306 */
+					bias-disable;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:308 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/pinctrl_mikrobus_pwm_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:312 */
+			pinctrl_mikrobus_pwm_default: pinctrl_mikrobus_pwm_default {
+				phandle = < 0xc >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:371 */
+
+				/* node '/soc/pinctrl@e0014000/pinctrl_mikrobus_pwm_default/mikrobus1_pwm2' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:313 */
+				mikrobus1_pwm2 {
+					pinmux = < 0x35000d >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:314 */
+					bias-disable;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:315 */
+				};
+
+				/* node '/soc/pinctrl@e0014000/pinctrl_mikrobus_pwm_default/mikrobus2_pwm3' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:318 */
+				mikrobus2_pwm3 {
+					pinmux = < 0x430074 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:319 */
+					bias-disable;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:320 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/sdmmc0_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:324 */
+			pinctrl_sdmmc0_default: sdmmc0_default {
+				phandle = < 0xd >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:377 */
+
+				/* node '/soc/pinctrl@e0014000/sdmmc0_default/cmd_data' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:325 */
+				cmd_data {
+					pinmux = < 0x110001 >,
+					         < 0x110003 >,
+					         < 0x110004 >,
+					         < 0x110005 >,
+					         < 0x110006 >,
+					         < 0x110007 >,
+					         < 0x110008 >,
+					         < 0x110009 >,
+					         < 0x11000a >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:326 */
+					bias-pull-up;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:335 */
+				};
+
+				/* node '/soc/pinctrl@e0014000/sdmmc0_default/ck_cd_rstn_vddsel' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:338 */
+				ck_cd_rstn_vddsel {
+					pinmux = < 0x110000 >,
+					         < 0x110002 >,
+					         < 0x11000b >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:339 */
+					bias-pull-up;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:342 */
+				};
+			};
+
+			/* node '/soc/pinctrl@e0014000/sdmmc1_default' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:346 */
+			pinctrl_sdmmc1_default: sdmmc1_default {
+				phandle = < 0xe >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:394 */
+
+				/* node '/soc/pinctrl@e0014000/sdmmc1_default/cmd_data' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:347 */
+				cmd_data {
+					pinmux = < 0x11003d >,
+					         < 0x11003f >,
+					         < 0x110040 >,
+					         < 0x110041 >,
+					         < 0x110042 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:348 */
+					bias-pull-up;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:353 */
+				};
+
+				/* node '/soc/pinctrl@e0014000/sdmmc1_default/ck_cd_rstn_vddsel' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:356 */
+				ck_cd_rstn_vddsel {
+					pinmux = < 0x11003e >,
+					         < 0x11003c >,
+					         < 0x110045 >,
+					         < 0x110044 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:357 */
+					bias-pull-up;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:361 */
+				};
+			};
+		};
+
+		/* node '/soc/timer@e1800000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:605 */
+		pit64b0: timer@e1800000 {
+			compatible = "microchip,sam-pit64b",
+			             "microchip,sam9x60-pit64b"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:606 */
+			reg = < 0xe1800000 0x4000 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:607 */
+			clocks = < &pmc 0x2 0x46 >,
+			         < &pmc 0x3 0x46 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:608 */
+			clock-names = "pclk",
+			              "gclk";                    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:609 */
+			interrupt-parent = < &gic >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:610 */
+			interrupts = < 0x0 0x46 0x2 0xa0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:611 */
+			clock-frequency = < 0x989680 >;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:367 */
+		};
+
+		/* node '/soc/clock-controller@e0018000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:614 */
+		pmc: clock-controller@e0018000 {
+			compatible = "microchip,sam-pmc"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:615 */
+			reg = < 0xe0018000 0x200 >;       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:616 */
+			#clock-cells = < 0x2 >;           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:617 */
+			clocks = < &clk32k 0x1 >,
+			         < &clk32k 0x0 >,
+			         < &main_xtal >;          /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:618 */
+			clock-names = "td_slck",
+			              "md_slck",
+			              "main_xtal";        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:619 */
+			phandle = < 0x3 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:55 */
+		};
+
+		/* node '/soc/pwm@e1604000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:622 */
+		pwm: pwm@e1604000 {
+			compatible = "atmel,sam-pwm";                  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:623 */
+			reg = < 0xe1604000 0x4000 >;                   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:624 */
+			interrupt-parent = < &gic >;                   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:625 */
+			interrupts = < 0x0 0x4d 0x2 0xa0 >;            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:626 */
+			clocks = < &pmc 0x2 0x4d >;                    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:627 */
+			prescaler = < 0xa >;                           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:628 */
+			divider = < 0x1 >;                             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:629 */
+			#pwm-cells = < 0x3 >;                          /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:630 */
+			status = "disabled";                           /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:631 */
+			pinctrl-0 = < &pinctrl_mikrobus_pwm_default >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:371 */
+			pinctrl-names = "default";                     /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:372 */
+			phandle = < 0x18 >;                            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:89 */
+		};
+
+		/* node '/soc/mmc@e1204000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:634 */
+		sdmmc0: mmc@e1204000 {
+			compatible = "microchip,sama7g5-sdmmc";  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:635 */
+			reg = < 0xe1204000 0x4000 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:636 */
+			interrupt-parent = < &gic >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:637 */
+			interrupts = < 0x0 0x50 0x2 0xa0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:638 */
+			clocks = < &pmc 0x2 0x50 >,
+			         < &pmc 0x3 0x50 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:639 */
+			clock-names = "hclock",
+			              "multclk";                 /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:640 */
+			assigned-clock-rates = < 0xbebc200 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:641 */
+			pinctrl-names = "default";               /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:376 */
+			pinctrl-0 = < &pinctrl_sdmmc0_default >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:377 */
+			max-bus-freq = < 0xc65d400 >;            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:378 */
+			non-removable;                           /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:379 */
+			bus-width = < 0x8 >;                     /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:380 */
+			no-1-8-v;                                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:381 */
+			auto-cmd23;                              /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:382 */
+			status = "okay";                         /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:383 */
+
+			/* node '/soc/mmc@e1204000/sdmmc' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:385 */
+			sdmmc {
+				compatible = "zephyr,mmc-disk"; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:386 */
+				disk-name = "SD2";              /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:387 */
+				status = "okay";                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:388 */
+			};
+		};
+
+		/* node '/soc/mmc@e1208000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:645 */
+		sdmmc1: mmc@e1208000 {
+			compatible = "microchip,sama7g5-sdmmc";  /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:646 */
+			reg = < 0xe1208000 0x4000 >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:647 */
+			interrupt-parent = < &gic >;             /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:648 */
+			interrupts = < 0x0 0x51 0x2 0xa0 >;      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:649 */
+			clocks = < &pmc 0x2 0x51 >,
+			         < &pmc 0x3 0x51 >;              /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:650 */
+			clock-names = "hclock",
+			              "multclk";                 /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:651 */
+			assigned-clock-rates = < 0xbebc200 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:652 */
+			pinctrl-names = "default";               /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:393 */
+			pinctrl-0 = < &pinctrl_sdmmc1_default >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:394 */
+			max-bus-freq = < 0xc65d400 >;            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:395 */
+			no-1-8-v;                                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:396 */
+			rstn-power-en;                           /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:397 */
+			auto-cmd12;                              /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:398 */
+			status = "okay";                         /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:399 */
+
+			/* node '/soc/mmc@e1208000/sdmmc' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:401 */
+			sdmmc {
+				compatible = "zephyr,sdmmc-disk"; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:402 */
+				disk-name = "SD";                 /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:403 */
+				status = "okay";                  /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:404 */
+			};
+		};
+
+		/* node '/soc/rng@e2010000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:656 */
+		trng: rng@e2010000 {
+			compatible = "atmel,sam-trng";      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:657 */
+			reg = < 0xe2010000 0x100 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:658 */
+			interrupt-parent = < &gic >;        /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:659 */
+			interrupts = < 0x0 0x61 0x2 0xa0 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:660 */
+			clocks = < &pmc 0x2 0x61 >;         /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:661 */
+			status = "okay";                    /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:409 */
+		};
+
+		/* node '/soc/ethernet@e2800000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:665 */
+		ethernet@e2800000 {
+			compatible = "microchip,sam-ethernet-controller"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:666 */
+			reg = < 0xe2800000 0x4000 >;                      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:667 */
+			clocks = < &pmc 0x3 0x33 >;                       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:668 */
+
+			/* node '/soc/ethernet@e2800000/ethernet' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:670 */
+			gmac0: ethernet {
+				compatible = "atmel,sam-gmac";          /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:671 */
+				interrupt-parent = < &gic >;            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:672 */
+				interrupts = < 0x0 0x33 0x2 0xa0 >,
+				             < 0x0 0x74 0x2 0xa0 >,
+				             < 0x0 0x75 0x2 0xa0 >,
+				             < 0x0 0x76 0x2 0xa0 >,
+				             < 0x0 0x77 0x2 0xa0 >,
+				             < 0x0 0x78 0x2 0xa0 >;     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:673 */
+				interrupt-names = "gmac",
+				                  "q1",
+				                  "q2",
+				                  "q3",
+				                  "q4",
+				                  "q5";                 /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:679 */
+				num-queues = < 0x6 >;                   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:680 */
+				status = "okay";                        /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:168 */
+				pinctrl-names = "default";              /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:169 */
+				pinctrl-0 = < &pinctrl_gmac0_default >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:170 */
+				phy-connection-type = "gmii";           /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:171 */
+				phy-handle = < &gmac0_phy >;            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:172 */
+			};
+
+			/* node '/soc/ethernet@e2800000/mdio' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:684 */
+			gmac0_mdio: mdio {
+				compatible = "atmel,sam-mdio";               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:685 */
+				#address-cells = < 0x1 >;                    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:687 */
+				#size-cells = < 0x0 >;                       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:688 */
+				status = "okay";                             /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:176 */
+				pinctrl-0 = < &pinctrl_gmac0_mdio_default >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:178 */
+				pinctrl-names = "default";                   /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:179 */
+
+				/* node '/soc/ethernet@e2800000/mdio/ethernet-phy@7' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:181 */
+				gmac0_phy: ethernet-phy@7 {
+					compatible = "microchip,ksz9131"; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:182 */
+					status = "okay";                  /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:183 */
+					reg = < 0x7 >;                    /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:184 */
+					int-gpios = < &pioa 0x1f 0x1 >;   /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:185 */
+					phandle = < 0x10 >;               /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:172 */
+				};
+			};
+		};
+
+		/* node '/soc/ethernet@e2804000' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:692 */
+		ethernet@e2804000 {
+			compatible = "microchip,sam-ethernet-controller"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:693 */
+			reg = < 0xe2804000 0x4000 >;                      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:694 */
+			clocks = < &pmc 0x3 0x34 >;                       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:695 */
+
+			/* node '/soc/ethernet@e2804000/ethernet' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:697 */
+			gmac1: ethernet {
+				compatible = "atmel,sam-gmac";          /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:698 */
+				interrupt-parent = < &gic >;            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:699 */
+				interrupts = < 0x0 0x34 0x2 0xa0 >,
+				             < 0x0 0x79 0x2 0xa0 >;     /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:700 */
+				interrupt-names = "gmac",
+				                  "q1";                 /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:702 */
+				num-queues = < 0x2 >;                   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:703 */
+				status = "okay";                        /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:190 */
+				pinctrl-names = "default";              /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:191 */
+				pinctrl-0 = < &pinctrl_gmac1_default >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:192 */
+				phy-connection-type = "mii";            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:193 */
+				phy-handle = < &gmac1_phy >;            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:194 */
+				ref-clk-source = "external";            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:195 */
+			};
+
+			/* node '/soc/ethernet@e2804000/mdio' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:707 */
+			gmac1_mdio: mdio {
+				compatible = "atmel,sam-mdio";               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:708 */
+				#address-cells = < 0x1 >;                    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:710 */
+				#size-cells = < 0x0 >;                       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:711 */
+				status = "okay";                             /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:199 */
+				pinctrl-0 = < &pinctrl_gmac1_mdio_default >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:201 */
+				pinctrl-names = "default";                   /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:202 */
+
+				/* node '/soc/ethernet@e2804000/mdio/ethernet-phy@0' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:204 */
+				gmac1_phy: ethernet-phy@0 {
+					compatible = "microchip,ksz8081";        /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:205 */
+					status = "okay";                         /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:206 */
+					reg = < 0x0 >;                           /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:207 */
+					int-gpios = < &pioa 0x15 0x1 >;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:208 */
+					microchip,interface-type = "rmii-25MHz"; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:209 */
+					phandle = < 0x14 >;                      /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:194 */
+				};
+			};
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:18 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:19 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:20 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:22 */
+		cpu0: cpu@0 {
+			device_type = "cpu";          /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:23 */
+			compatible = "arm,cortex-a7"; /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:24 */
+			reg = < 0x0 >;                /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:25 */
+		};
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:29 */
+	clocks {
+
+		/* node '/clocks/main_xtal' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:30 */
+		main_xtal: main_xtal {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:31 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:32 */
+			clock-frequency = < 0x16e3600 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:40 */
+			phandle = < 0xb >;               /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:618 */
+		};
+
+		/* node '/clocks/slow_xtal' defined in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:35 */
+		slow_xtal: slow_xtal {
+			compatible = "fixed-clock";   /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:36 */
+			#clock-cells = < 0x0 >;       /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:37 */
+			clock-frequency = < 0x8000 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:44 */
+			phandle = < 0x1 >;            /* in zephyr/dts/arm/microchip/sam/sama7g5.dtsi:45 */
+		};
+	};
+
+	/* node '/ddram@60000000' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:48 */
+	ddram: ddram@60000000 {
+		compatible = "ddram";            /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:49 */
+		reg = < 0x60000000 0x20000000 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:50 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:53 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:54 */
+		status = "okay";          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:55 */
+
+		/* node '/leds/red' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:57 */
+		led_red: red {
+			label = "red";             /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:58 */
+			gpios = < &piob 0x8 0x0 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:59 */
+		};
+
+		/* node '/leds/green' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:62 */
+		led_green: green {
+			label = "green";           /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:63 */
+			gpios = < &pioa 0xd 0x0 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:64 */
+		};
+
+		/* node '/leds/blue' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:67 */
+		led_blue: blue {
+			label = "blue";             /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:68 */
+			gpios = < &piod 0x14 0x0 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:69 */
+		};
+	};
+
+	/* node '/gpio_keys' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:73 */
+	gpio_keys {
+		compatible = "gpio-keys"; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:74 */
+		status = "okay";          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:75 */
+
+		/* node '/gpio_keys/button_0' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:77 */
+		button_user: button_0 {
+			label = "PB_USER";          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:78 */
+			gpios = < &pioa 0xc 0x11 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:79 */
+			zephyr,code = < 0xb >;      /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:80 */
+		};
+	};
+
+	/* node '/pwmleds' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:84 */
+	pwmleds: pwmleds {
+		compatible = "pwm-leds"; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:85 */
+		status = "disabled";     /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:86 */
+
+		/* node '/pwmleds/pwm_led_green' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:88 */
+		pwm_led_green: pwm_led_green {
+			pwms = < &pwm 0x2 0x1312d00 0x1 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:89 */
+		};
+
+		/* node '/pwmleds/pwm_led_blue' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:92 */
+		pwm_led_blue: pwm_led_blue {
+			pwms = < &pwm 0x3 0x1312d00 0x1 >; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:93 */
+		};
+	};
+
+	/* node '/can-phy0' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:97 */
+	transceiver0: can-phy0 {
+		compatible = "can-transceiver-gpio"; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:98 */
+		standby-gpios = < &pioc 0xf 0x0 >;   /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:99 */
+		max-bitrate = < 0x7a1200 >;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:100 */
+		#phy-cells = < 0x0 >;                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:101 */
+		phandle = < 0x7 >;                   /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:217 */
+	};
+
+	/* node '/can-phy1' defined in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:104 */
+	transceiver1: can-phy1 {
+		compatible = "can-transceiver-gpio"; /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:105 */
+		standby-gpios = < &pioc 0x10 0x0 >;  /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:106 */
+		max-bitrate = < 0x7a1200 >;          /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:107 */
+		#phy-cells = < 0x0 >;                /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:108 */
+		phandle = < 0x9 >;                   /* in zephyr/boards/microchip/sam/sama7g54_ek/sama7g54_ek.dts:224 */
+	};
+};

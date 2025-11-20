@@ -1,0 +1,1662 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;     /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;        /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Renesas EK-RA6M3";   /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:16 */
+	compatible = "renesas,ra6m3",
+	             "renesas,ra";    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:17 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &sram0;              /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:20 */
+		zephyr,console = &uart8;           /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:21 */
+		zephyr,shell-uart = &uart8;        /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:22 */
+		zephyr,flash-controller = &flash1; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:23 */
+		zephyr,flash = &flash0;            /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:24 */
+		zephyr,entropy = &trng;            /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:25 */
+		zephyr,crc = &crc;                 /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:26 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led1;     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:65 */
+		sw0 = &button0;   /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:66 */
+		sw1 = &button1;   /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:67 */
+		watchdog0 = &wdt; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:68 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x4 >; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:756 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/system@4001e000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:34 */
+		system: system@4001e000 {
+			compatible = "renesas,ra-system"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:35 */
+			reg = < 0x4001e000 0x1000 >;      /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:36 */
+			status = "okay";                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:37 */
+		};
+
+		/* node '/soc/elc@40041000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:40 */
+		elc: elc@40041000 {
+			compatible = "renesas,ra-elc"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:41 */
+			reg = < 0x40041000 0x70 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:42 */
+			#renesas-elc-cells = < 0x2 >;  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:43 */
+			clocks = < &pclkb 0x2 0xe >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:44 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:45 */
+		};
+
+		/* node '/soc/gpio@40040000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:48 */
+		ioport0: gpio@40040000 {
+			compatible = "renesas,ra-gpio-ioport";                                                                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:49 */
+			reg = < 0x40040000 0x20 >;                                                                                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:50 */
+			port = < 0x0 >;                                                                                           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:51 */
+			gpio-controller;                                                                                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:52 */
+			#gpio-cells = < 0x2 >;                                                                                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:53 */
+			ngpios = < 0x10 >;                                                                                        /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:54 */
+			port-irqs = < &port_irq6 &port_irq7 &port_irq8 &port_irq9 &port_irq10 &port_irq11 &port_irq12 &port_irq13
+			              &port_irq14 >;                                                                              /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+			port-irq-names = "port-irq6",
+			                 "port-irq7",
+			                 "port-irq8",
+			                 "port-irq9",
+			                 "port-irq10",
+			                 "port-irq11",
+			                 "port-irq12",
+			                 "port-irq13",
+			                 "port-irq14";                                                                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:334 */
+			port-irq6-pins = < 0x0 >;                                                                                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:343 */
+			port-irq7-pins = < 0x1 >;                                                                                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:344 */
+			port-irq8-pins = < 0x2 >;                                                                                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:345 */
+			port-irq9-pins = < 0x4 >;                                                                                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:346 */
+			port-irq10-pins = < 0x5 >;                                                                                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:347 */
+			port-irq11-pins = < 0x6 >;                                                                                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:348 */
+			port-irq12-pins = < 0x8 >;                                                                                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:349 */
+			port-irq13-pins = < 0x9 0xf >;                                                                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:350 */
+			port-irq14-pins = < 0xa >;                                                                                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:351 */
+			status = "okay";                                                                                          /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:79 */
+			phandle = < 0x29 >;                                                                                       /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:52 */
+		};
+
+		/* node '/soc/gpio@40040020' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:58 */
+		ioport1: gpio@40040020 {
+			compatible = "renesas,ra-gpio-ioport";                                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:59 */
+			reg = < 0x40040020 0x20 >;                                              /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:60 */
+			port = < 0x1 >;                                                         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:61 */
+			gpio-controller;                                                        /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:62 */
+			#gpio-cells = < 0x2 >;                                                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:63 */
+			ngpios = < 0x10 >;                                                      /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:64 */
+			port-irqs = < &port_irq0 &port_irq1 &port_irq2 &port_irq3 &port_irq4 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:355 */
+			port-irq-names = "port-irq0",
+			                 "port-irq1",
+			                 "port-irq2",
+			                 "port-irq3",
+			                 "port-irq4";                                           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:357 */
+			port-irq0-pins = < 0x5 >;                                               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:362 */
+			port-irq1-pins = < 0x1 0x4 >;                                           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:363 */
+			port-irq2-pins = < 0x0 >;                                               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:364 */
+			port-irq3-pins = < 0xa >;                                               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:365 */
+			port-irq4-pins = < 0xb >;                                               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:366 */
+			status = "okay";                                                        /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:83 */
+			phandle = < 0x28 >;                                                     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:43 */
+		};
+
+		/* node '/soc/gpio@40040040' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:68 */
+		ioport2: gpio@40040040 {
+			compatible = "renesas,ra-gpio-ioport";                       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:69 */
+			reg = < 0x40040040 0x20 >;                                   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:70 */
+			port = < 0x2 >;                                              /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:71 */
+			gpio-controller;                                             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:72 */
+			#gpio-cells = < 0x2 >;                                       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:73 */
+			ngpios = < 0x10 >;                                           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:74 */
+			status = "disabled";                                         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:75 */
+			port-irqs = < &port_irq0 &port_irq1 &port_irq2 &port_irq3 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:370 */
+			port-irq-names = "port-irq0",
+			                 "port-irq1",
+			                 "port-irq2",
+			                 "port-irq3";                                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:372 */
+			port-irq0-pins = < 0x6 >;                                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:376 */
+			port-irq1-pins = < 0x5 >;                                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:377 */
+			port-irq2-pins = < 0x3 0xd >;                                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:378 */
+			port-irq3-pins = < 0x2 0xc >;                                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:379 */
+		};
+
+		/* node '/soc/gpio@40040060' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:78 */
+		ioport3: gpio@40040060 {
+			compatible = "renesas,ra-gpio-ioport";                       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:79 */
+			reg = < 0x40040060 0x20 >;                                   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:80 */
+			port = < 0x3 >;                                              /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:81 */
+			gpio-controller;                                             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:82 */
+			#gpio-cells = < 0x2 >;                                       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:83 */
+			ngpios = < 0x10 >;                                           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:84 */
+			status = "disabled";                                         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:85 */
+			port-irqs = < &port_irq5 &port_irq6 &port_irq8 &port_irq9 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:383 */
+			port-irq-names = "port-irq5",
+			                 "port-irq6",
+			                 "port-irq8",
+			                 "port-irq9";                                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:385 */
+			port-irq5-pins = < 0x2 >;                                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:389 */
+			port-irq6-pins = < 0x1 >;                                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:390 */
+			port-irq8-pins = < 0x5 >;                                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:391 */
+			port-irq9-pins = < 0x4 >;                                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:392 */
+		};
+
+		/* node '/soc/gpio@40040080' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:88 */
+		ioport4: gpio@40040080 {
+			compatible = "renesas,ra-gpio-ioport";                                                        /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:89 */
+			reg = < 0x40040080 0x20 >;                                                                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:90 */
+			port = < 0x4 >;                                                                               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:91 */
+			gpio-controller;                                                                              /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:92 */
+			#gpio-cells = < 0x2 >;                                                                        /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:93 */
+			ngpios = < 0x10 >;                                                                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:94 */
+			vbatts-pins = < 0x2 0x3 0x4 >;                                                                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:95 */
+			port-irqs = < &port_irq0 &port_irq4 &port_irq5 &port_irq6 &port_irq7 &port_irq8 &port_irq9 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:396 */
+			port-irq-names = "port-irq0",
+			                 "port-irq4",
+			                 "port-irq5",
+			                 "port-irq6",
+			                 "port-irq7",
+			                 "port-irq8",
+			                 "port-irq9";                                                                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:399 */
+			port-irq0-pins = < 0x0 >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:406 */
+			port-irq4-pins = < 0x2 0xb >;                                                                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:407 */
+			port-irq5-pins = < 0x1 0xa >;                                                                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:408 */
+			port-irq6-pins = < 0x9 >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:409 */
+			port-irq7-pins = < 0x8 >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:410 */
+			port-irq8-pins = < 0xf >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:411 */
+			port-irq9-pins = < 0xe >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:412 */
+			status = "okay";                                                                              /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:87 */
+			phandle = < 0x27 >;                                                                           /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:33 */
+		};
+
+		/* node '/soc/gpio@400400a0' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:99 */
+		ioport5: gpio@400400a0 {
+			compatible = "renesas,ra-gpio-ioport";                           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:100 */
+			reg = < 0x400400a0 0x20 >;                                       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:101 */
+			port = < 0x5 >;                                                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:102 */
+			gpio-controller;                                                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:103 */
+			#gpio-cells = < 0x2 >;                                           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:104 */
+			ngpios = < 0x10 >;                                               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:105 */
+			status = "disabled";                                             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:106 */
+			port-irqs = < &port_irq11 &port_irq12 &port_irq14 &port_irq15 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:416 */
+			port-irq-names = "port-irq11",
+			                 "port-irq12",
+			                 "port-irq14",
+			                 "port-irq15";                                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:418 */
+			port-irq11-pins = < 0x1 >;                                       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:422 */
+			port-irq12-pins = < 0x2 >;                                       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:423 */
+			port-irq14-pins = < 0x5 0xc >;                                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:424 */
+			port-irq15-pins = < 0x6 0xb >;                                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:425 */
+		};
+
+		/* node '/soc/gpio@400400c0' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:109 */
+		ioport6: gpio@400400c0 {
+			compatible = "renesas,ra-gpio-ioport"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:110 */
+			reg = < 0x400400c0 0x20 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:111 */
+			port = < 0x6 >;                        /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:112 */
+			gpio-controller;                       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:113 */
+			#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:114 */
+			ngpios = < 0x10 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:115 */
+			status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:116 */
+		};
+
+		/* node '/soc/gpio@400400e0' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:119 */
+		ioport7: gpio@400400e0 {
+			compatible = "renesas,ra-gpio-ioport";                         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:120 */
+			reg = < 0x400400e0 0x20 >;                                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:121 */
+			port = < 0x7 >;                                                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:122 */
+			gpio-controller;                                               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:123 */
+			#gpio-cells = < 0x2 >;                                         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:124 */
+			ngpios = < 0x10 >;                                             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:125 */
+			status = "disabled";                                           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:126 */
+			port-irqs = < &port_irq7 &port_irq8 &port_irq10 &port_irq11 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:429 */
+			port-irq-names = "port-irq7",
+			                 "port-irq8",
+			                 "port-irq10",
+			                 "port-irq11";                                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:431 */
+			port-irq7-pins = < 0x6 >;                                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:435 */
+			port-irq8-pins = < 0x7 >;                                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:436 */
+			port-irq10-pins = < 0x9 >;                                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:437 */
+			port-irq11-pins = < 0x8 >;                                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:438 */
+		};
+
+		/* node '/soc/dma@40005000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:129 */
+		dma0: dma@40005000 {
+			compatible = "renesas,ra-dma"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:130 */
+			reg = < 0x40005000 0x200 >,
+			      < 0x40005200 0xa0 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:131 */
+			reg-names = "channel",
+			            "common";          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:132 */
+			clocks = < &iclk 0x0 0x16 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:133 */
+			dma-channels = < 0x8 >;        /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:134 */
+			#dma-cells = < 0x2 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:135 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:136 */
+		};
+
+		/* node '/soc/pin-contrller@40040800' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:139 */
+		pinctrl: pin-contrller@40040800 {
+			compatible = "renesas,ra-pinctrl-pfs"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:140 */
+			reg = < 0x40040800 0x3c0 >;            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:141 */
+			status = "okay";                       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:142 */
+
+			/* node '/soc/pin-contrller@40040800/sci8_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:7 */
+			sci8_default: sci8_default {
+				phandle = < 0x15 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:91 */
+
+				/* node '/soc/pin-contrller@40040800/sci8_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:8 */
+				group1 {
+					psels = < 0x2451 >,
+					        < 0x2441 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:10 */
+				};
+			};
+
+			/* node '/soc/pin-contrller@40040800/iic2_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:15 */
+			iic2_default: iic2_default {
+				phandle = < 0x22 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:108 */
+
+				/* node '/soc/pin-contrller@40040800/iic2_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:16 */
+				group1 {
+					psels = < 0x27c5 >,
+					        < 0x27b5 >;        /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:18 */
+					drive-strength = "medium"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:20 */
+				};
+			};
+
+			/* node '/soc/pin-contrller@40040800/spi0_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:24 */
+			spi0_default: spi0_default {
+				phandle = < 0x16 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:73 */
+
+				/* node '/soc/pin-contrller@40040800/spi0_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:25 */
+				group1 {
+					psels = < 0x26a4 >,
+					        < 0x26b4 >,
+					        < 0x26c4 >,
+					        < 0x26e4 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:27 */
+				};
+			};
+
+			/* node '/soc/pin-contrller@40040800/usbhs_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:34 */
+			usbhs_default: usbhs_default {
+				phandle = < 0x24 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:141 */
+
+				/* node '/soc/pin-contrller@40040800/usbhs_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:35 */
+				group1 {
+					psels = < 0x341b >;      /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:36 */
+					drive-strength = "high"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:37 */
+				};
+			};
+
+			/* node '/soc/pin-contrller@40040800/adc0_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:41 */
+			adc0_default: adc0_default {
+				phandle = < 0x17 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:157 */
+
+				/* node '/soc/pin-contrller@40040800/adc0_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:42 */
+				group1 {
+					psels = < 0x2000 >;    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:44 */
+					renesas,analog-enable; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:45 */
+				};
+			};
+
+			/* node '/soc/pin-contrller@40040800/dac0_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:49 */
+			dac0_default: dac0_default {
+				phandle = < 0x18 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:162 */
+
+				/* node '/soc/pin-contrller@40040800/dac0_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:50 */
+				group1 {
+					psels = < 0x20e0 >;    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:52 */
+					renesas,analog-enable; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:53 */
+				};
+			};
+
+			/* node '/soc/pin-contrller@40040800/pwm0_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:57 */
+			pwm0_default: pwm0_default {
+				phandle = < 0x1d >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:178 */
+
+				/* node '/soc/pin-contrller@40040800/pwm0_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:58 */
+				group1 {
+					psels = < 0x23f4 >,
+					        < 0x23e4 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:60 */
+				};
+			};
+
+			/* node '/soc/pin-contrller@40040800/usbfs_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:65 */
+			usbfs_default: usbfs_default {
+				phandle = < 0x1b >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:199 */
+
+				/* node '/soc/pin-contrller@40040800/usbfs_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:66 */
+				group1 {
+					psels = < 0x331b >;      /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:68 */
+					drive-strength = "high"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:69 */
+				};
+			};
+
+			/* node '/soc/pin-contrller@40040800/ether_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:73 */
+			ether_default: ether_default {
+				phandle = < 0x1f >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:215 */
+
+				/* node '/soc/pin-contrller@40040800/ether_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:74 */
+				group1 {
+					psels = < 0x3714 >,
+					        < 0x3724 >,
+					        < 0x3754 >,
+					        < 0x3764 >,
+					        < 0x3707 >,
+					        < 0x3717 >,
+					        < 0x3727 >,
+					        < 0x3737 >,
+					        < 0x3747 >,
+					        < 0x3757 >;      /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:75 */
+					drive-strength = "high"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:85 */
+				};
+			};
+
+			/* node '/soc/pin-contrller@40040800/qspi_default' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:89 */
+			qspi_default: qspi_default {
+				phandle = < 0x21 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:227 */
+
+				/* node '/soc/pin-contrller@40040800/qspi_default/group1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:90 */
+				group1 {
+					psels = < 0x3153 >,
+					        < 0x3163 >,
+					        < 0x3173 >,
+					        < 0x3183 >,
+					        < 0x3193 >,
+					        < 0x31a3 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3-pinctrl.dtsi:92 */
+				};
+			};
+		};
+
+		/* node '/soc/sci0@40070000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:145 */
+		sci0: sci0@40070000 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:146 */
+			interrupts = < 0x0 0x1 >,
+			             < 0x1 0x1 >,
+			             < 0x2 0x1 >,
+			             < 0x3 0x1 >;      /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:147 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:148 */
+			reg = < 0x40070000 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:149 */
+			clocks = < &pclka 0x1 0x1f >;  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:150 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:151 */
+
+			/* node '/soc/sci0@40070000/uart' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:153 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:154 */
+				channel = < 0x0 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:155 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:156 */
+			};
+
+			/* node '/soc/sci0@40070000/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:159 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:160 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:161 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:162 */
+				channel = < 0x0 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:163 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:164 */
+			};
+		};
+
+		/* node '/soc/sci1@40070020' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:168 */
+		sci1: sci1@40070020 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:169 */
+			reg = < 0x40070020 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:170 */
+			clocks = < &pclka 0x1 0x1e >;  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:171 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:172 */
+
+			/* node '/soc/sci1@40070020/uart' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:174 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:175 */
+				channel = < 0x1 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:176 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:177 */
+			};
+
+			/* node '/soc/sci1@40070020/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:180 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:181 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:182 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:183 */
+				channel = < 0x1 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:184 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:185 */
+			};
+		};
+
+		/* node '/soc/sci2@40070040' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:189 */
+		sci2: sci2@40070040 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:190 */
+			reg = < 0x40070040 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:191 */
+			clocks = < &pclka 0x1 0x1d >;  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:192 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:193 */
+
+			/* node '/soc/sci2@40070040/uart' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:195 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:196 */
+				channel = < 0x2 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:197 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:198 */
+			};
+
+			/* node '/soc/sci2@40070040/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:201 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:202 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:203 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:204 */
+				channel = < 0x2 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:205 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:206 */
+			};
+		};
+
+		/* node '/soc/sci3@40070060' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:210 */
+		sci3: sci3@40070060 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:211 */
+			reg = < 0x40070060 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:212 */
+			clocks = < &pclka 0x1 0x1b >;  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:213 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:214 */
+
+			/* node '/soc/sci3@40070060/uart' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:216 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:217 */
+				channel = < 0x3 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:218 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:219 */
+			};
+
+			/* node '/soc/sci3@40070060/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:222 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:223 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:224 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:225 */
+				channel = < 0x3 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:226 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:227 */
+			};
+		};
+
+		/* node '/soc/sci4@40070080' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:231 */
+		sci4: sci4@40070080 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:232 */
+			reg = < 0x40070080 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:233 */
+			clocks = < &pclka 0x1 0x1a >;  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:234 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:235 */
+
+			/* node '/soc/sci4@40070080/uart' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:237 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:238 */
+				channel = < 0x4 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:239 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:240 */
+			};
+
+			/* node '/soc/sci4@40070080/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:243 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:244 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:245 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:246 */
+				channel = < 0x4 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:247 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:248 */
+			};
+		};
+
+		/* node '/soc/sci8@40070100' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:252 */
+		sci8: sci8@40070100 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:253 */
+			interrupts = < 0x14 0x1 >,
+			             < 0x15 0x1 >,
+			             < 0x16 0x1 >,
+			             < 0x17 0x1 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:254 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:255 */
+			reg = < 0x40070100 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:256 */
+			clocks = < &pclka 0x1 0x17 >;  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:257 */
+			pinctrl-0 = < &sci8_default >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:91 */
+			pinctrl-names = "default";     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:92 */
+			status = "okay";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:93 */
+
+			/* node '/soc/sci8@40070100/uart' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:260 */
+			uart8: uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:261 */
+				channel = < 0x8 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:262 */
+				current-speed = < 0x1c200 >;        /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:96 */
+				status = "okay";                    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:97 */
+			};
+
+			/* node '/soc/sci8@40070100/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:266 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:267 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:268 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:269 */
+				channel = < 0x8 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:270 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:271 */
+			};
+		};
+
+		/* node '/soc/sci9@40070120' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:275 */
+		sci9: sci9@40070120 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:276 */
+			interrupts = < 0x18 0x1 >,
+			             < 0x19 0x1 >,
+			             < 0x1a 0x1 >,
+			             < 0x1b 0x1 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:277 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:278 */
+			reg = < 0x40070120 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:279 */
+			clocks = < &pclka 0x1 0x16 >;  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:280 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:281 */
+
+			/* node '/soc/sci9@40070120/uart' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:283 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:284 */
+				channel = < 0x9 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:285 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:286 */
+			};
+
+			/* node '/soc/sci9@40070120/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:289 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:290 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:291 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:292 */
+				channel = < 0x9 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:293 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:294 */
+			};
+		};
+
+		/* node '/soc/iic0@40053000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:298 */
+		iic0: iic0@40053000 {
+			compatible = "renesas,ra-iic"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:299 */
+			channel = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:300 */
+			reg = < 0x40053000 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:301 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:302 */
+		};
+
+		/* node '/soc/iic1@40053100' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:305 */
+		iic1: iic1@40053100 {
+			compatible = "renesas,ra-iic"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:306 */
+			channel = < 0x1 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:307 */
+			reg = < 0x40053100 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:308 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:309 */
+		};
+
+		/* node '/soc/spi@40072000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:312 */
+		spi0: spi@40072000 {
+			compatible = "renesas,ra-spi"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:313 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:314 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:315 */
+			channel = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:316 */
+			interrupts = < 0x1c 0x1 >,
+			             < 0x1d 0x1 >,
+			             < 0x1e 0x1 >,
+			             < 0x1f 0x1 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:317 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:318 */
+			reg = < 0x40072000 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:319 */
+			pinctrl-0 = < &spi0_default >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:73 */
+			pinctrl-names = "default";     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:74 */
+			status = "okay";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:75 */
+		};
+
+		/* node '/soc/spi@40072100' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:323 */
+		spi1: spi@40072100 {
+			compatible = "renesas,ra-spi"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:324 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:325 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:326 */
+			channel = < 0x1 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:327 */
+			reg = < 0x40072100 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:328 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:329 */
+		};
+
+		/* node '/soc/agt@40084000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:332 */
+		agt0: agt@40084000 {
+			compatible = "renesas,ra-agt";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:333 */
+			channel = < 0x0 >;                       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:334 */
+			reg = < 0x40084000 0x100 >;              /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:335 */
+			renesas,count-source = "AGT_CLOCK_LOCO"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:336 */
+			renesas,prescaler = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:337 */
+			renesas,resolution = < 0x10 >;           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:338 */
+			status = "disabled";                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:339 */
+
+			/* node '/soc/agt@40084000/counter' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:341 */
+			counter {
+				compatible = "renesas,ra-agt-counter"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:342 */
+				status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:343 */
+			};
+		};
+
+		/* node '/soc/agt@40084100' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:347 */
+		agt1: agt@40084100 {
+			compatible = "renesas,ra-agt";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:348 */
+			channel = < 0x1 >;                       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:349 */
+			reg = < 0x40084100 0x100 >;              /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:350 */
+			renesas,count-source = "AGT_CLOCK_LOCO"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:351 */
+			renesas,prescaler = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:352 */
+			renesas,resolution = < 0x10 >;           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:353 */
+			status = "disabled";                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:354 */
+
+			/* node '/soc/agt@40084100/counter' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:356 */
+			counter {
+				compatible = "renesas,ra-agt-counter"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:357 */
+				status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:358 */
+			};
+		};
+
+		/* node '/soc/adc@4005c000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:362 */
+		adc0: adc@4005c000 {
+			compatible = "renesas,ra-adc";         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:363 */
+			interrupts = < 0x26 0x1 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:364 */
+			interrupt-names = "scanend";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:365 */
+			reg = < 0x4005c000 0x100 >;            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:366 */
+			#io-channel-cells = < 0x1 >;           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:367 */
+			vref-mv = < 0xce4 >;                   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:368 */
+			channel-available-mask = < 0x1f00ff >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:152 */
+			status = "okay";                       /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:156 */
+			pinctrl-0 = < &adc0_default >;         /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:157 */
+			pinctrl-names = "default";             /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:158 */
+		};
+
+		/* node '/soc/adc@4005c200' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:372 */
+		adc1: adc@4005c200 {
+			compatible = "renesas,ra-adc";        /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:373 */
+			interrupts = < 0x27 0x1 >;            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:374 */
+			interrupt-names = "scanend";          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:375 */
+			reg = < 0x4005c200 0x100 >;           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:376 */
+			#io-channel-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:377 */
+			vref-mv = < 0xce4 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:378 */
+			status = "disabled";                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:379 */
+			channel-available-mask = < 0xf00ef >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:156 */
+		};
+
+		/* node '/soc/crc@40074000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:382 */
+		crc: crc@40074000 {
+			compatible = "renesas,ra-crc"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:383 */
+			reg = < 0x40074000 0x1000 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:384 */
+			clocks = < &pclka 0x2 0x1 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:385 */
+			status = "okay";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:241 */
+		};
+
+		/* node '/soc/dac_global@4005e000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:389 */
+		dac_global: dac_global@4005e000 {
+			compatible = "renesas,ra-dac-global"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:390 */
+			reg = < 0x4005e000 0x10c4 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:391 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:392 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:393 */
+			has-output-amplifier;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:442 */
+
+			/* node '/soc/dac_global@4005e000/dac@0' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:395 */
+			dac0: dac@0 {
+				compatible = "renesas,ra-dac"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:396 */
+				#io-channel-cells = < 0x1 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:397 */
+				reg = < 0x0 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:398 */
+				pinctrl-0 = < &dac0_default >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:162 */
+				pinctrl-names = "default";     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:163 */
+				status = "okay";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:164 */
+			};
+
+			/* node '/soc/dac_global@4005e000/dac@1' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:402 */
+			dac1: dac@1 {
+				compatible = "renesas,ra-dac"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:403 */
+				#io-channel-cells = < 0x1 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:404 */
+				reg = < 0x1 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:405 */
+				status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:406 */
+			};
+		};
+
+		/* node '/soc/usbfs@40090000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:410 */
+		usbfs: usbfs@40090000 {
+			compatible = "renesas,ra-usbfs"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:411 */
+			reg = < 0x40090000 0x2000 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:412 */
+			interrupts = < 0x37 0xc >,
+			             < 0x38 0xc >;       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:413 */
+			interrupt-names = "usbfs-i",
+			                  "usbfs-r";     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:414 */
+			num-bidir-endpoints = < 0xa >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:415 */
+			phys = < &usbfs_phy >;           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:416 */
+			phys-clock = < &uclk >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:417 */
+			status = "disabled";             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:418 */
+			pinctrl-0 = < &usbfs_default >;  /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:199 */
+			pinctrl-names = "default";       /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:200 */
+			maximum-speed = "full-speed";    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:201 */
+
+			/* node '/soc/usbfs@40090000/udc' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:420 */
+			udc {
+				compatible = "renesas,ra-udc"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:421 */
+				status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:422 */
+			};
+		};
+
+		/* node '/soc/external-interrupt@40006000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:426 */
+		port_irq0: external-interrupt@40006000 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:427 */
+			reg = < 0x40006000 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:428 */
+			channel = < 0x0 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:429 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:430 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:431 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:432 */
+			phandle = < 0xc >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:355 */
+		};
+
+		/* node '/soc/external-interrupt@40006001' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:435 */
+		port_irq1: external-interrupt@40006001 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:436 */
+			reg = < 0x40006001 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:437 */
+			channel = < 0x1 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:438 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:439 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:440 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:441 */
+			phandle = < 0xd >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:355 */
+		};
+
+		/* node '/soc/external-interrupt@40006002' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:444 */
+		port_irq2: external-interrupt@40006002 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:445 */
+			reg = < 0x40006002 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:446 */
+			channel = < 0x2 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:447 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:448 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:449 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:450 */
+			phandle = < 0xe >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:355 */
+		};
+
+		/* node '/soc/external-interrupt@40006003' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:453 */
+		port_irq3: external-interrupt@40006003 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:454 */
+			reg = < 0x40006003 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:455 */
+			channel = < 0x3 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:456 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:457 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:458 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:459 */
+			phandle = < 0xf >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:355 */
+		};
+
+		/* node '/soc/external-interrupt@40006004' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:462 */
+		port_irq4: external-interrupt@40006004 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:463 */
+			reg = < 0x40006004 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:464 */
+			channel = < 0x4 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:465 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:466 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:467 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:468 */
+			phandle = < 0x10 >;                           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:355 */
+		};
+
+		/* node '/soc/external-interrupt@40006005' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:471 */
+		port_irq5: external-interrupt@40006005 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:472 */
+			reg = < 0x40006005 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:473 */
+			channel = < 0x5 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:474 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:475 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:476 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:477 */
+			phandle = < 0x11 >;                           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:383 */
+		};
+
+		/* node '/soc/external-interrupt@40006006' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:480 */
+		port_irq6: external-interrupt@40006006 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:481 */
+			reg = < 0x40006006 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:482 */
+			channel = < 0x6 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:483 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:484 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:485 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:486 */
+			phandle = < 0x3 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+		};
+
+		/* node '/soc/external-interrupt@40006007' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:489 */
+		port_irq7: external-interrupt@40006007 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:490 */
+			reg = < 0x40006007 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:491 */
+			channel = < 0x7 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:492 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:493 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:494 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:495 */
+			phandle = < 0x4 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+		};
+
+		/* node '/soc/external-interrupt@40006008' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:498 */
+		port_irq8: external-interrupt@40006008 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:499 */
+			reg = < 0x40006008 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:500 */
+			channel = < 0x8 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:501 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:502 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:503 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:504 */
+			phandle = < 0x5 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+		};
+
+		/* node '/soc/external-interrupt@40006009' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:507 */
+		port_irq9: external-interrupt@40006009 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:508 */
+			reg = < 0x40006009 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:509 */
+			channel = < 0x9 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:510 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:511 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:512 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:513 */
+			phandle = < 0x6 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+		};
+
+		/* node '/soc/external-interrupt@4000600a' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:516 */
+		port_irq10: external-interrupt@4000600a {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:517 */
+			reg = < 0x4000600a 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:518 */
+			channel = < 0xa >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:519 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:520 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:521 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:522 */
+			phandle = < 0x7 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+		};
+
+		/* node '/soc/external-interrupt@4000600b' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:525 */
+		port_irq11: external-interrupt@4000600b {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:526 */
+			reg = < 0x4000600b 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:527 */
+			channel = < 0xb >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:528 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:529 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:530 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:531 */
+			phandle = < 0x8 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+		};
+
+		/* node '/soc/external-interrupt@4000600c' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:534 */
+		port_irq12: external-interrupt@4000600c {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:535 */
+			reg = < 0x4000600c 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:536 */
+			channel = < 0xc >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:537 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:538 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:539 */
+			interrupts = < 0x29 0xc >;                    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:168 */
+			status = "okay";                              /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:169 */
+			phandle = < 0x9 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+		};
+
+		/* node '/soc/external-interrupt@4000600d' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:543 */
+		port_irq13: external-interrupt@4000600d {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:544 */
+			reg = < 0x4000600d 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:545 */
+			channel = < 0xd >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:546 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:547 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:548 */
+			interrupts = < 0x2a 0xc >;                    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:173 */
+			status = "okay";                              /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:174 */
+			phandle = < 0xa >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+		};
+
+		/* node '/soc/external-interrupt@4000600e' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:552 */
+		port_irq14: external-interrupt@4000600e {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:553 */
+			reg = < 0x4000600e 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:554 */
+			channel = < 0xe >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:555 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:556 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:557 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:558 */
+			phandle = < 0xb >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:331 */
+		};
+
+		/* node '/soc/external-interrupt@4000600f' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:561 */
+		port_irq15: external-interrupt@4000600f {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:562 */
+			reg = < 0x4000600f 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:563 */
+			channel = < 0xf >;                            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:564 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:565 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:566 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:567 */
+			phandle = < 0x12 >;                           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:416 */
+		};
+
+		/* node '/soc/pwm0@40078000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:570 */
+		pwm0: pwm0@40078000 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:571 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:572 */
+			channel = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:573 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:574 */
+			reg = < 0x40078000 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:575 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:576 */
+			pinctrl-0 = < &pwm0_default >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:178 */
+			pinctrl-names = "default";     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:179 */
+			interrupts = < 0x3f 0x1 >,
+			             < 0x40 0x1 >;     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:180 */
+			interrupt-names = "gtioca",
+			                  "overflow";  /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:181 */
+			status = "okay";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:182 */
+		};
+
+		/* node '/soc/pwm1@40078100' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:580 */
+		pwm1: pwm1@40078100 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:581 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:582 */
+			channel = < 0x1 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:583 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:584 */
+			reg = < 0x40078100 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:585 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:586 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:587 */
+		};
+
+		/* node '/soc/pwm2@40078200' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:590 */
+		pwm2: pwm2@40078200 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:591 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:592 */
+			channel = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:593 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:594 */
+			reg = < 0x40078200 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:595 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:596 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:597 */
+		};
+
+		/* node '/soc/pwm3@40078300' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:600 */
+		pwm3: pwm3@40078300 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:601 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:602 */
+			channel = < 0x3 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:603 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:604 */
+			reg = < 0x40078300 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:605 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:606 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:607 */
+		};
+
+		/* node '/soc/pwm4@40078400' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:610 */
+		pwm4: pwm4@40078400 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:611 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:612 */
+			channel = < 0x4 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:613 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:614 */
+			reg = < 0x40078400 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:615 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:616 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:617 */
+		};
+
+		/* node '/soc/pwm5@40078500' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:620 */
+		pwm5: pwm5@40078500 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:621 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:622 */
+			channel = < 0x5 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:623 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:624 */
+			reg = < 0x40078500 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:625 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:626 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:627 */
+		};
+
+		/* node '/soc/pwm6@40078600' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:630 */
+		pwm6: pwm6@40078600 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:631 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:632 */
+			channel = < 0x6 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:633 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:634 */
+			reg = < 0x40078600 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:635 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:636 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:637 */
+		};
+
+		/* node '/soc/pwm7@40078700' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:640 */
+		pwm7: pwm7@40078700 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:641 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:642 */
+			channel = < 0x7 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:643 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:644 */
+			reg = < 0x40078700 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:645 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:646 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:647 */
+		};
+
+		/* node '/soc/pwm8@40078800' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:650 */
+		pwm8: pwm8@40078800 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:651 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:652 */
+			channel = < 0x8 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:653 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:654 */
+			reg = < 0x40078800 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:655 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:656 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:657 */
+		};
+
+		/* node '/soc/pwm9@40078900' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:660 */
+		pwm9: pwm9@40078900 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:661 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:662 */
+			channel = < 0x9 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:663 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:664 */
+			reg = < 0x40078900 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:665 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:666 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:667 */
+		};
+
+		/* node '/soc/pwm10@40078a00' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:670 */
+		pwm10: pwm10@40078a00 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:671 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:672 */
+			channel = < 0xa >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:673 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:674 */
+			reg = < 0x40078a00 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:675 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:676 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:677 */
+		};
+
+		/* node '/soc/pwm11@40078b00' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:680 */
+		pwm11: pwm11@40078b00 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:681 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:682 */
+			channel = < 0xb >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:683 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:684 */
+			reg = < 0x40078b00 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:685 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:686 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:687 */
+		};
+
+		/* node '/soc/pwm12@40078c00' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:690 */
+		pwm12: pwm12@40078c00 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:691 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:692 */
+			channel = < 0xc >;             /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:693 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:694 */
+			reg = < 0x40078c00 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:695 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:696 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:697 */
+		};
+
+		/* node '/soc/ethernet@40064100' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:700 */
+		eth: ethernet@40064100 {
+			compatible = "renesas,ra-ethernet";        /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:701 */
+			reg = < 0x40064100 0xfc >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:702 */
+			interrupts = < 0x33 0x0 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:703 */
+			phy-connection-type = "rmii";              /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:705 */
+			local-mac-address = [ 00 11 22 33 44 57 ]; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:209 */
+			status = "okay";                           /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:210 */
+			phy-handle = < &phy >;                     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:211 */
+		};
+
+		/* node '/soc/mdio' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:709 */
+		mdio: mdio {
+			compatible = "renesas,ra-mdio"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:710 */
+			#address-cells = < 0x1 >;       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:711 */
+			#size-cells = < 0x0 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:712 */
+			pinctrl-0 = < &ether_default >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:215 */
+			pinctrl-names = "default";      /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:216 */
+			status = "okay";                /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:217 */
+
+			/* node '/soc/mdio/ethernet-phy@0' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:219 */
+			phy: ethernet-phy@0 {
+				compatible = "ethernet-phy"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:220 */
+				reg = < 0x0 >;               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:221 */
+				status = "okay";             /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:222 */
+				phandle = < 0x1e >;          /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:211 */
+			};
+		};
+
+		/* node '/soc/flash-controller@407e0000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:716 */
+		flash: flash-controller@407e0000 {
+			compatible = "renesas,ra-flash-hp-controller"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:717 */
+			reg = < 0x407e0000 0x10000 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:718 */
+			#address-cells = < 0x1 >;                      /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:719 */
+			#size-cells = < 0x1 >;                         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:720 */
+			interrupts = < 0x31 0x1 >,
+			             < 0x32 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:721 */
+			interrupt-names = "frdyi",
+			                  "fiferr";                    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:722 */
+			flash-hardware-version = < 0x28 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:12 */
+			#erase-block-cells = < 0x2 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:13 */
+			phandle = < 0x20 >;                            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:20 */
+
+			/* node '/soc/flash-controller@407e0000/flash@0' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:15 */
+			flash0: flash@0 {
+				compatible = "renesas,ra-nv-code-flash"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:16 */
+				reg = < 0x0 0x200000 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:17 */
+				write-block-size = < 0x80 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:18 */
+				erase-block-size = < 0x8000 >;           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:19 */
+				erase-blocks = < &flash 0x8 0x2000 >,
+				               < &flash 0x3e 0x8000 >;   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:20 */
+				programming-enable;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:21 */
+			};
+
+			/* node '/soc/flash-controller@407e0000/flash@40100000' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:24 */
+			flash1: flash@40100000 {
+				compatible = "renesas,ra-nv-data-flash"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:25 */
+				reg = < 0x40100000 0x10000 >;            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:26 */
+				write-block-size = < 0x4 >;              /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:27 */
+				erase-block-size = < 0x40 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:28 */
+				programming-enable;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:29 */
+				erase-value-undefined;                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:30 */
+
+				/* node '/soc/flash-controller@407e0000/flash@40100000/partitions' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:186 */
+				partitions {
+					compatible = "fixed-partitions"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:187 */
+					#address-cells = < 0x1 >;        /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:188 */
+					#size-cells = < 0x1 >;           /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:189 */
+
+					/* node '/soc/flash-controller@407e0000/flash@40100000/partitions/partition@0' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:191 */
+					storage_partition: partition@0 {
+						label = "storage";     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:192 */
+						reg = < 0x0 0x10000 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:193 */
+					};
+				};
+			};
+		};
+
+		/* node '/soc/wdt@40044200' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:725 */
+		wdt: wdt@40044200 {
+			compatible = "renesas,ra-wdt"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:726 */
+			reg = < 0x40044200 0x200 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:727 */
+			clocks = < &pclkb 0x0 0x0 >;   /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:728 */
+			status = "okay";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:205 */
+		};
+
+		/* node '/soc/ctsua@40081000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:732 */
+		ctsu: ctsua@40081000 {
+			compatible = "renesas,ra-ctsu"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:733 */
+			reg = < 0x40081000 0x24 >;      /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:734 */
+			clocks = < &pclkb 0x2 0x3 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:735 */
+			variant = "ctsua";              /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:736 */
+			status = "disabled";            /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:737 */
+		};
+
+		/* node '/soc/qspi0@64000000' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:740 */
+		qspi0: qspi0@64000000 {
+			compatible = "renesas,ra-qspi"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:741 */
+			#address-cells = < 0x1 >;       /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:742 */
+			#size-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:743 */
+			reg = < 0x64000000 0x808 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:744 */
+			pinctrl-0 = < &qspi_default >;  /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:227 */
+			pinctrl-names = "default";      /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:228 */
+			status = "okay";                /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:229 */
+
+			/* node '/soc/qspi0@64000000/qspi-nor-flash@60000000' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:231 */
+			mx25l25645g: qspi-nor-flash@60000000 {
+				compatible = "renesas,ra-qspi-nor"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:232 */
+				reg = < 0x60000000 0x2000000 >;     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:233 */
+				status = "okay";                    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:234 */
+				write-block-size = < 0x1 >;         /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:235 */
+				erase-block-size = < 0x1000 >;      /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:236 */
+			};
+		};
+
+		/* node '/soc/memory@1ffe0000' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:14 */
+		sram0: memory@1ffe0000 {
+			compatible = "mmio-sram";     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:15 */
+			reg = < 0x1ffe0000 0xa0000 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:16 */
+		};
+
+		/* node '/soc/gpio@40040100' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:19 */
+		ioport8: gpio@40040100 {
+			compatible = "renesas,ra-gpio-ioport"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:20 */
+			reg = < 0x40040100 0x20 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:21 */
+			port = < 0x8 >;                        /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:22 */
+			gpio-controller;                       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:23 */
+			#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:24 */
+			ngpios = < 0x10 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:25 */
+			status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:26 */
+		};
+
+		/* node '/soc/gpio@40040120' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:29 */
+		ioport9: gpio@40040120 {
+			compatible = "renesas,ra-gpio-ioport"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:30 */
+			reg = < 0x40040120 0x20 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:31 */
+			port = < 0x9 >;                        /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:32 */
+			gpio-controller;                       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:33 */
+			#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:34 */
+			ngpios = < 0x10 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:35 */
+			status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:36 */
+		};
+
+		/* node '/soc/gpio@40040140' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:39 */
+		ioporta: gpio@40040140 {
+			compatible = "renesas,ra-gpio-ioport"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:40 */
+			reg = < 0x40040140 0x20 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:41 */
+			port = < 0xa >;                        /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:42 */
+			gpio-controller;                       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:43 */
+			#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:44 */
+			ngpios = < 0x10 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:45 */
+			status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:46 */
+		};
+
+		/* node '/soc/gpio@40040160' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:49 */
+		ioportb: gpio@40040160 {
+			compatible = "renesas,ra-gpio-ioport"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:50 */
+			reg = < 0x40040160 0x20 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:51 */
+			port = < 0xb >;                        /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:52 */
+			gpio-controller;                       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:53 */
+			#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:54 */
+			ngpios = < 0x10 >;                     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:55 */
+			status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:56 */
+		};
+
+		/* node '/soc/sci5@400700a0' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:59 */
+		sci5: sci5@400700a0 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:60 */
+			interrupts = < 0x14 0x1 >,
+			             < 0x15 0x1 >,
+			             < 0x16 0x1 >,
+			             < 0x17 0x1 >;     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:61 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:62 */
+			reg = < 0x400700a0 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:63 */
+			clocks = < &pclka 0x1 0x1a >;  /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:64 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:65 */
+
+			/* node '/soc/sci5@400700a0/uart' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:67 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:68 */
+				channel = < 0x5 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:69 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:70 */
+			};
+
+			/* node '/soc/sci5@400700a0/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:73 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:74 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:75 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:76 */
+				channel = < 0x5 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:77 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:78 */
+			};
+		};
+
+		/* node '/soc/sci6@400700c0' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:82 */
+		sci6: sci6@400700c0 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:83 */
+			interrupts = < 0x18 0x1 >,
+			             < 0x19 0x1 >,
+			             < 0x1a 0x1 >,
+			             < 0x1b 0x1 >;     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:84 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:85 */
+			reg = < 0x400700c0 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:86 */
+			clocks = < &pclka 0x1 0x19 >;  /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:87 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:88 */
+
+			/* node '/soc/sci6@400700c0/uart' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:90 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:91 */
+				channel = < 0x6 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:92 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:93 */
+			};
+
+			/* node '/soc/sci6@400700c0/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:96 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:97 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:98 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:99 */
+				channel = < 0x6 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:100 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:101 */
+			};
+		};
+
+		/* node '/soc/sci7@400700e0' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:105 */
+		sci7: sci7@400700e0 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:106 */
+			interrupts = < 0x1c 0x1 >,
+			             < 0x1d 0x1 >,
+			             < 0x1e 0x1 >,
+			             < 0x1f 0x1 >;     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:107 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:108 */
+			reg = < 0x400700e0 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:109 */
+			clocks = < &pclka 0x1 0x18 >;  /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:110 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:111 */
+
+			/* node '/soc/sci7@400700e0/uart' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:113 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:114 */
+				channel = < 0x7 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:115 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:116 */
+			};
+
+			/* node '/soc/sci7@400700e0/i2c' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:119 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:120 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:121 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:122 */
+				channel = < 0x7 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:123 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:124 */
+			};
+		};
+
+		/* node '/soc/iic2@40053200' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:128 */
+		iic2: iic2@40053200 {
+			compatible = "renesas,ra-iic"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:129 */
+			channel = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:130 */
+			reg = < 0x40053200 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:131 */
+			status = "okay";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:102 */
+			#address-cells = < 0x1 >;      /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:103 */
+			#size-cells = < 0x0 >;         /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:104 */
+			interrupts = < 0x5b 0x1 >,
+			             < 0x5c 0x1 >,
+			             < 0x5d 0x1 >,
+			             < 0x5e 0x1 >;     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:105 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:106 */
+			clock-frequency = < 0xf4240 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:107 */
+			pinctrl-0 = < &iic2_default >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:108 */
+			pinctrl-names = "default";     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:109 */
+		};
+
+		/* node '/soc/usbhs@40060000' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:135 */
+		usbhs: usbhs@40060000 {
+			compatible = "renesas,ra-usbhs"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:136 */
+			reg = < 0x40060000 0x2000 >;     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:137 */
+			interrupts = < 0x36 0xc >;       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:138 */
+			interrupt-names = "usbhs-ir";    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:139 */
+			num-bidir-endpoints = < 0xa >;   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:140 */
+			phys = < &usbhs_phy >;           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:141 */
+			phys-clock = < &uclk >;          /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:142 */
+			pinctrl-0 = < &usbhs_default >;  /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:141 */
+			pinctrl-names = "default";       /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:142 */
+			maximum-speed = "high-speed";    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:143 */
+			status = "okay";                 /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:144 */
+
+			/* node '/soc/usbhs@40060000/udc' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:145 */
+			zephyr_udc0: udc {
+				compatible = "renesas,ra-udc"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:146 */
+				status = "okay";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:147 */
+			};
+		};
+
+		/* node '/soc/pwm13@40078d00' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:159 */
+		pwm13: pwm13@40078d00 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:160 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:161 */
+			channel = < 0xd >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:162 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:163 */
+			reg = < 0x40078d00 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:164 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:165 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:166 */
+		};
+
+		/* node '/soc/option-setting-ofs0@400' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:169 */
+		option_setting_ofs0: option-setting-ofs0@400 {
+			compatible = "renesas,ofs-memory"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:170 */
+			reg = < 0x400 0x4 >;               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:171 */
+			status = "okay";                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:172 */
+		};
+
+		/* node '/soc/option-setting-ofs1@404' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:175 */
+		option_setting_ofs1: option-setting-ofs1@404 {
+			compatible = "renesas,ofs-memory"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:176 */
+			reg = < 0x404 0x4 >;               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:177 */
+			status = "okay";                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:178 */
+		};
+
+		/* node '/soc/option-setting-secmpu@408' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:181 */
+		option_setting_secmpu: option-setting-secmpu@408 {
+			compatible = "renesas,ofs-memory"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:182 */
+			reg = < 0x408 0x34 >;              /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:183 */
+			status = "okay";                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:184 */
+		};
+
+		/* node '/soc/option-setting-osis@100a150' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:187 */
+		option_setting_osis: option-setting-osis@100a150 {
+			compatible = "zephyr,memory-region";      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:188 */
+			zephyr,memory-region = "OFS_OSIS_MEMORY"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:189 */
+			reg = < 0x100a150 0x10 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:190 */
+			status = "okay";                          /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:191 */
+		};
+
+		/* node '/soc/trng' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:34 */
+		trng: trng {
+			compatible = "renesas,ra-sce7-rng"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ah3cfc.dtsi:35 */
+			status = "okay";                    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:131 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:15 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:16 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:17 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:19 */
+		cpu@0 {
+			device_type = "cpu";          /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:20 */
+			compatible = "arm,cortex-m4"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:21 */
+			reg = < 0x0 >;                /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:22 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:23 */
+			#size-cells = < 0x1 >;        /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:24 */
+
+			/* node '/cpus/cpu@0/mpu@e000ed90' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:26 */
+			mpu: mpu@e000ed90 {
+				compatible = "arm,armv7m-mpu"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:27 */
+				reg = < 0xe000ed90 0x40 >;     /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:28 */
+			};
+		};
+	};
+
+	/* node '/usbfs-phy' defined in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:749 */
+	usbfs_phy: usbfs-phy {
+		compatible = "usb-nop-xceiv"; /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:750 */
+		#phy-cells = < 0x0 >;         /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:751 */
+		phandle = < 0x19 >;           /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:416 */
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:195 */
+	clocks: clocks {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:196 */
+		#size-cells = < 0x1 >;    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:197 */
+
+		/* node '/clocks/clock-main-osc' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:199 */
+		xtal: clock-main-osc {
+			compatible = "renesas,ra-cgc-external-clock"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:200 */
+			clock-frequency = < 0x16e3600 >;              /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:113 */
+			mosel = < 0x0 >;                              /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:114 */
+			#clock-cells = < 0x0 >;                       /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:115 */
+			status = "okay";                              /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:116 */
+			phandle = < 0x25 >;                           /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:124 */
+		};
+
+		/* node '/clocks/clock-hoco' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:206 */
+		hoco: clock-hoco {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:207 */
+			clock-frequency = < 0x1312d00 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:208 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:209 */
+		};
+
+		/* node '/clocks/clock-moco' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:212 */
+		moco: clock-moco {
+			compatible = "fixed-clock";     /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:213 */
+			clock-frequency = < 0x7a1200 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:214 */
+			#clock-cells = < 0x0 >;         /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:215 */
+		};
+
+		/* node '/clocks/clock-loco' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:218 */
+		loco: clock-loco {
+			compatible = "fixed-clock";   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:219 */
+			clock-frequency = < 0x8000 >; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:220 */
+			#clock-cells = < 0x0 >;       /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:221 */
+		};
+
+		/* node '/clocks/clock-subclk' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:224 */
+		subclk: clock-subclk {
+			compatible = "renesas,ra-cgc-subclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:225 */
+			clock-frequency = < 0x8000 >;         /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:226 */
+			#clock-cells = < 0x0 >;               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:227 */
+			status = "okay";                      /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:120 */
+		};
+
+		/* node '/clocks/pll' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:231 */
+		pll: pll {
+			compatible = "renesas,ra-cgc-pll"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:232 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:233 */
+			clocks = < &xtal >;                /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:124 */
+			div = < 0x2 >;                     /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:125 */
+			mul = < 0x14 0x0 >;                /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:126 */
+			status = "okay";                   /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:127 */
+			phandle = < 0x26 >;                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:249 */
+		};
+
+		/* node '/clocks/pclkblock@4001e01c' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:242 */
+		pclkblock: pclkblock@4001e01c {
+			compatible = "renesas,ra-cgc-pclk-block"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:243 */
+			reg = < 0x4001e01c 0x4 >,
+			      < 0x40047000 0x4 >,
+			      < 0x40047004 0x4 >,
+			      < 0x40047008 0x4 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:244 */
+			reg-names = "MSTPA",
+			            "MSTPB",
+			            "MSTPC",
+			            "MSTPD";                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:246 */
+			#clock-cells = < 0x0 >;                   /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:248 */
+			clocks = < &pll >;                        /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:249 */
+			status = "okay";                          /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:250 */
+
+			/* node '/clocks/pclkblock@4001e01c/iclk' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:252 */
+			iclk: iclk {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:253 */
+				clock-frequency = < 0x7270e00 >;    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:254 */
+				div = < 0x2 >;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:255 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:256 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:257 */
+				phandle = < 0x13 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:133 */
+			};
+
+			/* node '/clocks/pclkblock@4001e01c/pclka' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:260 */
+			pclka: pclka {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:261 */
+				div = < 0x2 >;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:262 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:263 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:264 */
+				phandle = < 0x14 >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:150 */
+			};
+
+			/* node '/clocks/pclkblock@4001e01c/pclkb' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:267 */
+			pclkb: pclkb {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:268 */
+				div = < 0x4 >;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:269 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:270 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:271 */
+				phandle = < 0x2 >;                  /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:44 */
+			};
+
+			/* node '/clocks/pclkblock@4001e01c/pclkc' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:274 */
+			pclkc: pclkc {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:275 */
+				div = < 0x4 >;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:276 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:277 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:278 */
+			};
+
+			/* node '/clocks/pclkblock@4001e01c/pclkd' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:281 */
+			pclkd: pclkd {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:282 */
+				div = < 0x2 >;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:283 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:284 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:285 */
+				phandle = < 0x1c >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:574 */
+			};
+
+			/* node '/clocks/pclkblock@4001e01c/bclk' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:288 */
+			bclk: bclk {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:289 */
+				div = < 0x2 >;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:290 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:298 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:299 */
+
+				/* node '/clocks/pclkblock@4001e01c/bclk/bclkout' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:292 */
+				bclkout: bclkout {
+					compatible = "renesas,ra-cgc-busclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:293 */
+					clk-out-div = < 0x2 >;                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:294 */
+					sdclk = < 0x1 >;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:295 */
+					#clock-cells = < 0x0 >;               /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:296 */
+				};
+			};
+
+			/* node '/clocks/pclkblock@4001e01c/uclk' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:302 */
+			uclk: uclk {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:303 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:305 */
+				clocks = < &pll >;                  /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:135 */
+				div = < 0x5 >;                      /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:136 */
+				status = "okay";                    /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:137 */
+				phandle = < 0x1a >;                 /* in zephyr/dts/arm/renesas/ra/ra6/ra6-cm4-common.dtsi:417 */
+			};
+
+			/* node '/clocks/pclkblock@4001e01c/fclk' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:309 */
+			fclk: fclk {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:310 */
+				div = < 0x4 >;                      /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:311 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:312 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:313 */
+			};
+
+			/* node '/clocks/pclkblock@4001e01c/clkout' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:316 */
+			clkout: clkout {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:317 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:318 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:319 */
+			};
+		};
+	};
+
+	/* node '/usbhs-phy' defined in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:324 */
+	usbhs_phy: usbhs-phy {
+		compatible = "renesas,ra-usbphyc"; /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:325 */
+		#phy-cells = < 0x0 >;              /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:326 */
+		phys-clock-src = "xtal";           /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:152 */
+		phandle = < 0x23 >;                /* in zephyr/dts/arm/renesas/ra/ra6/r7fa6m3ax.dtsi:141 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:29 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:30 */
+
+		/* node '/leds/led1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:32 */
+		led1: led1 {
+			gpios = < &ioport4 0x3 0x0 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:33 */
+			label = "LED1";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:34 */
+		};
+
+		/* node '/leds/led2' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:37 */
+		led2: led2 {
+			gpios = < &ioport4 0x0 0x0 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:38 */
+			label = "LED2";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:39 */
+		};
+
+		/* node '/leds/led3' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:42 */
+		led3: led3 {
+			gpios = < &ioport1 0x0 0x0 >; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:43 */
+			label = "LED3";               /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:44 */
+		};
+	};
+
+	/* node '/buttons' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:48 */
+	buttons {
+		compatible = "gpio-keys"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:49 */
+
+		/* node '/buttons/s1' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:51 */
+		button0: s1 {
+			gpios = < &ioport0 0x9 0x11 >;  /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:52 */
+			label = "Push button switch 1"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:53 */
+			zephyr,code = < 0xb >;          /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:54 */
+		};
+
+		/* node '/buttons/s2' defined in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:57 */
+		button1: s2 {
+			gpios = < &ioport0 0x8 0x11 >;  /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:58 */
+			label = "Push button switch 2"; /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:59 */
+			zephyr,code = < 0x2 >;          /* in zephyr/boards/renesas/ek_ra6m3/ek_ra6m3.dts:60 */
+		};
+	};
+};

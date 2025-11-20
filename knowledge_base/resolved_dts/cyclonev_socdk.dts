@@ -1,0 +1,383 @@
+/dts-v1/;
+
+/memreserve/ 0x0000000000000000 0x0000000000001000;
+
+/* node '/' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:12 */
+/ {
+	#address-cells = < 0x1 >;                               /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:13 */
+	#size-cells = < 0x1 >;                                  /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:14 */
+	model = "Altera SOCFPGA Cyclone V SoC Development Kit"; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:13 */
+	compatible = "altr,socfpga-cyclonev-socdk",
+	             "altr,socfpga-cyclonev",
+	             "altr,socfpga";                            /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:14 */
+
+	/* node '/aliases' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:16 */
+	aliases {
+		serial0 = &uart0;   /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:17 */
+		serial1 = &uart1;   /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:18 */
+		eth0 = &gmac0;      /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:19 */
+		usb = &usb1;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:20 */
+		led0 = &hps0;       /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:24 */
+		led1 = &hps1;       /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:25 */
+		led2 = &hps2;       /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:26 */
+		led3 = &hps3;       /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:27 */
+		eeprom-0 = &eeprom; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:28 */
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:23 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:24 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:25 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:27 */
+		cpu0: cpu@0 {
+			compatible = "arm,cortex-a9"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:28 */
+			device_type = "cpu";          /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:29 */
+			reg = < 0x0 >;                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:30 */
+		};
+
+		/* node '/cpus/cpu@1' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:34 */
+		cpu1: cpu@1 {
+			compatible = "arm,cortex-a9"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:35 */
+			device_type = "cpu";          /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:36 */
+			reg = < 0x1 >;                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:37 */
+		};
+	};
+
+	/* node '/intc@fffed000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:42 */
+	intc: intc@fffed000 {
+		compatible = "arm,gic-v1",
+		             "arm,gic";      /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:43 */
+		#interrupt-cells = < 0x4 >;  /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:44 */
+		interrupt-controller;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:45 */
+		reg = < 0xfffed000 0x1000 >,
+		      < 0xfffec100 0x100 >;  /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:46 */
+		phandle = < 0x1 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:55 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:50 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:51 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:52 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:53 */
+		device_type = "soc";          /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:54 */
+		interrupt-parent = < &intc >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:55 */
+		ranges;                       /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:56 */
+
+		/* node '/soc/l2-cache@fffef000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:58 */
+		L2: l2-cache@fffef000 {
+			compatible = "arm,pl330-cache";     /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:59 */
+			reg = < 0xfffef000 0x1000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:60 */
+			interrupts = < 0x0 0x26 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:61 */
+			status = "okay";                    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:62 */
+		};
+
+		/* node '/soc/clkmgr@ffd04000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:65 */
+		clkmgr@ffd04000 {
+			compatible = "altr,clk-mgr"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:66 */
+			reg = < 0xffd04000 0x1000 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:67 */
+
+			/* node '/soc/clkmgr@ffd04000/clocks' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:69 */
+			clocks {
+
+				/* node '/soc/clkmgr@ffd04000/clocks/osc1' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:70 */
+				osc1: osc1 {
+					#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:71 */
+					compatible = "fixed-clock";      /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:72 */
+					clock-frequency = < 0x17d7840 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga_cyclonev.dtsi:18 */
+					phandle = < 0x2 >;               /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:120 */
+				};
+
+				/* node '/soc/clkmgr@ffd04000/clocks/osc2' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:75 */
+				osc2: osc2 {
+					#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:76 */
+					compatible = "fixed-clock";      /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:77 */
+					clock-frequency = < 0x17d7840 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:78 */
+				};
+
+				/* node '/soc/clkmgr@ffd04000/clocks/f2s_periph_ref_clk' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:81 */
+				f2s_periph_ref_clk: f2s_periph_ref_clk {
+					#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:82 */
+					compatible = "fixed-clock";      /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:83 */
+					clock-frequency = < 0x2faf080 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:84 */
+				};
+
+				/* node '/soc/clkmgr@ffd04000/clocks/f2s_sdram_ref_clk' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:87 */
+				f2s_sdram_ref_clk: f2s_sdram_ref_clk {
+					#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:88 */
+					compatible = "fixed-clock";      /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:89 */
+					clock-frequency = < 0x5f5e100 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:90 */
+				};
+			};
+		};
+
+		/* node '/soc/sysmgr@ffd08000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:95 */
+		sysmgr: sysmgr@ffd08000 {
+			compatible = "altr,sys-mgr",
+			             "syscon";       /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:96 */
+			reg = < 0xffd08000 0x4000 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:97 */
+			status = "okay";             /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:98 */
+		};
+
+		/* node '/soc/sram@ffff0000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:101 */
+		ocram: sram@ffff0000 {
+			compatible = "zephyr,memory-region",
+			             "mmio-sram";            /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:102 */
+			reg = < 0xffff0000 0x10000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:103 */
+			zephyr,memory-region = "OCRAM";      /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:104 */
+		};
+
+		/* node '/soc/timer@fffec200' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:107 */
+		arch_timer: timer@fffec200 {
+			compatible = "arm,armv8-timer";    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:108 */
+			status = "okay";                   /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:109 */
+			interrupt-names = "irq_0",
+			                  "irq_1",
+			                  "irq_2",
+			                  "irq_3";         /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:110 */
+			interrupts = < 0x1 0xd 0x4 0xa0 >,
+			             < 0x1 0xe 0x4 0xa0 >,
+			             < 0x1 0xb 0x4 0xa0 >,
+			             < 0x1 0xa 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:111 */
+			reg = < 0xfffec200 0x1c >;         /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:119 */
+			clocks = < &osc1 >;                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:120 */
+		};
+
+		/* node '/soc/serial0@ffc02000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:123 */
+		uart0: serial0@ffc02000 {
+			compatible = "ns16550",
+			             "snps,dw-apb-uart";    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:124 */
+			reg = < 0xffc02000 0x1000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:125 */
+			interrupts = < 0x0 0xa2 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:126 */
+			reg-shift = < 0x2 >;                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:127 */
+			clock-frequency = < 0x5f5e100 >;    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:128 */
+			dma-names = "tx",
+			            "rx";                   /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:129 */
+		};
+
+		/* node '/soc/serial1@ffc03000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:132 */
+		uart1: serial1@ffc03000 {
+			compatible = "ns16550",
+			             "snps,dw-apb-uart";    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:133 */
+			reg = < 0xffc03000 0x1000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:134 */
+			interrupts = < 0x0 0xa3 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:135 */
+			reg-shift = < 0x2 >;                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:136 */
+			clock-frequency = < 0x5f5e100 >;    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:137 */
+			dma-names = "tx",
+			            "rx";                   /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:138 */
+		};
+
+		/* node '/soc/ethernet@ff700000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:141 */
+		gmac0: ethernet@ff700000 {
+			compatible = "snps,ethernet-cyclonev"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:142 */
+			reg = < 0xff700000 0x2000 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:143 */
+			interrupts = < 0x0 0x73 0x4 0xa0 >;    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:144 */
+			emac-index = < 0x0 >;                  /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:145 */
+			status = "disabled";                   /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:146 */
+		};
+
+		/* node '/soc/ethernet@ff702000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:149 */
+		gmac1: ethernet@ff702000 {
+			compatible = "snps,ethernet-cyclonev";     /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:150 */
+			reg = < 0xff702000 0x2000 >;               /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:151 */
+			interrupts = < 0x0 0x78 0x4 0xa0 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:152 */
+			emac-index = < 0x1 >;                      /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:153 */
+			status = "okay";                           /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:53 */
+			local-mac-address = [ E6 88 2D 82 1F D4 ]; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:54 */
+		};
+
+		/* node '/soc/gpio@ff708000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:157 */
+		gpio0: gpio@ff708000 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:158 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:159 */
+			compatible = "snps,designware-gpio"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:160 */
+			reg = < 0xff708000 0x1000 >;         /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:161 */
+			interrupts = < 0x0 0xa4 0x4 0xa0 >;  /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:162 */
+			ngpios = < 0x1d >;                   /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:164 */
+			gpio-controller;                     /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:165 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:166 */
+			status = "okay";                     /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:58 */
+		};
+
+		/* node '/soc/gpio@ff709000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:169 */
+		gpio1: gpio@ff709000 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:170 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:171 */
+			compatible = "snps,designware-gpio"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:172 */
+			reg = < 0xff709000 0x1000 >;         /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:173 */
+			interrupts = < 0x0 0xa5 0x4 0xa0 >;  /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:174 */
+			ngpios = < 0x1d >;                   /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:176 */
+			gpio-controller;                     /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:177 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:178 */
+			status = "okay";                     /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:62 */
+			phandle = < 0x3 >;                   /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:35 */
+		};
+
+		/* node '/soc/gpio@ff70a000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:181 */
+		gpio2: gpio@ff70a000 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:182 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:183 */
+			compatible = "snps,designware-gpio"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:184 */
+			reg = < 0xff70a000 0x1000 >;         /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:185 */
+			interrupts = < 0x0 0xa6 0x4 0xa0 >;  /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:186 */
+			ngpios = < 0x1b >;                   /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:188 */
+			gpio-controller;                     /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:189 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:190 */
+			status = "okay";                     /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:66 */
+		};
+
+		/* node '/soc/i2c@ffc04000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:193 */
+		i2c0: i2c@ffc04000 {
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:194 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:195 */
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:196 */
+			reg = < 0xffc04000 0x1000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:197 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:198 */
+			interrupts = < 0x0 0x9e 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:199 */
+			interrupt-parent = < &intc >;       /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:200 */
+			status = "okay";                    /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:70 */
+
+			/* node '/soc/i2c@ffc04000/eeprom@51' defined in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:72 */
+			eeprom: eeprom@51 {
+				compatible = "microchip,at24lc32a",
+				             "atmel,at24";          /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:73 */
+				status = "okay";                    /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:74 */
+				reg = < 0x51 >;                     /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:75 */
+				size = < 0x1000 >;                  /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:76 */
+				address-width = < 0x8 >;            /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:77 */
+				timeout = < 0x19 >;                 /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:78 */
+				pagesize = < 0x20 >;                /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:79 */
+			};
+
+			/* node '/soc/i2c@ffc04000/rtc@68' defined in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:82 */
+			ds3231: rtc@68 {
+				compatible = "maxim,ds3231"; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:83 */
+				reg = < 0x68 >;              /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:84 */
+			};
+		};
+
+		/* node '/soc/i2c@ffc05000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:204 */
+		i2c1: i2c@ffc05000 {
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:205 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:206 */
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:207 */
+			reg = < 0xffc05000 0x1000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:208 */
+			interrupts = < 0x0 0x9f 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:209 */
+			status = "disabled";                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:210 */
+		};
+
+		/* node '/soc/i2c@ffc06000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:213 */
+		i2c2: i2c@ffc06000 {
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:214 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:215 */
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:216 */
+			reg = < 0xffc06000 0x1000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:217 */
+			interrupts = < 0x0 0xa0 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:218 */
+			status = "disabled";                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:219 */
+		};
+
+		/* node '/soc/i2c@ffc07000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:222 */
+		i2c3: i2c@ffc07000 {
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:223 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:224 */
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:225 */
+			reg = < 0xffc07000 0x1000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:226 */
+			interrupts = < 0x0 0xa1 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:227 */
+			status = "disabled";                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:228 */
+		};
+
+		/* node '/soc/usb@ffb30000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:231 */
+		usb0: usb@ffb30000 {
+			compatible = "snps,dwc2";           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:232 */
+			reg = < 0xffb30000 0xffff >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:233 */
+			interrupts = < 0x0 0x7f 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:234 */
+			interrupt-parent = < &intc >;       /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:235 */
+			num-out-eps = < 0x10 >;             /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:236 */
+			num-in-eps = < 0x10 >;              /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:237 */
+			ghwcfg1 = < 0x0 >;                  /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:238 */
+			ghwcfg2 = < 0x208ffc90 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:239 */
+			ghwcfg4 = < 0xfe0f0020 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:240 */
+			status = "disabled";                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:241 */
+		};
+
+		/* node '/soc/usb@ffb40000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:244 */
+		usb1: zephyr_udc0: usb@ffb40000 {
+			reg = < 0xffb40000 0xffff >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:246 */
+			interrupts = < 0x0 0x80 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:247 */
+			interrupt-parent = < &intc >;       /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:248 */
+			num-out-eps = < 0x10 >;             /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:249 */
+			num-in-eps = < 0x10 >;              /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:250 */
+			ghwcfg1 = < 0x0 >;                  /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:251 */
+			ghwcfg2 = < 0x208ffc90 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:252 */
+			ghwcfg4 = < 0xfe0f0020 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:253 */
+			compatible = "snps,dwc2";           /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:100 */
+			status = "okay";                    /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:101 */
+		};
+
+		/* node '/soc/spi@fff00000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:257 */
+		spi0: spi@fff00000 {
+			compatible = "snps,designware-spi"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:258 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:259 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:260 */
+			reg = < 0xfff00000 0x1000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:261 */
+			fifo-depth = < 0x100 >;             /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:262 */
+			max-xfer-size = < 0x20 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:263 */
+			interrupts = < 0x0 0x9a 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:264 */
+			clock-frequency = < 0xbebc200 >;    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:265 */
+			status = "okay";                    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:266 */
+		};
+
+		/* node '/soc/spi@fff01000' defined in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:269 */
+		spi1: spi@fff01000 {
+			compatible = "snps,designware-spi"; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:270 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:271 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:272 */
+			reg = < 0xfff01000 0x1000 >;        /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:273 */
+			fifo-depth = < 0x100 >;             /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:274 */
+			max-xfer-size = < 0x20 >;           /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:275 */
+			interrupts = < 0x0 0x9b 0x4 0xa0 >; /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:276 */
+			clock-frequency = < 0xbebc200 >;    /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:277 */
+			status = "disabled";                /* in zephyr/dts/arm/intel_socfpga_std/socfpga.dtsi:278 */
+		};
+	};
+
+	/* node '/memory@0' defined in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:16 */
+	ddr0: memory@0 {
+		name = "memory";          /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:17 */
+		device_type = "memory";   /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:18 */
+		reg = < 0x0 0x40000000 >; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:19 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:31 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:32 */
+
+		/* node '/leds/hps_led_3' defined in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:34 */
+		hps3: hps_led_3 {
+			gpios = < &gpio1 0xc 0x1 >; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:35 */
+		};
+
+		/* node '/leds/hps_led_2' defined in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:38 */
+		hps2: hps_led_2 {
+			gpios = < &gpio1 0xd 0x1 >; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:39 */
+		};
+
+		/* node '/leds/hps_led_1' defined in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:42 */
+		hps1: hps_led_1 {
+			gpios = < &gpio1 0xe 0x1 >; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:43 */
+		};
+
+		/* node '/leds/hps_led_0' defined in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:46 */
+		hps0: hps_led_0 {
+			gpios = < &gpio1 0xf 0x1 >; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:47 */
+		};
+	};
+
+	/* node '/chosen' defined in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:90 */
+	chosen {
+		zephyr,sram = &ddr0;        /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:91 */
+		zephyr,console = &uart0;    /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:93 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:94 */
+		zephyr,ocm = &ocram;        /* in zephyr/boards/intel/socfpga_std/cyclonev_socdk/cyclonev_socdk.dts:95 */
+	};
+};

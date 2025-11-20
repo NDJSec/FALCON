@@ -1,0 +1,214 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	interrupt-parent = < &gic >;          /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:22 */
+	compatible = "raspberrypi,5-model-b",
+	             "brcm,bcm2712";          /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:13 */
+	model = "Raspberry Pi 5";             /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:14 */
+	#address-cells = < 0x2 >;             /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:15 */
+	#size-cells = < 0x1 >;                /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:16 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &sram0;            /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:23 */
+		zephyr,console = &uart10;        /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:24 */
+		zephyr,shell-uart = &uart10;     /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:25 */
+		zephyr,pcie-controller = &pcie1; /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:26 */
+		zephyr,entropy = &rng;           /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:27 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led_act; /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:19 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm64/armv8-a.dtsi:10 */
+	soc {
+		compatible = "simple-bus"; /* in zephyr/dts/arm64/armv8-a.dtsi:13 */
+		ranges;                    /* in zephyr/dts/arm64/armv8-a.dtsi:14 */
+		#address-cells = < 0x2 >;  /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:37 */
+		#size-cells = < 0x1 >;     /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:38 */
+
+		/* node '/soc/memory@200000' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:40 */
+		sram0: memory@200000 {
+			device_type = "memory";         /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:41 */
+			compatible = "mmio-sram";       /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:42 */
+			reg = < 0x0 0x200000 0x80000 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:43 */
+		};
+
+		/* node '/soc/interrupt-controller@107fff9000' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:46 */
+		gic: interrupt-controller@107fff9000 {
+			compatible = "arm,gic-v2",
+			             "arm,gic";           /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:47 */
+			reg = < 0x10 0x7fff9000 0x1000 >,
+			      < 0x10 0x7fffa000 0x2000 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:48 */
+			interrupt-controller;             /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:50 */
+			#interrupt-cells = < 0x4 >;       /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:51 */
+			status = "okay";                  /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:52 */
+			phandle = < 0x1 >;                /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:22 */
+		};
+
+		/* node '/soc/rng@107d208000' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:55 */
+		rng: rng@107d208000 {
+			compatible = "brcm,iproc-rng200"; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:56 */
+			reg = < 0x10 0x7d208000 0x28 >;   /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:57 */
+			status = "okay";                  /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:58 */
+		};
+
+		/* node '/soc/gpio2@107d517c00' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:61 */
+		gpio2@107d517c00 {
+			compatible = "simple-bus";      /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:62 */
+			reg = < 0x10 0x7d517c00 0x40 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:63 */
+			#address-cells = < 0x1 >;       /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:65 */
+			#size-cells = < 0x0 >;          /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:66 */
+
+			/* node '/soc/gpio2@107d517c00/gpio@0' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:68 */
+			gio_aon: gpio@0 {
+				compatible = "brcm,brcmstb-gpio"; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:69 */
+				reg = < 0x0 >;                    /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:70 */
+				gpio-controller;                  /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:71 */
+				#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:72 */
+				ngpios = < 0x11 >;                /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:73 */
+				status = "okay";                  /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:41 */
+				phandle = < 0x3 >;                /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:34 */
+			};
+		};
+
+		/* node '/soc/serial@107d001000' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:78 */
+		uart10: serial@107d001000 {
+			compatible = "arm,pl011";           /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:79 */
+			reg = < 0x10 0x7d001000 0x200 >;    /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:80 */
+			interrupts = < 0x0 0x79 0x2 0xa0 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:81 */
+			interrupt-names = "irq_121";        /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:83 */
+			clocks = < &clk_uart >;             /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:84 */
+			status = "okay";                    /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:45 */
+			current-speed = < 0x1c200 >;        /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:46 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:11 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:12 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:13 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:15 */
+		cpu@0 {
+			device_type = "cpu";           /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:16 */
+			compatible = "arm,cortex-a76"; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:17 */
+			reg = < 0x0 >;                 /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:18 */
+		};
+	};
+
+	/* node '/timer' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:24 */
+	timer {
+		compatible = "arm,armv8-timer";    /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:25 */
+		interrupts = < 0x1 0xd 0x2 0xa0 >,
+		             < 0x1 0xe 0x2 0xa0 >,
+		             < 0x1 0xb 0x2 0xa0 >,
+		             < 0x1 0xa 0x2 0xa0 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:26 */
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:89 */
+	clocks {
+
+		/* node '/clocks/clk_uart' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:90 */
+		clk_uart: clk_uart {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:91 */
+			clock-frequency = < 0x2a30000 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:92 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:93 */
+			phandle = < 0x2 >;               /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:84 */
+		};
+	};
+
+	/* node '/axi' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:97 */
+	axi {
+		#address-cells = < 0x2 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:98 */
+		#size-cells = < 0x1 >;    /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:99 */
+
+		/* node '/axi/pcie@1000110000' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:101 */
+		pcie1: pcie@1000110000 {
+			compatible = "brcm,brcmstb-pcie";                       /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:102 */
+			reg = < 0x10 0x110000 0x9310 >,
+			      < 0x0 0x0 0x8000000 >,
+			      < 0x0 0x8000000 0x10000 >,
+			      < 0x0 0x0 0x10 >;                                 /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:103 */
+			#address-cells = < 0x3 >;                               /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:107 */
+			#size-cells = < 0x2 >;                                  /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:108 */
+			status = "okay";                                        /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:109 */
+			ranges = < 0x2000000 0x0 0x0 0x1b 0x0 0x0 0xfffffffc >,
+			         < 0x43000000 0x4 0x0 0x18 0x0 0x3 0x0 >,
+			         < 0x3000000 0x0 0x0 0x10 0x0 0x10 0x0 >;       /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:110 */
+		};
+
+		/* node '/axi/pcie@1000120000' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:115 */
+		pcie2: pcie@1000120000 {
+			compatible = "brcm,brcmstb-pcie";                       /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:116 */
+			reg = < 0x10 0x120000 0x9310 >,
+			      < 0x0 0x410000 0x4000 >,
+			      < 0x0 0x0 0x400000 >,
+			      < 0x0 0x400000 0x4000 >;                          /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:117 */
+			#address-cells = < 0x3 >;                               /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:121 */
+			#size-cells = < 0x2 >;                                  /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:122 */
+			ranges = < 0x2000000 0x0 0x0 0x1f 0x0 0x0 0xfffffffc >,
+			         < 0x43000000 0x4 0x0 0x1c 0x0 0x3 0x0 >,
+			         < 0x2000000 0x0 0x0 0x1f 0x0 0x0 0x400000 >;   /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:123 */
+			status = "okay";                                        /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:126 */
+
+			/* node '/axi/pcie@1000120000/rp1' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:128 */
+			rp1 {
+				#address-cells = < 0x2 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:129 */
+				#size-cells = < 0x1 >;    /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:130 */
+
+				/* node '/axi/pcie@1000120000/rp1/gpio@1f000d0000' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:132 */
+				gpio0: gpio@1f000d0000 {
+					compatible = "simple-bus";      /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:133 */
+					reg = < 0x1f 0xd0000 0x30000 >; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:134 */
+					#address-cells = < 0x1 >;       /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:135 */
+					#size-cells = < 0x0 >;          /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:136 */
+
+					/* node '/axi/pcie@1000120000/rp1/gpio@1f000d0000/gpio@0' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:138 */
+					gpio0_0: gpio@0 {
+						compatible = "raspberrypi,rp1-gpio"; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:139 */
+						reg = < 0x0 0x10000 0x20000 >;       /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:140 */
+						#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:141 */
+						gpio-controller;                     /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:142 */
+						ngpios = < 0x1c >;                   /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:143 */
+						status = "okay";                     /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:50 */
+					};
+
+					/* node '/axi/pcie@1000120000/rp1/gpio@1f000d0000/gpio@4000' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:147 */
+					gpio0_1: gpio@4000 {
+						compatible = "raspberrypi,rp1-gpio"; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:148 */
+						reg = < 0x4000 0x14000 0x24000 >;    /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:149 */
+						#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:150 */
+						gpio-controller;                     /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:151 */
+						ngpios = < 0x6 >;                    /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:152 */
+						status = "disabled";                 /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:153 */
+					};
+
+					/* node '/axi/pcie@1000120000/rp1/gpio@1f000d0000/gpio@8000' defined in zephyr/dts/arm64/broadcom/bcm2712.dtsi:156 */
+					gpio0_2: gpio@8000 {
+						compatible = "raspberrypi,rp1-gpio"; /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:157 */
+						reg = < 0x8000 0x18000 0x28000 >;    /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:158 */
+						#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:159 */
+						gpio-controller;                     /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:160 */
+						ngpios = < 0x14 >;                   /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:161 */
+						status = "disabled";                 /* in zephyr/dts/arm64/broadcom/bcm2712.dtsi:162 */
+					};
+				};
+			};
+		};
+	};
+
+	/* node '/leds' defined in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:30 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:31 */
+
+		/* node '/leds/led-act' defined in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:33 */
+		led_act: led-act {
+			gpios = < &gio_aon 0x9 0x1 >; /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:34 */
+			label = "ACT";                /* in zephyr/boards/raspberrypi/rpi_5/rpi_5.dts:35 */
+		};
+	};
+};

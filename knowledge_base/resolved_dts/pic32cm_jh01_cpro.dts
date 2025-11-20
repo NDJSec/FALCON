@@ -1,0 +1,157 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                    /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                       /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "PIC32CM JH01 Curiosity Pro";        /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:12 */
+	compatible = "pic32cmjh01,cpro",
+	             "microchip,pic32cm5164jh01100",
+	             "microchip,pic32cm";            /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:13 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &sram0;   /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:16 */
+		zephyr,flash = &flash0; /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:17 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led0;   /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:21 */
+		sw0 = &button0; /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:22 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv6-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv6-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv6-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv6-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv6-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv6-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv6-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv6-m.dtsi:14 */
+			compatible = "arm,v6m-nvic";         /* in zephyr/dts/arm/armv6-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv6-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv6-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv6-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x2 >; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:59 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv6-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv6-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv6m-systick"; /* in zephyr/dts/arm/armv6-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv6-m.dtsi:23 */
+		};
+
+		/* node '/soc/flash@0' defined in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:32 */
+		flash0: flash@0 {
+			compatible = "soc-nv-flash"; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:33 */
+			write-block-size = < 0x4 >;  /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:34 */
+			reg = < 0x0 0x80000 >;       /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_5164_jh.dtsi:15 */
+
+			/* node '/soc/flash@0/partitions' defined in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:46 */
+			partitions {
+				compatible = "fixed-partitions"; /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:47 */
+				#address-cells = < 0x1 >;        /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:48 */
+				#size-cells = < 0x1 >;           /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:49 */
+
+				/* node '/soc/flash@0/partitions/partition@7c000' defined in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:51 */
+				storage_partition: partition@7c000 {
+					label = "storage";        /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:52 */
+					reg = < 0x7c000 0x4000 >; /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:53 */
+				};
+			};
+		};
+
+		/* node '/soc/memory@20000000' defined in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:37 */
+		sram0: memory@20000000 {
+			compatible = "mmio-sram";     /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:38 */
+			reg = < 0x20000000 0x10000 >; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_5164_jh.dtsi:19 */
+		};
+
+		/* node '/soc/pinctrl@41000000' defined in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:41 */
+		pinctrl: pinctrl@41000000 {
+			compatible = "microchip,port-g1-pinctrl"; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:42 */
+			#address-cells = < 0x1 >;                 /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:43 */
+			#size-cells = < 0x1 >;                    /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:44 */
+			ranges = < 0x41000000 0x41000000 0x180 >; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:45 */
+
+			/* node '/soc/pinctrl@41000000/gpio@41000000' defined in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:47 */
+			porta: gpio@41000000 {
+				compatible = "microchip,port-g1-gpio"; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:48 */
+				reg = < 0x41000000 0x80 >;             /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:49 */
+				gpio-controller;                       /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:50 */
+				#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:51 */
+				#microchip,pin-cells = < 0x2 >;        /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:52 */
+			};
+
+			/* node '/soc/pinctrl@41000000/gpio@41000080' defined in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:12 */
+			portb: gpio@41000080 {
+				compatible = "microchip,port-g1-gpio"; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:13 */
+				reg = < 0x41000080 0x80 >;             /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:14 */
+				gpio-controller;                       /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:15 */
+				#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:16 */
+				#microchip,pin-cells = < 0x2 >;        /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:17 */
+				phandle = < 0x3 >;                     /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:38 */
+			};
+
+			/* node '/soc/pinctrl@41000000/gpio@41000100' defined in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:20 */
+			portc: gpio@41000100 {
+				compatible = "microchip,port-g1-gpio"; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:21 */
+				reg = < 0x41000100 0x80 >;             /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:22 */
+				gpio-controller;                       /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:23 */
+				#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:24 */
+				#microchip,pin-cells = < 0x2 >;        /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh_100.dtsi:25 */
+				phandle = < 0x2 >;                     /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:29 */
+			};
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:13 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:14 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:15 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:17 */
+		cpu0: cpu@0 {
+			device_type = "cpu";            /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:18 */
+			compatible = "arm,cortex-m0+";  /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:19 */
+			reg = < 0x0 >;                  /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:20 */
+			#address-cells = < 0x1 >;       /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:21 */
+			#size-cells = < 0x1 >;          /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:22 */
+			clock-frequency = < 0x3d0900 >; /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:59 */
+
+			/* node '/cpus/cpu@0/mpu@e000ed90' defined in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:24 */
+			mpu: mpu@e000ed90 {
+				compatible = "arm,armv6m-mpu"; /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:25 */
+				reg = < 0xe000ed90 0x2c >;     /* in zephyr/dts/arm/microchip/pic32c/pic32cm_jh/common/pic32cm_jh.dtsi:26 */
+			};
+		};
+	};
+
+	/* node '/leds' defined in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:25 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:26 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:28 */
+		led0: led_0 {
+			gpios = < &portc 0x5 0x0 >; /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:29 */
+			label = "Yellow LED";       /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:30 */
+		};
+	};
+
+	/* node '/buttons' defined in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:34 */
+	buttons {
+		compatible = "gpio-keys"; /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:35 */
+
+		/* node '/buttons/button_0' defined in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:37 */
+		button0: button_0 {
+			gpios = < &portb 0x13 0x11 >; /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:38 */
+			label = "SW0";                /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:39 */
+			zephyr,code = < 0xb >;        /* in zephyr/boards/microchip/pic32c/pic32cm_jh01_cpro/pic32cm_jh01_cpro.dts:40 */
+		};
+	};
+};

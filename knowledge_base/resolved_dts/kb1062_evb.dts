@@ -1,0 +1,276 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;  /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;     /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "KB1062 board";    /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:15 */
+	compatible = "ene,kb1062"; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:16 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &sram0;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:12 */
+		zephyr,flash = &flash0;     /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:13 */
+		zephyr,console = &uart0;    /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:26 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:27 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		uart0 = &uart0;     /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:19 */
+		led0 = &led0;       /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:20 */
+		led1 = &led1;       /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:21 */
+		sw0 = &user_button; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:22 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc: soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:171 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/flash-controller@50100000' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:34 */
+		flash_controller: flash-controller@50100000 {
+			compatible = "ene,kb106x-flash-controller"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:35 */
+			reg = < 0x50100000 0x1000 >,
+			      < 0x50101000 0x80 >;                  /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:36 */
+			#address-cells = < 0x1 >;                   /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:37 */
+			#size-cells = < 0x1 >;                      /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:38 */
+
+			/* node '/soc/flash-controller@50100000/flash@0' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:40 */
+			flash0: flash@0 {
+				compatible = "soc-nv-flash"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:41 */
+				reg = < 0x0 0x40000 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:42 */
+			};
+		};
+
+		/* node '/soc/gcfg@40000000' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:46 */
+		gcfg: gcfg@40000000 {
+			compatible = "ene,kb106x-gcfg";                               /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:47 */
+			reg = < 0x40000000 0x100 0x40010000 0x100 0x40040000 0x100 >; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:51 */
+			reg-names = "gcfg",
+			            "pmu",
+			            "vcc0";                                           /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:54 */
+		};
+
+		/* node '/soc/pin-controller@50000000' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:57 */
+		pinctrl: pin-controller@50000000 {
+			compatible = "ene,kb106x-pinctrl"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:58 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:59 */
+			#size-cells = < 0x1 >;             /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:60 */
+			reg = < 0x50000000 0x100 >;        /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:61 */
+			status = "okay";                   /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:62 */
+
+			/* node '/soc/pin-controller@50000000/gpio@50000000' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:64 */
+			gpio0x1x: gpio@50000000 {
+				compatible = "ene,kb106x-gpio"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:65 */
+				reg = < 0x50000000 0x4 >,
+				      < 0x50010000 0x4 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:66 */
+				interrupts = < 0x2 0x3 >,
+				             < 0x3 0x3 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:67 */
+				gpio-controller;                /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:68 */
+				#gpio-cells = < 0x2 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:69 */
+				ngpios = < 0x20 >;              /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:70 */
+				status = "okay";                /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:65 */
+				phandle = < 0x5 >;              /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:45 */
+			};
+
+			/* node '/soc/pin-controller@50000000/gpio@50000004' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:74 */
+			gpio2x3x: gpio@50000004 {
+				compatible = "ene,kb106x-gpio"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:75 */
+				reg = < 0x50000004 0x4 >,
+				      < 0x50010004 0x4 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:76 */
+				interrupts = < 0x4 0x3 >,
+				             < 0x5 0x3 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:77 */
+				gpio-controller;                /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:78 */
+				#gpio-cells = < 0x2 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:79 */
+				ngpios = < 0x20 >;              /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:80 */
+				status = "disabled";            /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:81 */
+			};
+
+			/* node '/soc/pin-controller@50000000/gpio@50000008' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:84 */
+			gpio4x5x: gpio@50000008 {
+				compatible = "ene,kb106x-gpio"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:85 */
+				reg = < 0x50000008 0x4 >,
+				      < 0x50010008 0x4 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:86 */
+				interrupts = < 0x6 0x3 >,
+				             < 0x7 0x3 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:87 */
+				gpio-controller;                /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:88 */
+				#gpio-cells = < 0x2 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:89 */
+				ngpios = < 0x20 >;              /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:90 */
+				status = "disabled";            /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:91 */
+			};
+
+			/* node '/soc/pin-controller@50000000/gpio@5000000c' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:94 */
+			gpio6x7x: gpio@5000000c {
+				compatible = "ene,kb106x-gpio"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:95 */
+				reg = < 0x5000000c 0x4 >,
+				      < 0x5001000c 0x4 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:96 */
+				interrupts = < 0x8 0x3 >,
+				             < 0x9 0x3 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:97 */
+				gpio-controller;                /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:98 */
+				#gpio-cells = < 0x2 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:99 */
+				ngpios = < 0x20 >;              /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:100 */
+				status = "okay";                /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:69 */
+				phandle = < 0x4 >;              /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:35 */
+			};
+
+			/* node '/soc/pin-controller@50000000/gpio@50000100' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:104 */
+			egpio0x1x: gpio@50000100 {
+				compatible = "ene,kb106x-gpio"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:105 */
+				reg = < 0x50000100 0x4 >,
+				      < 0x50010100 0x4 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:106 */
+				interrupts = < 0x2 0x3 >,
+				             < 0x3 0x3 >;       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:107 */
+				gpio-controller;                /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:108 */
+				#gpio-cells = < 0x2 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:109 */
+				ngpios = < 0x20 >;              /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:110 */
+				status = "disabled";            /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:111 */
+			};
+
+			/* node '/soc/pin-controller@50000000/ser0_tx_gpio16' defined in zephyr/dts/arm/ene/kb106x/kb106x-pinctrl.dtsi:12 */
+			ser0_tx_gpio16: ser0_tx_gpio16 {
+				pinmux = < 0x116 >; /* in zephyr/dts/arm/ene/kb106x/kb106x-pinctrl.dtsi:13 */
+				phandle = < 0x2 >;  /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:60 */
+			};
+
+			/* node '/soc/pin-controller@50000000/ser0_rx_gpio17' defined in zephyr/dts/arm/ene/kb106x/kb106x-pinctrl.dtsi:20 */
+			ser0_rx_gpio17: ser0_rx_gpio17 {
+				pinmux = < 0x17 >; /* in zephyr/dts/arm/ene/kb106x/kb106x-pinctrl.dtsi:21 */
+				input-enable;      /* in zephyr/dts/arm/ene/kb106x/kb106x-pinctrl.dtsi:22 */
+				phandle = < 0x3 >; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:60 */
+			};
+		};
+
+		/* node '/soc/serial@40310000' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:115 */
+		uart0: serial@40310000 {
+			compatible = "ene,kb106x-uart";                  /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:116 */
+			reg = < 0x40310000 0x4c >;                       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:117 */
+			interrupts = < 0x12 0x3 >;                       /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:118 */
+			status = "okay";                                 /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:58 */
+			current-speed = < 0x1c200 >;                     /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:59 */
+			pinctrl-0 = < &ser0_tx_gpio16 &ser0_rx_gpio17 >; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:60 */
+			pinctrl-names = "default";                       /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:61 */
+		};
+
+		/* node '/soc/adc@40130000' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:122 */
+		adc0: adc@40130000 {
+			compatible = "ene,kb106x-adc"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:123 */
+			reg = < 0x40130000 0x100 >;    /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:124 */
+			status = "disabled";           /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:125 */
+			#io-channel-cells = < 0x1 >;   /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:126 */
+		};
+
+		/* node '/soc/pwm@40210000' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:129 */
+		pwm0: pwm@40210000 {
+			compatible = "ene,kb106x-pwm"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:130 */
+			reg = < 0x40210000 0x10 >;     /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:131 */
+			pwm-channel = < 0x0 >;         /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:132 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:133 */
+			status = "disabled";           /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:134 */
+		};
+
+		/* node '/soc/pwm@40210010' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:137 */
+		pwm1: pwm@40210010 {
+			compatible = "ene,kb106x-pwm"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:138 */
+			reg = < 0x40210010 0x10 >;     /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:139 */
+			pwm-channel = < 0x1 >;         /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:140 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:141 */
+			status = "disabled";           /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:142 */
+		};
+
+		/* node '/soc/pwm@40210020' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:145 */
+		pwm2: pwm@40210020 {
+			compatible = "ene,kb106x-pwm"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:146 */
+			reg = < 0x40210020 0x10 >;     /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:147 */
+			pwm-channel = < 0x2 >;         /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:148 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:149 */
+			status = "disabled";           /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:150 */
+		};
+
+		/* node '/soc/pwm@40210030' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:153 */
+		pwm3: pwm@40210030 {
+			compatible = "ene,kb106x-pwm"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:154 */
+			reg = < 0x40210030 0x10 >;     /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:155 */
+			pwm-channel = < 0x3 >;         /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:156 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:157 */
+			status = "disabled";           /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:158 */
+		};
+
+		/* node '/soc/watchdog@40060000' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:161 */
+		wdt0: watchdog@40060000 {
+			compatible = "ene,kb106x-watchdog"; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:162 */
+			reg = < 0x40060000 0x100 >;         /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:163 */
+			interrupts = < 0x0 0x0 >;           /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:164 */
+			status = "disabled";                /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:165 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:16 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:17 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:18 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:20 */
+		cpu0: cpu@0 {
+			device_type = "cpu";             /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:21 */
+			compatible = "arm,cortex-m3";    /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:22 */
+			reg = < 0x0 >;                   /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:23 */
+			clock-frequency = < 0x2dc6c00 >; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:24 */
+		};
+	};
+
+	/* node '/memory@20000000' defined in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:28 */
+	sram0: memory@20000000 {
+		compatible = "mmio-sram";     /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:29 */
+		reg = < 0x20000000 0x10000 >; /* in zephyr/dts/arm/ene/kb106x/kb106x.dtsi:30 */
+	};
+
+	/* node '/gpio_keys' defined in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:30 */
+	gpio_keys {
+		compatible = "gpio-keys"; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:31 */
+
+		/* node '/gpio_keys/button' defined in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:33 */
+		user_button: button {
+			label = "User";                  /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:34 */
+			gpios = < &gpio6x7x 0x1b 0x11 >; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:35 */
+			zephyr,code = < 0xb >;           /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:36 */
+		};
+	};
+
+	/* node '/leds' defined in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:40 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:41 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:44 */
+		led0: led_0 {
+			gpios = < &gpio0x1x 0xf 0x0 >; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:45 */
+			label = "LED0";                /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:46 */
+		};
+
+		/* node '/leds/led_1' defined in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:50 */
+		led1: led_1 {
+			gpios = < &gpio0x1x 0x11 0x0 >; /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:51 */
+			label = "LED1";                 /* in zephyr/boards/ene/kb1062_evb/kb1062_evb.dts:52 */
+		};
+	};
+};

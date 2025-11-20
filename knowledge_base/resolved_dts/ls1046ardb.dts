@@ -1,0 +1,81 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;      /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:12 */
+	#size-cells = < 0x1 >;         /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:13 */
+	model = "NXP ls1046a RDB";     /* in zephyr/boards/nxp/ls1046ardb/ls1046ardb_ls1046a.dts:12 */
+	compatible = "nxp,ls1046ardb"; /* in zephyr/boards/nxp/ls1046ardb/ls1046ardb_ls1046a.dts:13 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,console = &uart1;    /* in zephyr/boards/nxp/ls1046ardb/ls1046ardb_ls1046a.dts:16 */
+		zephyr,shell-uart = &uart1; /* in zephyr/boards/nxp/ls1046ardb/ls1046ardb_ls1046a.dts:17 */
+		zephyr,sram = &sram0;       /* in zephyr/boards/nxp/ls1046ardb/ls1046ardb_ls1046a.dts:18 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm64/armv8-a.dtsi:10 */
+	soc {
+		#address-cells = < 0x1 >;  /* in zephyr/dts/arm64/armv8-a.dtsi:11 */
+		#size-cells = < 0x1 >;     /* in zephyr/dts/arm64/armv8-a.dtsi:12 */
+		compatible = "simple-bus"; /* in zephyr/dts/arm64/armv8-a.dtsi:13 */
+		ranges;                    /* in zephyr/dts/arm64/armv8-a.dtsi:14 */
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:15 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:16 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:17 */
+
+		/* node '/cpus/cpu@3' defined in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:37 */
+		cpu@3 {
+			device_type = "cpu";           /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:38 */
+			compatible = "arm,cortex-a72"; /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:39 */
+			reg = < 0x3 >;                 /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:40 */
+		};
+	};
+
+	/* node '/interrupt-controller@1410000' defined in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:44 */
+	gic: interrupt-controller@1410000 {
+		compatible = "arm,gic-v2",
+		             "arm,gic";      /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:45 */
+		reg = < 0x1410000 0x10000 >,
+		      < 0x142f000 0x1000 >;  /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:46 */
+		interrupt-controller;        /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:48 */
+		#interrupt-cells = < 0x4 >;  /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:49 */
+		status = "okay";             /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:50 */
+		phandle = < 0x1 >;           /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:64 */
+	};
+
+	/* node '/memory@c0000000' defined in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:58 */
+	sram0: memory@c0000000 {
+		reg = < 0xc0000000 0x100000 >; /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:59 */
+	};
+
+	/* node '/timer' defined in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:62 */
+	timer {
+		compatible = "arm,armv8-timer";    /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:63 */
+		interrupt-parent = < &gic >;       /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:64 */
+		interrupts = < 0x1 0xd 0x2 0xa0 >,
+		             < 0x1 0xe 0x2 0xa0 >,
+		             < 0x1 0xb 0x2 0xa0 >,
+		             < 0x1 0xa 0x2 0xa0 >; /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:65 */
+	};
+
+	/* node '/serial@21c0600' defined in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:75 */
+	uart1: serial@21c0600 {
+		compatible = "fsl,ns16550",
+		             "ns16550";             /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:76 */
+		reg = < 0x21c0600 0x100 >;          /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:77 */
+		interrupt-parent = < &gic >;        /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:78 */
+		interrupts = < 0x0 0x36 0x2 0xa0 >; /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:79 */
+		clock-frequency = < 0x14dc9380 >;   /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:80 */
+		reg-shift = < 0x2 >;                /* in zephyr/dts/arm64/nxp/nxp_ls1046a.dtsi:81 */
+		status = "okay";                    /* in zephyr/boards/nxp/ls1046ardb/ls1046ardb_ls1046a.dts:31 */
+		current-speed = < 0x1c200 >;        /* in zephyr/boards/nxp/ls1046ardb/ls1046ardb_ls1046a.dts:32 */
+	};
+};

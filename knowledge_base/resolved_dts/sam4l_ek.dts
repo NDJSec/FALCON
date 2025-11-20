@@ -1,0 +1,438 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                                  /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                                     /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Atmel SAM4L-EK Board with an Atmel SAM4LC4C SoC"; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:13 */
+	compatible = "atmel,sam4l_ek";                             /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:14 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,flash-controller = &flashcalw; /* in zephyr/dts/arm/atmel/sam4l.dtsi:18 */
+		zephyr,entropy = &trng;               /* in zephyr/dts/arm/atmel/sam4l.dtsi:19 */
+		zephyr,console = &usart2;             /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:23 */
+		zephyr,shell-uart = &usart2;          /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:24 */
+		zephyr,sram = &sram0;                 /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:25 */
+		zephyr,flash = &flash0;               /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:26 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		watchdog0 = &wdt; /* in zephyr/dts/arm/atmel/sam4l.dtsi:14 */
+		i2c-0 = &twim0;   /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:17 */
+		led0 = &user_led; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:18 */
+		sw0 = &sw0_dfu;   /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:19 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x4 >; /* in zephyr/dts/arm/atmel/sam4l.dtsi:264 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/pmc@400e0000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:57 */
+		pmc: pmc@400e0000 {
+			compatible = "atmel,sam-pmc"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:58 */
+			reg = < 0x400e0000 0x740 >;   /* in zephyr/dts/arm/atmel/sam4l.dtsi:59 */
+			interrupts = < 0x16 0x0 >;    /* in zephyr/dts/arm/atmel/sam4l.dtsi:60 */
+			#clock-cells = < 0x2 >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:61 */
+			status = "okay";              /* in zephyr/dts/arm/atmel/sam4l.dtsi:62 */
+			phandle = < 0x2 >;            /* in zephyr/dts/arm/atmel/sam4l.dtsi:90 */
+		};
+
+		/* node '/soc/flash-controller@400a0000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:65 */
+		flashcalw: flash-controller@400a0000 {
+			compatible = "atmel,sam4l-flashcalw-controller"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:66 */
+			reg = < 0x400a0000 0x400 >;                      /* in zephyr/dts/arm/atmel/sam4l.dtsi:67 */
+			interrupts = < 0x0 0x0 >;                        /* in zephyr/dts/arm/atmel/sam4l.dtsi:68 */
+			#address-cells = < 0x1 >;                        /* in zephyr/dts/arm/atmel/sam4l.dtsi:69 */
+			#size-cells = < 0x1 >;                           /* in zephyr/dts/arm/atmel/sam4l.dtsi:70 */
+			status = "disabled";                             /* in zephyr/dts/arm/atmel/sam4l.dtsi:82 */
+
+			/* node '/soc/flash-controller@400a0000/flash@0' defined in zephyr/dts/arm/atmel/sam4l.dtsi:72 */
+			flash0: flash@0 {
+				compatible = "soc-nv-flash";  /* in zephyr/dts/arm/atmel/sam4l.dtsi:73 */
+				write-block-size = < 0x8 >;   /* in zephyr/dts/arm/atmel/sam4l.dtsi:75 */
+				erase-block-size = < 0x200 >; /* in zephyr/dts/arm/atmel/sam4l.dtsi:76 */
+				reg = < 0x0 0x40000 >;        /* in zephyr/dts/arm/atmel/sam4lx4.dtsi:18 */
+			};
+		};
+
+		/* node '/soc/twim@40018000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:85 */
+		twim0: twim@40018000 {
+			compatible = "atmel,sam-i2c-twim"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:86 */
+			clock-frequency = < 0x186a0 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:87 */
+			reg = < 0x40018000 0x4000 >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:88 */
+			interrupts = < 0x3d 0x0 >;         /* in zephyr/dts/arm/atmel/sam4l.dtsi:89 */
+			clocks = < &pmc 0x2 0x4 >;         /* in zephyr/dts/arm/atmel/sam4l.dtsi:90 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/atmel/sam4l.dtsi:92 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/atmel/sam4l.dtsi:93 */
+			status = "okay";                   /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:77 */
+			pinctrl-0 = < &twi0_default >;     /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:79 */
+			pinctrl-names = "default";         /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:80 */
+			std-clk-slew-lim = < 0x0 >;        /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:82 */
+			std-clk-strength-low = "0.5";      /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:83 */
+			std-data-slew-lim = < 0x0 >;       /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:84 */
+			std-data-strength-low = "0.5";     /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:85 */
+			hs-clk-slew-lim = < 0x0 >;         /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:87 */
+			hs-clk-strength-high = "0.5";      /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:88 */
+			hs-clk-strength-low = "0.5";       /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:89 */
+			hs-data-slew-lim = < 0x0 >;        /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:90 */
+			hs-data-strength-low = "0.5";      /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:91 */
+			hs-master-code = < 0x0 >;          /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:93 */
+		};
+
+		/* node '/soc/twim@4001c000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:96 */
+		twim1: twim@4001c000 {
+			compatible = "atmel,sam-i2c-twim"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:97 */
+			clock-frequency = < 0x186a0 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:98 */
+			reg = < 0x4001c000 0x4000 >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:99 */
+			interrupts = < 0x3f 0x0 >;         /* in zephyr/dts/arm/atmel/sam4l.dtsi:100 */
+			clocks = < &pmc 0x2 0x6 >;         /* in zephyr/dts/arm/atmel/sam4l.dtsi:101 */
+			status = "disabled";               /* in zephyr/dts/arm/atmel/sam4l.dtsi:102 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/atmel/sam4l.dtsi:103 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/atmel/sam4l.dtsi:104 */
+		};
+
+		/* node '/soc/twim@40078000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:107 */
+		twim2: twim@40078000 {
+			compatible = "atmel,sam-i2c-twim"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:108 */
+			clock-frequency = < 0x186a0 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:109 */
+			reg = < 0x40078000 0x4000 >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:110 */
+			interrupts = < 0x4d 0x0 >;         /* in zephyr/dts/arm/atmel/sam4l.dtsi:111 */
+			clocks = < &pmc 0x2 0x15 >;        /* in zephyr/dts/arm/atmel/sam4l.dtsi:112 */
+			status = "disabled";               /* in zephyr/dts/arm/atmel/sam4l.dtsi:113 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/atmel/sam4l.dtsi:114 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/atmel/sam4l.dtsi:115 */
+		};
+
+		/* node '/soc/twim@4007c000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:118 */
+		twim3: twim@4007c000 {
+			compatible = "atmel,sam-i2c-twim"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:119 */
+			clock-frequency = < 0x186a0 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:120 */
+			reg = < 0x4007c000 0x4000 >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:121 */
+			interrupts = < 0x4e 0x0 >;         /* in zephyr/dts/arm/atmel/sam4l.dtsi:122 */
+			clocks = < &pmc 0x2 0x16 >;        /* in zephyr/dts/arm/atmel/sam4l.dtsi:123 */
+			status = "disabled";               /* in zephyr/dts/arm/atmel/sam4l.dtsi:124 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/atmel/sam4l.dtsi:125 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/atmel/sam4l.dtsi:126 */
+		};
+
+		/* node '/soc/spi@40008000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:129 */
+		spi0: spi@40008000 {
+			compatible = "atmel,sam-spi";  /* in zephyr/dts/arm/atmel/sam4l.dtsi:130 */
+			reg = < 0x40008000 0x4000 >;   /* in zephyr/dts/arm/atmel/sam4l.dtsi:131 */
+			interrupts = < 0x36 0x0 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:132 */
+			clocks = < &pmc 0x2 0x1 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:133 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:135 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/atmel/sam4l.dtsi:136 */
+			status = "okay";               /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:62 */
+			pinctrl-0 = < &spi0_default >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:64 */
+			pinctrl-names = "default";     /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:65 */
+			cs-gpios = < &gpioa 0x2 0x1 >,
+			           < &gpioc 0x0 0x1 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:67 */
+		};
+
+		/* node '/soc/usart@40024000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:139 */
+		usart0: usart@40024000 {
+			compatible = "atmel,sam-usart"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:140 */
+			reg = < 0x40024000 0x4000 >;    /* in zephyr/dts/arm/atmel/sam4l.dtsi:141 */
+			interrupts = < 0x41 0x1 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:142 */
+			clocks = < &pmc 0x2 0x8 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:143 */
+			status = "disabled";            /* in zephyr/dts/arm/atmel/sam4l.dtsi:144 */
+		};
+
+		/* node '/soc/usart@40028000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:147 */
+		usart1: usart@40028000 {
+			compatible = "atmel,sam-usart"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:148 */
+			reg = < 0x40028000 0x4000 >;    /* in zephyr/dts/arm/atmel/sam4l.dtsi:149 */
+			interrupts = < 0x42 0x1 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:150 */
+			clocks = < &pmc 0x2 0x9 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:151 */
+			status = "disabled";            /* in zephyr/dts/arm/atmel/sam4l.dtsi:152 */
+		};
+
+		/* node '/soc/usart@4002c000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:155 */
+		usart2: usart@4002c000 {
+			compatible = "atmel,sam-usart";  /* in zephyr/dts/arm/atmel/sam4l.dtsi:156 */
+			reg = < 0x4002c000 0x4000 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:157 */
+			interrupts = < 0x43 0x1 >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:158 */
+			clocks = < &pmc 0x2 0xa >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:159 */
+			status = "okay";                 /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:54 */
+			current-speed = < 0x1c200 >;     /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:55 */
+			pinctrl-0 = < &usart2_default >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:57 */
+			pinctrl-names = "default";       /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:58 */
+		};
+
+		/* node '/soc/usart@40030000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:163 */
+		usart3: usart@40030000 {
+			compatible = "atmel,sam-usart"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:164 */
+			reg = < 0x40030000 0x4000 >;    /* in zephyr/dts/arm/atmel/sam4l.dtsi:165 */
+			interrupts = < 0x44 0x1 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:166 */
+			clocks = < &pmc 0x2 0xb >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:167 */
+			status = "disabled";            /* in zephyr/dts/arm/atmel/sam4l.dtsi:168 */
+		};
+
+		/* node '/soc/usbd@400a5000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:171 */
+		usbc: zephyr_udc0: usbd@400a5000 {
+			compatible = "atmel,sam-usbc"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:172 */
+			reg = < 0x400a5000 0x1000 >;   /* in zephyr/dts/arm/atmel/sam4l.dtsi:173 */
+			interrupts = < 0x12 0x5 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:174 */
+			interrupt-names = "usbc";      /* in zephyr/dts/arm/atmel/sam4l.dtsi:175 */
+			maximum-speed = "full-speed";  /* in zephyr/dts/arm/atmel/sam4l.dtsi:176 */
+			num-bidir-endpoints = < 0x8 >; /* in zephyr/dts/arm/atmel/sam4l.dtsi:177 */
+			clocks = < &pmc 0x2 0x65 >;    /* in zephyr/dts/arm/atmel/sam4l.dtsi:178 */
+			status = "okay";               /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:97 */
+			pinctrl-0 = < &usbc_default >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:99 */
+			pinctrl-names = "default";     /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:100 */
+		};
+
+		/* node '/soc/pinctrl@400e1000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:182 */
+		pinctrl: pinctrl@400e1000 {
+			compatible = "atmel,sam-pinctrl";         /* in zephyr/dts/arm/atmel/sam4l.dtsi:183 */
+			#address-cells = < 0x1 >;                 /* in zephyr/dts/arm/atmel/sam4l.dtsi:184 */
+			#size-cells = < 0x1 >;                    /* in zephyr/dts/arm/atmel/sam4l.dtsi:185 */
+			ranges = < 0x400e1000 0x400e1000 0x800 >; /* in zephyr/dts/arm/atmel/sam4l.dtsi:186 */
+
+			/* node '/soc/pinctrl@400e1000/gpio@400e1000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:188 */
+			gpioa: gpio@400e1000 {
+				compatible = "atmel,sam4l-gpio"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:189 */
+				reg = < 0x400e1000 0x200 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:190 */
+				interrupts = < 0x19 0x1 >,
+				             < 0x1a 0x1 >,
+				             < 0x1b 0x1 >,
+				             < 0x1c 0x1 >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:191 */
+				clocks = < &pmc 0x2 0x44 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:192 */
+				gpio-controller;                 /* in zephyr/dts/arm/atmel/sam4l.dtsi:193 */
+				#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/atmel/sam4l.dtsi:194 */
+				#atmel,pin-cells = < 0x2 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:195 */
+				phandle = < 0x5 >;               /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:67 */
+			};
+
+			/* node '/soc/pinctrl@400e1000/gpio@400e1200' defined in zephyr/dts/arm/atmel/sam4l.dtsi:198 */
+			gpiob: gpio@400e1200 {
+				compatible = "atmel,sam4l-gpio"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:199 */
+				reg = < 0x400e1200 0x200 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:200 */
+				interrupts = < 0x1d 0x1 >,
+				             < 0x1e 0x1 >,
+				             < 0x1f 0x1 >,
+				             < 0x20 0x1 >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:201 */
+				clocks = < &pmc 0x2 0x44 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:202 */
+				gpio-controller;                 /* in zephyr/dts/arm/atmel/sam4l.dtsi:203 */
+				#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/atmel/sam4l.dtsi:204 */
+				#atmel,pin-cells = < 0x2 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:205 */
+			};
+
+			/* node '/soc/pinctrl@400e1000/gpio@400e1400' defined in zephyr/dts/arm/atmel/sam4l.dtsi:208 */
+			gpioc: gpio@400e1400 {
+				compatible = "atmel,sam4l-gpio"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:209 */
+				reg = < 0x400e1400 0x200 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:210 */
+				interrupts = < 0x21 0x1 >,
+				             < 0x22 0x1 >,
+				             < 0x23 0x1 >,
+				             < 0x24 0x1 >;       /* in zephyr/dts/arm/atmel/sam4l.dtsi:211 */
+				clocks = < &pmc 0x2 0x44 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:212 */
+				gpio-controller;                 /* in zephyr/dts/arm/atmel/sam4l.dtsi:213 */
+				#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/atmel/sam4l.dtsi:214 */
+				#atmel,pin-cells = < 0x2 >;      /* in zephyr/dts/arm/atmel/sam4l.dtsi:215 */
+				phandle = < 0x6 >;               /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:67 */
+			};
+
+			/* node '/soc/pinctrl@400e1000/spi0_default' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:9 */
+			spi0_default: spi0_default {
+				phandle = < 0x4 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:64 */
+
+				/* node '/soc/pinctrl@400e1000/spi0_default/group1' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:10 */
+				group1 {
+					pinmux = < 0x242 >,
+					         < 0x252 >,
+					         < 0x262 >,
+					         < 0x1220 >,
+					         < 0x202 >;  /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:11 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e1000/twi0_default' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:19 */
+			twi0_default: twi0_default {
+				phandle = < 0x3 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:79 */
+
+				/* node '/soc/pinctrl@400e1000/twi0_default/group1' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:20 */
+				group1 {
+					pinmux = < 0x1380 >,
+					         < 0x1370 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:21 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e1000/usart0_default' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:26 */
+			usart0_default: usart0_default {
+
+				/* node '/soc/pinctrl@400e1000/usart0_default/group1' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:27 */
+				group1 {
+					pinmux = < 0x2222 >,
+					         < 0x1270 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:28 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e1000/usart0_hw_ctrl_flow' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:33 */
+			usart0_hw_ctrl_flow: usart0_hw_ctrl_flow {
+
+				/* node '/soc/pinctrl@400e1000/usart0_hw_ctrl_flow/group1' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:34 */
+				group1 {
+					pinmux = < 0x2222 >,
+					         < 0x1272 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:35 */
+					bias-pull-up;        /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:37 */
+				};
+
+				/* node '/soc/pinctrl@400e1000/usart0_hw_ctrl_flow/group2' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:40 */
+				group2 {
+					pinmux = < 0x1270 >,
+					         < 0x4282 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:41 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e1000/usart2_default' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:46 */
+			usart2_default: usart2_default {
+				phandle = < 0x7 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:57 */
+
+				/* node '/soc/pinctrl@400e1000/usart2_default/group1' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:47 */
+				group1 {
+					pinmux = < 0x12b2 >,
+					         < 0x12c2 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:48 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e1000/usbc_default' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:53 */
+			usbc_default: usbc_default {
+				phandle = < 0x8 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:99 */
+
+				/* node '/soc/pinctrl@400e1000/usbc_default/group1' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:54 */
+				group1 {
+					pinmux = < 0x390 >,
+					         < 0x3a0 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek-pinctrl.dtsi:55 */
+				};
+			};
+		};
+
+		/* node '/soc/tc@40010000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:219 */
+		tc0: tc@40010000 {
+			compatible = "atmel,sam-tc";                 /* in zephyr/dts/arm/atmel/sam4l.dtsi:220 */
+			reg = < 0x40010000 0x100 >;                  /* in zephyr/dts/arm/atmel/sam4l.dtsi:221 */
+			interrupts = < 0x37 0x0 0x38 0x0 0x39 0x0 >; /* in zephyr/dts/arm/atmel/sam4l.dtsi:222 */
+			clocks = < &pmc 0x2 0x2 >;                   /* in zephyr/dts/arm/atmel/sam4l.dtsi:225 */
+			clk = < 0x4 >;                               /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:72 */
+			status = "okay";                             /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:73 */
+		};
+
+		/* node '/soc/tc@40014000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:229 */
+		tc1: tc@40014000 {
+			compatible = "atmel,sam-tc";                 /* in zephyr/dts/arm/atmel/sam4l.dtsi:230 */
+			reg = < 0x40014000 0x100 >;                  /* in zephyr/dts/arm/atmel/sam4l.dtsi:231 */
+			interrupts = < 0x3a 0x0 0x3b 0x0 0x3c 0x0 >; /* in zephyr/dts/arm/atmel/sam4l.dtsi:232 */
+			clocks = < &pmc 0x2 0x3 >;                   /* in zephyr/dts/arm/atmel/sam4l.dtsi:235 */
+			status = "disabled";                         /* in zephyr/dts/arm/atmel/sam4l.dtsi:236 */
+		};
+
+		/* node '/soc/random@40068000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:239 */
+		trng: random@40068000 {
+			compatible = "atmel,sam-trng"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:240 */
+			reg = < 0x40068000 0x4000 >;   /* in zephyr/dts/arm/atmel/sam4l.dtsi:241 */
+			interrupts = < 0x49 0x0 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:242 */
+			clocks = < &pmc 0x2 0x11 >;    /* in zephyr/dts/arm/atmel/sam4l.dtsi:243 */
+			status = "okay";               /* in zephyr/dts/arm/atmel/sam4l.dtsi:244 */
+		};
+
+		/* node '/soc/device_uid@80020c' defined in zephyr/dts/arm/atmel/sam4l.dtsi:247 */
+		uid: device_uid@80020c {
+			compatible = "atmel,sam4l-uid"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:248 */
+			reg = < 0x80020c 0xf >;         /* in zephyr/dts/arm/atmel/sam4l.dtsi:249 */
+			status = "okay";                /* in zephyr/dts/arm/atmel/sam4l.dtsi:250 */
+		};
+
+		/* node '/soc/watchdog@400f0c00' defined in zephyr/dts/arm/atmel/sam4l.dtsi:253 */
+		wdt: watchdog@400f0c00 {
+			compatible = "atmel,sam4l-watchdog"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:254 */
+			reg = < 0x400f0c00 0x400 >;          /* in zephyr/dts/arm/atmel/sam4l.dtsi:255 */
+			interrupts = < 0x2c 0x1 >;           /* in zephyr/dts/arm/atmel/sam4l.dtsi:256 */
+			clocks = < &pmc 0x2 0x63 >;          /* in zephyr/dts/arm/atmel/sam4l.dtsi:257 */
+			status = "okay";                     /* in zephyr/dts/arm/atmel/sam4l.dtsi:258 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/atmel/sam4l.dtsi:22 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/atmel/sam4l.dtsi:23 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/atmel/sam4l.dtsi:24 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/atmel/sam4l.dtsi:26 */
+		cpu0: cpu@0 {
+			device_type = "cpu";             /* in zephyr/dts/arm/atmel/sam4l.dtsi:27 */
+			compatible = "arm,cortex-m4";    /* in zephyr/dts/arm/atmel/sam4l.dtsi:28 */
+			reg = < 0x0 >;                   /* in zephyr/dts/arm/atmel/sam4l.dtsi:29 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/atmel/sam4l.dtsi:30 */
+			#size-cells = < 0x1 >;           /* in zephyr/dts/arm/atmel/sam4l.dtsi:31 */
+			clock-frequency = < 0x2dc6c00 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:50 */
+
+			/* node '/cpus/cpu@0/mpu@e000ed90' defined in zephyr/dts/arm/atmel/sam4l.dtsi:33 */
+			mpu: mpu@e000ed90 {
+				compatible = "arm,armv7m-mpu"; /* in zephyr/dts/arm/atmel/sam4l.dtsi:34 */
+				reg = < 0xe000ed90 0x40 >;     /* in zephyr/dts/arm/atmel/sam4l.dtsi:35 */
+			};
+		};
+	};
+
+	/* node '/memory@20000000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:40 */
+	sram0: memory@20000000 {
+		compatible = "mmio-sram";    /* in zephyr/dts/arm/atmel/sam4l.dtsi:41 */
+		reg = < 0x20000000 0x8000 >; /* in zephyr/dts/arm/atmel/sam4lx4.dtsi:12 */
+	};
+
+	/* node '/memory@21000000' defined in zephyr/dts/arm/atmel/sam4l.dtsi:50 */
+	sram1: memory@21000000 {
+		compatible = "zephyr,memory-region",
+		             "mmio-sram";            /* in zephyr/dts/arm/atmel/sam4l.dtsi:51 */
+		reg = < 0x21000000 0x1000 >;         /* in zephyr/dts/arm/atmel/sam4l.dtsi:52 */
+		zephyr,memory-region = "SRAM1";      /* in zephyr/dts/arm/atmel/sam4l.dtsi:53 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:29 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:30 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:32 */
+		user_led: led_0 {
+			gpios = < &gpioc 0xa 0x0 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:33 */
+			label = "LED_0";            /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:34 */
+		};
+	};
+
+	/* node '/gpio_keys' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:38 */
+	gpio_keys {
+		compatible = "gpio-keys"; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:39 */
+
+		/* node '/gpio_keys/button_1' defined in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:41 */
+		sw0_dfu: button_1 {
+			label = "SW0_DFU";          /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:42 */
+			gpios = < &gpioc 0x3 0x1 >; /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:43 */
+			zephyr,code = < 0xb >;      /* in zephyr/boards/atmel/sam/sam4l_ek/sam4l_ek.dts:44 */
+		};
+	};
+};

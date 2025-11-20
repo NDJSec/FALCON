@@ -1,0 +1,91 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;   /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;      /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "SC-OBC Module A1"; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:12 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,console = &uartlite0;    /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:15 */
+		zephyr,shell-uart = &uartlite0; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:16 */
+		zephyr,sram = &hrmem;           /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:17 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:63 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/memory@0' defined in zephyr/boards/sc/scobc_a1/scobc_a1.dts:39 */
+		hrmem: memory@0 {
+			compatible = "sc,hrmem"; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:40 */
+			reg = < 0x0 0x400000 >;  /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:41 */
+		};
+
+		/* node '/soc/uartlite@4f010000' defined in zephyr/boards/sc/scobc_a1/scobc_a1.dts:44 */
+		uartlite0: uartlite@4f010000 {
+			compatible = "xlnx,xps-uartlite-1.00.a"; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:45 */
+			interrupts = < 0x0 0x0 >;                /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:46 */
+			reg = < 0x4f010000 0x10000 >;            /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:47 */
+		};
+
+		/* node '/soc/sysreg@4f000000' defined in zephyr/boards/sc/scobc_a1/scobc_a1.dts:50 */
+		sysreg: sysreg@4f000000 {
+			compatible = "sc,sysreg";     /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:51 */
+			reg = < 0x4f000000 0x10000 >; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:52 */
+		};
+
+		/* node '/soc/sysmon@4f040000' defined in zephyr/boards/sc/scobc_a1/scobc_a1.dts:55 */
+		sysmon: sysmon@4f040000 {
+			compatible = "sc,sysmon";    /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:56 */
+			reg = < 0x4f040000 0x1000 >; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:57 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/boards/sc/scobc_a1/scobc_a1.dts:20 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:21 */
+		#size-cells = < 0x0 >;    /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:22 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/boards/sc/scobc_a1/scobc_a1.dts:24 */
+		cpu0: cpu@0 {
+			device_type = "cpu";          /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:25 */
+			compatible = "arm,cortex-m3"; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:26 */
+			reg = < 0x0 >;                /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:27 */
+			#address-cells = < 0x1 >;     /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:28 */
+			#size-cells = < 0x1 >;        /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:29 */
+
+			/* node '/cpus/cpu@0/mpu@e000ed90' defined in zephyr/boards/sc/scobc_a1/scobc_a1.dts:31 */
+			mpu: mpu@e000ed90 {
+				compatible = "arm,armv7m-mpu"; /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:32 */
+				reg = < 0xe000ed90 0x40 >;     /* in zephyr/boards/sc/scobc_a1/scobc_a1.dts:33 */
+			};
+		};
+	};
+};

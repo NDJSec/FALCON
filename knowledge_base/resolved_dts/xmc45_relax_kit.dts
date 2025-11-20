@@ -1,0 +1,697 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                 /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                    /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Infineon XMC4500 Relax Kit";     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:17 */
+	compatible = "infineon,xm4500-relax-kit",
+	             "infineon,xmc4500",
+	             "infineon,xmc4xxx";          /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:18 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &dsram1;                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:58 */
+		zephyr,flash = &flash0;                      /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:59 */
+		zephyr,console = &usic1ch1;                  /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:60 */
+		zephyr,shell-uart = &usic1ch1;               /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:61 */
+		zephyr,flash-controller = &flash_controller; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:62 */
+		zephyr,code-partition = &code_partition;     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:63 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led1;          /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:22 */
+		die-temp0 = &die_temp; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:23 */
+		pwm-led0 = &pwm_led1;  /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:24 */
+		watchdog0 = &wdt0;     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:25 */
+		rtc = &rtc;            /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:26 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x6 >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:299 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/eru@40044000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:43 */
+		intc: eru@40044000 {
+			port-line-mapping = < 0x10 0x1052 0x823 0x2000 0x3802 0x3042 0x2813 0x1a0 0x1132 0x2190 0x3122 0x3962 0xa80
+			                      0x251 0x32c0 0x3a40 0x2a70 0x2241 0x13b0 0x311 0xb63 0x3b20 0x3360 0x2301 0x2b53
+			                      0x451 0x2412 0x5f1 0x2572 0x631 0x2621 0x750 0x2730 >;                                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-intc.dtsi:9 */
+			compatible = "infineon,xmc4xxx-intc";                                                                       /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:44 */
+			reg = < 0x40044000 0xff >,
+			      < 0x50004800 0xff >;                                                                                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:45 */
+			reg-names = "eru1",
+			            "eru0";                                                                                         /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:47 */
+			interrupts = < 0x1 0x1 >,
+			             < 0x2 0x1 >,
+			             < 0x3 0x1 >,
+			             < 0x4 0x1 >,
+			             < 0x5 0x1 >,
+			             < 0x6 0x1 >,
+			             < 0x7 0x1 >,
+			             < 0x8 0x1 >;                                                                                   /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:48 */
+			interrupt-names = "eru0sr0",
+			                  "eru0sr1",
+			                  "eru0sr2",
+			                  "eru0sr3",
+			                  "eru1sr0",
+			                  "eru1sr1",
+			                  "eru1sr2",
+			                  "eru1sr3";                                                                                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:49 */
+		};
+
+		/* node '/soc/pinctrl@48028000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:53 */
+		pinctrl: pinctrl@48028000 {
+			compatible = "infineon,xmc4xxx-pinctrl"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:54 */
+			reg = < 0x48028000 0x1000 >;             /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:55 */
+			#address-cells = < 0x1 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:56 */
+			#size-cells = < 0x1 >;                   /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:57 */
+
+			/* node '/soc/pinctrl@48028000/gpio@48028000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:59 */
+			gpio0: gpio@48028000 {
+				ngpios = < 0xd >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:50 */
+				compatible = "infineon,xmc4xxx-gpio"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:60 */
+				gpio-controller;                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:61 */
+				#gpio-cells = < 0x2 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:62 */
+				reg = < 0x48028000 0x100 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:63 */
+				status = "disabled";                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:64 */
+			};
+
+			/* node '/soc/pinctrl@48028000/gpio@48028100' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:67 */
+			gpio1: gpio@48028100 {
+				ngpios = < 0x10 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:54 */
+				compatible = "infineon,xmc4xxx-gpio"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:68 */
+				gpio-controller;                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:69 */
+				#gpio-cells = < 0x2 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:70 */
+				reg = < 0x48028100 0x100 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:71 */
+				status = "okay";                      /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:134 */
+				phandle = < 0x12 >;                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:34 */
+			};
+
+			/* node '/soc/pinctrl@48028000/gpio@48028200' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:75 */
+			gpio2: gpio@48028200 {
+				ngpios = < 0xd >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:58 */
+				compatible = "infineon,xmc4xxx-gpio"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:76 */
+				gpio-controller;                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:77 */
+				#gpio-cells = < 0x2 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:78 */
+				reg = < 0x48028200 0x100 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:79 */
+				status = "disabled";                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:80 */
+			};
+
+			/* node '/soc/pinctrl@48028000/gpio@48028e00' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:83 */
+			gpio14: gpio@48028e00 {
+				ngpios = < 0x10 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:62 */
+				gpio-reserved-ranges = < 0xa 0x2 >;   /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:63 */
+				compatible = "infineon,xmc4xxx-gpio"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:84 */
+				gpio-controller;                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:85 */
+				#gpio-cells = < 0x2 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:86 */
+				reg = < 0x48028e00 0x100 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:87 */
+				status = "disabled";                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:88 */
+			};
+
+			/* node '/soc/pinctrl@48028000/gpio@48028f00' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:91 */
+			gpio15: gpio@48028f00 {
+				ngpios = < 0x10 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:67 */
+				gpio-reserved-ranges = < 0x0 0x2 >,
+				                       < 0xa 0x2 >;   /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:68 */
+				compatible = "infineon,xmc4xxx-gpio"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:92 */
+				gpio-controller;                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:93 */
+				#gpio-cells = < 0x2 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:94 */
+				reg = < 0x48028f00 0x100 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:95 */
+				status = "disabled";                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:96 */
+			};
+
+			/* node '/soc/pinctrl@48028000/gpio@48028300' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:72 */
+			gpio3: gpio@48028300 {
+				compatible = "infineon,xmc4xxx-gpio"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:73 */
+				gpio-controller;                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:74 */
+				#gpio-cells = < 0x2 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:75 */
+				reg = < 0x48028300 0x100 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:76 */
+				ngpios = < 0x7 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:77 */
+				status = "disabled";                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:78 */
+			};
+
+			/* node '/soc/pinctrl@48028000/gpio@48028400' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:81 */
+			gpio4: gpio@48028400 {
+				compatible = "infineon,xmc4xxx-gpio"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:82 */
+				gpio-controller;                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:83 */
+				#gpio-cells = < 0x2 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:84 */
+				reg = < 0x48028400 0x100 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:85 */
+				ngpios = < 0x2 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:86 */
+				status = "disabled";                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:87 */
+			};
+
+			/* node '/soc/pinctrl@48028000/gpio@48028500' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:90 */
+			gpio5: gpio@48028500 {
+				compatible = "infineon,xmc4xxx-gpio"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:91 */
+				gpio-controller;                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:92 */
+				#gpio-cells = < 0x2 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:93 */
+				reg = < 0x48028500 0x100 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:94 */
+				ngpios = < 0x4 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:95 */
+				status = "disabled";                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:96 */
+			};
+
+			/* node '/soc/pinctrl@48028000/uart_tx_p0_1_u1c1' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:10 */
+			uart_tx_p0_1_u1c1: uart_tx_p0_1_u1c1 {
+				pinmux = < 0x210 >;                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:11 */
+				drive-strength = "strong-soft-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:9 */
+				drive-push-pull;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:10 */
+				hwctrl = "disabled";                 /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:11 */
+				phandle = < 0x3 >;                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:106 */
+			};
+
+			/* node '/soc/pinctrl@48028000/uart_rx_p0_0_u1c1' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:90 */
+			uart_rx_p0_0_u1c1: uart_rx_p0_0_u1c1 {
+				pinmux = < 0x0 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:91 */
+				drive-strength = "strong-soft-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:15 */
+				hwctrl = "disabled";                 /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:16 */
+				phandle = < 0x4 >;                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:106 */
+			};
+
+			/* node '/soc/pinctrl@48028000/pwm_out_p1_0_ccu40_ch3' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:266 */
+			pwm_out_p1_0_ccu40_ch3: pwm_out_p1_0_ccu40_ch3 {
+				pinmux = < 0x301 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:267 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:20 */
+				drive-push-pull;                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:21 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:22 */
+				phandle = < 0x5 >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:139 */
+			};
+
+			/* node '/soc/pinctrl@48028000/pwm_out_p1_1_ccu40_ch2' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:270 */
+			pwm_out_p1_1_ccu40_ch2: pwm_out_p1_1_ccu40_ch2 {
+				pinmux = < 0x311 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:271 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:26 */
+				drive-push-pull;                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:27 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:28 */
+				phandle = < 0x6 >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:139 */
+			};
+
+			/* node '/soc/pinctrl@48028000/ebu_p2_0_mdo' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:568 */
+			eth_p2_0_mdo: ebu_p2_0_mdo {
+				pinmux = < 0x2 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:569 */
+				hwctrl = "periph1";                   /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:570 */
+				drive-strength = "strong-sharp-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:32 */
+				output-low;                           /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:33 */
+				phandle = < 0x10 >;                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:163 */
+			};
+
+			/* node '/soc/pinctrl@48028000/eth_p2_5_tx_en' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:617 */
+			eth_p2_5_tx_en: eth_p2_5_tx_en {
+				pinmux = < 0x152 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:618 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:44 */
+				drive-push-pull;                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:45 */
+				output-low;                            /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:46 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:47 */
+				phandle = < 0xc >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:145 */
+			};
+
+			/* node '/soc/pinctrl@48028000/eth_p2_7_mdc' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:621 */
+			eth_p2_7_mdc: eth_p2_7_mdc {
+				pinmux = < 0x172 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:622 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:37 */
+				drive-push-pull;                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:38 */
+				output-low;                            /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:39 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:40 */
+				phandle = < 0x11 >;                    /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:163 */
+			};
+
+			/* node '/soc/pinctrl@48028000/eth_p2_8_txd0' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:625 */
+			eth_p2_8_txd0: eth_p2_8_txd0 {
+				pinmux = < 0x182 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:626 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:51 */
+				drive-push-pull;                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:52 */
+				output-low;                            /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:53 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:54 */
+				phandle = < 0xd >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:145 */
+			};
+
+			/* node '/soc/pinctrl@48028000/eth_p2_9_txd1' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:629 */
+			eth_p2_9_txd1: eth_p2_9_txd1 {
+				pinmux = < 0x192 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:630 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:58 */
+				drive-push-pull;                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:59 */
+				output-low;                            /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:60 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:61 */
+				phandle = < 0xe >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:145 */
+			};
+
+			/* node '/soc/pinctrl@48028000/eth_p2_2_rxd0' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:633 */
+			eth_p2_2_rxd0: eth_p2_2_rxd0 {
+				pinmux = < 0x22 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:634 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:70 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:71 */
+				phandle = < 0x8 >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:145 */
+			};
+
+			/* node '/soc/pinctrl@48028000/eth_p2_3_rxd1' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:649 */
+			eth_p2_3_rxd1: eth_p2_3_rxd1 {
+				pinmux = < 0x32 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:650 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:75 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:76 */
+				phandle = < 0x9 >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:145 */
+			};
+
+			/* node '/soc/pinctrl@48028000/eth_p15_8_clk_rmii' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:689 */
+			eth_p15_8_clk_rmii: eth_p15_8_clk_rmii {
+				pinmux = < 0x8f >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:690 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:80 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:81 */
+				phandle = < 0xa >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:145 */
+			};
+
+			/* node '/soc/pinctrl@48028000/eth_p15_9_crs_dv' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:705 */
+			eth_p15_9_crs_dv: eth_p15_9_crs_dv {
+				pinmux = < 0x9f >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:706 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:85 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:86 */
+				phandle = < 0xb >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:145 */
+			};
+
+			/* node '/soc/pinctrl@48028000/eth_p2_4_rxer' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:721 */
+			eth_p2_4_rxer: eth_p2_4_rxer {
+				pinmux = < 0x42 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024-pinctrl.dtsi:722 */
+				drive-strength = "strong-medium-edge"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:65 */
+				hwctrl = "disabled";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit-pinctrl.dtsi:66 */
+				phandle = < 0x7 >;                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:145 */
+			};
+		};
+
+		/* node '/soc/dma0@50014000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:100 */
+		dma0: dma0@50014000 {
+			compatible = "infineon,xmc4xxx-dma"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:101 */
+			reg = < 0x50014000 0x2bc >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:102 */
+			interrupts = < 0x69 0x1 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:103 */
+			dma-channels = < 0x8 >;              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:104 */
+			#dma-cells = < 0x3 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:105 */
+			status = "disabled";                 /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:106 */
+		};
+
+		/* node '/soc/dma1@50018000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:109 */
+		dma1: dma1@50018000 {
+			compatible = "infineon,xmc4xxx-dma"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:110 */
+			reg = < 0x50018000 0x15c >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:111 */
+			interrupts = < 0x6e 0x1 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:112 */
+			dma-channels = < 0x4 >;              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:113 */
+			#dma-cells = < 0x3 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:114 */
+			status = "disabled";                 /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:115 */
+		};
+
+		/* node '/soc/usic@40030000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:118 */
+		usic0ch0: usic@40030000 {
+			reg = < 0x40030000 0x1ff >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:119 */
+			clocks = < &sysclk >;       /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:120 */
+			status = "disabled";        /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:121 */
+		};
+
+		/* node '/soc/usic@40030200' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:124 */
+		usic0ch1: usic@40030200 {
+			reg = < 0x40030200 0x1ff >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:125 */
+			clocks = < &sysclk >;       /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:126 */
+			status = "disabled";        /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:127 */
+		};
+
+		/* node '/soc/usic@48020000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:130 */
+		usic1ch0: usic@48020000 {
+			reg = < 0x48020000 0x1ff >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:131 */
+			clocks = < &sysclk >;       /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:132 */
+			status = "disabled";        /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:133 */
+		};
+
+		/* node '/soc/usic@48020200' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:136 */
+		usic1ch1: usic@48020200 {
+			reg = < 0x48020200 0x1ff >;                            /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:137 */
+			clocks = < &sysclk >;                                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:138 */
+			compatible = "infineon,xmc4xxx-uart";                  /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:104 */
+			current-speed = < 0x1c200 >;                           /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:105 */
+			pinctrl-0 = < &uart_tx_p0_1_u1c1 &uart_rx_p0_0_u1c1 >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:106 */
+			pinctrl-names = "default";                             /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:107 */
+			input-src = "DX0D";                                    /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:108 */
+			interrupts = < 0x5a 0x1 0x5b 0x1 >;                    /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:109 */
+			interrupt-names = "tx",
+			                  "rx";                                /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:110 */
+			fifo-start-offset = < 0x0 >;                           /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:111 */
+			fifo-tx-size = < 0x10 >;                               /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:112 */
+			fifo-rx-size = < 0x10 >;                               /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:113 */
+			status = "okay";                                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:114 */
+		};
+
+		/* node '/soc/usic@48024000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:142 */
+		usic2ch0: usic@48024000 {
+			reg = < 0x48024000 0x1ff >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:143 */
+			clocks = < &sysclk >;       /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:144 */
+			status = "disabled";        /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:145 */
+		};
+
+		/* node '/soc/usic@48024200' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:148 */
+		usic2ch1: usic@48024200 {
+			reg = < 0x48024200 0x1ff >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:149 */
+			clocks = < &sysclk >;       /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:150 */
+			status = "disabled";        /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:151 */
+		};
+
+		/* node '/soc/adc@40004400' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:154 */
+		adc0: adc@40004400 {
+			compatible = "infineon,xmc4xxx-adc"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:155 */
+			reg = < 0x40004400 0x400 >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:156 */
+			interrupts = < 0x12 0x3e >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:157 */
+			#io-channel-cells = < 0x1 >;         /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:158 */
+			status = "disabled";                 /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:159 */
+			vref-internal-mv = < 0xce4 >;        /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:118 */
+		};
+
+		/* node '/soc/adc@40004800' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:162 */
+		adc1: adc@40004800 {
+			compatible = "infineon,xmc4xxx-adc"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:163 */
+			reg = < 0x40004800 0x400 >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:164 */
+			interrupts = < 0x16 0x3e >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:165 */
+			#io-channel-cells = < 0x1 >;         /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:166 */
+			status = "disabled";                 /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:167 */
+			vref-internal-mv = < 0xce4 >;        /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:122 */
+		};
+
+		/* node '/soc/adc@40004c00' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:170 */
+		adc2: adc@40004c00 {
+			compatible = "infineon,xmc4xxx-adc"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:171 */
+			reg = < 0x40004c00 0x400 >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:172 */
+			interrupts = < 0x1a 0x3e >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:173 */
+			#io-channel-cells = < 0x1 >;         /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:174 */
+			status = "disabled";                 /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:175 */
+			vref-internal-mv = < 0xce4 >;        /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:126 */
+		};
+
+		/* node '/soc/adc@40005000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:178 */
+		adc3: adc@40005000 {
+			compatible = "infineon,xmc4xxx-adc"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:179 */
+			reg = < 0x40005000 0x400 >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:180 */
+			interrupts = < 0x1e 0x3e >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:181 */
+			#io-channel-cells = < 0x1 >;         /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:182 */
+			status = "disabled";                 /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:183 */
+			vref-internal-mv = < 0xce4 >;        /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:130 */
+		};
+
+		/* node '/soc/die_temp@5000408c' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:186 */
+		die_temp: die_temp@5000408c {
+			reg = < 0x5000408c 0x8 >;             /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:187 */
+			compatible = "infineon,xmc4xxx-temp"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:188 */
+			status = "disabled";                  /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:189 */
+		};
+
+		/* node '/soc/ccu40@4000c000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:192 */
+		pwm_ccu40: ccu40@4000c000 {
+			compatible = "infineon,xmc4xxx-ccu4-pwm";                        /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:193 */
+			reg = < 0x4000c000 0x4000 >;                                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:194 */
+			#pwm-cells = < 0x3 >;                                            /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:195 */
+			status = "disabled";                                             /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:196 */
+			slice-prescaler = < 0xf 0xf 0xf 0xf >;                           /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:138 */
+			pinctrl-0 = < &pwm_out_p1_0_ccu40_ch3 &pwm_out_p1_1_ccu40_ch2 >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:139 */
+			pinctrl-names = "default";                                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:140 */
+			phandle = < 0x13 >;                                              /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:47 */
+		};
+
+		/* node '/soc/ccu41@40010000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:199 */
+		pwm_ccu41: ccu41@40010000 {
+			compatible = "infineon,xmc4xxx-ccu4-pwm"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:200 */
+			reg = < 0x40010000 0x4000 >;              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:201 */
+			#pwm-cells = < 0x3 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:202 */
+			status = "disabled";                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:203 */
+		};
+
+		/* node '/soc/ccu42@40014000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:206 */
+		pwm_ccu42: ccu42@40014000 {
+			compatible = "infineon,xmc4xxx-ccu4-pwm"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:207 */
+			reg = < 0x40014000 0x4000 >;              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:208 */
+			#pwm-cells = < 0x3 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:209 */
+			status = "disabled";                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:210 */
+		};
+
+		/* node '/soc/ccu43@48004000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:213 */
+		pwm_ccu43: ccu43@48004000 {
+			compatible = "infineon,xmc4xxx-ccu4-pwm"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:214 */
+			reg = < 0x48004000 0x4000 >;              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:215 */
+			#pwm-cells = < 0x3 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:216 */
+			status = "disabled";                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:217 */
+		};
+
+		/* node '/soc/ccu80@40020000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:220 */
+		pwm_ccu80: ccu80@40020000 {
+			compatible = "infineon,xmc4xxx-ccu8-pwm"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:221 */
+			reg = < 0x40020000 0x4000 >;              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:222 */
+			#pwm-cells = < 0x3 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:223 */
+			status = "disabled";                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:224 */
+		};
+
+		/* node '/soc/ccu81@40024000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:227 */
+		pwm_ccu81: ccu81@40024000 {
+			compatible = "infineon,xmc4xxx-ccu8-pwm"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:228 */
+			reg = < 0x40024000 0x4000 >;              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:229 */
+			#pwm-cells = < 0x3 >;                     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:230 */
+			status = "disabled";                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:231 */
+		};
+
+		/* node '/soc/watchdog@50008000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:234 */
+		wdt0: watchdog@50008000 {
+			compatible = "infineon,xmc4xxx-watchdog"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:235 */
+			reg = < 0x50008000 0x4000 >;              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:236 */
+			interrupts = < 0x0 0x1 >;                 /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:237 */
+			status = "disabled";                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:238 */
+		};
+
+		/* node '/soc/rtc@50004a00' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:241 */
+		rtc: rtc@50004a00 {
+			compatible = "infineon,xmc4xxx-rtc"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:242 */
+			reg = < 0x50004a00 0x200 >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:243 */
+			interrupts = < 0x0 0x1 >;            /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:244 */
+			alarms-count = < 0x1 >;              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:245 */
+			status = "okay";                     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:173 */
+		};
+
+		/* node '/soc/ethernet@5000c000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:249 */
+		ethernet@5000c000 {
+			reg = < 0x5000c000 0x3fff >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:250 */
+
+			/* node '/soc/ethernet@5000c000/ethernet' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:252 */
+			eth: ethernet {
+				compatible = "infineon,xmc4xxx-ethernet";                                                        /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:253 */
+				interrupts = < 0x6c 0x1 >;                                                                       /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:254 */
+				status = "okay";                                                                                 /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:144 */
+				pinctrl-0 = < &eth_p2_4_rxer &eth_p2_2_rxd0 &eth_p2_3_rxd1 &eth_p15_8_clk_rmii &eth_p15_9_crs_dv
+				              &eth_p2_5_tx_en &eth_p2_8_txd0 &eth_p2_9_txd1 >;                                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:145 */
+				pinctrl-names = "default";                                                                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:148 */
+				rxer-port-ctrl = "P2_4";                                                                         /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:150 */
+				rxd0-port-ctrl = "P2_2";                                                                         /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:151 */
+				rxd1-port-ctrl = "P2_3";                                                                         /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:152 */
+				rmii-rx-clk-port-ctrl = "P15_8";                                                                 /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:153 */
+				crs-rx-dv-port-ctrl = "P15_9";                                                                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:154 */
+				phy-connection-type = "rmii";                                                                    /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:156 */
+				phy-handle = < &phy >;                                                                           /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:157 */
+			};
+
+			/* node '/soc/ethernet@5000c000/mdio' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:258 */
+			mdio: mdio {
+				compatible = "infineon,xmc4xxx-mdio";        /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:259 */
+				#address-cells = < 0x1 >;                    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:261 */
+				#size-cells = < 0x0 >;                       /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:262 */
+				status = "okay";                             /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:161 */
+				mdi-port-ctrl = "P2_0";                      /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:162 */
+				pinctrl-0 = < &eth_p2_0_mdo &eth_p2_7_mdc >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:163 */
+				pinctrl-names = "default";                   /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:164 */
+
+				/* node '/soc/ethernet@5000c000/mdio/ethernet-phy@0' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:166 */
+				phy: ethernet-phy@0 {
+					compatible = "ethernet-phy"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:167 */
+					reg = < 0x0 >;               /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:168 */
+					phandle = < 0xf >;           /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:157 */
+				};
+			};
+		};
+
+		/* node '/soc/can@48014000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:266 */
+		can: can@48014000 {
+			message-objects = < 0x40 >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:101 */
+			compatible = "infineon,xmc4xxx-can"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:267 */
+			reg = < 0x48014000 0x4000 >;         /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:268 */
+			clock-prescaler = < 0x1 >;           /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:269 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:271 */
+			#size-cells = < 0x1 >;               /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:272 */
+
+			/* node '/soc/can@48014000/can_node0@48014200' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:274 */
+			can_node0: can_node0@48014200 {
+				compatible = "infineon,xmc4xxx-can-node"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:275 */
+				reg = < 0x48014200 0x100 >;               /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:276 */
+				interrupts = < 0x4c 0x1 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:277 */
+				status = "disabled";                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:278 */
+			};
+
+			/* node '/soc/can@48014000/can_node1@48014300' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:281 */
+			can_node1: can_node1@48014300 {
+				compatible = "infineon,xmc4xxx-can-node"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:282 */
+				reg = < 0x48014300 0x100 >;               /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:283 */
+				interrupts = < 0x4d 0x1 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:284 */
+				status = "disabled";                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:285 */
+			};
+
+			/* node '/soc/can@48014000/can_node2@48014400' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:288 */
+			can_node2: can_node2@48014400 {
+				compatible = "infineon,xmc4xxx-can-node"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:289 */
+				reg = < 0x48014400 0x100 >;               /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:290 */
+				interrupts = < 0x4e 0x1 >;                /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:291 */
+				status = "disabled";                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:292 */
+			};
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:14 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:15 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:16 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:18 */
+		cpu0: cpu@0 {
+			compatible = "arm,cortex-m4f";   /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:19 */
+			reg = < 0x0 >;                   /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:20 */
+			clock-frequency = < 0x7270e00 >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:100 */
+		};
+	};
+
+	/* node '/flash_controller@58001000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:24 */
+	flash_controller: flash_controller@58001000 {
+		compatible = "infineon,xmc4xxx-flash-controller"; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:25 */
+		reg = < 0x58001000 0x1400 >;                      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:26 */
+		#address-cells = < 0x1 >;                         /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:27 */
+		#size-cells = < 0x1 >;                            /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:28 */
+		status = "okay";                                  /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:78 */
+
+		/* node '/flash_controller@58001000/flash@8000000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:30 */
+		flash0: flash@8000000 {
+			reg = < 0x8000000 0x100000 >;             /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:29 */
+			compatible = "infineon,xmc4xxx-nv-flash",
+			             "soc-nv-flash";              /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:31 */
+			write-block-size = < 0x100 >;             /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:32 */
+
+			/* node '/flash_controller@58001000/flash@8000000/pages_layout' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:31 */
+			pages_layout: pages_layout {
+
+				/* node '/flash_controller@58001000/flash@8000000/pages_layout/pages_layout_16k' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:32 */
+				pages_layout_16k: pages_layout_16k {
+					pages-count = < 0x8 >;   /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:33 */
+					pages-size = < 0x4000 >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:34 */
+				};
+
+				/* node '/flash_controller@58001000/flash@8000000/pages_layout/pages_layout_128k' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:37 */
+				pages_layout_128k: pages_layout_128k {
+					pages-count = < 0x1 >;    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:38 */
+					pages-size = < 0x20000 >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:39 */
+				};
+
+				/* node '/flash_controller@58001000/flash@8000000/pages_layout/pages_layout_256k' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:42 */
+				pages_layout_256k: pages_layout_256k {
+					pages-count = < 0x3 >;    /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:43 */
+					pages-size = < 0x40000 >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:44 */
+				};
+			};
+
+			/* node '/flash_controller@58001000/flash@8000000/partitions' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:82 */
+			partitions {
+				compatible = "fixed-partitions"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:83 */
+				#address-cells = < 0x1 >;        /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:84 */
+				#size-cells = < 0x1 >;           /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:85 */
+
+				/* node '/flash_controller@58001000/flash@8000000/partitions/partition@0' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:87 */
+				code_partition: partition@0 {
+					reg = < 0x0 0x80000 >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:88 */
+					read-only;             /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:89 */
+				};
+
+				/* node '/flash_controller@58001000/flash@8000000/partitions/partition@80000' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:92 */
+				storage_partition: partition@80000 {
+					label = "storage";         /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:93 */
+					reg = < 0x80000 0x80000 >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:94 */
+				};
+			};
+		};
+	};
+
+	/* node '/system-clock' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:36 */
+	sysclk: system-clock {
+		compatible = "fixed-clock";      /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:37 */
+		clock-frequency = < 0x7270e00 >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:38 */
+		#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:39 */
+		phandle = < 0x2 >;               /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4xxx.dtsi:120 */
+	};
+
+	/* node '/memory@10000000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:12 */
+	psram1: memory@10000000 {
+		reg = < 0x10000000 0x10000 >;        /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:14 */
+		compatible = "zephyr,memory-region",
+		             "mmio-sram";            /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:68 */
+		zephyr,memory-region = "PSRAM1";     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:69 */
+	};
+
+	/* node '/memory@20000000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:17 */
+	dsram1: memory@20000000 {
+		compatible = "mmio-sram";     /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:18 */
+		reg = < 0x20000000 0x10000 >; /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:19 */
+	};
+
+	/* node '/memory@30000000' defined in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:22 */
+	dsram2: memory@30000000 {
+		reg = < 0x30000000 0x8000 >;         /* in zephyr/dts/arm/infineon/cat3/xmc/xmc4500_F100x1024.dtsi:24 */
+		compatible = "zephyr,memory-region",
+		             "mmio-sram";            /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:73 */
+		zephyr,memory-region = "DSRAM2";     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:74 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:29 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:30 */
+
+		/* node '/leds/led1' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:33 */
+		led1: led1 {
+			gpios = < &gpio1 0x1 0x0 >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:34 */
+		};
+
+		/* node '/leds/led2' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:37 */
+		led2: led2 {
+			gpios = < &gpio1 0x0 0x0 >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:38 */
+		};
+	};
+
+	/* node '/pwmleds' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:42 */
+	pwmleds: pwmleds {
+		compatible = "pwm-leds"; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:43 */
+		status = "disabled";     /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:44 */
+
+		/* node '/pwmleds/pwm_led1' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:46 */
+		pwm_led1: pwm_led1 {
+			pwms = < &pwm_ccu40 0x2 0x3b9aca00 0x0 >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:47 */
+			label = "PWM LED1";                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:48 */
+		};
+
+		/* node '/pwmleds/pwm_led2' defined in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:51 */
+		pwm_led2: pwm_led2 {
+			pwms = < &pwm_ccu40 0x3 0x3b9aca00 0x0 >; /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:52 */
+			label = "PWM LED2";                       /* in zephyr/boards/infineon/xmc45_relax_kit/xmc45_relax_kit.dts:53 */
+		};
+	};
+};

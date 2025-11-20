@@ -1,0 +1,330 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                     /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                        /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Silicon Labs EFM32WG STK3800 board"; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:13 */
+	compatible = "silabs,efm32wg_stk3800",
+	             "silabs,efm32wg";                /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:14 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,flash-controller = &msc; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:9 */
+		zephyr,console = &uart0;        /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:17 */
+		zephyr,flash = &flash0;         /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:18 */
+		zephyr,shell-uart = &uart0;     /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:19 */
+		zephyr,sram = &sram0;           /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:20 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led0;   /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:25 */
+		led1 = &led1;   /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:26 */
+		sw0 = &button0; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:27 */
+		sw1 = &button1; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:28 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;             /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;                /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		interrupt-parent = < &nvic >;         /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                               /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+		compatible = "silabs,efm32wg990f256",
+		             "silabs,efm32wg",
+		             "silabs,efm32",
+		             "simple-bus";            /* in zephyr/dts/arm/silabs/efm32wg990f256.dtsi:12 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:199 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/flash-controller@400c0000' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:27 */
+		msc: flash-controller@400c0000 {
+			compatible = "silabs,gecko-flash-controller"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:28 */
+			reg = < 0x400c0000 0x78 >;                    /* in zephyr/dts/arm/silabs/efm32wg.dtsi:29 */
+			interrupts = < 0x23 0x0 >;                    /* in zephyr/dts/arm/silabs/efm32wg.dtsi:30 */
+			#address-cells = < 0x1 >;                     /* in zephyr/dts/arm/silabs/efm32wg.dtsi:32 */
+			#size-cells = < 0x1 >;                        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:33 */
+
+			/* node '/soc/flash-controller@400c0000/flash@0' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:35 */
+			flash0: flash@0 {
+				compatible = "soc-nv-flash";  /* in zephyr/dts/arm/silabs/efm32wg.dtsi:36 */
+				write-block-size = < 0x4 >;   /* in zephyr/dts/arm/silabs/efm32wg.dtsi:37 */
+				erase-block-size = < 0x800 >; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:38 */
+				reg = < 0x0 0x40000 >;        /* in zephyr/dts/arm/silabs/efm32wg990f256.dtsi:17 */
+
+				/* node '/soc/flash-controller@400c0000/flash@0/partitions' defined in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:98 */
+				partitions {
+					compatible = "fixed-partitions"; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:99 */
+					#address-cells = < 0x1 >;        /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:100 */
+					#size-cells = < 0x1 >;           /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:101 */
+
+					/* node '/soc/flash-controller@400c0000/flash@0/partitions/partition@3e800' defined in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:104 */
+					storage_partition: partition@3e800 {
+						reg = < 0x3e800 0x1800 >; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:105 */
+						label = "storage";        /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:106 */
+					};
+				};
+			};
+		};
+
+		/* node '/soc/usart@4000c000' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:42 */
+		usart0: usart@4000c000 {
+			compatible = "silabs,gecko-usart"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:43 */
+			reg = < 0x4000c000 0x400 >;        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:44 */
+			interrupts = < 0x3 0x0 >,
+			             < 0x4 0x0 >;          /* in zephyr/dts/arm/silabs/efm32wg.dtsi:45 */
+			interrupt-names = "rx",
+			                  "tx";            /* in zephyr/dts/arm/silabs/efm32wg.dtsi:46 */
+			peripheral-id = < 0x0 >;           /* in zephyr/dts/arm/silabs/efm32wg.dtsi:47 */
+			status = "disabled";               /* in zephyr/dts/arm/silabs/efm32wg.dtsi:48 */
+		};
+
+		/* node '/soc/usart@4000c400' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:51 */
+		usart1: usart@4000c400 {
+			compatible = "silabs,gecko-usart"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:52 */
+			reg = < 0x4000c400 0x400 >;        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:53 */
+			interrupts = < 0xf 0x0 >,
+			             < 0x10 0x0 >;         /* in zephyr/dts/arm/silabs/efm32wg.dtsi:54 */
+			interrupt-names = "rx",
+			                  "tx";            /* in zephyr/dts/arm/silabs/efm32wg.dtsi:55 */
+			peripheral-id = < 0x1 >;           /* in zephyr/dts/arm/silabs/efm32wg.dtsi:56 */
+			status = "disabled";               /* in zephyr/dts/arm/silabs/efm32wg.dtsi:57 */
+		};
+
+		/* node '/soc/usart@4000c800' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:60 */
+		usart2: usart@4000c800 {
+			compatible = "silabs,gecko-usart"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:61 */
+			reg = < 0x4000c800 0x400 >;        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:62 */
+			interrupts = < 0x12 0x0 >,
+			             < 0x13 0x0 >;         /* in zephyr/dts/arm/silabs/efm32wg.dtsi:63 */
+			interrupt-names = "rx",
+			                  "tx";            /* in zephyr/dts/arm/silabs/efm32wg.dtsi:64 */
+			peripheral-id = < 0x2 >;           /* in zephyr/dts/arm/silabs/efm32wg.dtsi:65 */
+			status = "disabled";               /* in zephyr/dts/arm/silabs/efm32wg.dtsi:66 */
+		};
+
+		/* node '/soc/uart@4000e000' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:69 */
+		uart0: uart@4000e000 {
+			compatible = "silabs,gecko-uart"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:70 */
+			reg = < 0x4000e000 0x400 >;       /* in zephyr/dts/arm/silabs/efm32wg.dtsi:71 */
+			interrupts = < 0x14 0x0 >,
+			             < 0x15 0x0 >;        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:72 */
+			interrupt-names = "rx",
+			                  "tx";           /* in zephyr/dts/arm/silabs/efm32wg.dtsi:73 */
+			peripheral-id = < 0x0 >;          /* in zephyr/dts/arm/silabs/efm32wg.dtsi:74 */
+			current-speed = < 0x1c200 >;      /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:91 */
+			location-rx = < 0x1 0x4 0x1 >;    /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:92 */
+			location-tx = < 0x1 0x4 0x0 >;    /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:93 */
+			status = "okay";                  /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:94 */
+		};
+
+		/* node '/soc/uart@4000e400' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:78 */
+		uart1: uart@4000e400 {
+			compatible = "silabs,gecko-uart"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:79 */
+			reg = < 0x4000e400 0x400 >;       /* in zephyr/dts/arm/silabs/efm32wg.dtsi:80 */
+			interrupts = < 0x16 0x0 >,
+			             < 0x17 0x0 >;        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:81 */
+			interrupt-names = "rx",
+			                  "tx";           /* in zephyr/dts/arm/silabs/efm32wg.dtsi:82 */
+			peripheral-id = < 0x1 >;          /* in zephyr/dts/arm/silabs/efm32wg.dtsi:83 */
+			status = "disabled";              /* in zephyr/dts/arm/silabs/efm32wg.dtsi:84 */
+		};
+
+		/* node '/soc/leuart@40084000' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:87 */
+		leuart0: leuart@40084000 {
+			compatible = "silabs,gecko-leuart"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:88 */
+			reg = < 0x40084000 0x400 >;         /* in zephyr/dts/arm/silabs/efm32wg.dtsi:89 */
+			interrupts = < 0x18 0x0 >;          /* in zephyr/dts/arm/silabs/efm32wg.dtsi:90 */
+			peripheral-id = < 0x0 >;            /* in zephyr/dts/arm/silabs/efm32wg.dtsi:91 */
+			status = "disabled";                /* in zephyr/dts/arm/silabs/efm32wg.dtsi:92 */
+		};
+
+		/* node '/soc/leuart@40084400' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:95 */
+		leuart1: leuart@40084400 {
+			compatible = "silabs,gecko-leuart"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:96 */
+			reg = < 0x40084400 0x400 >;         /* in zephyr/dts/arm/silabs/efm32wg.dtsi:97 */
+			interrupts = < 0x19 0x0 >;          /* in zephyr/dts/arm/silabs/efm32wg.dtsi:98 */
+			peripheral-id = < 0x1 >;            /* in zephyr/dts/arm/silabs/efm32wg.dtsi:99 */
+			status = "disabled";                /* in zephyr/dts/arm/silabs/efm32wg.dtsi:100 */
+		};
+
+		/* node '/soc/i2c@4000a000' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:103 */
+		i2c0: i2c@4000a000 {
+			compatible = "silabs,gecko-i2c"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:104 */
+			clock-frequency = < 0x186a0 >;   /* in zephyr/dts/arm/silabs/efm32wg.dtsi:105 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:106 */
+			#size-cells = < 0x0 >;           /* in zephyr/dts/arm/silabs/efm32wg.dtsi:107 */
+			reg = < 0x4000a000 0x400 >;      /* in zephyr/dts/arm/silabs/efm32wg.dtsi:108 */
+			interrupts = < 0x9 0x0 >;        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:109 */
+			status = "disabled";             /* in zephyr/dts/arm/silabs/efm32wg.dtsi:110 */
+		};
+
+		/* node '/soc/i2c@4000a400' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:113 */
+		i2c1: i2c@4000a400 {
+			compatible = "silabs,gecko-i2c"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:114 */
+			clock-frequency = < 0x186a0 >;   /* in zephyr/dts/arm/silabs/efm32wg.dtsi:115 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:116 */
+			#size-cells = < 0x0 >;           /* in zephyr/dts/arm/silabs/efm32wg.dtsi:117 */
+			reg = < 0x4000a400 0x400 >;      /* in zephyr/dts/arm/silabs/efm32wg.dtsi:118 */
+			interrupts = < 0xa 0x0 >;        /* in zephyr/dts/arm/silabs/efm32wg.dtsi:119 */
+			status = "disabled";             /* in zephyr/dts/arm/silabs/efm32wg.dtsi:120 */
+		};
+
+		/* node '/soc/gpio@40006100' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:123 */
+		gpio@40006100 {
+			compatible = "silabs,gecko-gpio"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:124 */
+			reg = < 0x40006100 0xf00 >;       /* in zephyr/dts/arm/silabs/efm32wg.dtsi:125 */
+			interrupts = < 0x1 0x2 0xb 0x2 >; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:126 */
+			interrupt-names = "GPIO_EVEN",
+			                  "GPIO_ODD";     /* in zephyr/dts/arm/silabs/efm32wg.dtsi:127 */
+			ranges;                           /* in zephyr/dts/arm/silabs/efm32wg.dtsi:129 */
+			#address-cells = < 0x1 >;         /* in zephyr/dts/arm/silabs/efm32wg.dtsi:130 */
+			#size-cells = < 0x1 >;            /* in zephyr/dts/arm/silabs/efm32wg.dtsi:131 */
+
+			/* node '/soc/gpio@40006100/gpio@40006000' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:133 */
+			gpioa: gpio@40006000 {
+				compatible = "silabs,gecko-gpio-port"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:134 */
+				reg = < 0x40006000 0x24 >;             /* in zephyr/dts/arm/silabs/efm32wg.dtsi:135 */
+				peripheral-id = < 0x0 >;               /* in zephyr/dts/arm/silabs/efm32wg.dtsi:136 */
+				gpio-controller;                       /* in zephyr/dts/arm/silabs/efm32wg.dtsi:137 */
+				#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/silabs/efm32wg.dtsi:138 */
+				status = "okay";                       /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:69 */
+			};
+
+			/* node '/soc/gpio@40006100/gpio@40006024' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:142 */
+			gpiob: gpio@40006024 {
+				compatible = "silabs,gecko-gpio-port"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:143 */
+				reg = < 0x40006024 0x24 >;             /* in zephyr/dts/arm/silabs/efm32wg.dtsi:144 */
+				peripheral-id = < 0x1 >;               /* in zephyr/dts/arm/silabs/efm32wg.dtsi:145 */
+				gpio-controller;                       /* in zephyr/dts/arm/silabs/efm32wg.dtsi:146 */
+				#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/silabs/efm32wg.dtsi:147 */
+				status = "okay";                       /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:73 */
+				phandle = < 0x3 >;                     /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:50 */
+			};
+
+			/* node '/soc/gpio@40006100/gpio@40006048' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:151 */
+			gpioc: gpio@40006048 {
+				compatible = "silabs,gecko-gpio-port"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:152 */
+				reg = < 0x40006048 0x24 >;             /* in zephyr/dts/arm/silabs/efm32wg.dtsi:153 */
+				peripheral-id = < 0x2 >;               /* in zephyr/dts/arm/silabs/efm32wg.dtsi:154 */
+				gpio-controller;                       /* in zephyr/dts/arm/silabs/efm32wg.dtsi:155 */
+				#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/silabs/efm32wg.dtsi:156 */
+				status = "disabled";                   /* in zephyr/dts/arm/silabs/efm32wg.dtsi:157 */
+			};
+
+			/* node '/soc/gpio@40006100/gpio@4000606c' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:160 */
+			gpiod: gpio@4000606c {
+				compatible = "silabs,gecko-gpio-port"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:161 */
+				reg = < 0x4000606c 0x24 >;             /* in zephyr/dts/arm/silabs/efm32wg.dtsi:162 */
+				peripheral-id = < 0x3 >;               /* in zephyr/dts/arm/silabs/efm32wg.dtsi:163 */
+				gpio-controller;                       /* in zephyr/dts/arm/silabs/efm32wg.dtsi:164 */
+				#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/silabs/efm32wg.dtsi:165 */
+				status = "disabled";                   /* in zephyr/dts/arm/silabs/efm32wg.dtsi:166 */
+			};
+
+			/* node '/soc/gpio@40006100/gpio@40006090' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:169 */
+			gpioe: gpio@40006090 {
+				compatible = "silabs,gecko-gpio-port"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:170 */
+				reg = < 0x40006090 0x24 >;             /* in zephyr/dts/arm/silabs/efm32wg.dtsi:171 */
+				peripheral-id = < 0x4 >;               /* in zephyr/dts/arm/silabs/efm32wg.dtsi:172 */
+				gpio-controller;                       /* in zephyr/dts/arm/silabs/efm32wg.dtsi:173 */
+				#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/silabs/efm32wg.dtsi:174 */
+				status = "okay";                       /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:77 */
+				phandle = < 0x2 >;                     /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:35 */
+			};
+
+			/* node '/soc/gpio@40006100/gpio@400060b4' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:178 */
+			gpiof: gpio@400060b4 {
+				compatible = "silabs,gecko-gpio-port"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:179 */
+				reg = < 0x400060b4 0x24 >;             /* in zephyr/dts/arm/silabs/efm32wg.dtsi:180 */
+				peripheral-id = < 0x5 >;               /* in zephyr/dts/arm/silabs/efm32wg.dtsi:181 */
+				gpio-controller;                       /* in zephyr/dts/arm/silabs/efm32wg.dtsi:182 */
+				#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/silabs/efm32wg.dtsi:183 */
+				status = "okay";                       /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:81 */
+
+				/* node '/soc/gpio@40006100/gpio@400060b4/board-controller-enable' defined in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:83 */
+				board-controller-enable {
+					gpio-hog;            /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:84 */
+					gpios = < 0x7 0x0 >; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:85 */
+					output-high;         /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:86 */
+				};
+			};
+		};
+
+		/* node '/soc/pin-controller' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:188 */
+		pinctrl: pin-controller {
+			compatible = "silabs,gecko-pinctrl"; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:193 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:12 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/silabs/efm32wg.dtsi:13 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/silabs/efm32wg.dtsi:14 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:16 */
+		cpu0: cpu@0 {
+			compatible = "arm,cortex-m4f";   /* in zephyr/dts/arm/silabs/efm32wg.dtsi:17 */
+			reg = < 0x0 >;                   /* in zephyr/dts/arm/silabs/efm32wg.dtsi:18 */
+			clock-frequency = < 0x2dc6c00 >; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:65 */
+		};
+	};
+
+	/* node '/memory@20000000' defined in zephyr/dts/arm/silabs/efm32wg.dtsi:22 */
+	sram0: memory@20000000 {
+		compatible = "mmio-sram";    /* in zephyr/dts/arm/silabs/efm32wg.dtsi:23 */
+		reg = < 0x20000000 0x8000 >; /* in zephyr/dts/arm/silabs/efm32wg990f256.dtsi:21 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:31 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:32 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:34 */
+		led0: led_0 {
+			gpios = < &gpioe 0x2 0x0 >; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:35 */
+			label = "LED 0";            /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:36 */
+		};
+
+		/* node '/leds/led_1' defined in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:39 */
+		led1: led_1 {
+			gpios = < &gpioe 0x3 0x0 >; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:40 */
+			label = "LED 1";            /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:41 */
+		};
+	};
+
+	/* node '/buttons' defined in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:45 */
+	buttons {
+		compatible = "gpio-keys"; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:46 */
+
+		/* node '/buttons/button_0' defined in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:48 */
+		button0: button_0 {
+			gpios = < &gpiob 0x9 0x1 >;   /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:50 */
+			label = "User Push Button 0"; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:51 */
+			zephyr,code = < 0xb >;        /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:52 */
+		};
+
+		/* node '/buttons/button_1' defined in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:55 */
+		button1: button_1 {
+			gpios = < &gpiob 0x13 0x1 >;  /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:57 */
+			label = "User Push Button 1"; /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:58 */
+			zephyr,code = < 0x2 >;        /* in zephyr/boards/silabs/starter_kits/efm32wg_stk3800/efm32wg_stk3800.dts:59 */
+		};
+	};
+};

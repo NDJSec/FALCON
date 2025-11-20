@@ -1,0 +1,132 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:7 */
+/ {
+	#address-cells = < 0x1 >;                  /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:8 */
+	#size-cells = < 0x1 >;                     /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:9 */
+	model = "OpenTitan Earlgrey";              /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:12 */
+	compatible = "lowrisc,opentitan-earlgrey"; /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:13 */
+
+	/* node '/cpus' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:12 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:13 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:14 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:16 */
+		cpu@0 {
+			device_type = "cpu";                   /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:17 */
+			reg = < 0x0 >;                         /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:18 */
+			status = "okay";                       /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:19 */
+			compatible = "lowrisc,ibex",
+			             "riscv";                  /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:20 */
+			riscv,isa = "rv32imcb_zicsr_zifencei"; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:21 */
+
+			/* node '/cpus/cpu@0/interrupt-controller' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:23 */
+			hlic: interrupt-controller {
+				#interrupt-cells = < 0x1 >;    /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:24 */
+				interrupt-controller;          /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:25 */
+				compatible = "riscv,cpu-intc"; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:26 */
+				phandle = < 0x1 >;             /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:51 */
+			};
+		};
+	};
+
+	/* node '/soc' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:31 */
+	soc {
+		#address-cells = < 0x1 >;  /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:32 */
+		#size-cells = < 0x1 >;     /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:33 */
+		compatible = "simple-bus"; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:34 */
+		ranges;                    /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:35 */
+
+		/* node '/soc/flash@20000000' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:37 */
+		flash0: flash@20000000 {
+			reg = < 0x20000000 0x100000 >; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:38 */
+			compatible = "soc-nv-flash";   /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:39 */
+		};
+
+		/* node '/soc/memory@10000000' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:42 */
+		ram0: memory@10000000 {
+			device_type = "memory";       /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:43 */
+			reg = < 0x10000000 0x10000 >; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:44 */
+		};
+
+		/* node '/soc/timer@40100110' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:47 */
+		mtimer: timer@40100110 {
+			compatible = "riscv,machine-timer";      /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:48 */
+			reg = < 0x40100110 0x8 0x40100118 0x8 >; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:49 */
+			reg-names = "mtime",
+			            "mtimecmp";                  /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:50 */
+			interrupts-extended = < &hlic 0x7 >;     /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:51 */
+			status = "okay";                         /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:30 */
+		};
+
+		/* node '/soc/aontimer@40470000' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:54 */
+		aontimer: aontimer@40470000 {
+			compatible = "lowrisc,opentitan-aontimer"; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:55 */
+			reg = < 0x40470000 0x1000 >;               /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:56 */
+			interrupts = < 0x9c 0x1 >;                 /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:57 */
+			interrupt-names = "wdog_bark";             /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:58 */
+			interrupt-parent = < &plic >;              /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:59 */
+			clock-frequency = < 0x30d40 >;             /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:60 */
+			status = "disabled";                       /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:61 */
+		};
+
+		/* node '/soc/pwrmgr@40400000' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:64 */
+		pwrmgr: pwrmgr@40400000 {
+			compatible = "lowrisc,opentitan-pwrmgr"; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:65 */
+			reg = < 0x40400000 0x80 >;               /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:66 */
+			status = "okay";                         /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:67 */
+		};
+
+		/* node '/soc/interrupt-controller@48000000' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:70 */
+		plic: interrupt-controller@48000000 {
+			compatible = "sifive,plic-1.0.0";    /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:71 */
+			#address-cells = < 0x0 >;            /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:72 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:73 */
+			interrupt-controller;                /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:74 */
+			interrupts-extended = < &hlic 0xb >; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:75 */
+			reg = < 0x48000000 0x4000000 >;      /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:76 */
+			riscv,max-priority = < 0x7 >;        /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:77 */
+			riscv,ndev = < 0xb6 >;               /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:78 */
+			status = "okay";                     /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:79 */
+			phandle = < 0x2 >;                   /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:59 */
+		};
+
+		/* node '/soc/serial@40000000' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:82 */
+		uart0: serial@40000000 {
+			reg = < 0x40000000 0x1000 >;           /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:83 */
+			compatible = "lowrisc,opentitan-uart"; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:84 */
+			status = "okay";                       /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:24 */
+			clock-frequency = < 0x1e848 >;         /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:25 */
+			current-speed = < 0x1c20 >;            /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:26 */
+		};
+
+		/* node '/soc/spi@40300000' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:88 */
+		spi0: spi@40300000 {
+			compatible = "lowrisc,opentitan-spi"; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:89 */
+			reg = < 0x40300000 0x100 >;           /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:91 */
+			clock-frequency = < 0x5b8d800 >;      /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:92 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:93 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:94 */
+			status = "okay";                      /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:34 */
+		};
+
+		/* node '/soc/spi@40310000' defined in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:97 */
+		spi1: spi@40310000 {
+			compatible = "lowrisc,opentitan-spi"; /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:98 */
+			reg = < 0x40310000 0x100 >;           /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:100 */
+			clock-frequency = < 0x2dc6c00 >;      /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:101 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:102 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/riscv/lowrisc/opentitan_earlgrey.dtsi:103 */
+			status = "okay";                      /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:38 */
+		};
+	};
+
+	/* node '/chosen' defined in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:15 */
+	chosen {
+		zephyr,console = &uart0;    /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:16 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:17 */
+		zephyr,sram = &ram0;        /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:18 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/lowrisc/opentitan_earlgrey/opentitan_earlgrey.dts:19 */
+	};
+};

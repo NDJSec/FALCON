@@ -1,0 +1,88 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/arm/cortex_r8_virt.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                /* in zephyr/dts/arm/cortex_r8_virt.dtsi:10 */
+	#size-cells = < 0x1 >;                   /* in zephyr/dts/arm/cortex_r8_virt.dtsi:11 */
+	model = "Cortex-R8 Virtual target";      /* in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:12 */
+	compatible = "renode,cortex-r8-virtual"; /* in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:13 */
+
+	/* node '/cpus' defined in zephyr/dts/arm/cortex_r8_virt.dtsi:13 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/cortex_r8_virt.dtsi:14 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/cortex_r8_virt.dtsi:15 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/cortex_r8_virt.dtsi:17 */
+		cpu@0 {
+			device_type = "cpu";           /* in zephyr/dts/arm/cortex_r8_virt.dtsi:18 */
+			compatible = "arm,cortex-r8f"; /* in zephyr/dts/arm/cortex_r8_virt.dtsi:19 */
+			reg = < 0x0 >;                 /* in zephyr/dts/arm/cortex_r8_virt.dtsi:20 */
+		};
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/cortex_r8_virt.dtsi:24 */
+	soc {
+		#address-cells = < 0x1 >;    /* in zephyr/dts/arm/cortex_r8_virt.dtsi:25 */
+		#size-cells = < 0x1 >;       /* in zephyr/dts/arm/cortex_r8_virt.dtsi:26 */
+		compatible = "simple-bus";   /* in zephyr/dts/arm/cortex_r8_virt.dtsi:27 */
+		ranges;                      /* in zephyr/dts/arm/cortex_r8_virt.dtsi:28 */
+		interrupt-parent = < &gic >; /* in zephyr/dts/arm/cortex_r8_virt.dtsi:29 */
+
+		/* node '/soc/flash@c0000000' defined in zephyr/dts/arm/cortex_r8_virt.dtsi:31 */
+		flash0: flash@c0000000 {
+			compatible = "soc-nv-flash";    /* in zephyr/dts/arm/cortex_r8_virt.dtsi:32 */
+			reg = < 0xc0000000 0x2000000 >; /* in zephyr/dts/arm/cortex_r8_virt.dtsi:33 */
+		};
+
+		/* node '/soc/memory@0' defined in zephyr/dts/arm/cortex_r8_virt.dtsi:36 */
+		sram0: memory@0 {
+			compatible = "mmio-sram"; /* in zephyr/dts/arm/cortex_r8_virt.dtsi:37 */
+			reg = < 0x0 0x4000000 >;  /* in zephyr/dts/arm/cortex_r8_virt.dtsi:38 */
+		};
+
+		/* node '/soc/uart@ff000000' defined in zephyr/dts/arm/cortex_r8_virt.dtsi:41 */
+		uart0: uart@ff000000 {
+			compatible = "xlnx,xuartps";        /* in zephyr/dts/arm/cortex_r8_virt.dtsi:42 */
+			reg = < 0xff000000 0x4c >;          /* in zephyr/dts/arm/cortex_r8_virt.dtsi:43 */
+			interrupts = < 0x0 0x15 0x2 0xa0 >; /* in zephyr/dts/arm/cortex_r8_virt.dtsi:45 */
+			interrupt-names = "irq_0";          /* in zephyr/dts/arm/cortex_r8_virt.dtsi:47 */
+			status = "okay";                    /* in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:24 */
+			current-speed = < 0x1c200 >;        /* in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:25 */
+			clock-frequency = < 0x5f5e09d >;    /* in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:26 */
+		};
+
+		/* node '/soc/timer@ff110000' defined in zephyr/dts/arm/cortex_r8_virt.dtsi:50 */
+		ttc0: timer@ff110000 {
+			compatible = "xlnx,ttcps";          /* in zephyr/dts/arm/cortex_r8_virt.dtsi:51 */
+			status = "okay";                    /* in zephyr/dts/arm/cortex_r8_virt.dtsi:52 */
+			interrupts = < 0x0 0x24 0x2 0xa0 >,
+			             < 0x0 0x25 0x2 0xa0 >,
+			             < 0x0 0x26 0x2 0xa0 >; /* in zephyr/dts/arm/cortex_r8_virt.dtsi:53 */
+			interrupt-names = "irq_0",
+			                  "irq_1",
+			                  "irq_2";          /* in zephyr/dts/arm/cortex_r8_virt.dtsi:56 */
+			reg = < 0xff110000 0x1000 >;        /* in zephyr/dts/arm/cortex_r8_virt.dtsi:57 */
+			clock-frequency = < 0x4c4b40 >;     /* in zephyr/dts/arm/cortex_r8_virt.dtsi:58 */
+		};
+
+		/* node '/soc/interrupt-controller@f9000000' defined in zephyr/dts/arm/cortex_r8_virt.dtsi:61 */
+		gic: interrupt-controller@f9000000 {
+			compatible = "arm,gic-v1",
+			             "arm,gic";      /* in zephyr/dts/arm/cortex_r8_virt.dtsi:62 */
+			reg = < 0xf9000000 0x1000 >,
+			      < 0xf9001000 0x100 >;  /* in zephyr/dts/arm/cortex_r8_virt.dtsi:63 */
+			interrupt-controller;        /* in zephyr/dts/arm/cortex_r8_virt.dtsi:64 */
+			#interrupt-cells = < 0x4 >;  /* in zephyr/dts/arm/cortex_r8_virt.dtsi:65 */
+			status = "okay";             /* in zephyr/dts/arm/cortex_r8_virt.dtsi:66 */
+			phandle = < 0x1 >;           /* in zephyr/dts/arm/cortex_r8_virt.dtsi:67 */
+		};
+	};
+
+	/* node '/chosen' defined in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:15 */
+	chosen {
+		zephyr,sram = &sram0;       /* in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:16 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:17 */
+		zephyr,console = &uart0;    /* in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:18 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/renode/cortex_r8_virtual/cortex_r8_virtual.dts:19 */
+	};
+};

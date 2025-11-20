@@ -1,0 +1,519 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                        /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                           /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Arduino Due with an Atmel SAM3X8E SoC"; /* in zephyr/boards/arduino/due/arduino_due.dts:10 */
+	compatible = "arduino,due",
+	             "atmel,sam3x8e",
+	             "atmel,sam3x";                      /* in zephyr/boards/arduino/due/arduino_due.dts:11 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,flash-controller = &eefc; /* in zephyr/dts/arm/atmel/sam3x.dtsi:19 */
+		zephyr,sram = &sram0;            /* in zephyr/boards/arduino/due/arduino_due.dts:23 */
+		zephyr,flash = &flash0;          /* in zephyr/boards/arduino/due/arduino_due.dts:24 */
+		zephyr,console = &uart;          /* in zephyr/boards/arduino/due/arduino_due.dts:25 */
+		zephyr,shell-uart = &uart;       /* in zephyr/boards/arduino/due/arduino_due.dts:26 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		uart-0 = &uart;     /* in zephyr/boards/arduino/due/arduino_due.dts:14 */
+		i2c-0 = &twi0;      /* in zephyr/boards/arduino/due/arduino_due.dts:15 */
+		i2c-1 = &twi1;      /* in zephyr/boards/arduino/due/arduino_due.dts:16 */
+		pwm-0 = &pwm0;      /* in zephyr/boards/arduino/due/arduino_due.dts:17 */
+		led0 = &yellow_led; /* in zephyr/boards/arduino/due/arduino_due.dts:18 */
+		watchdog0 = &wdt;   /* in zephyr/boards/arduino/due/arduino_due.dts:19 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x4 >; /* in zephyr/dts/arm/atmel/sam3x.dtsi:303 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/pmc@400e0600' defined in zephyr/dts/arm/atmel/sam3x.dtsi:34 */
+		pmc: pmc@400e0600 {
+			compatible = "atmel,sam-pmc"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:35 */
+			reg = < 0x400e0600 0x200 >;   /* in zephyr/dts/arm/atmel/sam3x.dtsi:36 */
+			interrupts = < 0x5 0x0 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:37 */
+			#clock-cells = < 0x2 >;       /* in zephyr/dts/arm/atmel/sam3x.dtsi:38 */
+			status = "okay";              /* in zephyr/dts/arm/atmel/sam3x.dtsi:39 */
+			phandle = < 0x2 >;            /* in zephyr/dts/arm/atmel/sam3x.dtsi:60 */
+		};
+
+		/* node '/soc/supc@400e1a10' defined in zephyr/dts/arm/atmel/sam3x.dtsi:42 */
+		supc: supc@400e1a10 {
+			compatible = "atmel,sam-supc";     /* in zephyr/dts/arm/atmel/sam3x.dtsi:43 */
+			reg = < 0x400e1a10 0x20 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:44 */
+			#wakeup-source-id-cells = < 0x1 >; /* in zephyr/dts/arm/atmel/sam3x.dtsi:45 */
+			status = "okay";                   /* in zephyr/dts/arm/atmel/sam3x.dtsi:46 */
+		};
+
+		/* node '/soc/memory@20070000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:49 */
+		sram0: memory@20070000 {
+			compatible = "mmio-sram";     /* in zephyr/dts/arm/atmel/sam3x.dtsi:50 */
+			reg = < 0x20070000 0x18000 >; /* in zephyr/dts/arm/atmel/sam3x.dtsi:51 */
+		};
+
+		/* node '/soc/spi@40008000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:54 */
+		spi0: spi@40008000 {
+			compatible = "atmel,sam-spi";  /* in zephyr/dts/arm/atmel/sam3x.dtsi:55 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:56 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:57 */
+			reg = < 0x40008000 0x4000 >;   /* in zephyr/dts/arm/atmel/sam3x.dtsi:58 */
+			interrupts = < 0x18 0x0 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:59 */
+			clocks = < &pmc 0x2 0x18 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:60 */
+			status = "okay";               /* in zephyr/boards/arduino/due/arduino_due.dts:62 */
+			pinctrl-0 = < &spi0_default >; /* in zephyr/boards/arduino/due/arduino_due.dts:63 */
+			pinctrl-names = "default";     /* in zephyr/boards/arduino/due/arduino_due.dts:64 */
+			cs-gpios = < &pioa 0x1c 0x1 >; /* in zephyr/boards/arduino/due/arduino_due.dts:65 */
+		};
+
+		/* node '/soc/spi@4000c000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:64 */
+		spi1: spi@4000c000 {
+			compatible = "atmel,sam-spi"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:65 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:66 */
+			#size-cells = < 0x0 >;        /* in zephyr/dts/arm/atmel/sam3x.dtsi:67 */
+			reg = < 0x4000c000 0x4000 >;  /* in zephyr/dts/arm/atmel/sam3x.dtsi:68 */
+			interrupts = < 0x19 0x0 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:69 */
+			clocks = < &pmc 0x2 0x19 >;   /* in zephyr/dts/arm/atmel/sam3x.dtsi:70 */
+			status = "disabled";          /* in zephyr/dts/arm/atmel/sam3x.dtsi:71 */
+		};
+
+		/* node '/soc/flash-controller@400e0a00' defined in zephyr/dts/arm/atmel/sam3x.dtsi:75 */
+		eefc: flash-controller@400e0a00 {
+			compatible = "atmel,sam-flash-controller"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:76 */
+			reg = < 0x400e0a00 0x200 >;                /* in zephyr/dts/arm/atmel/sam3x.dtsi:77 */
+			interrupts = < 0x6 0x0 >;                  /* in zephyr/dts/arm/atmel/sam3x.dtsi:78 */
+			clocks = < &pmc 0x2 0x6 >;                 /* in zephyr/dts/arm/atmel/sam3x.dtsi:79 */
+			#address-cells = < 0x1 >;                  /* in zephyr/dts/arm/atmel/sam3x.dtsi:81 */
+			#size-cells = < 0x1 >;                     /* in zephyr/dts/arm/atmel/sam3x.dtsi:82 */
+			status = "disabled";                       /* in zephyr/dts/arm/atmel/sam3x.dtsi:96 */
+
+			/* node '/soc/flash-controller@400e0a00/flash@80000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:84 */
+			flash0: flash@80000 {
+				compatible = "soc-nv-flash";  /* in zephyr/dts/arm/atmel/sam3x.dtsi:85 */
+				reg = < 0x80000 0x80000 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:86 */
+				write-block-size = < 0x10 >;  /* in zephyr/dts/arm/atmel/sam3x.dtsi:88 */
+				erase-block-size = < 0x200 >; /* in zephyr/dts/arm/atmel/sam3x.dtsi:89 */
+			};
+		};
+
+		/* node '/soc/watchdog@400e1a50' defined in zephyr/dts/arm/atmel/sam3x.dtsi:99 */
+		wdt: watchdog@400e1a50 {
+			compatible = "atmel,sam-watchdog"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:100 */
+			reg = < 0x400e1a50 0xc >;          /* in zephyr/dts/arm/atmel/sam3x.dtsi:101 */
+			interrupts = < 0x4 0x0 >;          /* in zephyr/dts/arm/atmel/sam3x.dtsi:102 */
+			clocks = < &pmc 0x2 0x4 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:103 */
+			status = "okay";                   /* in zephyr/boards/arduino/due/arduino_due.dts:44 */
+		};
+
+		/* node '/soc/i2c@4008c000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:107 */
+		twi0: i2c@4008c000 {
+			compatible = "atmel,sam-i2c-twi"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:108 */
+			clock-frequency = < 0x186a0 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:109 */
+			reg = < 0x4008c000 0x128 >;       /* in zephyr/dts/arm/atmel/sam3x.dtsi:110 */
+			interrupts = < 0x16 0x0 >;        /* in zephyr/dts/arm/atmel/sam3x.dtsi:111 */
+			clocks = < &pmc 0x2 0x16 >;       /* in zephyr/dts/arm/atmel/sam3x.dtsi:112 */
+			#address-cells = < 0x1 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:114 */
+			#size-cells = < 0x0 >;            /* in zephyr/dts/arm/atmel/sam3x.dtsi:115 */
+			status = "okay";                  /* in zephyr/boards/arduino/due/arduino_due.dts:48 */
+			pinctrl-0 = < &twi0_default >;    /* in zephyr/boards/arduino/due/arduino_due.dts:50 */
+			pinctrl-names = "default";        /* in zephyr/boards/arduino/due/arduino_due.dts:51 */
+		};
+
+		/* node '/soc/i2c@40090000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:118 */
+		twi1: arduino_i2c: i2c@40090000 {
+			compatible = "atmel,sam-i2c-twi"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:119 */
+			clock-frequency = < 0x186a0 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:120 */
+			reg = < 0x40090000 0x128 >;       /* in zephyr/dts/arm/atmel/sam3x.dtsi:121 */
+			interrupts = < 0x17 0x0 >;        /* in zephyr/dts/arm/atmel/sam3x.dtsi:122 */
+			clocks = < &pmc 0x2 0x17 >;       /* in zephyr/dts/arm/atmel/sam3x.dtsi:123 */
+			#address-cells = < 0x1 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:125 */
+			#size-cells = < 0x0 >;            /* in zephyr/dts/arm/atmel/sam3x.dtsi:126 */
+			status = "okay";                  /* in zephyr/boards/arduino/due/arduino_due.dts:55 */
+			pinctrl-0 = < &twi1_default >;    /* in zephyr/boards/arduino/due/arduino_due.dts:57 */
+			pinctrl-names = "default";        /* in zephyr/boards/arduino/due/arduino_due.dts:58 */
+		};
+
+		/* node '/soc/uart@400e0800' defined in zephyr/dts/arm/atmel/sam3x.dtsi:129 */
+		uart: uart@400e0800 {
+			compatible = "atmel,sam-uart"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:130 */
+			reg = < 0x400e0800 0x124 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:131 */
+			interrupts = < 0x8 0x1 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:132 */
+			clocks = < &pmc 0x2 0x8 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:133 */
+			status = "okay";               /* in zephyr/boards/arduino/due/arduino_due.dts:69 */
+			current-speed = < 0x1c200 >;   /* in zephyr/boards/arduino/due/arduino_due.dts:70 */
+			pinctrl-0 = < &uart_default >; /* in zephyr/boards/arduino/due/arduino_due.dts:72 */
+			pinctrl-names = "default";     /* in zephyr/boards/arduino/due/arduino_due.dts:73 */
+		};
+
+		/* node '/soc/usart@40098000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:137 */
+		usart0: usart@40098000 {
+			compatible = "atmel,sam-usart"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:138 */
+			reg = < 0x40098000 0x130 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:139 */
+			interrupts = < 0x11 0x0 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:140 */
+			clocks = < &pmc 0x2 0x11 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:141 */
+			status = "disabled";            /* in zephyr/dts/arm/atmel/sam3x.dtsi:142 */
+		};
+
+		/* node '/soc/usart@4009c000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:145 */
+		usart1: usart@4009c000 {
+			compatible = "atmel,sam-usart"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:146 */
+			reg = < 0x4009c000 0x130 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:147 */
+			interrupts = < 0x12 0x0 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:148 */
+			clocks = < &pmc 0x2 0x12 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:149 */
+			status = "disabled";            /* in zephyr/dts/arm/atmel/sam3x.dtsi:150 */
+		};
+
+		/* node '/soc/usart@400a0000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:153 */
+		usart2: usart@400a0000 {
+			compatible = "atmel,sam-usart"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:154 */
+			reg = < 0x400a0000 0x130 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:155 */
+			interrupts = < 0x13 0x0 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:156 */
+			clocks = < &pmc 0x2 0x13 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:157 */
+			status = "disabled";            /* in zephyr/dts/arm/atmel/sam3x.dtsi:158 */
+		};
+
+		/* node '/soc/usart@400a4000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:161 */
+		usart3: usart@400a4000 {
+			compatible = "atmel,sam-usart"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:162 */
+			reg = < 0x400a4000 0x130 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:163 */
+			interrupts = < 0x14 0x0 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:164 */
+			clocks = < &pmc 0x2 0x14 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:165 */
+			status = "disabled";            /* in zephyr/dts/arm/atmel/sam3x.dtsi:166 */
+		};
+
+		/* node '/soc/pinctrl@400e0e00' defined in zephyr/dts/arm/atmel/sam3x.dtsi:169 */
+		pinctrl: pinctrl@400e0e00 {
+			compatible = "atmel,sam-pinctrl";         /* in zephyr/dts/arm/atmel/sam3x.dtsi:170 */
+			#address-cells = < 0x1 >;                 /* in zephyr/dts/arm/atmel/sam3x.dtsi:171 */
+			#size-cells = < 0x1 >;                    /* in zephyr/dts/arm/atmel/sam3x.dtsi:172 */
+			ranges = < 0x400e0e00 0x400e0e00 0xc00 >; /* in zephyr/dts/arm/atmel/sam3x.dtsi:173 */
+
+			/* node '/soc/pinctrl@400e0e00/pio@400e0e00' defined in zephyr/dts/arm/atmel/sam3x.dtsi:175 */
+			pioa: pio@400e0e00 {
+				compatible = "atmel,sam-gpio"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:176 */
+				reg = < 0x400e0e00 0x190 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:177 */
+				interrupts = < 0xb 0x1 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:178 */
+				clocks = < &pmc 0x2 0xb >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:179 */
+				gpio-controller;               /* in zephyr/dts/arm/atmel/sam3x.dtsi:180 */
+				#gpio-cells = < 0x2 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:181 */
+				#atmel,pin-cells = < 0x2 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:182 */
+				phandle = < 0x4 >;             /* in zephyr/boards/arduino/due/arduino_due.dts:65 */
+			};
+
+			/* node '/soc/pinctrl@400e0e00/pio@400e1000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:185 */
+			piob: pio@400e1000 {
+				compatible = "atmel,sam-gpio"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:186 */
+				reg = < 0x400e1000 0x190 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:187 */
+				interrupts = < 0xc 0x1 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:188 */
+				clocks = < &pmc 0x2 0xc >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:189 */
+				gpio-controller;               /* in zephyr/dts/arm/atmel/sam3x.dtsi:190 */
+				#gpio-cells = < 0x2 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:191 */
+				#atmel,pin-cells = < 0x2 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:192 */
+				phandle = < 0x9 >;             /* in zephyr/boards/arduino/due/arduino_r3_connector.dtsi:15 */
+			};
+
+			/* node '/soc/pinctrl@400e0e00/pio@400e1200' defined in zephyr/dts/arm/atmel/sam3x.dtsi:195 */
+			pioc: pio@400e1200 {
+				compatible = "atmel,sam-gpio"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:196 */
+				reg = < 0x400e1200 0x190 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:197 */
+				interrupts = < 0xd 0x1 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:198 */
+				clocks = < &pmc 0x2 0xd >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:199 */
+				gpio-controller;               /* in zephyr/dts/arm/atmel/sam3x.dtsi:200 */
+				#gpio-cells = < 0x2 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:201 */
+				#atmel,pin-cells = < 0x2 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:202 */
+				phandle = < 0xa >;             /* in zephyr/boards/arduino/due/arduino_r3_connector.dtsi:15 */
+			};
+
+			/* node '/soc/pinctrl@400e0e00/pio@400e1400' defined in zephyr/dts/arm/atmel/sam3x.dtsi:205 */
+			piod: pio@400e1400 {
+				compatible = "atmel,sam-gpio"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:206 */
+				reg = < 0x400e1400 0x190 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:207 */
+				interrupts = < 0xe 0x1 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:208 */
+				clocks = < &pmc 0x2 0xe >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:209 */
+				gpio-controller;               /* in zephyr/dts/arm/atmel/sam3x.dtsi:210 */
+				#gpio-cells = < 0x2 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:211 */
+				#atmel,pin-cells = < 0x2 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:212 */
+				phandle = < 0xb >;             /* in zephyr/boards/arduino/due/arduino_r3_connector.dtsi:15 */
+			};
+
+			/* node '/soc/pinctrl@400e0e00/pio@400e1600' defined in zephyr/dts/arm/atmel/sam3x.dtsi:215 */
+			pioe: pio@400e1600 {
+				compatible = "atmel,sam-gpio"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:216 */
+				reg = < 0x400e1600 0x190 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:217 */
+				interrupts = < 0xf 0x1 >;      /* in zephyr/dts/arm/atmel/sam3x.dtsi:218 */
+				clocks = < &pmc 0x2 0xf >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:219 */
+				gpio-controller;               /* in zephyr/dts/arm/atmel/sam3x.dtsi:220 */
+				#gpio-cells = < 0x2 >;         /* in zephyr/dts/arm/atmel/sam3x.dtsi:221 */
+				#atmel,pin-cells = < 0x2 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:222 */
+			};
+
+			/* node '/soc/pinctrl@400e0e00/twi0_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:9 */
+			twi0_default: twi0_default {
+				phandle = < 0x5 >; /* in zephyr/boards/arduino/due/arduino_due.dts:50 */
+
+				/* node '/soc/pinctrl@400e0e00/twi0_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:10 */
+				group1 {
+					pinmux = < 0x320 >,
+					         < 0x310 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:11 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e0e00/twi1_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:16 */
+			twi1_default: twi1_default {
+				phandle = < 0x6 >; /* in zephyr/boards/arduino/due/arduino_due.dts:57 */
+
+				/* node '/soc/pinctrl@400e0e00/twi1_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:17 */
+				group1 {
+					pinmux = < 0x2d1 >,
+					         < 0x2c1 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:18 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e0e00/uart_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:23 */
+			uart_default: uart_default {
+				phandle = < 0x7 >; /* in zephyr/boards/arduino/due/arduino_due.dts:72 */
+
+				/* node '/soc/pinctrl@400e0e00/uart_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:24 */
+				group1 {
+					pinmux = < 0x280 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:25 */
+					bias-pull-up;       /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:26 */
+				};
+
+				/* node '/soc/pinctrl@400e0e00/uart_default/group2' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:29 */
+				group2 {
+					pinmux = < 0x290 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:30 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e0e00/usart0_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:34 */
+			usart0_default: usart0_default {
+
+				/* node '/soc/pinctrl@400e0e00/usart0_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:35 */
+				group1 {
+					pinmux = < 0x2a0 >,
+					         < 0x2b0 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:36 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e0e00/usart1_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:41 */
+			usart1_default: usart1_default {
+
+				/* node '/soc/pinctrl@400e0e00/usart1_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:42 */
+				group1 {
+					pinmux = < 0x2c0 >,
+					         < 0x2d0 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:43 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e0e00/usart2_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:48 */
+			usart2_default: usart2_default {
+
+				/* node '/soc/pinctrl@400e0e00/usart2_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:49 */
+				group1 {
+					pinmux = < 0x351 >,
+					         < 0x341 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:50 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e0e00/usart3_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:55 */
+			usart3_default: usart3_default {
+
+				/* node '/soc/pinctrl@400e0e00/usart3_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:56 */
+				group1 {
+					pinmux = < 0x1253 >,
+					         < 0x1243 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:57 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e0e00/spi0_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:62 */
+			spi0_default: spi0_default {
+				phandle = < 0x3 >; /* in zephyr/boards/arduino/due/arduino_due.dts:63 */
+
+				/* node '/soc/pinctrl@400e0e00/spi0_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:63 */
+				group1 {
+					pinmux = < 0x390 >,
+					         < 0x3a0 >,
+					         < 0x3b0 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:64 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e0e00/pwm0_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:70 */
+			pwm0_default: pwm0_default {
+				phandle = < 0x8 >; /* in zephyr/boards/arduino/due/arduino_due.dts:79 */
+
+				/* node '/soc/pinctrl@400e0e00/pwm0_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:71 */
+				group1 {
+					pinmux = < 0x1242 >,
+					         < 0x1252 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:72 */
+				};
+			};
+
+			/* node '/soc/pinctrl@400e0e00/adc0_default' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:77 */
+			adc0_default: adc0_default {
+
+				/* node '/soc/pinctrl@400e0e00/adc0_default/group1' defined in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:78 */
+				group1 {
+					pinmux = < 0x580 >,
+					         < 0x500 >; /* in zephyr/boards/arduino/due/arduino_due-pinctrl.dtsi:79 */
+				};
+			};
+		};
+
+		/* node '/soc/tc@40080000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:226 */
+		tc0: tc@40080000 {
+			compatible = "atmel,sam-tc";                 /* in zephyr/dts/arm/atmel/sam3x.dtsi:227 */
+			reg = < 0x40080000 0x100 >;                  /* in zephyr/dts/arm/atmel/sam3x.dtsi:228 */
+			interrupts = < 0x1b 0x0 0x1c 0x0 0x1d 0x0 >; /* in zephyr/dts/arm/atmel/sam3x.dtsi:229 */
+			clocks = < &pmc 0x2 0x1b >,
+			         < &pmc 0x2 0x1c >,
+			         < &pmc 0x2 0x1d >;                  /* in zephyr/dts/arm/atmel/sam3x.dtsi:232 */
+			status = "disabled";                         /* in zephyr/dts/arm/atmel/sam3x.dtsi:235 */
+		};
+
+		/* node '/soc/tc@40084000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:238 */
+		tc1: tc@40084000 {
+			compatible = "atmel,sam-tc";                 /* in zephyr/dts/arm/atmel/sam3x.dtsi:239 */
+			reg = < 0x40084000 0x100 >;                  /* in zephyr/dts/arm/atmel/sam3x.dtsi:240 */
+			interrupts = < 0x1e 0x0 0x1f 0x0 0x20 0x0 >; /* in zephyr/dts/arm/atmel/sam3x.dtsi:241 */
+			clocks = < &pmc 0x2 0x1e >,
+			         < &pmc 0x2 0x1f >,
+			         < &pmc 0x2 0x20 >;                  /* in zephyr/dts/arm/atmel/sam3x.dtsi:244 */
+			status = "disabled";                         /* in zephyr/dts/arm/atmel/sam3x.dtsi:247 */
+		};
+
+		/* node '/soc/tc@40088000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:250 */
+		tc2: tc@40088000 {
+			compatible = "atmel,sam-tc";                 /* in zephyr/dts/arm/atmel/sam3x.dtsi:251 */
+			reg = < 0x40088000 0x100 >;                  /* in zephyr/dts/arm/atmel/sam3x.dtsi:252 */
+			interrupts = < 0x21 0x0 0x22 0x0 0x23 0x0 >; /* in zephyr/dts/arm/atmel/sam3x.dtsi:253 */
+			clocks = < &pmc 0x2 0x21 >,
+			         < &pmc 0x2 0x22 >,
+			         < &pmc 0x2 0x23 >;                  /* in zephyr/dts/arm/atmel/sam3x.dtsi:256 */
+			status = "disabled";                         /* in zephyr/dts/arm/atmel/sam3x.dtsi:259 */
+		};
+
+		/* node '/soc/adc@400c0000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:262 */
+		adc0: adc@400c0000 {
+			compatible = "atmel,sam-adc"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:263 */
+			reg = < 0x400c0000 0x4000 >;  /* in zephyr/dts/arm/atmel/sam3x.dtsi:264 */
+			interrupts = < 0x25 0x1 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:265 */
+			clocks = < &pmc 0x2 0x25 >;   /* in zephyr/dts/arm/atmel/sam3x.dtsi:266 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:267 */
+			#size-cells = < 0x0 >;        /* in zephyr/dts/arm/atmel/sam3x.dtsi:268 */
+			#io-channel-cells = < 0x1 >;  /* in zephyr/dts/arm/atmel/sam3x.dtsi:269 */
+			status = "disabled";          /* in zephyr/dts/arm/atmel/sam3x.dtsi:270 */
+		};
+
+		/* node '/soc/pwm@40094000' defined in zephyr/dts/arm/atmel/sam3x.dtsi:273 */
+		pwm0: pwm@40094000 {
+			compatible = "atmel,sam-pwm";  /* in zephyr/dts/arm/atmel/sam3x.dtsi:274 */
+			reg = < 0x40094000 0x4000 >;   /* in zephyr/dts/arm/atmel/sam3x.dtsi:275 */
+			interrupts = < 0x24 0x1 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:276 */
+			clocks = < &pmc 0x2 0x24 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:277 */
+			prescaler = < 0xa >;           /* in zephyr/dts/arm/atmel/sam3x.dtsi:278 */
+			divider = < 0x1 >;             /* in zephyr/dts/arm/atmel/sam3x.dtsi:279 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/atmel/sam3x.dtsi:280 */
+			status = "okay";               /* in zephyr/boards/arduino/due/arduino_due.dts:77 */
+			pinctrl-0 = < &pwm0_default >; /* in zephyr/boards/arduino/due/arduino_due.dts:79 */
+			pinctrl-names = "default";     /* in zephyr/boards/arduino/due/arduino_due.dts:80 */
+		};
+
+		/* node '/soc/rstc@400e1a00' defined in zephyr/dts/arm/atmel/sam3x.dtsi:284 */
+		rstc: rstc@400e1a00 {
+			compatible = "atmel,sam-rstc"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:285 */
+			reg = < 0x400e1a00 0x10 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:286 */
+			clocks = < &pmc 0x2 0x1 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:287 */
+			user-nrst;                     /* in zephyr/dts/arm/atmel/sam3x.dtsi:288 */
+		};
+
+		/* node '/soc/rtc@400e1a60' defined in zephyr/dts/arm/atmel/sam3x.dtsi:291 */
+		rtc: rtc@400e1a60 {
+			compatible = "atmel,sam-rtc"; /* in zephyr/dts/arm/atmel/sam3x.dtsi:292 */
+			reg = < 0x400e1a60 0x100 >;   /* in zephyr/dts/arm/atmel/sam3x.dtsi:293 */
+			interrupts = < 0x2 0x0 >;     /* in zephyr/dts/arm/atmel/sam3x.dtsi:294 */
+			clocks = < &pmc 0x2 0x2 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:295 */
+			alarms-count = < 0x1 >;       /* in zephyr/dts/arm/atmel/sam3x.dtsi:296 */
+			status = "disabled";          /* in zephyr/dts/arm/atmel/sam3x.dtsi:297 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/atmel/sam3x.dtsi:22 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/atmel/sam3x.dtsi:23 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/atmel/sam3x.dtsi:24 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/atmel/sam3x.dtsi:26 */
+		cpu0: cpu@0 {
+			device_type = "cpu";             /* in zephyr/dts/arm/atmel/sam3x.dtsi:27 */
+			compatible = "arm,cortex-m3";    /* in zephyr/dts/arm/atmel/sam3x.dtsi:28 */
+			reg = < 0x0 >;                   /* in zephyr/dts/arm/atmel/sam3x.dtsi:29 */
+			clock-frequency = < 0x501bd00 >; /* in zephyr/boards/arduino/due/arduino_due.dts:40 */
+		};
+	};
+
+	/* node '/connector' defined in zephyr/boards/arduino/due/arduino_r3_connector.dtsi:10 */
+	arduino_header: connector {
+		compatible = "arduino-header-r3";          /* in zephyr/boards/arduino/due/arduino_r3_connector.dtsi:11 */
+		#gpio-cells = < 0x2 >;                     /* in zephyr/boards/arduino/due/arduino_r3_connector.dtsi:12 */
+		gpio-map-mask = < 0xffffffff 0xffffffc0 >; /* in zephyr/boards/arduino/due/arduino_r3_connector.dtsi:13 */
+		gpio-map-pass-thru = < 0x0 0x3f >;         /* in zephyr/boards/arduino/due/arduino_r3_connector.dtsi:14 */
+		gpio-map = < 0x0 0x0 &pioa 0x10 0x0 >,
+		           < 0x1 0x0 &pioa 0x18 0x0 >,
+		           < 0x2 0x0 &pioa 0x17 0x0 >,
+		           < 0x3 0x0 &pioa 0x16 0x0 >,
+		           < 0x4 0x0 &pioa 0x6 0x0 >,
+		           < 0x5 0x0 &pioa 0x4 0x0 >,
+		           < 0x6 0x0 &pioa 0x8 0x0 >,
+		           < 0x7 0x0 &pioa 0x9 0x0 >,
+		           < 0x8 0x0 &piob 0x19 0x0 >,
+		           < 0x9 0x0 &pioc 0x1c 0x0 >,
+		           < 0xa 0x0 &pioa 0x1d 0x0 >,
+		           < 0xb 0x0 &pioc 0x19 0x0 >,
+		           < 0xc 0x0 &pioc 0x18 0x0 >,
+		           < 0xd 0x0 &pioc 0x17 0x0 >,
+		           < 0xe 0x0 &pioc 0x16 0x0 >,
+		           < 0xf 0x0 &pioc 0x15 0x0 >,
+		           < 0x10 0x0 &pioa 0x1c 0x0 >,
+		           < 0x11 0x0 &piod 0x7 0x0 >,
+		           < 0x12 0x0 &piod 0x8 0x0 >,
+		           < 0x13 0x0 &piob 0x1b 0x0 >,
+		           < 0x14 0x0 &pioa 0x11 0x0 >,
+		           < 0x15 0x0 &pioa 0x12 0x0 >;    /* in zephyr/boards/arduino/due/arduino_r3_connector.dtsi:15 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/arduino/due/arduino_due.dts:29 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/arduino/due/arduino_due.dts:30 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/arduino/due/arduino_due.dts:32 */
+		yellow_led: led_0 {
+			gpios = < &piob 0x1b 0x0 >; /* in zephyr/boards/arduino/due/arduino_due.dts:33 */
+			label = "User LED";         /* in zephyr/boards/arduino/due/arduino_due.dts:34 */
+		};
+	};
+};

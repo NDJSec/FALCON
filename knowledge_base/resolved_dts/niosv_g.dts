@@ -1,0 +1,77 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;     /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:12 */
+	#size-cells = < 0x1 >;        /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:13 */
+	model = "niosv_g";            /* in zephyr/boards/intel/niosv_g/niosv_g.dts:12 */
+	compatible = "intel,niosv_g"; /* in zephyr/boards/intel/niosv_g/niosv_g.dts:13 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,console = &uart0; /* in zephyr/boards/intel/niosv_g/niosv_g.dts:16 */
+		zephyr,sram = &sram0;    /* in zephyr/boards/intel/niosv_g/niosv_g.dts:17 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+	};
+
+	/* node '/cpus' defined in zephyr/dts/riscv/niosv/niosv-g.dtsi:15 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:16 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:17 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/riscv/niosv/niosv-g.dtsi:19 */
+		cpu0: cpu@0 {
+			device_type = "cpu";                  /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:20 */
+			compatible = "intel,niosv",
+			             "riscv";                 /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:21 */
+			riscv,isa = "rv32ima_zicsr_zifencei"; /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:22 */
+			reg = < 0x0 >;                        /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:23 */
+			clock-frequency = < 0x2faf080 >;      /* in zephyr/boards/intel/niosv_g/niosv_g.dts:22 */
+
+			/* node '/cpus/cpu@0/interrupt-controller' defined in zephyr/dts/riscv/niosv/niosv-g.dtsi:27 */
+			intc: interrupt-controller {
+				compatible = "riscv,cpu-intc"; /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:28 */
+				#address-cells = < 0x0 >;      /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:29 */
+				#interrupt-cells = < 0x1 >;    /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:30 */
+				interrupt-controller;          /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:31 */
+				phandle = < 0x1 >;             /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:40 */
+			};
+		};
+	};
+
+	/* node '/soc' defined in zephyr/dts/riscv/niosv/niosv-g.dtsi:36 */
+	soc {
+		#address-cells = < 0x1 >;         /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:37 */
+		#size-cells = < 0x1 >;            /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:38 */
+		compatible = "intel,niosv-g-soc",
+		             "simple-bus";        /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:39 */
+		interrupt-parent = < &intc >;     /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:40 */
+		ranges;                           /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:41 */
+
+		/* node '/soc/memory@0' defined in zephyr/dts/riscv/niosv/niosv-g.dtsi:43 */
+		sram0: memory@0 {
+			compatible = "mmio-sram"; /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:44 */
+			reg = < 0x0 0x40000 >;    /* in zephyr/boards/intel/niosv_g/niosv_g.dts:26 */
+		};
+
+		/* node '/soc/machine-timer@90000' defined in zephyr/dts/riscv/niosv/niosv-g.dtsi:47 */
+		mtimer: machine-timer@90000 {
+			compatible = "riscv,machine-timer";  /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:48 */
+			reg-names = "mtime",
+			            "mtimecmp";              /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:50 */
+			interrupts-extended = < &intc 0x7 >; /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:51 */
+			reg = < 0x90000 0x8 0x90008 0x8 >;   /* in zephyr/boards/intel/niosv_g/niosv_g.dts:30 */
+		};
+
+		/* node '/soc/serial@90078' defined in zephyr/dts/riscv/niosv/niosv-g.dtsi:54 */
+		uart0: serial@90078 {
+			compatible = "altr,jtag-uart"; /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:55 */
+			interrupts = < 0x10 >;         /* in zephyr/dts/riscv/niosv/niosv-g.dtsi:56 */
+			reg = < 0x90078 0x8 >;         /* in zephyr/boards/intel/niosv_g/niosv_g.dts:34 */
+			status = "okay";               /* in zephyr/boards/intel/niosv_g/niosv_g.dts:35 */
+		};
+	};
+};

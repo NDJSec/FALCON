@@ -1,0 +1,207 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;         /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;            /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "QuickLogic Qomu board";  /* in zephyr/boards/quicklogic/qomu/qomu.dts:13 */
+	compatible = "quicklogic,eos_s3"; /* in zephyr/boards/quicklogic/qomu/qomu.dts:14 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &sram0;       /* in zephyr/boards/quicklogic/qomu/qomu.dts:17 */
+		zephyr,console = &uart1;    /* in zephyr/boards/quicklogic/qomu/qomu.dts:18 */
+		zephyr,shell-uart = &uart1; /* in zephyr/boards/quicklogic/qomu/qomu.dts:19 */
+		zephyr,uart-pipe = &uart1;  /* in zephyr/boards/quicklogic/qomu/qomu.dts:20 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &blue_led;  /* in zephyr/boards/quicklogic/qomu/qomu.dts:24 */
+		led1 = &green_led; /* in zephyr/boards/quicklogic/qomu/qomu.dts:25 */
+		led2 = &red_led;   /* in zephyr/boards/quicklogic/qomu/qomu.dts:26 */
+		sw0 = &button0;    /* in zephyr/boards/quicklogic/qomu/qomu.dts:27 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:75 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/uart@40010000' defined in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:42 */
+		uart0: uart@40010000 {
+			compatible = "arm,pl011";    /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:43 */
+			reg = < 0x40010000 0x1000 >; /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:44 */
+			clocks = < &uartclk >;       /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:45 */
+			interrupts = < 0x7 0x3 >;    /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:46 */
+			interrupt-names = "rx";      /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:47 */
+			status = "disabled";         /* in zephyr/boards/quicklogic/qomu/qomu.dts:106 */
+		};
+
+		/* node '/soc/uart@40020000' defined in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:50 */
+		uart1: uart@40020000 {
+			compatible = "quicklogic,usbserialport-s3b";                                                         /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:51 */
+			reg = < 0x40020000 0x1000 >;                                                                         /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:52 */
+			status = "okay";                                                                                     /* in zephyr/boards/quicklogic/qomu/qomu.dts:110 */
+			current-speed = < 0x1c200 >;                                                                         /* in zephyr/boards/quicklogic/qomu/qomu.dts:111 */
+			pinctrl-0 = < &uart1_rx_default &uart1_tx_default &usb_pu_default &usb_dn_default &usb_dp_default >; /* in zephyr/boards/quicklogic/qomu/qomu.dts:112 */
+			pinctrl-names = "default";                                                                           /* in zephyr/boards/quicklogic/qomu/qomu.dts:114 */
+		};
+
+		/* node '/soc/gpio@40005000' defined in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:56 */
+		gpio: gpio@40005000 {
+			compatible = "quicklogic,eos-s3-gpio"; /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:57 */
+			reg = < 0x40005000 0x1000 >;           /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:58 */
+			interrupts = < 0x5 0x2 >;              /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:60 */
+			#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:61 */
+			ngpios = < 0x8 >;                      /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:62 */
+			pin-secondary-config = < 0x0 >;        /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:63 */
+			gpio-controller;                       /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:64 */
+			status = "okay";                       /* in zephyr/boards/quicklogic/qomu/qomu.dts:102 */
+			phandle = < 0x8 >;                     /* in zephyr/boards/quicklogic/qomu/qomu.dts:34 */
+		};
+
+		/* node '/soc/pinctrl@40004c00' defined in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:67 */
+		pinctrl: pinctrl@40004c00 {
+			compatible = "quicklogic,eos-s3-pinctrl"; /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:68 */
+			reg = < 0x40004c00 0x1b0 >;               /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:69 */
+
+			/* node '/soc/pinctrl@40004c00/uart1_rx_default' defined in zephyr/boards/quicklogic/qomu/qomu.dts:65 */
+			uart1_rx_default: uart1_rx_default {
+				pinmux = < 0x2d 0x9a004 >; /* in zephyr/boards/quicklogic/qomu/qomu.dts:66 */
+				input-enable;              /* in zephyr/boards/quicklogic/qomu/qomu.dts:67 */
+				phandle = < 0x3 >;         /* in zephyr/boards/quicklogic/qomu/qomu.dts:112 */
+			};
+
+			/* node '/soc/pinctrl@40004c00/uart1_tx_default' defined in zephyr/boards/quicklogic/qomu/qomu.dts:70 */
+			uart1_tx_default: uart1_tx_default {
+				pinmux = < 0x2c 0x3 >; /* in zephyr/boards/quicklogic/qomu/qomu.dts:71 */
+				output-enable;         /* in zephyr/boards/quicklogic/qomu/qomu.dts:72 */
+				phandle = < 0x4 >;     /* in zephyr/boards/quicklogic/qomu/qomu.dts:112 */
+			};
+
+			/* node '/soc/pinctrl@40004c00/usb_pu_default' defined in zephyr/boards/quicklogic/qomu/qomu.dts:75 */
+			usb_pu_default: usb_pu_default {
+				pinmux = < 0x17 0x0 >;                   /* in zephyr/boards/quicklogic/qomu/qomu.dts:76 */
+				bias-high-impedance;                     /* in zephyr/boards/quicklogic/qomu/qomu.dts:77 */
+				quicklogic,control-selection = "fabric"; /* in zephyr/boards/quicklogic/qomu/qomu.dts:78 */
+				output-enable;                           /* in zephyr/boards/quicklogic/qomu/qomu.dts:79 */
+				phandle = < 0x5 >;                       /* in zephyr/boards/quicklogic/qomu/qomu.dts:112 */
+			};
+
+			/* node '/soc/pinctrl@40004c00/usb_dn_default' defined in zephyr/boards/quicklogic/qomu/qomu.dts:82 */
+			usb_dn_default: usb_dn_default {
+				pinmux = < 0x1c 0x0 >;                   /* in zephyr/boards/quicklogic/qomu/qomu.dts:83 */
+				bias-high-impedance;                     /* in zephyr/boards/quicklogic/qomu/qomu.dts:84 */
+				quicklogic,control-selection = "fabric"; /* in zephyr/boards/quicklogic/qomu/qomu.dts:85 */
+				output-enable;                           /* in zephyr/boards/quicklogic/qomu/qomu.dts:86 */
+				phandle = < 0x6 >;                       /* in zephyr/boards/quicklogic/qomu/qomu.dts:112 */
+			};
+
+			/* node '/soc/pinctrl@40004c00/usb_dp_default' defined in zephyr/boards/quicklogic/qomu/qomu.dts:89 */
+			usb_dp_default: usb_dp_default {
+				pinmux = < 0x1f 0x0 >;                   /* in zephyr/boards/quicklogic/qomu/qomu.dts:90 */
+				bias-high-impedance;                     /* in zephyr/boards/quicklogic/qomu/qomu.dts:91 */
+				quicklogic,control-selection = "fabric"; /* in zephyr/boards/quicklogic/qomu/qomu.dts:92 */
+				output-enable;                           /* in zephyr/boards/quicklogic/qomu/qomu.dts:93 */
+				phandle = < 0x7 >;                       /* in zephyr/boards/quicklogic/qomu/qomu.dts:112 */
+			};
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:12 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:13 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:14 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:16 */
+		cpu0: cpu@0 {
+			device_type = "cpu";             /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:17 */
+			compatible = "arm,cortex-m4f";   /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:18 */
+			reg = < 0x0 >;                   /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:19 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:20 */
+			#size-cells = < 0x1 >;           /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:21 */
+			clock-frequency = < 0x3a98000 >; /* in zephyr/boards/quicklogic/qomu/qomu.dts:98 */
+
+			/* node '/cpus/cpu@0/mpu@e000ed90' defined in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:23 */
+			mpu: mpu@e000ed90 {
+				compatible = "arm,armv7m-mpu"; /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:24 */
+				reg = < 0xe000ed90 0x40 >;     /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:25 */
+			};
+		};
+	};
+
+	/* node '/memory@20000000' defined in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:30 */
+	sram0: memory@20000000 {
+		compatible = "mmio-sram";     /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:31 */
+		reg = < 0x20000000 0x80000 >; /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:32 */
+	};
+
+	/* node '/uart-clock' defined in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:35 */
+	uartclk: uart-clock {
+		compatible = "fixed-clock";     /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:36 */
+		clock-frequency = < 0x4e2000 >; /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:37 */
+		#clock-cells = < 0x0 >;         /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:38 */
+		phandle = < 0x2 >;              /* in zephyr/dts/arm/quicklogic/quicklogic_eos_s3.dtsi:45 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/quicklogic/qomu/qomu.dts:30 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/quicklogic/qomu/qomu.dts:31 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/quicklogic/qomu/qomu.dts:33 */
+		blue_led: led_0 {
+			gpios = < &gpio 0x3 0x0 >; /* in zephyr/boards/quicklogic/qomu/qomu.dts:34 */
+			label = "LED 0";           /* in zephyr/boards/quicklogic/qomu/qomu.dts:35 */
+		};
+
+		/* node '/leds/led_1' defined in zephyr/boards/quicklogic/qomu/qomu.dts:38 */
+		green_led: led_1 {
+			gpios = < &gpio 0x0 0x0 >; /* in zephyr/boards/quicklogic/qomu/qomu.dts:39 */
+			label = "LED 1";           /* in zephyr/boards/quicklogic/qomu/qomu.dts:40 */
+		};
+
+		/* node '/leds/led_2' defined in zephyr/boards/quicklogic/qomu/qomu.dts:43 */
+		red_led: led_2 {
+			gpios = < &gpio 0x0 0x0 >; /* in zephyr/boards/quicklogic/qomu/qomu.dts:44 */
+			label = "LED 2";           /* in zephyr/boards/quicklogic/qomu/qomu.dts:45 */
+		};
+	};
+
+	/* node '/buttons' defined in zephyr/boards/quicklogic/qomu/qomu.dts:49 */
+	buttons {
+		compatible = "gpio-keys"; /* in zephyr/boards/quicklogic/qomu/qomu.dts:50 */
+
+		/* node '/buttons/button_0' defined in zephyr/boards/quicklogic/qomu/qomu.dts:52 */
+		button0: button_0 {
+			gpios = < &gpio 0x0 0x11 >;   /* in zephyr/boards/quicklogic/qomu/qomu.dts:53 */
+			label = "User Push Button 0"; /* in zephyr/boards/quicklogic/qomu/qomu.dts:54 */
+			zephyr,code = < 0xb >;        /* in zephyr/boards/quicklogic/qomu/qomu.dts:55 */
+		};
+	};
+
+	/* node '/fpga' defined in zephyr/boards/quicklogic/qomu/qomu.dts:59 */
+	fpga0: fpga {
+		status = "okay"; /* in zephyr/boards/quicklogic/qomu/qomu.dts:60 */
+	};
+};

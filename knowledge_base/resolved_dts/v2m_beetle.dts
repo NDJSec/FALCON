@@ -1,0 +1,219 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	compatible = "arm,beetle"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:8 */
+	#address-cells = < 0x1 >;  /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:9 */
+	#size-cells = < 0x1 >;     /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:10 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,console = &uart1;    /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:17 */
+		zephyr,shell-uart = &uart1; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:18 */
+		zephyr,sram = &sram0;       /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:19 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:20 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		watchdog0 = &wdog0; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:13 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:148 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/timer@40000000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:51 */
+		timer0: timer@40000000 {
+			compatible = "arm,cmsdk-timer"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:52 */
+			reg = < 0x40000000 0x1000 >;    /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:53 */
+			interrupts = < 0x8 0x3 >;       /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:54 */
+			clocks = < &syscon >;           /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:55 */
+		};
+
+		/* node '/soc/timer@40001000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:58 */
+		timer1: timer@40001000 {
+			compatible = "arm,cmsdk-timer"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:59 */
+			reg = < 0x40001000 0x1000 >;    /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:60 */
+			interrupts = < 0x9 0x3 >;       /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:61 */
+			clocks = < &syscon >;           /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:62 */
+		};
+
+		/* node '/soc/dtimer@40002000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:65 */
+		dtimer0: dtimer@40002000 {
+			compatible = "arm,cmsdk-dtimer"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:66 */
+			reg = < 0x40002000 0x1000 >;     /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:67 */
+			interrupts = < 0xa 0x3 >;        /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:68 */
+			clocks = < &syscon >;            /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:69 */
+		};
+
+		/* node '/soc/uart@40004000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:72 */
+		uart0: uart@40004000 {
+			compatible = "arm,cmsdk-uart";  /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:73 */
+			reg = < 0x40004000 0x1000 >;    /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:74 */
+			interrupts = < 0x0 0x3 >;       /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:75 */
+			clocks = < &sysclk &syscon >;   /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:76 */
+			current-speed = < 0x1c200 >;    /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:77 */
+			pinctrl-0 = < &uart0_default >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:78 */
+			pinctrl-names = "default";      /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:79 */
+		};
+
+		/* node '/soc/uart@40005000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:82 */
+		uart1: uart@40005000 {
+			compatible = "arm,cmsdk-uart";  /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:83 */
+			reg = < 0x40005000 0x1000 >;    /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:84 */
+			interrupts = < 0x2 0x3 >;       /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:85 */
+			clocks = < &sysclk &syscon >;   /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:86 */
+			current-speed = < 0x1c200 >;    /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:87 */
+			pinctrl-0 = < &uart1_default >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:88 */
+			pinctrl-names = "default";      /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:89 */
+		};
+
+		/* node '/soc/wdog@40008000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:92 */
+		wdog0: wdog@40008000 {
+			compatible = "arm,cmsdk-watchdog"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:93 */
+			clocks = < &sysclk >;              /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:94 */
+			reg = < 0x40008000 0x1000 >;       /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:95 */
+		};
+
+		/* node '/soc/gpio@40010000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:98 */
+		gpio0: gpio@40010000 {
+			compatible = "arm,cmsdk-gpio"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:99 */
+			reg = < 0x40010000 0x1000 >;   /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:100 */
+			interrupts = < 0x6 0x3 >;      /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:101 */
+			gpio-controller;               /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:102 */
+			#gpio-cells = < 0x2 >;         /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:103 */
+			clocks = < &syscon >;          /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:104 */
+		};
+
+		/* node '/soc/gpio@40011000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:107 */
+		gpio1: gpio@40011000 {
+			compatible = "arm,cmsdk-gpio"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:108 */
+			reg = < 0x40011000 0x1000 >;   /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:109 */
+			interrupts = < 0x7 0x3 >;      /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:110 */
+			gpio-controller;               /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:111 */
+			#gpio-cells = < 0x2 >;         /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:112 */
+			clocks = < &syscon >;          /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:113 */
+		};
+
+		/* node '/soc/gpio@40012000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:116 */
+		gpio2: gpio@40012000 {
+			compatible = "arm,cmsdk-gpio"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:117 */
+			reg = < 0x40012000 0x1000 >;   /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:118 */
+			interrupts = < 0x2a 0x3 >;     /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:119 */
+			gpio-controller;               /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:120 */
+			#gpio-cells = < 0x2 >;         /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:121 */
+			clocks = < &syscon >;          /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:122 */
+		};
+
+		/* node '/soc/gpio@40013000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:125 */
+		gpio3: gpio@40013000 {
+			compatible = "arm,cmsdk-gpio"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:126 */
+			reg = < 0x40013000 0x1000 >;   /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:127 */
+			interrupts = < 0x2b 0x3 >;     /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:128 */
+			gpio-controller;               /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:129 */
+			#gpio-cells = < 0x2 >;         /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:130 */
+			clocks = < &syscon >;          /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:131 */
+		};
+
+		/* node '/soc/syscon@4001f000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:134 */
+		syscon: syscon@4001f000 {
+			compatible = "arm,beetle-syscon"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:135 */
+			reg = < 0x4001f000 0x1000 >;      /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:136 */
+			#clock-cells = < 0x0 >;           /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:137 */
+			phandle = < 0x2 >;                /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:55 */
+		};
+
+		/* node '/soc/pinctrl' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:140 */
+		pinctrl: pinctrl {
+			compatible = "arm,mps3-pinctrl"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:141 */
+			status = "okay";                 /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:142 */
+
+			/* node '/soc/pinctrl/uart0_default' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:10 */
+			uart0_default: uart0_default {
+				phandle = < 0x4 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:78 */
+
+				/* node '/soc/pinctrl/uart0_default/group1' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:11 */
+				group1 {
+					pinmux = < 0x8 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:12 */
+				};
+
+				/* node '/soc/pinctrl/uart0_default/group2' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:15 */
+				group2 {
+					pinmux = < 0x0 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:16 */
+					input-enable;     /* in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:17 */
+				};
+			};
+
+			/* node '/soc/pinctrl/uart1_default' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:21 */
+			uart1_default: uart1_default {
+				phandle = < 0x5 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:88 */
+
+				/* node '/soc/pinctrl/uart1_default/group1' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:22 */
+				group1 {
+					pinmux = < 0x88 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:23 */
+				};
+
+				/* node '/soc/pinctrl/uart1_default/group2' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:26 */
+				group2 {
+					pinmux = < 0x80 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:27 */
+					input-enable;      /* in zephyr/boards/arm/v2m_beetle/v2m_beetle-pinctrl.dtsi:28 */
+				};
+			};
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:23 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:24 */
+		#size-cells = < 0x0 >;    /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:25 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:27 */
+		cpu@0 {
+			compatible = "arm,cortex-m3";    /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:28 */
+			clock-frequency = < 0x16e3600 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:29 */
+			reg = < 0x0 >;                   /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:30 */
+		};
+	};
+
+	/* node '/memory@20000000' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:34 */
+	sram0: memory@20000000 {
+		compatible = "mmio-sram";     /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:35 */
+		reg = < 0x20000000 0x20000 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:36 */
+	};
+
+	/* node '/flash@0' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:39 */
+	flash0: flash@0 {
+		compatible = "soc-nv-flash"; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:40 */
+		reg = < 0x0 0x40000 >;       /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:41 */
+	};
+
+	/* node '/system-clock' defined in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:44 */
+	sysclk: system-clock {
+		compatible = "fixed-clock";      /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:45 */
+		clock-frequency = < 0x16e3600 >; /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:46 */
+		#clock-cells = < 0x0 >;          /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:47 */
+		phandle = < 0x3 >;               /* in zephyr/boards/arm/v2m_beetle/v2m_beetle.dts:76 */
+	};
+};

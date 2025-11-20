@@ -1,0 +1,1512 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                   /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                      /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Realtek RTS5912 Evaluation Board"; /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:14 */
+	compatible = "realtek,rts5912-evb";         /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:15 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &sram0;       /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:18 */
+		zephyr,console = &uart0;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:19 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:20 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:21 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv8-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:62 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:63 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:64 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:65 */
+		ranges;                       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:66 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv8-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv8-m.dtsi:14 */
+			compatible = "arm,v8m-nvic";         /* in zephyr/dts/arm/armv8-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv8-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv8-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv8-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:749 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:65 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv8-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv8m-systick"; /* in zephyr/dts/arm/armv8-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv8-m.dtsi:23 */
+			status = "disabled";               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:753 */
+		};
+
+		/* node '/soc/bb-ram@40005000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:68 */
+		bbram: bb-ram@40005000 {
+			compatible = "realtek,rts5912-bbram"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:69 */
+			reg = < 0x40005000 0x100 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:70 */
+			status = "okay";                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:71 */
+		};
+
+		/* node '/soc/clock-controller@40020000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:74 */
+		sccon: clock-controller@40020000 {
+			compatible = "realtek,rts5912-sccon"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:75 */
+			reg = < 0x40020000 0xf0 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:76 */
+			#clock-cells = < 0x2 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:77 */
+			clocks = < &rc25m >,
+			         < &pll >;                    /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:78 */
+			clock-names = "rc25m",
+			              "pll";                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:79 */
+			phandle = < 0x4 >;                    /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:85 */
+		};
+
+		/* node '/soc/rtc@4000c100' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:82 */
+		rtc: rtc@4000c100 {
+			compatible = "realtek,rts5912-rtc"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:83 */
+			reg = < 0x4000c100 0x20 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:84 */
+			clocks = < &sccon 0x7 0x0 >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:85 */
+			clock-names = "rtc";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:86 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:87 */
+		};
+
+		/* node '/soc/timer@4000c300' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:90 */
+		timer0: timer@4000c300 {
+			compatible = "realtek,rts5912-timer"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:91 */
+			reg = < 0x4000c300 0x14 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:92 */
+			interrupt-parent = < &nvic >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:93 */
+			interrupts = < 0xc4 0x0 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:94 */
+			clocks = < &sccon 0x6 0xd >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:95 */
+			clock-names = "tmr32";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:96 */
+			max-value = < 0xffffffff >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:97 */
+			clock-frequency = < 0x17d7840 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:98 */
+			prescaler = < 0x0 >;                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:99 */
+			status = "disabled";                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:100 */
+		};
+
+		/* node '/soc/timer@4000c314' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:103 */
+		timer1: timer@4000c314 {
+			compatible = "realtek,rts5912-timer"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:104 */
+			reg = < 0x4000c314 0x14 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:105 */
+			interrupt-parent = < &nvic >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:106 */
+			interrupts = < 0xc5 0x0 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:107 */
+			clocks = < &sccon 0x6 0xe >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:108 */
+			clock-names = "tmr32";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:109 */
+			max-value = < 0xffffffff >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:110 */
+			clock-frequency = < 0x17d7840 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:111 */
+			prescaler = < 0x0 >;                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:112 */
+			status = "disabled";                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:113 */
+		};
+
+		/* node '/soc/timer@4000c328' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:116 */
+		timer2: timer@4000c328 {
+			compatible = "realtek,rts5912-timer"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:117 */
+			reg = < 0x4000c328 0x14 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:118 */
+			interrupt-parent = < &nvic >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:119 */
+			interrupts = < 0xc6 0x0 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:120 */
+			clocks = < &sccon 0x6 0xf >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:121 */
+			clock-names = "tmr32";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:122 */
+			max-value = < 0xffffffff >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:123 */
+			clock-frequency = < 0x17d7840 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:124 */
+			prescaler = < 0x0 >;                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:125 */
+			status = "disabled";                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:126 */
+		};
+
+		/* node '/soc/timer@4000c33c' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:129 */
+		timer3: timer@4000c33c {
+			compatible = "realtek,rts5912-timer"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:130 */
+			reg = < 0x4000c33c 0x14 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:131 */
+			interrupt-parent = < &nvic >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:132 */
+			interrupts = < 0xc7 0x0 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:133 */
+			clocks = < &sccon 0x6 0x10 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:134 */
+			clock-names = "tmr32";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:135 */
+			max-value = < 0xffffffff >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:136 */
+			clock-frequency = < 0x17d7840 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:137 */
+			prescaler = < 0x0 >;                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:138 */
+			status = "disabled";                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:139 */
+		};
+
+		/* node '/soc/timer@4000c350' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:142 */
+		timer4: timer@4000c350 {
+			compatible = "realtek,rts5912-timer"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:143 */
+			reg = < 0x4000c350 0x14 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:144 */
+			interrupt-parent = < &nvic >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:145 */
+			interrupts = < 0xc8 0x0 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:146 */
+			clocks = < &sccon 0x6 0x11 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:147 */
+			clock-names = "tmr32";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:148 */
+			max-value = < 0xffffffff >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:149 */
+			clock-frequency = < 0x17d7840 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:150 */
+			prescaler = < 0x0 >;                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:151 */
+			status = "disabled";                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:152 */
+		};
+
+		/* node '/soc/timer@4000c364' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:155 */
+		timer5: timer@4000c364 {
+			compatible = "realtek,rts5912-timer"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:156 */
+			reg = < 0x4000c364 0x14 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:157 */
+			interrupt-parent = < &nvic >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:158 */
+			interrupts = < 0xc9 0x0 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:159 */
+			clocks = < &sccon 0x6 0x12 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:160 */
+			clock-names = "tmr32";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:161 */
+			max-value = < 0xffffffff >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:162 */
+			clock-frequency = < 0x17d7840 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:163 */
+			prescaler = < 0x0 >;                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:164 */
+			status = "disabled";                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:165 */
+		};
+
+		/* node '/soc/espi0@400b1000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:168 */
+		espi0: espi0@400b1000 {
+			compatible = "realtek,rts5912-espi";                                                                     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:169 */
+			cs-gpios = < &gpioa 0x4 0x0 >;                                                                           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:170 */
+			reg = < 0x400b1000 0x200 0x400a0400 0x1c 0x400a0200 0x1c 0x400a021c 0x1c 0x400a0238 0x1c
+			        0x400a0254 0x1c 0x400a0270 0x1c 0x40082000 0x14 0x40082020 0x14 0x40082040 0x14 0x40082060
+			        0x14 0x40082080 0x14 0x400820a0 0x14 0x400820c0 0x14 0x400820e0 0x14 0x400a0100 0x1c
+			        0x400b1600 0xd0 >;                                                                               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:173 */
+			reg-names = "espi_target",
+			            "port80",
+			            "acpi",
+			            "promt0",
+			            "promt1",
+			            "promt2",
+			            "promt3",
+			            "emi0",
+			            "emi1",
+			            "emi2",
+			            "emi3",
+			            "emi4",
+			            "emi5",
+			            "emi6",
+			            "emi7",
+			            "kbc",
+			            "mbx";                                                                                       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:191 */
+			clocks = < &sccon 0x5 0x16 >,
+			         < &sccon 0x5 0x1d >,
+			         < &sccon 0x5 0x18 >,
+			         < &sccon 0x5 0x19 >,
+			         < &sccon 0x5 0x1a >,
+			         < &sccon 0x5 0x1b >,
+			         < &sccon 0x5 0x1c >,
+			         < &sccon 0x5 0x1e >,
+			         < &sccon 0x5 0x1f >,
+			         < &sccon 0x6 0x0 >,
+			         < &sccon 0x6 0x1 >,
+			         < &sccon 0x6 0x2 >,
+			         < &sccon 0x6 0x3 >,
+			         < &sccon 0x6 0x4 >,
+			         < &sccon 0x6 0x5 >,
+			         < &sccon 0x5 0x17 >;                                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:195 */
+			clock-names = "espi-target",
+			              "port80",
+			              "acpi",
+			              "promt0",
+			              "promt1",
+			              "promt2",
+			              "promt3",
+			              "emi0",
+			              "emi1",
+			              "emi2",
+			              "emi3",
+			              "emi4",
+			              "emi5",
+			              "emi6",
+			              "emi7",
+			              "kbc";                                                                                     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:212 */
+			interrupts = < 0x85 0x0 >,
+			             < 0x86 0x0 >,
+			             < 0x92 0x0 >,
+			             < 0x91 0x0 >,
+			             < 0x90 0x0 >,
+			             < 0x8f 0x0 >,
+			             < 0x8e 0x0 >,
+			             < 0x8d 0x0 >,
+			             < 0x8c 0x0 >,
+			             < 0x8b 0x0 >,
+			             < 0x8a 0x0 >,
+			             < 0x89 0x0 >,
+			             < 0x88 0x0 >,
+			             < 0x87 0x0 >,
+			             < 0x9a 0x0 >,
+			             < 0x9b 0x0 >,
+			             < 0x9c 0x0 >,
+			             < 0x9d 0x0 >,
+			             < 0x9e 0x0 >,
+			             < 0x9f 0x0 >,
+			             < 0xa0 0x0 >,
+			             < 0xa1 0x0 >,
+			             < 0xa2 0x0 >,
+			             < 0xa3 0x0 >,
+			             < 0xa4 0x0 >,
+			             < 0xa5 0x0 >,
+			             < 0xd4 0x0 >,
+			             < 0xd5 0x0 >,
+			             < 0xd6 0x0 >,
+			             < 0xd7 0x0 >,
+			             < 0xd8 0x0 >,
+			             < 0xd9 0x0 >,
+			             < 0xda 0x0 >,
+			             < 0xdb 0x0 >,
+			             < 0x93 0x0 >,
+			             < 0x94 0x0 >,
+			             < 0x95 0x0 >,
+			             < 0x98 0x0 >,
+			             < 0x99 0x0 >,
+			             < 0xa6 0x0 >,
+			             < 0xdc 0x0 >;                                                                               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:216 */
+			interrupt-names = "bus-rst",
+			                  "periph-ch",
+			                  "vw-ch",
+			                  "vw-idx2",
+			                  "vw-idx3",
+			                  "vw-idx7",
+			                  "vw-idx41",
+			                  "vw-idx42",
+			                  "vw-idx43",
+			                  "vw-idx44",
+			                  "vw-idx47",
+			                  "vw-idx4a",
+			                  "vw-idx51",
+			                  "vw-idx61",
+			                  "kbc_ibf",
+			                  "kbc_obe",
+			                  "acpi_ibf",
+			                  "acpi_obe",
+			                  "promt0_ibf",
+			                  "promt0_obe",
+			                  "promt1_ibf",
+			                  "promt1_obe",
+			                  "promt2_ibf",
+			                  "promt2_obe",
+			                  "promt3_ibf",
+			                  "promt3_obe",
+			                  "emi0",
+			                  "emi1",
+			                  "emi2",
+			                  "emi3",
+			                  "emi4",
+			                  "emi5",
+			                  "emi6",
+			                  "emi7",
+			                  "oob_tx",
+			                  "oob_rx",
+			                  "oob_chg",
+			                  "maf_tr",
+			                  "flash_chg",
+			                  "port80",
+			                  "mbx";                                                                                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:231 */
+			status = "okay";                                                                                         /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:91 */
+			pinctrl-0 = < &espi_alert_gpio003 &espi_cs_gpio004 &espi_io3_gpio005 &espi_io2_gpio006 &espi_io1_gpio007
+			              &espi_io0_gpio008 &espi_clk_gpio009 &espi_reset_gpio020 >;                                 /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:92 */
+			pinctrl-names = "default";                                                                               /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:96 */
+		};
+
+		/* node '/soc/slwtmr0@4000c200' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:247 */
+		slwtmr0: slwtmr0@4000c200 {
+			compatible = "realtek,rts5912-slwtimer"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:248 */
+			reg = < 0x4000c200 0x10 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:249 */
+			interrupts = < 0xca 0x0 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:250 */
+			clocks = < &sccon 0x6 0x14 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:251 */
+			clock-names = "slwtmr";                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:252 */
+			max-value = < 0xffffffff >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:253 */
+			clock-frequency = < 0xf4240 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:254 */
+			prescaler = < 0x0 >;                     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:255 */
+			status = "disabled";                     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:256 */
+		};
+
+		/* node '/soc/rtmr@4000c500' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:259 */
+		rtmr: rtmr@4000c500 {
+			compatible = "realtek,rts5912-rtmr"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:260 */
+			reg = < 0x4000c500 0x10 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:261 */
+			interrupts = < 0xcc 0x0 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:262 */
+			status = "okay";                     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:263 */
+		};
+
+		/* node '/soc/adc@4000fe00' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:266 */
+		adc0: adc@4000fe00 {
+			compatible = "realtek,rts5912-adc";                                                                    /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:267 */
+			reg = < 0x4000fe00 0x38 >;                                                                             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:268 */
+			clocks = < &sccon 0x4 0x0 >;                                                                           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:269 */
+			interrupts = < 0xdd 0x0 >;                                                                             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:270 */
+			#io-channel-cells = < 0x1 >;                                                                           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:271 */
+			status = "okay";                                                                                       /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:26 */
+			pinctrl-0 = < &adc0_gpio074 &adc1_gpio075 &adc2_gpio076 &adc3_gpio077 &adc4_gpio078 &adc5_gpio079
+			              &adc6_gpio080 &adc7_gpio081 &adc8_gpio082 &adc9_gpio054 &adc10_gpio098 &adc11_gpio024 >; /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			pinctrl-names = "default";                                                                             /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:33 */
+		};
+
+		/* node '/soc/uart@40010100' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:275 */
+		uart0: uart@40010100 {
+			compatible = "ns16550";          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:276 */
+			reg = < 0x40010100 0x100 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:277 */
+			reg-shift = < 0x2 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:278 */
+			clock-frequency = < 0x5f5e100 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:279 */
+			interrupts = < 0xbf 0x0 >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:280 */
+			status = "okay";                 /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:37 */
+			current-speed = < 0x1c200 >;     /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:38 */
+			phandle = < 0x1a >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:291 */
+		};
+
+		/* node '/soc/uart_wrapper@40010200' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:284 */
+		uart0_wrapper: uart_wrapper@40010200 {
+			compatible = "realtek,rts5912-uart";               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:285 */
+			reg = < 0x40010200 0x20 >;                         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:286 */
+			port = < 0x0 >;                                    /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:287 */
+			clocks = < &sccon 0x3 0x0 >;                       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:288 */
+			clock-names = "uart0";                             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:289 */
+			uart-dev = < &uart0 >;                             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:291 */
+			status = "okay";                                   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:42 */
+			pinctrl-0 = < &uart_rx_gpio113 &uart_tx_gpio114 >; /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:43 */
+			pinctrl-names = "default";                         /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:44 */
+			rx-gpios = < &gpioh 0x1 0x0 >;                     /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:45 */
+		};
+
+		/* node '/soc/pin-controller@40090000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:294 */
+		pinctrl: pin-controller@40090000 {
+			compatible = "realtek,rts5912-pinctrl"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:295 */
+			#address-cells = < 0x1 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:296 */
+			#size-cells = < 0x1 >;                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:297 */
+			reg = < 0x40090000 0x300 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:298 */
+
+			/* node '/soc/pin-controller@40090000/gpio@40090000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:301 */
+			gpioa: gpio@40090000 {
+				compatible = "realtek,rts5912-gpio";                                                               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:302 */
+				gpio-controller;                                                                                   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:303 */
+				#gpio-cells = < 0x2 >;                                                                             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:304 */
+				reg = < 0x40090000 0x40 >;                                                                         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:305 */
+				ngpios = < 0x10 >;                                                                                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:306 */
+				interrupts = < 0x0 0x0 0x1 0x0 0x2 0x0 0x3 0x0 0x4 0x0 0x5 0x0 0x6 0x0 0x7 0x0 0x8 0x0 0x9 0x0 0xa
+				               0x0 0xb 0x0 0xc 0x0 0xd 0x0 0xe 0x0 0xf 0x0 >;                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:307 */
+				phandle = < 0x5 >;                                                                                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:170 */
+			};
+
+			/* node '/soc/pin-controller@40090000/gpio@40090040' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:314 */
+			gpiob: gpio@40090040 {
+				compatible = "realtek,rts5912-gpio";                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:315 */
+				gpio-controller;                                                                                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:316 */
+				#gpio-cells = < 0x2 >;                                                                          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:317 */
+				reg = < 0x40090040 0x40 >;                                                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:318 */
+				ngpios = < 0x10 >;                                                                              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:319 */
+				interrupts = < 0x10 0x0 0x11 0x0 0x12 0x0 0x13 0x0 0x14 0x0 0x15 0x0 0x16 0x0 0x17 0x0 0x18 0x0
+				               0x19 0x0 0x1a 0x0 0x1b 0x0 0x1c 0x0 0x1d 0x0 0x1e 0x0 0x1f 0x0 >;                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:320 */
+			};
+
+			/* node '/soc/pin-controller@40090000/gpio@40090080' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:327 */
+			gpioc: gpio@40090080 {
+				compatible = "realtek,rts5912-gpio";                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:328 */
+				gpio-controller;                                                                                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:329 */
+				#gpio-cells = < 0x2 >;                                                                          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:330 */
+				reg = < 0x40090080 0x40 >;                                                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:331 */
+				ngpios = < 0x10 >;                                                                              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:332 */
+				interrupts = < 0x20 0x0 0x21 0x0 0x22 0x0 0x23 0x0 0x24 0x0 0x25 0x0 0x26 0x0 0x27 0x0 0x28 0x0
+				               0x29 0x0 0x2a 0x0 0x2b 0x0 0x2c 0x0 0x2d 0x0 0x2e 0x0 0x2f 0x0 >;                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:333 */
+			};
+
+			/* node '/soc/pin-controller@40090000/gpio@400900c0' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:340 */
+			gpiod: gpio@400900c0 {
+				compatible = "realtek,rts5912-gpio";                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:341 */
+				gpio-controller;                                                                                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:342 */
+				#gpio-cells = < 0x2 >;                                                                          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:343 */
+				reg = < 0x400900c0 0x40 >;                                                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:344 */
+				ngpios = < 0x10 >;                                                                              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:345 */
+				interrupts = < 0x30 0x0 0x31 0x0 0x32 0x0 0x33 0x0 0x34 0x0 0x35 0x0 0x36 0x0 0x37 0x0 0x38 0x0
+				               0x39 0x0 0x3a 0x0 0x3b 0x0 0x3c 0x0 0x3d 0x0 0x3e 0x0 0x3f 0x0 >;                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:346 */
+			};
+
+			/* node '/soc/pin-controller@40090000/gpio@40090100' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:353 */
+			gpioe: gpio@40090100 {
+				compatible = "realtek,rts5912-gpio";                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:354 */
+				gpio-controller;                                                                                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:355 */
+				#gpio-cells = < 0x2 >;                                                                          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:356 */
+				reg = < 0x40090100 0x40 >;                                                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:357 */
+				ngpios = < 0x10 >;                                                                              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:358 */
+				interrupts = < 0x40 0x0 0x41 0x0 0x42 0x0 0x43 0x0 0x44 0x0 0x45 0x0 0x46 0x0 0x47 0x0 0x48 0x0
+				               0x49 0x0 0x4a 0x0 0x4b 0x0 0x4c 0x0 0x4d 0x0 0x4e 0x0 0x4f 0x0 >;                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:359 */
+			};
+
+			/* node '/soc/pin-controller@40090000/gpio@40090140' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:366 */
+			gpiof: gpio@40090140 {
+				compatible = "realtek,rts5912-gpio";                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:367 */
+				gpio-controller;                                                                                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:368 */
+				#gpio-cells = < 0x2 >;                                                                          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:369 */
+				reg = < 0x40090140 0x40 >;                                                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:370 */
+				ngpios = < 0x10 >;                                                                              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:371 */
+				interrupts = < 0x50 0x0 0x51 0x0 0x52 0x0 0x53 0x0 0x54 0x0 0x55 0x0 0x56 0x0 0x57 0x0 0x58 0x0
+				               0x59 0x0 0x5a 0x0 0x5b 0x0 0x5c 0x0 0x5d 0x0 0x5e 0x0 0x5f 0x0 >;                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:372 */
+			};
+
+			/* node '/soc/pin-controller@40090000/gpio@40090180' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:379 */
+			gpiog: gpio@40090180 {
+				compatible = "realtek,rts5912-gpio";                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:380 */
+				gpio-controller;                                                                                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:381 */
+				#gpio-cells = < 0x2 >;                                                                          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:382 */
+				reg = < 0x40090180 0x40 >;                                                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:383 */
+				ngpios = < 0x10 >;                                                                              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:384 */
+				interrupts = < 0x60 0x0 0x61 0x0 0x62 0x0 0x63 0x0 0x64 0x0 0x65 0x0 0x66 0x0 0x67 0x0 0x68 0x0
+				               0x69 0x0 0x6a 0x0 0x6b 0x0 0x6c 0x0 0x6d 0x0 0x6e 0x0 0x6f 0x0 >;                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:385 */
+			};
+
+			/* node '/soc/pin-controller@40090000/gpio@400901c0' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:392 */
+			gpioh: gpio@400901c0 {
+				compatible = "realtek,rts5912-gpio";                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:393 */
+				gpio-controller;                                                                                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:394 */
+				#gpio-cells = < 0x2 >;                                                                          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:395 */
+				reg = < 0x400901c0 0x40 >;                                                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:396 */
+				ngpios = < 0x10 >;                                                                              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:397 */
+				interrupts = < 0x70 0x0 0x71 0x0 0x72 0x0 0x73 0x0 0x74 0x0 0x75 0x0 0x76 0x0 0x77 0x0 0x78 0x0
+				               0x79 0x0 0x7a 0x0 0x7b 0x0 0x7c 0x0 0x7d 0x0 0x7e 0x0 0x7f 0x0 >;                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:398 */
+				phandle = < 0x1d >;                                                                             /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:45 */
+			};
+
+			/* node '/soc/pin-controller@40090000/gpio@40090200' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:405 */
+			gpioi: gpio@40090200 {
+				compatible = "realtek,rts5912-gpio";                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:406 */
+				gpio-controller;                                                                                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:407 */
+				#gpio-cells = < 0x2 >;                                                                          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:408 */
+				reg = < 0x40090200 0x10 >;                                                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:409 */
+				ngpios = < 0x4 >;                                                                               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:410 */
+				interrupts = < 0x80 0x0 0x81 0x0 0x82 0x0 0x83 0x0 0x84 0x0 0x85 0x0 0x86 0x0 0x87 0x0 0x88 0x0
+				               0x89 0x0 0x8a 0x0 0x8b 0x0 0x8c 0x0 0x8d 0x0 0x8e 0x0 0x8f 0x0 >;                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:411 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc0_gpio074' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:12 */
+			adc0_gpio074: adc0_gpio074 {
+				pinmux = < 0x80150 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:13 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:14 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:15 */
+				phandle = < 0xe >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc1_gpio075' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:18 */
+			adc1_gpio075: adc1_gpio075 {
+				pinmux = < 0x80158 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:19 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:20 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:21 */
+				phandle = < 0xf >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc2_gpio076' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:24 */
+			adc2_gpio076: adc2_gpio076 {
+				pinmux = < 0x80160 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:25 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:26 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:27 */
+				phandle = < 0x10 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc3_gpio077' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:30 */
+			adc3_gpio077: adc3_gpio077 {
+				pinmux = < 0x80168 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:31 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:32 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:33 */
+				phandle = < 0x11 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc4_gpio078' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:36 */
+			adc4_gpio078: adc4_gpio078 {
+				pinmux = < 0x80170 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:37 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:38 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:39 */
+				phandle = < 0x12 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc5_gpio079' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:42 */
+			adc5_gpio079: adc5_gpio079 {
+				pinmux = < 0x80178 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:43 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:44 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:45 */
+				phandle = < 0x13 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc6_gpio080' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:48 */
+			adc6_gpio080: adc6_gpio080 {
+				pinmux = < 0x80180 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:49 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:50 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:51 */
+				phandle = < 0x14 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc7_gpio081' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:54 */
+			adc7_gpio081: adc7_gpio081 {
+				pinmux = < 0x80188 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:55 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:56 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:57 */
+				phandle = < 0x15 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc8_gpio082' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:60 */
+			adc8_gpio082: adc8_gpio082 {
+				pinmux = < 0x80190 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:61 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:62 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:63 */
+				phandle = < 0x16 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc9_gpio054' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:66 */
+			adc9_gpio054: adc9_gpio054 {
+				pinmux = < 0x401b0 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:67 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:68 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:69 */
+				phandle = < 0x17 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc10_gpio098' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:72 */
+			adc10_gpio098: adc10_gpio098 {
+				pinmux = < 0xc0110 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:73 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:74 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:75 */
+				phandle = < 0x18 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/adc11_gpio024' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:78 */
+			adc11_gpio024: adc11_gpio024 {
+				pinmux = < 0x1c0 >;   /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:79 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:80 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:81 */
+				phandle = < 0x19 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:27 */
+			};
+
+			/* node '/soc/pin-controller@40090000/espi_alert_gpio003' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:86 */
+			espi_alert_gpio003: espi_alert_gpio003 {
+				pinmux = < 0x118 >;   /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:87 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:88 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:89 */
+				phandle = < 0x6 >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:92 */
+			};
+
+			/* node '/soc/pin-controller@40090000/espi_cs_gpio004' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:92 */
+			espi_cs_gpio004: espi_cs_gpio004 {
+				pinmux = < 0x120 >;   /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:93 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:94 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:95 */
+				phandle = < 0x7 >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:92 */
+			};
+
+			/* node '/soc/pin-controller@40090000/espi_io3_gpio005' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:98 */
+			espi_io3_gpio005: espi_io3_gpio005 {
+				pinmux = < 0x128 >;   /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:99 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:100 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:101 */
+				phandle = < 0x8 >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:92 */
+			};
+
+			/* node '/soc/pin-controller@40090000/espi_io2_gpio006' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:104 */
+			espi_io2_gpio006: espi_io2_gpio006 {
+				pinmux = < 0x130 >;   /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:105 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:106 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:107 */
+				phandle = < 0x9 >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:92 */
+			};
+
+			/* node '/soc/pin-controller@40090000/espi_io1_gpio007' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:110 */
+			espi_io1_gpio007: espi_io1_gpio007 {
+				pinmux = < 0x138 >;   /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:111 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:112 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:113 */
+				phandle = < 0xa >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:92 */
+			};
+
+			/* node '/soc/pin-controller@40090000/espi_io0_gpio008' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:116 */
+			espi_io0_gpio008: espi_io0_gpio008 {
+				pinmux = < 0x140 >;   /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:117 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:118 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:119 */
+				phandle = < 0xb >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:92 */
+			};
+
+			/* node '/soc/pin-controller@40090000/espi_clk_gpio009' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:122 */
+			espi_clk_gpio009: espi_clk_gpio009 {
+				pinmux = < 0x148 >;   /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:123 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:124 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:125 */
+				phandle = < 0xc >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:92 */
+			};
+
+			/* node '/soc/pin-controller@40090000/espi_reset_gpio020' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:128 */
+			espi_reset_gpio020: espi_reset_gpio020 {
+				pinmux = < 0x1a0 >;   /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:129 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:130 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:131 */
+				phandle = < 0xd >;    /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:92 */
+			};
+
+			/* node '/soc/pin-controller@40090000/jtag_tdi_gpio87' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:258 */
+			jtag_tdi_gpio87: jtag_tdi_gpio87 {
+				pinmux = < 0x801b8 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:259 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:260 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:261 */
+				phandle = < 0x50 >;   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:703 */
+			};
+
+			/* node '/soc/pin-controller@40090000/jtag_tdo_gpio88' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:264 */
+			jtag_tdo_gpio88: jtag_tdo_gpio88 {
+				pinmux = < 0x803c0 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:265 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:266 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:267 */
+				phandle = < 0x51 >;   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:703 */
+			};
+
+			/* node '/soc/pin-controller@40090000/jtag_rst_gpio89' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:270 */
+			jtag_rst_gpio89: jtag_rst_gpio89 {
+				pinmux = < 0x801c8 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:271 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:272 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:273 */
+				phandle = < 0x52 >;   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:703 */
+			};
+
+			/* node '/soc/pin-controller@40090000/jtag_clk_gpio90' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:276 */
+			jtag_clk_gpio90: jtag_clk_gpio90 {
+				pinmux = < 0x802d0 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:277 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:278 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:279 */
+				phandle = < 0x53 >;   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:703 */
+			};
+
+			/* node '/soc/pin-controller@40090000/jtag_tms_gpio91' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:282 */
+			jtag_tms_gpio91: jtag_tms_gpio91 {
+				pinmux = < 0x802d8 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:283 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:284 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:285 */
+				phandle = < 0x54 >;   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:703 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso0_gpio041' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:291 */
+			kso0_gpio041: kso0_gpio041 {
+				pinmux = < 0x40148 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:292 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:293 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:294 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:295 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:296 */
+				phandle = < 0x1e >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso1_gpio042' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:299 */
+			kso1_gpio042: kso1_gpio042 {
+				pinmux = < 0x40150 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:300 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:301 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:302 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:303 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:304 */
+				phandle = < 0x1f >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso2_gpio043' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:307 */
+			kso2_gpio043: kso2_gpio043 {
+				pinmux = < 0x40158 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:308 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:309 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:310 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:311 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:312 */
+				phandle = < 0x20 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso3_gpio044' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:315 */
+			kso3_gpio044: kso3_gpio044 {
+				pinmux = < 0x40160 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:316 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:317 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:318 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:319 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:320 */
+				phandle = < 0x21 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso4_gpio045' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:323 */
+			kso4_gpio045: kso4_gpio045 {
+				pinmux = < 0x40168 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:324 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:325 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:326 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:327 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:328 */
+				phandle = < 0x22 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso5_gpio046' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:331 */
+			kso5_gpio046: kso5_gpio046 {
+				pinmux = < 0x40170 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:332 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:333 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:334 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:335 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:336 */
+				phandle = < 0x23 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso6_gpio047' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:339 */
+			kso6_gpio047: kso6_gpio047 {
+				pinmux = < 0x40178 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:340 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:341 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:342 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:343 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:344 */
+				phandle = < 0x24 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso7_gpio048' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:347 */
+			kso7_gpio048: kso7_gpio048 {
+				pinmux = < 0x40180 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:348 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:349 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:350 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:351 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:352 */
+				phandle = < 0x25 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso8_gpio049' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:355 */
+			kso8_gpio049: kso8_gpio049 {
+				pinmux = < 0x40188 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:356 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:357 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:358 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:359 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:360 */
+				phandle = < 0x26 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso9_gpio050' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:363 */
+			kso9_gpio050: kso9_gpio050 {
+				pinmux = < 0x40190 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:364 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:365 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:366 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:367 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:368 */
+				phandle = < 0x27 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso10_gpio051' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:371 */
+			kso10_gpio051: kso10_gpio051 {
+				pinmux = < 0x40198 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:372 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:373 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:374 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:375 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:376 */
+				phandle = < 0x28 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso11_gpio055' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:379 */
+			kso11_gpio055: kso11_gpio055 {
+				pinmux = < 0x401b8 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:380 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:381 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:382 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:383 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:384 */
+				phandle = < 0x29 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso12_gpio056' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:387 */
+			kso12_gpio056: kso12_gpio056 {
+				pinmux = < 0x401c0 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:388 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:389 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:390 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:391 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:392 */
+				phandle = < 0x2a >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso13_gpio057' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:395 */
+			kso13_gpio057: kso13_gpio057 {
+				pinmux = < 0x401c8 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:396 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:397 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:398 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:399 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:400 */
+				phandle = < 0x2b >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso14_gpio058' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:403 */
+			kso14_gpio058: kso14_gpio058 {
+				pinmux = < 0x401d0 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:404 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:405 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:406 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:407 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:408 */
+				phandle = < 0x2c >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso15_gpio059' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:411 */
+			kso15_gpio059: kso15_gpio059 {
+				pinmux = < 0x401d8 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:412 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:413 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:414 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:415 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:416 */
+				phandle = < 0x2d >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso0_sleep_gpio041' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:453 */
+			kso0_sleep_gpio041: kso0_sleep_gpio041 {
+				pinmux = < 0x40048 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:454 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:455 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:456 */
+				phandle = < 0x36 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso1_sleep_gpio042' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:458 */
+			kso1_sleep_gpio042: kso1_sleep_gpio042 {
+				pinmux = < 0x40050 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:459 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:460 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:461 */
+				phandle = < 0x37 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso2_sleep_gpio043' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:463 */
+			kso2_sleep_gpio043: kso2_sleep_gpio043 {
+				pinmux = < 0x40058 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:464 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:465 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:466 */
+				phandle = < 0x38 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso3_sleep_gpio044' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:468 */
+			kso3_sleep_gpio044: kso3_sleep_gpio044 {
+				pinmux = < 0x40060 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:469 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:470 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:471 */
+				phandle = < 0x39 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso4_sleep_gpio045' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:474 */
+			kso4_sleep_gpio045: kso4_sleep_gpio045 {
+				pinmux = < 0x40068 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:475 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:476 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:477 */
+				phandle = < 0x3a >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso5_sleep_gpio046' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:479 */
+			kso5_sleep_gpio046: kso5_sleep_gpio046 {
+				pinmux = < 0x40070 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:480 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:481 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:482 */
+				phandle = < 0x3b >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso6_sleep_gpio047' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:484 */
+			kso6_sleep_gpio047: kso6_sleep_gpio047 {
+				pinmux = < 0x40078 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:485 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:486 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:487 */
+				phandle = < 0x3c >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso7_sleep_gpio048' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:489 */
+			kso7_sleep_gpio048: kso7_sleep_gpio048 {
+				pinmux = < 0x40080 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:490 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:491 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:492 */
+				phandle = < 0x3d >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso8_sleep_gpio049' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:495 */
+			kso8_sleep_gpio049: kso8_sleep_gpio049 {
+				pinmux = < 0x40088 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:496 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:497 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:498 */
+				phandle = < 0x3e >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso9_sleep_gpio050' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:500 */
+			kso9_sleep_gpio050: kso9_sleep_gpio050 {
+				pinmux = < 0x40090 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:501 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:502 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:503 */
+				phandle = < 0x3f >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso10_sleep_gpio051' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:505 */
+			kso10_sleep_gpio051: kso10_sleep_gpio051 {
+				pinmux = < 0x40098 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:506 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:507 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:508 */
+				phandle = < 0x40 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso11_sleep_gpio055' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:510 */
+			kso11_sleep_gpio055: kso11_sleep_gpio055 {
+				pinmux = < 0x400b8 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:511 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:512 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:513 */
+				phandle = < 0x41 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso12_sleep_gpio056' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:516 */
+			kso12_sleep_gpio056: kso12_sleep_gpio056 {
+				pinmux = < 0x400c0 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:517 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:518 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:519 */
+				phandle = < 0x42 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso13_sleep_gpio057' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:521 */
+			kso13_sleep_gpio057: kso13_sleep_gpio057 {
+				pinmux = < 0x400c8 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:522 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:523 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:524 */
+				phandle = < 0x43 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso14_sleep_gpio058' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:526 */
+			kso14_sleep_gpio058: kso14_sleep_gpio058 {
+				pinmux = < 0x400d0 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:527 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:528 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:529 */
+				phandle = < 0x44 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/kso15_sleep_gpio059' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:531 */
+			kso15_sleep_gpio059: kso15_sleep_gpio059 {
+				pinmux = < 0x400d8 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:532 */
+				output-enable;        /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:533 */
+				output-low;           /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:534 */
+				phandle = < 0x45 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			};
+
+			/* node '/soc/pin-controller@40090000/ksi0_gpio064' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:559 */
+			ksi0_gpio064: ksi0_gpio064 {
+				pinmux = < 0x80100 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:560 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:561 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:562 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:563 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:564 */
+				phandle = < 0x2e >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/ksi1_gpio065' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:567 */
+			ksi1_gpio065: ksi1_gpio065 {
+				pinmux = < 0x80108 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:568 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:569 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:570 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:571 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:572 */
+				phandle = < 0x2f >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/ksi2_gpio066' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:575 */
+			ksi2_gpio066: ksi2_gpio066 {
+				pinmux = < 0x80110 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:576 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:577 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:578 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:579 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:580 */
+				phandle = < 0x30 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/ksi3_gpio067' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:583 */
+			ksi3_gpio067: ksi3_gpio067 {
+				pinmux = < 0x80118 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:584 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:585 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:586 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:587 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:588 */
+				phandle = < 0x31 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/ksi4_gpio068' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:591 */
+			ksi4_gpio068: ksi4_gpio068 {
+				pinmux = < 0x80120 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:592 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:593 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:594 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:595 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:596 */
+				phandle = < 0x32 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/ksi5_gpio069' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:599 */
+			ksi5_gpio069: ksi5_gpio069 {
+				pinmux = < 0x80128 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:600 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:601 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:602 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:603 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:604 */
+				phandle = < 0x33 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/ksi6_gpio070' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:607 */
+			ksi6_gpio070: ksi6_gpio070 {
+				pinmux = < 0x80130 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:608 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:609 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:610 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:611 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:612 */
+				phandle = < 0x34 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/ksi7_gpio071' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:615 */
+			ksi7_gpio071: ksi7_gpio071 {
+				pinmux = < 0x80138 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:616 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:617 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:618 */
+				bias-pull-up;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:619 */
+				drive-open-drain;     /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:620 */
+				phandle = < 0x35 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			};
+
+			/* node '/soc/pin-controller@40090000/tacho0_gpio052' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:780 */
+			tacho0_gpio052: tacho0_gpio052 {
+				pinmux = < 0x401a0 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:781 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:782 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:783 */
+				phandle = < 0x46 >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:85 */
+			};
+
+			/* node '/soc/pin-controller@40090000/uart0_rx_gpio113' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:818 */
+			uart_rx_gpio113: uart0_rx_gpio113 {
+				pinmux = < 0xc0188 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:819 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:820 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:821 */
+				phandle = < 0x1b >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:43 */
+			};
+
+			/* node '/soc/pin-controller@40090000/uart0_tx_gpio114' defined in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:824 */
+			uart_tx_gpio114: uart0_tx_gpio114 {
+				pinmux = < 0xc0190 >; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:825 */
+				input-enable;         /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:826 */
+				input-schmitt-enable; /* in zephyr/dts/arm/realtek/ec/rts5912-pinctrl.dtsi:827 */
+				phandle = < 0x1c >;   /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:43 */
+			};
+		};
+
+		/* node '/soc/watchdog@4000c000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:418 */
+		wdog: watchdog@4000c000 {
+			compatible = "realtek,rts5912-watchdog"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:419 */
+			reg = < 0x4000c000 0x14 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:420 */
+			interrupt-parent = < &nvic >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:421 */
+			interrupts = < 0xd1 0x0 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:422 */
+			clocks = < &sccon 0x7 0x1 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:423 */
+			clock-names = "watchdog";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:424 */
+			clk-divider = < 0x21 >;                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:425 */
+			status = "disabled";                     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:426 */
+		};
+
+		/* node '/soc/kbd@40010000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:429 */
+		kbd: kbd@40010000 {
+			compatible = "realtek,rts5912-kbd";                                                                               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:430 */
+			reg = < 0x40010000 0x10 >;                                                                                        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:431 */
+			clocks = < &sccon 0x5 0x6 >;                                                                                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:432 */
+			interrupts = < 0xd2 0x0 >;                                                                                        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:433 */
+			interrupt-parent = < &nvic >;                                                                                     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:434 */
+			status = "okay";                                                                                                  /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:49 */
+			pinctrl-0 = < &kso0_gpio041 &kso1_gpio042 &kso2_gpio043 &kso3_gpio044 &kso4_gpio045 &kso5_gpio046
+			              &kso6_gpio047 &kso7_gpio048 &kso8_gpio049 &kso9_gpio050 &kso10_gpio051 &kso11_gpio055
+			              &kso12_gpio056 &kso13_gpio057 &kso14_gpio058 &kso15_gpio059 &ksi0_gpio064 &ksi1_gpio065
+			              &ksi2_gpio066 &ksi3_gpio067 &ksi4_gpio068 &ksi5_gpio069 &ksi6_gpio070 &ksi7_gpio071 >;              /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:50 */
+			pinctrl-1 = < &kso0_sleep_gpio041 &kso1_sleep_gpio042 &kso2_sleep_gpio043 &kso3_sleep_gpio044 &kso4_sleep_gpio045
+			              &kso5_sleep_gpio046 &kso6_sleep_gpio047 &kso7_sleep_gpio048 &kso8_sleep_gpio049 &kso9_sleep_gpio050
+			              &kso10_sleep_gpio051 &kso11_sleep_gpio055 &kso12_sleep_gpio056 &kso13_sleep_gpio057
+			              &kso14_sleep_gpio058 &kso15_sleep_gpio059 &ksi0_gpio064 &ksi1_gpio065 &ksi2_gpio066
+			              &ksi3_gpio067 &ksi4_gpio068 &ksi5_gpio069 &ksi6_gpio070 &ksi7_gpio071 >;                            /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:62 */
+			pinctrl-names = "default",
+			                "sleep";                                                                                          /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:74 */
+			row-size = < 0x8 >;                                                                                               /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:75 */
+			col-size = < 0x10 >;                                                                                              /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:76 */
+		};
+
+		/* node '/soc/tach@4000fd00' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:438 */
+		tach0: tach@4000fd00 {
+			compatible = "realtek,rts5912-tach"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:439 */
+			reg = < 0x4000fd00 0x40 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:440 */
+			clocks = < &sccon 0x5 0x1 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:441 */
+			clock-names = "tacho";               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:442 */
+			interrupts = < 0xc0 0x0 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:443 */
+			status = "okay";                     /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:84 */
+			pinctrl-0 = < &tacho0_gpio052 >;     /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:85 */
+			pinctrl-names = "default";           /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:86 */
+			pulses-per-round = < 0x2 >;          /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:87 */
+		};
+
+		/* node '/soc/pwm@4000f000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:447 */
+		pwm0: pwm@4000f000 {
+			compatible = "realtek,rts5912-pwm"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:448 */
+			clocks = < &sccon 0x5 0xa >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:449 */
+			reg = < 0x4000f000 0xc >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:450 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:451 */
+			#pwm-cells = < 0x3 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:452 */
+		};
+
+		/* node '/soc/pwm@4000f00c' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:455 */
+		pwm1: pwm@4000f00c {
+			compatible = "realtek,rts5912-pwm"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:456 */
+			clocks = < &sccon 0x5 0xb >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:457 */
+			reg = < 0x4000f00c 0xc >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:458 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:459 */
+			#pwm-cells = < 0x3 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:460 */
+		};
+
+		/* node '/soc/pwm@4000f018' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:463 */
+		pwm2: pwm@4000f018 {
+			compatible = "realtek,rts5912-pwm"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:464 */
+			clocks = < &sccon 0x5 0xc >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:465 */
+			reg = < 0x4000f018 0xc >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:466 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:467 */
+			#pwm-cells = < 0x3 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:468 */
+		};
+
+		/* node '/soc/pwm@4000f024' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:471 */
+		pwm3: pwm@4000f024 {
+			compatible = "realtek,rts5912-pwm"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:472 */
+			clocks = < &sccon 0x5 0xd >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:473 */
+			reg = < 0x4000f024 0xc >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:474 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:475 */
+			#pwm-cells = < 0x3 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:476 */
+		};
+
+		/* node '/soc/pwm@4000f030' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:479 */
+		pwm4: pwm@4000f030 {
+			compatible = "realtek,rts5912-pwm"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:480 */
+			clocks = < &sccon 0x5 0xe >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:481 */
+			reg = < 0x4000f030 0xc >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:482 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:483 */
+			#pwm-cells = < 0x3 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:484 */
+		};
+
+		/* node '/soc/pwm@4000f03c' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:487 */
+		pwm5: pwm@4000f03c {
+			compatible = "realtek,rts5912-pwm"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:488 */
+			clocks = < &sccon 0x5 0xf >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:489 */
+			reg = < 0x4000f03c 0xc >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:490 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:491 */
+			#pwm-cells = < 0x3 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:492 */
+		};
+
+		/* node '/soc/pwm@4000f048' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:495 */
+		pwm6: pwm@4000f048 {
+			compatible = "realtek,rts5912-pwm"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:496 */
+			clocks = < &sccon 0x5 0x10 >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:497 */
+			reg = < 0x4000f048 0xc >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:498 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:499 */
+			#pwm-cells = < 0x3 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:500 */
+		};
+
+		/* node '/soc/pwm@4000f054' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:503 */
+		pwm7: pwm@4000f054 {
+			compatible = "realtek,rts5912-pwm"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:504 */
+			clocks = < &sccon 0x5 0x11 >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:505 */
+			reg = < 0x4000f054 0xc >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:506 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:507 */
+			#pwm-cells = < 0x3 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:508 */
+		};
+
+		/* node '/soc/flash-controller@40010200' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:511 */
+		flash_controller: flash-controller@40010200 {
+			compatible = "realtek,rts5912-flash-controller"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:512 */
+			reg = < 0x40010200 0x200 >;                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:513 */
+			#address-cells = < 0x1 >;                        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:514 */
+			#size-cells = < 0x1 >;                           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:515 */
+
+			/* node '/soc/flash-controller@40010200/eflash@60000000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:517 */
+			eflash: eflash@60000000 {
+				compatible = "soc-nv-flash";   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:518 */
+				reg = < 0x60000000 0x100000 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:519 */
+				erase-block-size = < 0x1000 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:520 */
+				write-block-size = < 0x4 >;    /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:521 */
+			};
+		};
+
+		/* node '/soc/i2c@4000d000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:525 */
+		i2c_0: i2c@4000d000 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:526 */
+			reg = < 0x4000d000 0x154 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:527 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:528 */
+			interrupt-parent = < &nvic >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:529 */
+			interrupts = < 0xb6 0x1 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:530 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:531 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:532 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:533 */
+			lcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:534 */
+			hcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:535 */
+			phandle = < 0x48 >;                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:639 */
+		};
+
+		/* node '/soc/i2c@4000d200' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:538 */
+		i2c_1: i2c@4000d200 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:539 */
+			reg = < 0x4000d200 0x154 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:540 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:541 */
+			interrupt-parent = < &nvic >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:542 */
+			interrupts = < 0xb7 0x1 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:543 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:544 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:545 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:546 */
+			lcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:547 */
+			hcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:548 */
+			phandle = < 0x49 >;                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:647 */
+		};
+
+		/* node '/soc/i2c@4000d400' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:551 */
+		i2c_2: i2c@4000d400 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:552 */
+			reg = < 0x4000d400 0x154 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:553 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:554 */
+			interrupt-parent = < &nvic >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:555 */
+			interrupts = < 0xb8 0x1 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:556 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:557 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:558 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:559 */
+			lcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:560 */
+			hcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:561 */
+			phandle = < 0x4a >;                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:655 */
+		};
+
+		/* node '/soc/i2c@4000d600' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:564 */
+		i2c_3: i2c@4000d600 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:565 */
+			reg = < 0x4000d600 0x154 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:566 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:567 */
+			interrupt-parent = < &nvic >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:568 */
+			interrupts = < 0xb9 0x1 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:569 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:570 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:571 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:572 */
+			lcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:573 */
+			hcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:574 */
+			phandle = < 0x4b >;                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:663 */
+		};
+
+		/* node '/soc/i2c@4000d800' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:577 */
+		i2c_4: i2c@4000d800 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:578 */
+			reg = < 0x4000d800 0x154 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:579 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:580 */
+			interrupt-parent = < &nvic >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:581 */
+			interrupts = < 0xba 0x1 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:582 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:583 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:584 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:585 */
+			lcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:586 */
+			hcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:587 */
+			phandle = < 0x4c >;                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:671 */
+		};
+
+		/* node '/soc/i2c@4000da00' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:590 */
+		i2c_5: i2c@4000da00 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:591 */
+			reg = < 0x4000da00 0x154 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:592 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:593 */
+			interrupt-parent = < &nvic >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:594 */
+			interrupts = < 0xbb 0x1 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:595 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:596 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:597 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:598 */
+			lcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:599 */
+			hcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:600 */
+			phandle = < 0x4d >;                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:679 */
+		};
+
+		/* node '/soc/i2c@4000dc00' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:603 */
+		i2c_6: i2c@4000dc00 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:604 */
+			reg = < 0x4000dc00 0x154 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:605 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:606 */
+			interrupt-parent = < &nvic >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:607 */
+			interrupts = < 0xbc 0x1 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:608 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:609 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:610 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:611 */
+			lcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:612 */
+			hcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:613 */
+			phandle = < 0x4e >;                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:687 */
+		};
+
+		/* node '/soc/i2c@4000de00' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:616 */
+		i2c_7: i2c@4000de00 {
+			compatible = "snps,designware-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:617 */
+			reg = < 0x4000de00 0x154 >;         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:618 */
+			clock-frequency = < 0x186a0 >;      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:619 */
+			interrupt-parent = < &nvic >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:620 */
+			interrupts = < 0xbd 0x1 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:621 */
+			status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:622 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:623 */
+			#size-cells = < 0x0 >;              /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:624 */
+			lcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:625 */
+			hcnt-offset = < 0x23 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:626 */
+			phandle = < 0x4f >;                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:695 */
+		};
+
+		/* node '/soc/crypto@40000000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:629 */
+		sha0: crypto@40000000 {
+			compatible = "realtek,rts5912-sha";         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:630 */
+			reg = < 0x40000000 0x40 0x40001000 0x3a4 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:631 */
+			reg-names = "sha2",
+			            "sha2dma";                      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:632 */
+			status = "disabled";                        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:633 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:19 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:20 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:21 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:23 */
+		cpu0: cpu@0 {
+			compatible = "arm,cortex-m33f"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:24 */
+			reg = < 0x0 >;                  /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:25 */
+			cpu-power-states = < &idle >;   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:26 */
+		};
+
+		/* node '/cpus/power-states' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:29 */
+		power-states {
+
+			/* node '/cpus/power-states/idle' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:30 */
+			idle: idle {
+				compatible = "zephyr,power-state";    /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:31 */
+				power-state-name = "suspend-to-idle"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:32 */
+				min-residency-us = < 0x5f5e100 >;     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:33 */
+				phandle = < 0x47 >;                   /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:26 */
+			};
+		};
+	};
+
+	/* node '/flash@2000B400' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:38 */
+	flash0: flash@2000B400 {
+		reg = < 0x2000b400 0x40000 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:39 */
+	};
+
+	/* node '/memory@20050000' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:42 */
+	sram0: memory@20050000 {
+		compatible = "mmio-sram";     /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:43 */
+		reg = < 0x20050000 0x10000 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:44 */
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:47 */
+	clocks {
+
+		/* node '/clocks/rc25m' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:48 */
+		rc25m: rc25m {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:49 */
+			clock-frequency = < 0x17d7840 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:50 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:51 */
+			phandle = < 0x2 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:78 */
+		};
+
+		/* node '/clocks/pll' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:54 */
+		pll: pll {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:55 */
+			clock-frequency = < 0x5f5e100 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:56 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:57 */
+			phandle = < 0x3 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:78 */
+		};
+	};
+
+	/* node '/i2c_0_wrapper' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:637 */
+	i2c_0_wrapper: i2c_0_wrapper {
+		compatible = "realtek,rts5912-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:638 */
+		dw-i2c-dev = < &i2c_0 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:639 */
+		clocks = < &sccon 0x2 0x0 >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:640 */
+		clock-names = "i2c";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:641 */
+		status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:642 */
+	};
+
+	/* node '/i2c_1_wrapper' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:645 */
+	i2c_1_wrapper: i2c_1_wrapper {
+		compatible = "realtek,rts5912-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:646 */
+		dw-i2c-dev = < &i2c_1 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:647 */
+		clocks = < &sccon 0x2 0x4 >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:648 */
+		clock-names = "i2c";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:649 */
+		status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:650 */
+	};
+
+	/* node '/i2c_2_wrapper' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:653 */
+	i2c_2_wrapper: i2c_2_wrapper {
+		compatible = "realtek,rts5912-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:654 */
+		dw-i2c-dev = < &i2c_2 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:655 */
+		clocks = < &sccon 0x2 0x8 >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:656 */
+		clock-names = "i2c";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:657 */
+		status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:658 */
+	};
+
+	/* node '/i2c_3_wrapper' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:661 */
+	i2c_3_wrapper: i2c_3_wrapper {
+		compatible = "realtek,rts5912-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:662 */
+		dw-i2c-dev = < &i2c_3 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:663 */
+		clocks = < &sccon 0x2 0xc >;        /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:664 */
+		clock-names = "i2c";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:665 */
+		status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:666 */
+	};
+
+	/* node '/i2c_4_wrapper' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:669 */
+	i2c_4_wrapper: i2c_4_wrapper {
+		compatible = "realtek,rts5912-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:670 */
+		dw-i2c-dev = < &i2c_4 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:671 */
+		clocks = < &sccon 0x2 0x10 >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:672 */
+		clock-names = "i2c";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:673 */
+		status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:674 */
+	};
+
+	/* node '/i2c_5_wrapper' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:677 */
+	i2c_5_wrapper: i2c_5_wrapper {
+		compatible = "realtek,rts5912-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:678 */
+		dw-i2c-dev = < &i2c_5 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:679 */
+		clocks = < &sccon 0x2 0x14 >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:680 */
+		clock-names = "i2c";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:681 */
+		status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:682 */
+	};
+
+	/* node '/i2c_6_wrapper' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:685 */
+	i2c_6_wrapper: i2c_6_wrapper {
+		compatible = "realtek,rts5912-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:686 */
+		dw-i2c-dev = < &i2c_6 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:687 */
+		clocks = < &sccon 0x2 0x18 >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:688 */
+		clock-names = "i2c";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:689 */
+		status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:690 */
+	};
+
+	/* node '/i2c_7_wrapper' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:693 */
+	i2c_7_wrapper: i2c_7_wrapper {
+		compatible = "realtek,rts5912-i2c"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:694 */
+		dw-i2c-dev = < &i2c_7 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:695 */
+		clocks = < &sccon 0x2 0x1c >;       /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:696 */
+		clock-names = "i2c";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:697 */
+		status = "disabled";                /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:698 */
+	};
+
+	/* node '/swj-port' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:701 */
+	swj_port: swj-port {
+		compatible = "swj-connector";                                                                         /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:702 */
+		pinctrl-0 = < &jtag_tdi_gpio87 &jtag_tdo_gpio88 &jtag_rst_gpio89 &jtag_clk_gpio90 &jtag_tms_gpio91 >; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:703 */
+		pinctrl-names = "default";                                                                            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:705 */
+		status = "okay";                                                                                      /* in zephyr/boards/realtek/rts5912_evb/rts5912_evb.dts:80 */
+	};
+
+	/* node '/ulpm' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:708 */
+	ulpm: ulpm {
+		compatible = "realtek,rts5912-ulpm"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:709 */
+		wkup-pins-max = < 0x6 >;             /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:710 */
+		status = "disabled";                 /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:711 */
+		#address-cells = < 0x1 >;            /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:713 */
+		#size-cells = < 0x0 >;               /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:714 */
+
+		/* node '/ulpm/wkup-pin@0' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:716 */
+		wkup-pin@0 {
+			reg = < 0x0 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:717 */
+			wkup-pin-mode = "gpio"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:718 */
+		};
+
+		/* node '/ulpm/wkup-pin@1' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:721 */
+		wkup-pin@1 {
+			reg = < 0x1 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:722 */
+			wkup-pin-mode = "gpio"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:723 */
+		};
+
+		/* node '/ulpm/wkup-pin@2' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:726 */
+		wkup-pin@2 {
+			reg = < 0x2 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:727 */
+			wkup-pin-mode = "gpio"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:728 */
+		};
+
+		/* node '/ulpm/wkup-pin@3' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:731 */
+		wkup-pin@3 {
+			reg = < 0x3 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:732 */
+			wkup-pin-mode = "gpio"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:733 */
+		};
+
+		/* node '/ulpm/wkup-pin@4' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:736 */
+		wkup-pin@4 {
+			reg = < 0x4 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:737 */
+			wkup-pin-mode = "gpio"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:738 */
+		};
+
+		/* node '/ulpm/wkup-pin@5' defined in zephyr/dts/arm/realtek/ec/rts5912.dtsi:741 */
+		wkup-pin@5 {
+			reg = < 0x5 >;          /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:742 */
+			wkup-pin-mode = "gpio"; /* in zephyr/dts/arm/realtek/ec/rts5912.dtsi:743 */
+		};
+	};
+};

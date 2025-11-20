@@ -1,0 +1,130 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:10 */
+	#size-cells = < 0x1 >;                   /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:11 */
+	model = "Renode RISCV32 Virtual target"; /* in zephyr/boards/renode/riscv32_virtual/riscv32_virtual.dts:12 */
+	compatible = "renode,riscv32-virtual";   /* in zephyr/boards/renode/riscv32_virtual/riscv32_virtual.dts:13 */
+
+	/* node '/cpus' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:13 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:14 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:15 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:17 */
+		cpu@0 {
+			clock-frequency = < 0x0 >;             /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:18 */
+			compatible = "renode,virt",
+			             "riscv";                  /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:19 */
+			device_type = "cpu";                   /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:20 */
+			reg = < 0x0 >;                         /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:21 */
+			riscv,isa = "rv32imac_zicsr_zifencei"; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:22 */
+
+			/* node '/cpus/cpu@0/interrupt-controller' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:24 */
+			hlic: interrupt-controller {
+				compatible = "riscv,cpu-intc"; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:25 */
+				#address-cells = < 0x0 >;      /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:26 */
+				#interrupt-cells = < 0x1 >;    /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:27 */
+				interrupt-controller;          /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:28 */
+				phandle = < 0x1 >;             /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:51 */
+			};
+		};
+	};
+
+	/* node '/soc' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:33 */
+	soc {
+		#address-cells = < 0x1 >;       /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:34 */
+		#size-cells = < 0x1 >;          /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:35 */
+		compatible = "renode,virt-soc",
+		             "simple-bus";      /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:36 */
+		ranges;                         /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:37 */
+
+		/* node '/soc/flash@80000000' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:39 */
+		flash0: flash@80000000 {
+			compatible = "soc-nv-flash";   /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:40 */
+			reg = < 0x80000000 0x400000 >; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:41 */
+		};
+
+		/* node '/soc/memory@80400000' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:44 */
+		sram0: memory@80400000 {
+			compatible = "mmio-sram";      /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:45 */
+			reg = < 0x80400000 0x400000 >; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:46 */
+		};
+
+		/* node '/soc/clint@2000000' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:49 */
+		clint: clint@2000000 {
+			compatible = "sifive,clint0";        /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:50 */
+			interrupts-extended = < &hlic 0x3 >,
+			                      < &hlic 0x7 >; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:51 */
+			reg = < 0x2000000 0x10000 >;         /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:52 */
+		};
+
+		/* node '/soc/timer@200bff8' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:55 */
+		mtimer: timer@200bff8 {
+			compatible = "riscv,machine-timer";    /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:56 */
+			interrupts-extended = < &hlic 0x7 >;   /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:57 */
+			reg = < 0x200bff8 0x8 0x2004000 0x8 >; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:58 */
+			reg-names = "mtime",
+			            "mtimecmp";                /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:59 */
+		};
+
+		/* node '/soc/interrupt-controller@c000000' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:62 */
+		plic0: interrupt-controller@c000000 {
+			compatible = "sifive,plic-1.0.0";    /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:63 */
+			#address-cells = < 0x0 >;            /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:64 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:65 */
+			interrupt-controller;                /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:66 */
+			interrupts-extended = < &hlic 0xb >; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:67 */
+			reg = < 0xc000000 0x4000000 >;       /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:68 */
+			riscv,max-priority = < 0x1 >;        /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:69 */
+			riscv,ndev = < 0x3ff >;              /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:70 */
+			phandle = < 0x2 >;                   /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:86 */
+		};
+
+		/* node '/soc/interrupt-controller@8000000' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:73 */
+		plic1: interrupt-controller@8000000 {
+			compatible = "sifive,plic-1.0.0";    /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:74 */
+			#address-cells = < 0x0 >;            /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:75 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:76 */
+			interrupt-controller;                /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:77 */
+			interrupts-extended = < &hlic 0x4 >; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:78 */
+			reg = < 0x8000000 0x4000000 >;       /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:79 */
+			riscv,max-priority = < 0x1 >;        /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:80 */
+			riscv,ndev = < 0x3ff >;              /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:81 */
+			phandle = < 0x3 >;                   /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:97 */
+		};
+
+		/* node '/soc/uart@10000000' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:84 */
+		uart0: uart@10000000 {
+			interrupts = < 0xa 0x1 >;        /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:85 */
+			interrupt-parent = < &plic0 >;   /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:86 */
+			clock-frequency = < 0x8f0d180 >; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:87 */
+			current-speed = < 0x1c200 >;     /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:88 */
+			reg = < 0x10000000 0x100 >;      /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:89 */
+			compatible = "ns16550";          /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:90 */
+			reg-shift = < 0x0 >;             /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:91 */
+			status = "okay";                 /* in zephyr/boards/renode/riscv32_virtual/riscv32_virtual.dts:24 */
+		};
+
+		/* node '/soc/uart@10000100' defined in zephyr/dts/riscv/renode_riscv32_virt.dtsi:95 */
+		uart1: uart@10000100 {
+			interrupts = < 0xa 0x1 >;        /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:96 */
+			interrupt-parent = < &plic1 >;   /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:97 */
+			clock-frequency = < 0x8f0d180 >; /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:98 */
+			current-speed = < 0x1c200 >;     /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:99 */
+			reg = < 0x10000100 0x100 >;      /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:100 */
+			compatible = "ns16550";          /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:101 */
+			reg-shift = < 0x0 >;             /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:102 */
+			status = "disabled";             /* in zephyr/dts/riscv/renode_riscv32_virt.dtsi:103 */
+		};
+	};
+
+	/* node '/chosen' defined in zephyr/boards/renode/riscv32_virtual/riscv32_virtual.dts:15 */
+	chosen {
+		zephyr,console = &uart0;    /* in zephyr/boards/renode/riscv32_virtual/riscv32_virtual.dts:16 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/renode/riscv32_virtual/riscv32_virtual.dts:17 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/renode/riscv32_virtual/riscv32_virtual.dts:18 */
+		zephyr,sram = &sram0;       /* in zephyr/boards/renode/riscv32_virtual/riscv32_virtual.dts:19 */
+	};
+};

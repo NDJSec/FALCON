@@ -1,0 +1,101 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:7 */
+/ {
+	#address-cells = < 0x1 >;                    /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:8 */
+	#size-cells = < 0x1 >;                       /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:9 */
+	model = "Microchip M2GL025 with MiV target"; /* in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:12 */
+	compatible = "microchip,m2gl025-miv";        /* in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:13 */
+
+	/* node '/cpus' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:11 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:12 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:13 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:15 */
+		cpu@0 {
+			clock-frequency = < 0x0 >;            /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:16 */
+			compatible = "microchip,miv",
+			             "riscv";                 /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:17 */
+			device_type = "cpu";                  /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:18 */
+			reg = < 0x0 >;                        /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:19 */
+			riscv,isa = "rv32ima_zicsr_zifencei"; /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:20 */
+
+			/* node '/cpus/cpu@0/interrupt-controller' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:22 */
+			hlic: interrupt-controller {
+				compatible = "riscv,cpu-intc"; /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:23 */
+				#address-cells = < 0x0 >;      /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:24 */
+				#interrupt-cells = < 0x1 >;    /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:25 */
+				interrupt-controller;          /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:26 */
+				phandle = < 0x1 >;             /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:49 */
+			};
+		};
+	};
+
+	/* node '/soc' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:31 */
+	soc {
+		#address-cells = < 0x1 >;         /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:32 */
+		#size-cells = < 0x1 >;            /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:33 */
+		compatible = "microchip,miv-soc",
+		             "simple-bus";        /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:34 */
+		ranges;                           /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:35 */
+
+		/* node '/soc/flash@80000000' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:37 */
+		flash0: flash@80000000 {
+			compatible = "soc-nv-flash";  /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:38 */
+			reg = < 0x80000000 0x40000 >; /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:39 */
+		};
+
+		/* node '/soc/memory@80040000' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:42 */
+		sram0: memory@80040000 {
+			compatible = "mmio-sram";     /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:43 */
+			reg = < 0x80040000 0x40000 >; /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:44 */
+		};
+
+		/* node '/soc/clint@44000000' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:47 */
+		clint: clint@44000000 {
+			compatible = "sifive,clint0";        /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:48 */
+			interrupts-extended = < &hlic 0x3 >,
+			                      < &hlic 0x7 >; /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:49 */
+			reg = < 0x44000000 0x10000 >;        /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:50 */
+		};
+
+		/* node '/soc/timer@4400bff8' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:53 */
+		mtimer: timer@4400bff8 {
+			compatible = "riscv,machine-timer";      /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:54 */
+			interrupts-extended = < &hlic 0x7 >;     /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:55 */
+			reg = < 0x4400bff8 0x8 0x44004000 0x8 >; /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:56 */
+			reg-names = "mtime",
+			            "mtimecmp";                  /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:57 */
+		};
+
+		/* node '/soc/interrupt-controller@40000000' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:60 */
+		plic: interrupt-controller@40000000 {
+			compatible = "sifive,plic-1.0.0";    /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:61 */
+			#address-cells = < 0x0 >;            /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:62 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:63 */
+			interrupt-controller;                /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:64 */
+			interrupts-extended = < &hlic 0xb >; /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:65 */
+			reg = < 0x40000000 0x4000000 >;      /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:66 */
+			riscv,max-priority = < 0x1 >;        /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:67 */
+			riscv,ndev = < 0x1f >;               /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:68 */
+		};
+
+		/* node '/soc/uart@70001000' defined in zephyr/dts/riscv/microchip/microchip-miv.dtsi:71 */
+		uart0: uart@70001000 {
+			compatible = "microchip,coreuart"; /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:72 */
+			reg = < 0x70001000 0x1000 >;       /* in zephyr/dts/riscv/microchip/microchip-miv.dtsi:73 */
+			status = "okay";                   /* in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:24 */
+			current-speed = < 0x1c200 >;       /* in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:25 */
+			clock-frequency = < 0x3ef1480 >;   /* in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:26 */
+		};
+	};
+
+	/* node '/chosen' defined in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:15 */
+	chosen {
+		zephyr,console = &uart0;    /* in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:16 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:17 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:18 */
+		zephyr,sram = &sram0;       /* in zephyr/boards/microchip/m2gl025_miv/m2gl025_miv.dts:19 */
+	};
+};

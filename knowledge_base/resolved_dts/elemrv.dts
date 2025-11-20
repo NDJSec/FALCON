@@ -1,0 +1,117 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/riscv/aesc/nitrogen.dtsi:11 */
+/ {
+	#address-cells = < 0x1 >;     /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:10 */
+	#size-cells = < 0x1 >;        /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:11 */
+	model = "ElemRV-N";           /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:12 */
+	compatible = "aesc,elemrv-n"; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:13 */
+
+	/* node '/cpus' defined in zephyr/dts/riscv/aesc/nitrogen.dtsi:15 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:16 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:17 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/riscv/aesc/nitrogen.dtsi:19 */
+		cpu0: cpu@0 {
+			compatible = "litex,vexriscv-standard"; /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:20 */
+			device_type = "cpu";                    /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:21 */
+			reg = < 0x0 >;                          /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:22 */
+			riscv,isa = "rv32imc";                  /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:23 */
+			status = "okay";                        /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:24 */
+			clock-frequency = < 0x1312d00 >;        /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:56 */
+
+			/* node '/cpus/cpu@0/interrupt-controller' defined in zephyr/dts/riscv/aesc/nitrogen.dtsi:26 */
+			hlic: interrupt-controller {
+				compatible = "riscv,cpu-intc"; /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:27 */
+				#address-cells = < 0x0 >;      /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:28 */
+				#interrupt-cells = < 0x1 >;    /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:29 */
+				interrupt-controller;          /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:30 */
+				phandle = < 0x1 >;             /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:45 */
+			};
+		};
+	};
+
+	/* node '/soc' defined in zephyr/dts/riscv/aesc/nitrogen.dtsi:35 */
+	soc {
+		#address-cells = < 0x1 >;         /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:14 */
+		#size-cells = < 0x1 >;            /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:15 */
+		compatible = "aesc,elemrv-n-soc",
+		             "simple-bus";        /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:16 */
+		ranges;                           /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:17 */
+
+		/* node '/soc/machine-timer@f0020000' defined in zephyr/dts/riscv/aesc/nitrogen.dtsi:41 */
+		mtimer: machine-timer@f0020000 {
+			compatible = "riscv,machine-timer";      /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:42 */
+			reg = < 0xf0020000 0x8 0xf0020008 0x8 >; /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:43 */
+			reg-names = "mtime",
+			            "mtimecmp";                  /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:44 */
+			interrupts-extended = < &hlic 0x7 >;     /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:45 */
+			status = "okay";                         /* in zephyr/dts/riscv/aesc/nitrogen.dtsi:46 */
+		};
+
+		/* node '/soc/gpio@f0000000' defined in zephyr/dts/riscv/aesc/elemrv-n.dtsi:19 */
+		gpio0: gpio@f0000000 {
+			compatible = "aesc,gpio";    /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:20 */
+			reg = < 0xf0000000 0x1000 >; /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:21 */
+			gpio-controller;             /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:22 */
+			#gpio-cells = < 0x2 >;       /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:23 */
+			ngpios = < 0xc >;            /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:24 */
+			status = "okay";             /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:60 */
+			phandle = < 0x2 >;           /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:30 */
+		};
+
+		/* node '/soc/uart0@f0006000' defined in zephyr/dts/riscv/aesc/elemrv-n.dtsi:28 */
+		uart0: uart0@f0006000 {
+			compatible = "aesc,uart";        /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:29 */
+			reg = < 0xf0006000 0x1000 >;     /* in zephyr/dts/riscv/aesc/elemrv-n.dtsi:30 */
+			clock-frequency = < 0x1312d00 >; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:64 */
+			current-speed = < 0x1c200 >;     /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:65 */
+			status = "okay";                 /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:66 */
+		};
+
+		/* node '/soc/memory@80000000' defined in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:36 */
+		ocram: memory@80000000 {
+			device_type = "memory";     /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:37 */
+			compatible = "mmio-sram";   /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:38 */
+			reg = < 0x80000000 0x400 >; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:39 */
+		};
+
+		/* node '/soc/memory@90000000' defined in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:42 */
+		hyperbus: memory@90000000 {
+			device_type = "memory";      /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:43 */
+			compatible = "mmio-sram";    /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:44 */
+			reg = < 0x90000000 0x8000 >; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:45 */
+		};
+
+		/* node '/soc/flash@a0010000' defined in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:48 */
+		flash: flash@a0010000 {
+			compatible = "soc-nv-flash"; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:49 */
+			reg = < 0xa0010000 0x8000 >; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:50 */
+		};
+	};
+
+	/* node '/aliases' defined in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:15 */
+	aliases {
+		led0 = &led0; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:16 */
+	};
+
+	/* node '/chosen' defined in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:19 */
+	chosen {
+		zephyr,console = &uart0;    /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:20 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:21 */
+		zephyr,sram = &hyperbus;    /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:22 */
+		zephyr,flash = &flash;      /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:23 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:26 */
+	leds: leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:27 */
+
+		/* node '/leds/led0' defined in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:29 */
+		led0: led0 {
+			gpios = < &gpio0 0x0 0x0 >; /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:30 */
+			label = "LED_0";            /* in zephyr/boards/aesc/elemrv/elemrv_elemrv_n.dts:31 */
+		};
+	};
+};

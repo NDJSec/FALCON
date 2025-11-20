@@ -1,0 +1,1182 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;        /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;           /* in zephyr/dts/common/skeleton.dtsi:11 */
+	compatible = "renesas,ra4m1",
+	             "renesas,ra";       /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:16 */
+	model = "Arduino Uno R4 Minima"; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:14 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,console = &uart2;                 /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:19 */
+		zephyr,shell-uart = &uart2;              /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:20 */
+		zephyr,sram = &sram0;                    /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:21 */
+		zephyr,flash = &flash0;                  /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:22 */
+		zephyr,entropy = &trng;                  /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:23 */
+		zephyr,code-partition = &code_partition; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:24 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led;         /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:35 */
+		pwm-led0 = &pwm_led; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:36 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x4 >; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:526 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/system@4001e000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:33 */
+		system: system@4001e000 {
+			compatible = "renesas,ra-system"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:34 */
+			reg = < 0x4001e000 0x1000 >;      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:35 */
+			status = "okay";                  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:36 */
+		};
+
+		/* node '/soc/elc@40041000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:39 */
+		elc: elc@40041000 {
+			compatible = "renesas,ra-elc"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:40 */
+			reg = < 0x40041000 0x70 >;     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:41 */
+			#renesas-elc-cells = < 0x2 >;  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:42 */
+			clocks = < &pclkb 0x2 0xe >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:43 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:44 */
+		};
+
+		/* node '/soc/flash-controller@407e0000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:47 */
+		flash: flash-controller@407e0000 {
+			compatible = "renesas,ra-flash-lp-controller"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:48 */
+			reg = < 0x407e0000 0x10000 >;                  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:49 */
+			#address-cells = < 0x1 >;                      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:50 */
+			#size-cells = < 0x1 >;                         /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:51 */
+			interrupts = < 0x17 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:52 */
+			interrupt-names = "frdyi";                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:53 */
+			flash-hardware-version = < 0x3 >;              /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:18 */
+			#erase-block-cells = < 0x2 >;                  /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:19 */
+			phandle = < 0x3 >;                             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:26 */
+
+			/* node '/soc/flash-controller@407e0000/flash@0' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:21 */
+			flash0: flash@0 {
+				compatible = "renesas,ra-nv-code-flash"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:22 */
+				reg = < 0x0 0x40000 >;                   /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:23 */
+				write-block-size = < 0x8 >;              /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:24 */
+				erase-block-size = < 0x800 >;            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:25 */
+				erase-blocks = < &flash 0x80 0x800 >;    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:26 */
+				programming-enable;                      /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:27 */
+
+				/* node '/soc/flash-controller@407e0000/flash@0/partitions' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:93 */
+				partitions {
+					compatible = "fixed-partitions"; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:94 */
+					#address-cells = < 0x1 >;        /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:95 */
+					#size-cells = < 0x1 >;           /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:96 */
+
+					/* node '/soc/flash-controller@407e0000/flash@0/partitions/partition@0' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:98 */
+					boot_partition: partition@0 {
+						label = "bootloader"; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:99 */
+						reg = < 0x0 0x4000 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:100 */
+						read-only;            /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:101 */
+					};
+
+					/* node '/soc/flash-controller@407e0000/flash@0/partitions/partition@4000' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:104 */
+					code_partition: partition@4000 {
+						label = "code";           /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:105 */
+						reg = < 0x4000 0x3c000 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:106 */
+						read-only;                /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:107 */
+					};
+				};
+			};
+
+			/* node '/soc/flash-controller@407e0000/flash@40100000' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:30 */
+			flash1: flash@40100000 {
+				compatible = "renesas,ra-nv-data-flash"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:31 */
+				reg = < 0x40100000 0x2000 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:32 */
+				write-block-size = < 0x1 >;              /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:33 */
+				erase-block-size = < 0x400 >;            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:34 */
+				programming-enable;                      /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ab3cfm.dtsi:35 */
+			};
+		};
+
+		/* node '/soc/gpio@40040000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:56 */
+		ioport0: gpio@40040000 {
+			compatible = "renesas,ra-gpio-ioport";                                               /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:57 */
+			reg = < 0x40040000 0x20 >;                                                           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:58 */
+			port = < 0x0 >;                                                                      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:59 */
+			gpio-controller;                                                                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:60 */
+			#gpio-cells = < 0x2 >;                                                               /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:61 */
+			ngpios = < 0x10 >;                                                                   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:62 */
+			port-irqs = < &port_irq2 &port_irq3 &port_irq6 &port_irq7 &port_irq10 &port_irq15 >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:253 */
+			port-irq-names = "port-irq2",
+			                 "port-irq3",
+			                 "port-irq6",
+			                 "port-irq7",
+			                 "port-irq10",
+			                 "port-irq15";                                                       /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:255 */
+			port-irq2-pins = < 0x2 >;                                                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:261 */
+			port-irq3-pins = < 0x4 >;                                                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:262 */
+			port-irq6-pins = < 0x0 >;                                                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:263 */
+			port-irq7-pins = < 0x1 0xf >;                                                        /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:264 */
+			port-irq10-pins = < 0x5 >;                                                           /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:265 */
+			port-irq15-pins = < 0xb >;                                                           /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:266 */
+			status = "okay";                                                                     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:42 */
+			phandle = < 0x1e >;                                                                  /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:44 */
+		};
+
+		/* node '/soc/gpio@40040020' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:66 */
+		ioport1: gpio@40040020 {
+			compatible = "renesas,ra-gpio-ioport";                                  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:67 */
+			reg = < 0x40040020 0x20 >;                                              /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:68 */
+			port = < 0x1 >;                                                         /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:69 */
+			gpio-controller;                                                        /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:70 */
+			#gpio-cells = < 0x2 >;                                                  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:71 */
+			ngpios = < 0x10 >;                                                      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:72 */
+			port-irqs = < &port_irq0 &port_irq1 &port_irq2 &port_irq3 &port_irq4 >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:270 */
+			port-irq-names = "port-irq0",
+			                 "port-irq1",
+			                 "port-irq2",
+			                 "port-irq3",
+			                 "port-irq4";                                           /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:272 */
+			port-irq0-pins = < 0x5 >;                                               /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:277 */
+			port-irq1-pins = < 0x1 0x4 >;                                           /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:278 */
+			port-irq2-pins = < 0x0 >;                                               /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:279 */
+			port-irq3-pins = < 0xa >;                                               /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:280 */
+			port-irq4-pins = < 0xb >;                                               /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:281 */
+			status = "okay";                                                        /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:46 */
+			phandle = < 0x1f >;                                                     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:44 */
+		};
+
+		/* node '/soc/gpio@40040040' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:76 */
+		ioport2: gpio@40040040 {
+			compatible = "renesas,ra-gpio-ioport";                       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:77 */
+			reg = < 0x40040040 0x20 >;                                   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:78 */
+			port = < 0x2 >;                                              /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:79 */
+			gpio-controller;                                             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:80 */
+			#gpio-cells = < 0x2 >;                                       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:81 */
+			ngpios = < 0x10 >;                                           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:82 */
+			status = "disabled";                                         /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:83 */
+			port-irqs = < &port_irq0 &port_irq1 &port_irq2 &port_irq3 >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:285 */
+			port-irq-names = "port-irq0",
+			                 "port-irq1",
+			                 "port-irq2",
+			                 "port-irq3";                                /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:287 */
+			port-irq0-pins = < 0x6 >;                                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:291 */
+			port-irq1-pins = < 0x5 >;                                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:292 */
+			port-irq2-pins = < 0xd >;                                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:293 */
+			port-irq3-pins = < 0xc >;                                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:294 */
+		};
+
+		/* node '/soc/gpio@40040060' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:86 */
+		ioport3: gpio@40040060 {
+			compatible = "renesas,ra-gpio-ioport";                       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:87 */
+			reg = < 0x40040060 0x20 >;                                   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:88 */
+			port = < 0x3 >;                                              /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:89 */
+			gpio-controller;                                             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:90 */
+			#gpio-cells = < 0x2 >;                                       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:91 */
+			ngpios = < 0x10 >;                                           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:92 */
+			port-irqs = < &port_irq5 &port_irq6 &port_irq8 &port_irq9 >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:298 */
+			port-irq-names = "port-irq5",
+			                 "port-irq6",
+			                 "port-irq8",
+			                 "port-irq9";                                /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:300 */
+			port-irq5-pins = < 0x2 >;                                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:304 */
+			port-irq6-pins = < 0x1 >;                                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:305 */
+			port-irq8-pins = < 0x5 >;                                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:306 */
+			port-irq9-pins = < 0x4 >;                                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:307 */
+			status = "okay";                                             /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:50 */
+			phandle = < 0x20 >;                                          /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:44 */
+		};
+
+		/* node '/soc/gpio@40040080' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:96 */
+		ioport4: gpio@40040080 {
+			compatible = "renesas,ra-gpio-ioport";                                                        /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:97 */
+			reg = < 0x40040080 0x20 >;                                                                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:98 */
+			port = < 0x4 >;                                                                               /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:99 */
+			gpio-controller;                                                                              /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:100 */
+			#gpio-cells = < 0x2 >;                                                                        /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:101 */
+			ngpios = < 0x10 >;                                                                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:102 */
+			vbatts-pins = < 0x2 0x3 0x4 >;                                                                /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:103 */
+			status = "disabled";                                                                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:104 */
+			port-irqs = < &port_irq0 &port_irq4 &port_irq5 &port_irq6 &port_irq7 &port_irq8 &port_irq9 >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:311 */
+			port-irq-names = "port-irq0",
+			                 "port-irq4",
+			                 "port-irq5",
+			                 "port-irq6",
+			                 "port-irq7",
+			                 "port-irq8",
+			                 "port-irq9";                                                                 /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:314 */
+			port-irq0-pins = < 0x0 >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:321 */
+			port-irq4-pins = < 0x2 0xb >;                                                                 /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:322 */
+			port-irq5-pins = < 0x1 0xa >;                                                                 /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:323 */
+			port-irq6-pins = < 0x9 >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:324 */
+			port-irq7-pins = < 0x8 >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:325 */
+			port-irq8-pins = < 0xf >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:326 */
+			port-irq9-pins = < 0xe >;                                                                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:327 */
+		};
+
+		/* node '/soc/gpio@40040120' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:117 */
+		ioport9: gpio@40040120 {
+			compatible = "renesas,ra-gpio-ioport"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:118 */
+			reg = < 0x40040120 0x20 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:119 */
+			port = < 0x9 >;                        /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:120 */
+			gpio-controller;                       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:121 */
+			#gpio-cells = < 0x2 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:122 */
+			ngpios = < 0x10 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:123 */
+			status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:124 */
+		};
+
+		/* node '/soc/dma@40005000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:127 */
+		dma0: dma@40005000 {
+			compatible = "renesas,ra-dma"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:128 */
+			reg = < 0x40005000 0x100 >,
+			      < 0x40005200 0xa0 >;     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:129 */
+			reg-names = "channel",
+			            "common";          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:130 */
+			clocks = < &iclk 0x0 0x16 >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:131 */
+			dma-channels = < 0x4 >;        /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:132 */
+			#dma-cells = < 0x2 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:133 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:134 */
+		};
+
+		/* node '/soc/pin-controller@40040800' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:137 */
+		pinctrl: pin-controller@40040800 {
+			compatible = "renesas,ra-pinctrl-pfs"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:138 */
+			reg = < 0x40040800 0x3c0 >;            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:139 */
+			status = "okay";                       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:140 */
+
+			/* node '/soc/pin-controller@40040800/sci2_default' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:8 */
+			sci2_default: sci2_default {
+				phandle = < 0x18 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:30 */
+
+				/* node '/soc/pin-controller@40040800/sci2_default/group1' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:9 */
+				group1 {
+					psels = < 0x2423 >;        /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:11 */
+					drive-strength = "medium"; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:12 */
+				};
+
+				/* node '/soc/pin-controller@40040800/sci2_default/group2' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:15 */
+				group2 {
+					psels = < 0x2413 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:17 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40040800/iic1_default' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:21 */
+			iic1_default: iic1_default {
+				phandle = < 0x14 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:82 */
+
+				/* node '/soc/pin-controller@40040800/iic1_default/group1' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:22 */
+				group1 {
+					psels = < 0x2701 >,
+					        < 0x2711 >;        /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:24 */
+					drive-strength = "medium"; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:26 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40040800/adc0_default' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:30 */
+			adc0_default: adc0_default {
+				phandle = < 0x13 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:55 */
+
+				/* node '/soc/pin-controller@40040800/adc0_default/group1' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:31 */
+				group1 {
+					psels = < 0x2090 >,
+					        < 0x2000 >,
+					        < 0x2010 >,
+					        < 0x2020 >;    /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:33 */
+					renesas,analog-enable; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:37 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40040800/pwm7_default' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:41 */
+			pwm7_default: pwm7_default {
+				phandle = < 0x19 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:74 */
+
+				/* node '/soc/pin-controller@40040800/pwm7_default/group1' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:42 */
+				group1 {
+					psels = < 0x2343 >,
+					        < 0x2333 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4-pinctrl.dtsi:44 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40040800/spi1_default' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima-pinctrl.dtsi:8 */
+			spi1_default: spi1_default {
+				phandle = < 0x12 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:98 */
+
+				/* node '/soc/pin-controller@40040800/spi1_default/group1' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima-pinctrl.dtsi:9 */
+				group1 {
+					psels = < 0x2691 >,
+					        < 0x26a1 >,
+					        < 0x26b1 >,
+					        < 0x26c1 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima-pinctrl.dtsi:11 */
+				};
+			};
+		};
+
+		/* node '/soc/sci0@40070000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:143 */
+		sci0: sci0@40070000 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:144 */
+			interrupts = < 0x0 0x1 >,
+			             < 0x1 0x1 >,
+			             < 0x2 0x1 >,
+			             < 0x3 0x1 >;      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:145 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:146 */
+			reg = < 0x40070000 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:147 */
+			clocks = < &pclka 0x1 0x1f >;  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:148 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:149 */
+
+			/* node '/soc/sci0@40070000/uart' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:151 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:152 */
+				channel = < 0x0 >;                  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:153 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:154 */
+			};
+
+			/* node '/soc/sci0@40070000/i2c' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:157 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:158 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:159 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:160 */
+				channel = < 0x0 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:161 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:162 */
+			};
+		};
+
+		/* node '/soc/sci1@40070020' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:166 */
+		sci1: sci1@40070020 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:167 */
+			interrupts = < 0x4 0x1 >,
+			             < 0x5 0x1 >,
+			             < 0x6 0x1 >,
+			             < 0x7 0x1 >;      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:168 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:169 */
+			reg = < 0x40070020 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:170 */
+			clocks = < &pclka 0x1 0x1e >;  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:171 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:172 */
+
+			/* node '/soc/sci1@40070020/uart' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:174 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:175 */
+				channel = < 0x1 >;                  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:176 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:177 */
+			};
+
+			/* node '/soc/sci1@40070020/i2c' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:180 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:181 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:182 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:183 */
+				channel = < 0x1 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:184 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:185 */
+			};
+		};
+
+		/* node '/soc/sci9@40070120' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:189 */
+		sci9: sci9@40070120 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:190 */
+			reg = < 0x40070120 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:191 */
+			clocks = < &pclka 0x1 0x16 >;  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:192 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:193 */
+
+			/* node '/soc/sci9@40070120/uart' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:195 */
+			uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:196 */
+				channel = < 0x9 >;                  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:197 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:198 */
+			};
+
+			/* node '/soc/sci9@40070120/i2c' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:201 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:202 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:203 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:204 */
+				channel = < 0x9 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:205 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:206 */
+			};
+		};
+
+		/* node '/soc/spi@40072000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:210 */
+		spi0: spi@40072000 {
+			compatible = "renesas,ra-spi"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:211 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:212 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:213 */
+			channel = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:214 */
+			reg = < 0x40072000 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:215 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:216 */
+		};
+
+		/* node '/soc/spi@40072100' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:219 */
+		spi1: arduino_spi: spi@40072100 {
+			compatible = "renesas,ra-spi"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:220 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:221 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:222 */
+			channel = < 0x1 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:223 */
+			reg = < 0x40072100 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:226 */
+			pinctrl-0 = < &spi1_default >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:98 */
+			pinctrl-names = "default";     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:99 */
+			interrupts = < 0x1c 0x1 >,
+			             < 0x1d 0x1 >,
+			             < 0x1e 0x1 >,
+			             < 0x1f 0x1 >;     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:100 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:101 */
+			status = "okay";               /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:102 */
+		};
+
+		/* node '/soc/agt@40084000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:230 */
+		agt0: agt@40084000 {
+			compatible = "renesas,ra-agt";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:231 */
+			channel = < 0x0 >;                       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:232 */
+			reg = < 0x40084000 0x100 >;              /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:233 */
+			renesas,count-source = "AGT_CLOCK_LOCO"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:234 */
+			renesas,prescaler = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:235 */
+			renesas,resolution = < 0x10 >;           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:236 */
+			status = "disabled";                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:237 */
+
+			/* node '/soc/agt@40084000/counter' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:239 */
+			counter {
+				compatible = "renesas,ra-agt-counter"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:240 */
+				status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:241 */
+			};
+		};
+
+		/* node '/soc/agt@40084100' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:245 */
+		agt1: agt@40084100 {
+			compatible = "renesas,ra-agt";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:246 */
+			channel = < 0x1 >;                       /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:247 */
+			reg = < 0x40084100 0x100 >;              /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:248 */
+			renesas,count-source = "AGT_CLOCK_LOCO"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:249 */
+			renesas,prescaler = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:250 */
+			renesas,resolution = < 0x10 >;           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:251 */
+			status = "disabled";                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:252 */
+
+			/* node '/soc/agt@40084100/counter' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:254 */
+			counter {
+				compatible = "renesas,ra-agt-counter"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:255 */
+				status = "disabled";                   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:256 */
+			};
+		};
+
+		/* node '/soc/adc@4005c000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:260 */
+		adc0: adc@4005c000 {
+			compatible = "renesas,ra-adc";          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:261 */
+			interrupt-names = "scanend";            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:262 */
+			reg = < 0x4005c000 0x100 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:263 */
+			#io-channel-cells = < 0x1 >;            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:264 */
+			vref-mv = < 0xce4 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:265 */
+			interrupts = < 0x14 0x1 >;              /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:72 */
+			channel-available-mask = < 0x3ff7fff >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:73 */
+			status = "okay";                        /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:54 */
+			pinctrl-0 = < &adc0_default >;          /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:55 */
+			pinctrl-names = "default";              /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:56 */
+			phandle = < 0x21 >;                     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:71 */
+		};
+
+		/* node '/soc/dac_global@4005e000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:269 */
+		dac_global: dac_global@4005e000 {
+			compatible = "renesas,ra-dac-global"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:270 */
+			reg = < 0x4005e000 0x10c4 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:271 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:272 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:273 */
+			status = "okay";                      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:274 */
+			has-davrefcr;                         /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:349 */
+
+			/* node '/soc/dac_global@4005e000/dac@0' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:276 */
+			dac0: dac@0 {
+				compatible = "renesas,ra-dac"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:277 */
+				#io-channel-cells = < 0x1 >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:278 */
+				reg = < 0x0 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:279 */
+				status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:280 */
+			};
+		};
+
+		/* node '/soc/crc@40074000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:284 */
+		crc: crc@40074000 {
+			compatible = "renesas,ra-crc"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:285 */
+			reg = < 0x40074000 0x1000 >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:286 */
+			clocks = < &pclka 0x2 0x1 >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:287 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:288 */
+		};
+
+		/* node '/soc/iic0@40053000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:291 */
+		iic0: iic0@40053000 {
+			compatible = "renesas,ra-iic"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:292 */
+			channel = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:293 */
+			reg = < 0x40053000 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:294 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:295 */
+		};
+
+		/* node '/soc/iic1@40053100' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:298 */
+		iic1: arduino_i2c: iic1@40053100 {
+			compatible = "renesas,ra-iic"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:299 */
+			channel = < 0x1 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:300 */
+			reg = < 0x40053100 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:301 */
+			pinctrl-0 = < &iic1_default >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:82 */
+			pinctrl-names = "default";     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:83 */
+			#address-cells = < 0x1 >;      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:84 */
+			#size-cells = < 0x0 >;         /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:85 */
+			clock-frequency = < 0xf4240 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:86 */
+			interrupts = < 0xa 0x1 >,
+			             < 0xb 0x1 >,
+			             < 0xc 0x1 >,
+			             < 0xd 0x1 >;      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:87 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:88 */
+			status = "okay";               /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:89 */
+		};
+
+		/* node '/soc/usbfs@40090000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:305 */
+		usbfs: usbfs@40090000 {
+			compatible = "renesas,ra-usbfs"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:306 */
+			reg = < 0x40090000 0x2000 >;     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:307 */
+			num-bidir-endpoints = < 0xa >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:308 */
+			interrupts = < 0xc 0x1 >,
+			             < 0xd 0x1 >;        /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:309 */
+			interrupt-names = "usbfs-i",
+			                  "usbfs-r";     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:310 */
+			phys = < &usbfs_phy >;           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:311 */
+			phys-clock = < &uclk >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:312 */
+			status = "disabled";             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:313 */
+
+			/* node '/soc/usbfs@40090000/udc' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:315 */
+			udc {
+				compatible = "renesas,ra-udc"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:316 */
+				status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:317 */
+			};
+		};
+
+		/* node '/soc/external-interrupt@40006000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:321 */
+		port_irq0: external-interrupt@40006000 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:322 */
+			reg = < 0x40006000 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:323 */
+			channel = < 0x0 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:324 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:325 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:326 */
+			interrupts = < 0x1b 0xc >;                    /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:60 */
+			status = "okay";                              /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:61 */
+			phandle = < 0xa >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:270 */
+		};
+
+		/* node '/soc/external-interrupt@40006001' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:330 */
+		port_irq1: external-interrupt@40006001 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:331 */
+			reg = < 0x40006001 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:332 */
+			channel = < 0x1 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:333 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:334 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:335 */
+			interrupts = < 0x1c 0xc >;                    /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:65 */
+			status = "okay";                              /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:66 */
+			phandle = < 0xb >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:270 */
+		};
+
+		/* node '/soc/external-interrupt@40006002' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:339 */
+		port_irq2: external-interrupt@40006002 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:340 */
+			reg = < 0x40006002 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:341 */
+			channel = < 0x2 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:342 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:343 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:344 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:345 */
+			phandle = < 0x4 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:253 */
+		};
+
+		/* node '/soc/external-interrupt@40006003' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:348 */
+		port_irq3: external-interrupt@40006003 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:349 */
+			reg = < 0x40006003 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:350 */
+			channel = < 0x3 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:351 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:352 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:353 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:354 */
+			phandle = < 0x5 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:253 */
+		};
+
+		/* node '/soc/external-interrupt@40006004' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:357 */
+		port_irq4: external-interrupt@40006004 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:358 */
+			reg = < 0x40006004 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:359 */
+			channel = < 0x4 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:360 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:361 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:362 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:363 */
+			phandle = < 0xc >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:270 */
+		};
+
+		/* node '/soc/external-interrupt@40006006' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:366 */
+		port_irq6: external-interrupt@40006006 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:367 */
+			reg = < 0x40006006 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:368 */
+			channel = < 0x6 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:369 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:370 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:371 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:372 */
+			phandle = < 0x6 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:253 */
+		};
+
+		/* node '/soc/external-interrupt@40006007' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:375 */
+		port_irq7: external-interrupt@40006007 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:376 */
+			reg = < 0x40006007 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:377 */
+			channel = < 0x7 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:378 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:379 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:380 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:381 */
+			phandle = < 0x7 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:253 */
+		};
+
+		/* node '/soc/external-interrupt@40006009' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:384 */
+		port_irq9: external-interrupt@40006009 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:385 */
+			reg = < 0x40006009 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:386 */
+			channel = < 0x9 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:387 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:388 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:389 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:390 */
+			phandle = < 0xf >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:298 */
+		};
+
+		/* node '/soc/external-interrupt@4000600b' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:393 */
+		port_irq11: external-interrupt@4000600b {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:394 */
+			reg = < 0x4000600b 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:395 */
+			channel = < 0xb >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:396 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:397 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:398 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:399 */
+		};
+
+		/* node '/soc/external-interrupt@4000600e' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:402 */
+		port_irq14: external-interrupt@4000600e {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:403 */
+			reg = < 0x4000600e 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:404 */
+			channel = < 0xe >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:405 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:406 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:407 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:408 */
+		};
+
+		/* node '/soc/external-interrupt@4000600f' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:411 */
+		port_irq15: external-interrupt@4000600f {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:412 */
+			reg = < 0x4000600f 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:413 */
+			channel = < 0xf >;                            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:414 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:415 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:416 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:417 */
+			phandle = < 0x9 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:253 */
+		};
+
+		/* node '/soc/pwm0@40078000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:420 */
+		pwm0: pwm0@40078000 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:421 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:422 */
+			channel = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:423 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:424 */
+			reg = < 0x40078000 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:425 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:426 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:427 */
+			phandle = < 0x24 >;            /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:82 */
+		};
+
+		/* node '/soc/pwm1@40078100' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:430 */
+		pwm1: pwm1@40078100 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:431 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:432 */
+			channel = < 0x1 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:433 */
+			clocks = < &pclkd 0x3 0x5 >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:434 */
+			reg = < 0x40078100 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:435 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:436 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:437 */
+			phandle = < 0x22 >;            /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:82 */
+		};
+
+		/* node '/soc/pwm2@40078200' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:440 */
+		pwm2: pwm2@40078200 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:441 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:442 */
+			channel = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:443 */
+			reg = < 0x40078200 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:444 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:445 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:446 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:341 */
+			phandle = < 0x23 >;            /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:82 */
+		};
+
+		/* node '/soc/pwm3@40078300' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:449 */
+		pwm3: pwm3@40078300 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:450 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:451 */
+			channel = < 0x3 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:452 */
+			reg = < 0x40078300 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:453 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:454 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:455 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:345 */
+			phandle = < 0x26 >;            /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:82 */
+		};
+
+		/* node '/soc/pwm4@40078400' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:458 */
+		pwm4: pwm4@40078400 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:459 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:460 */
+			channel = < 0x4 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:461 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:462 */
+			reg = < 0x40078400 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:463 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:464 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:465 */
+		};
+
+		/* node '/soc/pwm5@40078500' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:468 */
+		pwm5: pwm5@40078500 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:469 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:470 */
+			channel = < 0x5 >;             /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:471 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:472 */
+			reg = < 0x40078500 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:473 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:474 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:475 */
+		};
+
+		/* node '/soc/wdt@40044200' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:478 */
+		wdt: wdt@40044200 {
+			compatible = "renesas,ra-wdt"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:479 */
+			reg = < 0x40044200 0x200 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:480 */
+			clocks = < &pclkb 0x0 0x0 >;   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:481 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:482 */
+		};
+
+		/* node '/soc/ctsua@40081000' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:485 */
+		ctsu: ctsua@40081000 {
+			compatible = "renesas,ra-ctsu"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:486 */
+			reg = < 0x40081000 0x24 >;      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:487 */
+			clocks = < &pclkb 0x2 0x3 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:488 */
+			variant = "ctsua";              /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:489 */
+			status = "disabled";            /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:490 */
+		};
+
+		/* node '/soc/option-setting-ofs0@400' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:493 */
+		option_setting_ofs0: option-setting-ofs0@400 {
+			compatible = "renesas,ofs-memory"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:494 */
+			reg = < 0x400 0x4 >;               /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:495 */
+			status = "okay";                   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:496 */
+		};
+
+		/* node '/soc/option-setting-ofs1@404' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:499 */
+		option_setting_ofs1: option-setting-ofs1@404 {
+			compatible = "renesas,ofs-memory"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:500 */
+			reg = < 0x404 0x4 >;               /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:501 */
+			status = "okay";                   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:502 */
+		};
+
+		/* node '/soc/option-setting-secmpu@408' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:505 */
+		option_setting_secmpu: option-setting-secmpu@408 {
+			compatible = "renesas,ofs-memory"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:506 */
+			reg = < 0x408 0x34 >;              /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:507 */
+			status = "okay";                   /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:508 */
+		};
+
+		/* node '/soc/option-setting-osis@1010018' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:511 */
+		option_setting_osis: option-setting-osis@1010018 {
+			compatible = "zephyr,memory-region";      /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:512 */
+			zephyr,memory-region = "OFS_OSIS_MEMORY"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:513 */
+			reg = < 0x1010018 0x1c >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:514 */
+			status = "okay";                          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:515 */
+		};
+
+		/* node '/soc/memory@20000000' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:13 */
+		sram0: memory@20000000 {
+			compatible = "mmio-sram";    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:14 */
+			reg = < 0x20000000 0x8000 >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:15 */
+		};
+
+		/* node '/soc/sci2@40070040' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:48 */
+		sci2: sci2@40070040 {
+			compatible = "renesas,ra-sci"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:49 */
+			reg = < 0x40070040 0x20 >;     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:50 */
+			clocks = < &pclka 0x1 0x1d >;  /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:53 */
+			status = "okay";               /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:29 */
+			pinctrl-0 = < &sci2_default >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:30 */
+			pinctrl-names = "default";     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:31 */
+			interrupts = < 0x0 0x1 >,
+			             < 0x1 0x1 >,
+			             < 0x2 0x1 >,
+			             < 0x3 0x1 >;      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:32 */
+			interrupt-names = "rxi",
+			                  "txi",
+			                  "tei",
+			                  "eri";       /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:33 */
+
+			/* node '/soc/sci2@40070040/uart' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:56 */
+			uart2: uart {
+				compatible = "renesas,ra-sci-uart"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:57 */
+				channel = < 0x2 >;                  /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:58 */
+				current-speed = < 0x1c200 >;        /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:36 */
+				status = "okay";                    /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:37 */
+			};
+
+			/* node '/soc/sci2@40070040/i2c' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:62 */
+			i2c {
+				compatible = "renesas,ra-i2c-sci"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:63 */
+				#address-cells = < 0x1 >;          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:64 */
+				#size-cells = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:65 */
+				channel = < 0x2 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:66 */
+				status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:67 */
+			};
+		};
+
+		/* node '/soc/external-interrupt@40006005' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:76 */
+		port_irq5: external-interrupt@40006005 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:77 */
+			reg = < 0x40006005 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:78 */
+			channel = < 0x5 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:79 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:80 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:81 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:82 */
+			phandle = < 0xd >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:298 */
+		};
+
+		/* node '/soc/external-interrupt@40006008' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:85 */
+		port_irq8: external-interrupt@40006008 {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:86 */
+			reg = < 0x40006008 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:87 */
+			channel = < 0x8 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:88 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:89 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:90 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:91 */
+			phandle = < 0xe >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:298 */
+		};
+
+		/* node '/soc/external-interrupt@4000600a' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:94 */
+		port_irq10: external-interrupt@4000600a {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:95 */
+			reg = < 0x4000600a 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:96 */
+			channel = < 0xa >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:97 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:98 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:99 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:100 */
+			phandle = < 0x8 >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:253 */
+		};
+
+		/* node '/soc/external-interrupt@4000600c' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:103 */
+		port_irq12: external-interrupt@4000600c {
+			compatible = "renesas,ra-external-interrupt"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:104 */
+			reg = < 0x4000600c 0x1 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:105 */
+			channel = < 0xc >;                            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:106 */
+			renesas,sample-clock-div = < 0x40 >;          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:107 */
+			#port-irq-cells = < 0x0 >;                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:108 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:109 */
+		};
+
+		/* node '/soc/trng' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:112 */
+		trng: trng {
+			compatible = "renesas,ra-sce5-rng"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:113 */
+			status = "okay";                    /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:70 */
+		};
+
+		/* node '/soc/pwm6@40078600' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:117 */
+		pwm6: pwm6@40078600 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:118 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:119 */
+			channel = < 0x6 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:120 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:121 */
+			reg = < 0x40078600 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:122 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:123 */
+			status = "disabled";           /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:124 */
+		};
+
+		/* node '/soc/pwm7@40078700' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:127 */
+		pwm7: pwm7@40078700 {
+			compatible = "renesas,ra-pwm"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:128 */
+			divider = < 0x0 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:129 */
+			channel = < 0x7 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:130 */
+			clocks = < &pclkd 0x3 0x6 >;   /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:131 */
+			reg = < 0x40078700 0x100 >;    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:132 */
+			#pwm-cells = < 0x3 >;          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:133 */
+			pinctrl-0 = < &pwm7_default >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:74 */
+			pinctrl-names = "default";     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:75 */
+			interrupts = < 0x8 0x1 >,
+			             < 0x9 0x1 >;      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:76 */
+			interrupt-names = "gtioca",
+			                  "overflow";  /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:77 */
+			status = "okay";               /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:78 */
+			phandle = < 0x25 >;            /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:82 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:14 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:15 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:16 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:18 */
+		cpu@0 {
+			device_type = "cpu";          /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:19 */
+			compatible = "arm,cortex-m4"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:20 */
+			reg = < 0x0 >;                /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:21 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:22 */
+			#size-cells = < 0x1 >;        /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:23 */
+
+			/* node '/cpus/cpu@0/mpu@e000ed90' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:25 */
+			mpu: mpu@e000ed90 {
+				compatible = "arm,armv7m-mpu"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:26 */
+				reg = < 0xe000ed90 0x40 >;     /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:27 */
+			};
+		};
+	};
+
+	/* node '/usbfs-phy' defined in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:519 */
+	usbfs_phy: usbfs-phy {
+		compatible = "usb-nop-xceiv"; /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:520 */
+		#phy-cells = < 0x0 >;         /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:521 */
+		phandle = < 0x15 >;           /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:311 */
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:138 */
+	clocks: clocks {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:139 */
+		#size-cells = < 0x1 >;    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:140 */
+
+		/* node '/clocks/clock-main-osc' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:142 */
+		xtal: clock-main-osc {
+			compatible = "renesas,ra-cgc-external-clock"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:143 */
+			clock-frequency = < 0xb71b00 >;               /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:144 */
+			#clock-cells = < 0x0 >;                       /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:145 */
+			status = "disabled";                          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:146 */
+			phandle = < 0x1a >;                           /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:178 */
+		};
+
+		/* node '/clocks/clock-hoco' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:149 */
+		hoco: clock-hoco {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:150 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:152 */
+			status = "okay";                 /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:113 */
+			clock-frequency = < 0x2dc6c00 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:114 */
+			phandle = < 0x1b >;              /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:118 */
+		};
+
+		/* node '/clocks/clock-moco' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:155 */
+		moco: clock-moco {
+			compatible = "fixed-clock";     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:156 */
+			clock-frequency = < 0x7a1200 >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:157 */
+			#clock-cells = < 0x0 >;         /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:158 */
+		};
+
+		/* node '/clocks/clock-loco' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:161 */
+		loco: clock-loco {
+			compatible = "fixed-clock";   /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:162 */
+			clock-frequency = < 0x8000 >; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:163 */
+			#clock-cells = < 0x0 >;       /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:164 */
+		};
+
+		/* node '/clocks/clock-subclk' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:167 */
+		subclk: clock-subclk {
+			compatible = "renesas,ra-cgc-subclk"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:168 */
+			clock-frequency = < 0x8000 >;         /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:169 */
+			#clock-cells = < 0x0 >;               /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:170 */
+			status = "disabled";                  /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:171 */
+		};
+
+		/* node '/clocks/pll' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:174 */
+		pll: pll {
+			compatible = "renesas,ra-cgc-pll"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:175 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:176 */
+			clocks = < &xtal >;                /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:178 */
+			div = < 0x2 >;                     /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:179 */
+			mul = < 0x8 0x0 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:180 */
+			status = "disabled";               /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:181 */
+		};
+
+		/* node '/clocks/pclkblock@40047000' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:184 */
+		pclkblock: pclkblock@40047000 {
+			compatible = "renesas,ra-cgc-pclk-block"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:185 */
+			reg = < 0x40047000 0x4 >,
+			      < 0x40047004 0x4 >,
+			      < 0x40047008 0x4 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:186 */
+			reg-names = "MSTPB",
+			            "MSTPC",
+			            "MSTPD";                      /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:189 */
+			#clock-cells = < 0x0 >;                   /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:190 */
+			status = "okay";                          /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:192 */
+			clocks = < &hoco >;                       /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:118 */
+
+			/* node '/clocks/pclkblock@40047000/iclk' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:194 */
+			iclk: iclk {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:195 */
+				clock-frequency = < 0x2dc6c00 >;    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:196 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:198 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:199 */
+				div = < 0x1 >;                      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:122 */
+				phandle = < 0x10 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:131 */
+			};
+
+			/* node '/clocks/pclkblock@40047000/pclka' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:202 */
+			pclka: pclka {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:203 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:205 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:206 */
+				div = < 0x1 >;                      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:126 */
+				phandle = < 0x11 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:148 */
+			};
+
+			/* node '/clocks/pclkblock@40047000/pclkb' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:209 */
+			pclkb: pclkb {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:210 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:212 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:213 */
+				div = < 0x2 >;                      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:130 */
+				phandle = < 0x2 >;                  /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:43 */
+			};
+
+			/* node '/clocks/pclkblock@40047000/pclkc' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:216 */
+			pclkc: pclkc {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:217 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:219 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:220 */
+				div = < 0x1 >;                      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:134 */
+			};
+
+			/* node '/clocks/pclkblock@40047000/pclkd' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:223 */
+			pclkd: pclkd {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:224 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:226 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:227 */
+				div = < 0x1 >;                      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:138 */
+				phandle = < 0x17 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:424 */
+			};
+
+			/* node '/clocks/pclkblock@40047000/fclk' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:230 */
+			fclk: fclk {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:231 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:233 */
+				status = "okay";                    /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:234 */
+				div = < 0x2 >;                      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4.dts:142 */
+			};
+
+			/* node '/clocks/pclkblock@40047000/clkout' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:237 */
+			clkout: clkout {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:238 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:239 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:240 */
+			};
+
+			/* node '/clocks/pclkblock@40047000/uclk' defined in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:243 */
+			uclk: uclk {
+				compatible = "renesas,ra-cgc-pclk"; /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:244 */
+				#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:245 */
+				status = "disabled";                /* in zephyr/dts/arm/renesas/ra/ra4/r7fa4m1ax.dtsi:246 */
+				phandle = < 0x16 >;                 /* in zephyr/dts/arm/renesas/ra/ra4/ra4-cm4-common.dtsi:312 */
+			};
+		};
+	};
+
+	/* node '/leds' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:16 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:17 */
+
+		/* node '/leds/led' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:19 */
+		led: led {
+			gpios = < &arduino_header 0x13 0x0 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:20 */
+		};
+	};
+
+	/* node '/pwm_leds' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:24 */
+	pwm_leds {
+		compatible = "pwm-leds"; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:25 */
+		status = "disabled";     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:26 */
+
+		/* node '/pwm_leds/pwm_led' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:28 */
+		pwm_led: pwm_led {
+			pwms = < &arduino_pwm 0x13 0xf4240 0x0 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:29 */
+			label = "PWM_LED";                        /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:30 */
+		};
+	};
+
+	/* node '/connector' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:39 */
+	arduino_header: connector {
+		compatible = "arduino-header-r3";          /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:40 */
+		#gpio-cells = < 0x2 >;                     /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:41 */
+		gpio-map-mask = < 0xffffffff 0xffffffc0 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:42 */
+		gpio-map-pass-thru = < 0x0 0x3f >;         /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:43 */
+		gpio-map = < 0x0 0x0 &ioport0 0xe 0x0 >,
+		           < 0x1 0x0 &ioport0 0x0 0x0 >,
+		           < 0x2 0x0 &ioport0 0x1 0x0 >,
+		           < 0x3 0x0 &ioport0 0x2 0x0 >,
+		           < 0x4 0x0 &ioport1 0x1 0x0 >,
+		           < 0x5 0x0 &ioport1 0x0 0x0 >,
+		           < 0x6 0x0 &ioport3 0x1 0x0 >,
+		           < 0x7 0x0 &ioport3 0x2 0x0 >,
+		           < 0x8 0x0 &ioport1 0x5 0x0 >,
+		           < 0x9 0x0 &ioport1 0x4 0x0 >,
+		           < 0xa 0x0 &ioport1 0x3 0x0 >,
+		           < 0xb 0x0 &ioport1 0x2 0x0 >,
+		           < 0xc 0x0 &ioport1 0x6 0x0 >,
+		           < 0xd 0x0 &ioport1 0x7 0x0 >,
+		           < 0xe 0x0 &ioport3 0x4 0x0 >,
+		           < 0xf 0x0 &ioport3 0x3 0x0 >,
+		           < 0x10 0x0 &ioport1 0xc 0x0 >,
+		           < 0x11 0x0 &ioport1 0x9 0x0 >,
+		           < 0x12 0x0 &ioport1 0xa 0x0 >,
+		           < 0x13 0x0 &ioport1 0xb 0x0 >,
+		           < 0x14 0x0 &ioport1 0x1 0x0 >,
+		           < 0x15 0x0 &ioport1 0x0 0x0 >;  /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:44 */
+		phandle = < 0x1c >;                        /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:20 */
+	};
+
+	/* node '/analog-connector' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:68 */
+	arduino_adc: analog-connector {
+		compatible = "arduino,uno-adc";      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:69 */
+		#io-channel-cells = < 0x1 >;         /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:70 */
+		io-channel-map = < 0x0 &adc0 0x9 >,
+		                 < 0x1 &adc0 0x0 >,
+		                 < 0x2 &adc0 0x1 >,
+		                 < 0x3 &adc0 0x2 >,
+		                 < 0x4 &adc0 0x15 >,
+		                 < 0x5 &adc0 0x16 >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:71 */
+	};
+
+	/* node '/connector-pwm' defined in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:79 */
+	arduino_pwm: connector-pwm {
+		compatible = "arduino-header-pwm";                 /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:80 */
+		#pwm-cells = < 0x3 >;                              /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:81 */
+		pwm-map = < 0x8 0x0 0x0 &pwm1 0x0 0x0 0x0 >,
+		          < 0x9 0x0 0x0 &pwm1 0x1 0x0 0x0 >,
+		          < 0xa 0x0 0x0 &pwm2 0x0 0x0 0x0 >,
+		          < 0xb 0x0 0x0 &pwm2 0x1 0x0 0x0 >,
+		          < 0xc 0x0 0x0 &pwm0 0x1 0x0 0x0 >,
+		          < 0xd 0x0 0x0 &pwm0 0x0 0x0 0x0 >,
+		          < 0xe 0x0 0x0 &pwm7 0x0 0x0 0x0 >,
+		          < 0xf 0x0 0x0 &pwm7 0x1 0x0 0x0 >,
+		          < 0x10 0x0 0x0 &pwm3 0x1 0x0 0x0 >,
+		          < 0x13 0x0 0x0 &pwm3 0x0 0x0 0x0 >;      /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:82 */
+		pwm-map-mask = < 0xffffffff 0x0 0x0 >;             /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:92 */
+		pwm-map-pass-thru = < 0x0 0xffffffff 0xffffffff >; /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:93 */
+		phandle = < 0x1d >;                                /* in zephyr/boards/arduino/uno_r4/arduino_uno_r4_minima.overlay:29 */
+	};
+};

@@ -1,0 +1,1162 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                           /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                              /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Ambiq Apollo3 Blue Plus evaluation board"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:8 */
+	compatible = "ambiq,apollo3p_evb";                  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:9 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,itcm = &tcm;               /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:12 */
+		zephyr,sram = &sram0;             /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:13 */
+		zephyr,flash = &flash0;           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:14 */
+		zephyr,console = &uart0;          /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:15 */
+		zephyr,shell-uart = &uart0;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:16 */
+		zephyr,uart-pipe = &uart0;        /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:17 */
+		zephyr,flash-controller = &flash; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:18 */
+		zephyr,bt_hci = &bt_hci_apollo;   /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:19 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		watchdog0 = &wdt0;    /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:23 */
+		led0 = &led0;         /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:24 */
+		led1 = &led1;         /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:25 */
+		led2 = &led2;         /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:26 */
+		sw0 = &button0;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:27 */
+		sw1 = &button1;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:28 */
+		pwm-led0 = &pwm_led0; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:29 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;           /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;              /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		interrupt-parent = < &nvic >;       /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                             /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+		compatible = "ambiq,apollo3p-blue",
+		             "ambiq,apollo3x",
+		             "simple-bus";          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:96 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:557 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/flash-controller@c000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:98 */
+		flash: flash-controller@c000 {
+			compatible = "ambiq,flash-controller"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:99 */
+			reg = < 0xc000 0x1f4000 >;             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:100 */
+			#address-cells = < 0x1 >;              /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:102 */
+			#size-cells = < 0x1 >;                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:103 */
+
+			/* node '/soc/flash-controller@c000/flash@c000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:106 */
+			flash0: flash@c000 {
+				compatible = "soc-nv-flash";   /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:107 */
+				reg = < 0xc000 0x1f4000 >;     /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:108 */
+				erase-block-size = < 0x2000 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:95 */
+				write-block-size = < 0x4 >;    /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:96 */
+
+				/* node '/soc/flash-controller@c000/flash@c000/partitions' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:98 */
+				partitions {
+					compatible = "fixed-partitions"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:99 */
+					#address-cells = < 0x1 >;        /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:100 */
+					#size-cells = < 0x1 >;           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:101 */
+
+					/* node '/soc/flash-controller@c000/flash@c000/partitions/partition@1f0000' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:104 */
+					storage_partition: partition@1f0000 {
+						label = "storage";         /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:105 */
+						reg = < 0x1f0000 0x4000 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:106 */
+					};
+				};
+			};
+		};
+
+		/* node '/soc/stimer@40008140' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:112 */
+		stimer0: stimer@40008140 {
+			compatible = "ambiq,stimer"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:113 */
+			reg = < 0x40008140 0x80 >;   /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:114 */
+			interrupts = < 0x17 0x0 >;   /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:115 */
+			status = "okay";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:116 */
+			clk-source = < 0x3 >;        /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:112 */
+		};
+
+		/* node '/soc/timer@40008000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:119 */
+		timer0: timer@40008000 {
+			compatible = "ambiq,ctimer";         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:120 */
+			reg = < 0x40008000 0x20 >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:121 */
+			interrupts = < 0xe 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:122 */
+			clk-source = "CLK_SELECT_HFRC_3MHZ"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:123 */
+			status = "disabled";                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:124 */
+
+			/* node '/soc/timer@40008000/counter' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:126 */
+			counter0: counter {
+				compatible = "ambiq,counter"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:127 */
+				status = "disabled";          /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:161 */
+			};
+
+			/* node '/soc/timer@40008000/pwm' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:131 */
+			pwm {
+				compatible = "ambiq,ctimer-pwm"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:132 */
+				status = "disabled";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:133 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:134 */
+			};
+		};
+
+		/* node '/soc/timer@40008020' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:138 */
+		timer1: timer@40008020 {
+			compatible = "ambiq,ctimer";         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:139 */
+			reg = < 0x40008020 0x20 >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:140 */
+			interrupts = < 0xe 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:141 */
+			clk-source = "CLK_SELECT_HFRC_3MHZ"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:142 */
+			status = "disabled";                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:143 */
+
+			/* node '/soc/timer@40008020/counter' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:145 */
+			counter {
+				compatible = "ambiq,counter"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:146 */
+				status = "disabled";          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:147 */
+			};
+
+			/* node '/soc/timer@40008020/pwm' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:150 */
+			pwm {
+				compatible = "ambiq,ctimer-pwm"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:151 */
+				status = "disabled";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:152 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:153 */
+			};
+		};
+
+		/* node '/soc/timer@40008040' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:157 */
+		timer2: timer@40008040 {
+			compatible = "ambiq,ctimer";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:158 */
+			reg = < 0x40008040 0x20 >;               /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:159 */
+			interrupts = < 0xe 0x0 >;                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:160 */
+			clk-source = "CLK_SELECT_HFRC_187_5KHZ"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:161 */
+			status = "disabled";                     /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:162 */
+
+			/* node '/soc/timer@40008040/counter' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:164 */
+			counter {
+				compatible = "ambiq,counter"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:165 */
+				status = "disabled";          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:166 */
+			};
+
+			/* node '/soc/timer@40008040/pwm' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:169 */
+			pwm2: pwm {
+				compatible = "ambiq,ctimer-pwm"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:170 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:172 */
+				timer-segment = "SEGMENT_B";     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:167 */
+				pwm-type = "PWM_REPEAT";         /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:168 */
+				pinctrl-0 = < &pwm2_default >;   /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:169 */
+				pinctrl-names = "default";       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:170 */
+				status = "disabled";             /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:171 */
+				phandle = < 0xf >;               /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:88 */
+			};
+		};
+
+		/* node '/soc/timer@40008060' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:176 */
+		timer3: timer@40008060 {
+			compatible = "ambiq,ctimer";         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:177 */
+			reg = < 0x40008060 0x20 >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:178 */
+			interrupts = < 0xe 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:179 */
+			clk-source = "CLK_SELECT_HFRC_3MHZ"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:180 */
+			status = "disabled";                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:181 */
+
+			/* node '/soc/timer@40008060/counter' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:183 */
+			counter {
+				compatible = "ambiq,counter"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:184 */
+				status = "disabled";          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:185 */
+			};
+
+			/* node '/soc/timer@40008060/pwm' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:188 */
+			pwm {
+				compatible = "ambiq,ctimer-pwm"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:189 */
+				status = "disabled";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:190 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:191 */
+			};
+		};
+
+		/* node '/soc/timer@40008080' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:195 */
+		timer4: timer@40008080 {
+			compatible = "ambiq,ctimer";         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:196 */
+			reg = < 0x40008080 0x20 >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:197 */
+			interrupts = < 0xe 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:198 */
+			clk-source = "CLK_SELECT_HFRC_3MHZ"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:199 */
+			status = "disabled";                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:200 */
+
+			/* node '/soc/timer@40008080/counter' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:202 */
+			counter {
+				compatible = "ambiq,counter"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:203 */
+				status = "disabled";          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:204 */
+			};
+
+			/* node '/soc/timer@40008080/pwm' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:207 */
+			pwm {
+				compatible = "ambiq,ctimer-pwm"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:208 */
+				status = "disabled";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:209 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:210 */
+			};
+		};
+
+		/* node '/soc/timer@400080a0' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:214 */
+		timer5: timer@400080a0 {
+			compatible = "ambiq,ctimer";         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:215 */
+			reg = < 0x400080a0 0x20 >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:216 */
+			interrupts = < 0xe 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:217 */
+			clk-source = "CLK_SELECT_HFRC_3MHZ"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:218 */
+			status = "disabled";                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:219 */
+
+			/* node '/soc/timer@400080a0/counter' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:221 */
+			counter {
+				compatible = "ambiq,counter"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:222 */
+				status = "disabled";          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:223 */
+			};
+
+			/* node '/soc/timer@400080a0/pwm' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:226 */
+			pwm {
+				compatible = "ambiq,ctimer-pwm"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:227 */
+				status = "disabled";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:228 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:229 */
+			};
+		};
+
+		/* node '/soc/timer@400080c0' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:233 */
+		timer6: timer@400080c0 {
+			compatible = "ambiq,ctimer";         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:234 */
+			reg = < 0x400080c0 0x20 >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:235 */
+			interrupts = < 0xe 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:236 */
+			clk-source = "CLK_SELECT_HFRC_3MHZ"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:237 */
+			status = "disabled";                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:238 */
+
+			/* node '/soc/timer@400080c0/counter' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:240 */
+			counter {
+				compatible = "ambiq,counter"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:241 */
+				status = "disabled";          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:242 */
+			};
+
+			/* node '/soc/timer@400080c0/pwm' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:245 */
+			pwm {
+				compatible = "ambiq,ctimer-pwm"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:246 */
+				status = "disabled";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:247 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:248 */
+			};
+		};
+
+		/* node '/soc/timer@400080e0' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:252 */
+		timer7: timer@400080e0 {
+			compatible = "ambiq,ctimer";         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:253 */
+			reg = < 0x400080e0 0x20 >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:254 */
+			interrupts = < 0xe 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:255 */
+			clk-source = "CLK_SELECT_HFRC_3MHZ"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:256 */
+			status = "disabled";                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:257 */
+
+			/* node '/soc/timer@400080e0/counter' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:259 */
+			counter {
+				compatible = "ambiq,counter"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:260 */
+				status = "disabled";          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:261 */
+			};
+
+			/* node '/soc/timer@400080e0/pwm' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:264 */
+			pwm {
+				compatible = "ambiq,ctimer-pwm"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:265 */
+				status = "disabled";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:266 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:267 */
+			};
+		};
+
+		/* node '/soc/uart@4001c000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:271 */
+		uart0: uart@4001c000 {
+			compatible = "ambiq,pl011-uart",
+			             "arm,pl011";        /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:272 */
+			reg = < 0x4001c000 0x1000 >;     /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:273 */
+			interrupts = < 0xf 0x0 >;        /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:274 */
+			interrupt-names = "UART0";       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:275 */
+			clocks = < &uartclk >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:277 */
+			zephyr,pm-device-runtime-auto;   /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:278 */
+			current-speed = < 0x1c200 >;     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:122 */
+			pinctrl-0 = < &uart0_default >;  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:123 */
+			pinctrl-names = "default";       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:124 */
+			status = "okay";                 /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:125 */
+		};
+
+		/* node '/soc/uart@4001d000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:281 */
+		uart1: uart@4001d000 {
+			compatible = "ambiq,pl011-uart",
+			             "arm,pl011";        /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:282 */
+			reg = < 0x4001d000 0x1000 >;     /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:283 */
+			interrupts = < 0x10 0x0 >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:284 */
+			interrupt-names = "UART1";       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:285 */
+			status = "disabled";             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:286 */
+			clocks = < &uartclk >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:287 */
+			zephyr,pm-device-runtime-auto;   /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:288 */
+		};
+
+		/* node '/soc/spi@50000100' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:291 */
+		spid0: spi@50000100 {
+			compatible = "ambiq,spid";     /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:292 */
+			reg = < 0x50000100 0x1000 >;   /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:293 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:294 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:295 */
+			interrupts = < 0x4 0x0 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:296 */
+			status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:297 */
+			zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:298 */
+		};
+
+		/* node '/soc/iom@50004000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:301 */
+		iom0: ambiq_spi0: iom@50004000 {
+			compatible = "ambiq,iom";    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:302 */
+			reg = < 0x50004000 0x1000 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:303 */
+			interrupts = < 0x6 0x0 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:304 */
+
+			/* node '/soc/iom@50004000/spi' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:306 */
+			spi0: spi {
+				compatible = "ambiq,spi";         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:307 */
+				#address-cells = < 0x1 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:308 */
+				#size-cells = < 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:309 */
+				zephyr,pm-device-runtime-auto;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:311 */
+				pinctrl-0 = < &spi0_default >;    /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:140 */
+				pinctrl-names = "default";        /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:141 */
+				cs-gpios = < &gpio0_31 0xb 0x1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:142 */
+				clock-frequency = < 0xf4240 >;    /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:143 */
+				status = "disabled";              /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:144 */
+			};
+
+			/* node '/soc/iom@50004000/i2c' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:314 */
+			i2c {
+				compatible = "ambiq,i2c";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:315 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:316 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:317 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:318 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:319 */
+			};
+		};
+
+		/* node '/soc/iom@50005000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:323 */
+		iom1: iom@50005000 {
+			compatible = "ambiq,iom";    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:324 */
+			reg = < 0x50005000 0x1000 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:325 */
+			interrupts = < 0x7 0x0 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:326 */
+
+			/* node '/soc/iom@50005000/spi' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:328 */
+			spi {
+				compatible = "ambiq,spi";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:329 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:330 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:331 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:332 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:333 */
+			};
+
+			/* node '/soc/iom@50005000/i2c' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:336 */
+			i2c {
+				compatible = "ambiq,i2c";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:337 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:338 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:339 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:340 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:341 */
+			};
+		};
+
+		/* node '/soc/iom@50006000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:345 */
+		iom2: iom@50006000 {
+			compatible = "ambiq,iom";    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:346 */
+			reg = < 0x50006000 0x1000 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:347 */
+			interrupts = < 0x8 0x0 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:348 */
+
+			/* node '/soc/iom@50006000/spi' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:350 */
+			spi {
+				compatible = "ambiq,spi";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:351 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:352 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:353 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:354 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:355 */
+			};
+
+			/* node '/soc/iom@50006000/i2c' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:358 */
+			i2c {
+				compatible = "ambiq,i2c";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:359 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:360 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:361 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:362 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:363 */
+			};
+		};
+
+		/* node '/soc/iom@50007000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:367 */
+		iom3: ambiq_i2c3: iom@50007000 {
+			compatible = "ambiq,iom";    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:368 */
+			reg = < 0x50007000 0x1000 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:369 */
+			interrupts = < 0x9 0x0 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:370 */
+
+			/* node '/soc/iom@50007000/spi' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:372 */
+			spi {
+				compatible = "ambiq,spi";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:373 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:374 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:375 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:376 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:377 */
+			};
+
+			/* node '/soc/iom@50007000/i2c' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:380 */
+			i2c3: i2c {
+				compatible = "ambiq,i2c";            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:381 */
+				#address-cells = < 0x1 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:382 */
+				#size-cells = < 0x0 >;               /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:383 */
+				zephyr,pm-device-runtime-auto;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:385 */
+				pinctrl-0 = < &i2c3_default >;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:150 */
+				pinctrl-names = "default";           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:151 */
+				clock-frequency = < 0x186a0 >;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:152 */
+				scl-gpios = < &gpio32_63 0xa 0x16 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:153 */
+				sda-gpios = < &gpio32_63 0xb 0x16 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:154 */
+				status = "disabled";                 /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:155 */
+			};
+		};
+
+		/* node '/soc/iom@50008000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:389 */
+		iom4: iom@50008000 {
+			compatible = "ambiq,iom";    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:390 */
+			reg = < 0x50008000 0x1000 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:391 */
+			interrupts = < 0xa 0x0 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:392 */
+
+			/* node '/soc/iom@50008000/spi' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:394 */
+			spi {
+				compatible = "ambiq,spi";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:395 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:396 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:397 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:398 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:399 */
+			};
+
+			/* node '/soc/iom@50008000/i2c' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:402 */
+			i2c {
+				compatible = "ambiq,i2c";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:403 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:404 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:405 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:406 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:407 */
+			};
+		};
+
+		/* node '/soc/iom@50009000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:411 */
+		iom5: iom@50009000 {
+			compatible = "ambiq,iom";    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:412 */
+			reg = < 0x50009000 0x1000 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:413 */
+			interrupts = < 0xb 0x0 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:414 */
+
+			/* node '/soc/iom@50009000/spi' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:416 */
+			spi {
+				compatible = "ambiq,spi";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:417 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:418 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:419 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:420 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:421 */
+			};
+
+			/* node '/soc/iom@50009000/i2c' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:424 */
+			i2c {
+				compatible = "ambiq,i2c";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:425 */
+				#address-cells = < 0x1 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:426 */
+				#size-cells = < 0x0 >;         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:427 */
+				status = "disabled";           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:428 */
+				zephyr,pm-device-runtime-auto; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:429 */
+			};
+		};
+
+		/* node '/soc/adc@50010000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:433 */
+		adc0: adc@50010000 {
+			compatible = "ambiq,adc";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:434 */
+			reg = < 0x50010000 0x400 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:435 */
+			interrupts = < 0x12 0x0 >;     /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:436 */
+			interrupt-names = "ADC";       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:437 */
+			channel-count = < 0xa >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:438 */
+			internal-vref-mv = < 0x5dc >;  /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:439 */
+			#io-channel-cells = < 0x1 >;   /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:441 */
+			pinctrl-0 = < &adc0_default >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:181 */
+			pinctrl-names = "default";     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:182 */
+			status = "disabled";           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:183 */
+		};
+
+		/* node '/soc/mspi@50014000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:444 */
+		mspi0: mspi@50014000 {
+			compatible = "ambiq,mspi-controller"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:445 */
+			reg = < 0x50014000 0x400 >,
+			      < 0x52000000 0x2000000 >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:446 */
+			clock-frequency = < 0x2dc6c00 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:447 */
+			interrupts = < 0x14 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:448 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:449 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:450 */
+			status = "disabled";                  /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:451 */
+		};
+
+		/* node '/soc/mspi@50015000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:454 */
+		mspi1: mspi@50015000 {
+			compatible = "ambiq,mspi-controller"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:455 */
+			reg = < 0x50015000 0x400 >,
+			      < 0x54000000 0x2000000 >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:456 */
+			clock-frequency = < 0x2dc6c00 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:457 */
+			interrupts = < 0x20 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:458 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:459 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:460 */
+			status = "disabled";                  /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:461 */
+		};
+
+		/* node '/soc/mspi@50016000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:464 */
+		mspi2: mspi@50016000 {
+			compatible = "ambiq,mspi-controller"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:465 */
+			clock-frequency = < 0x2dc6c00 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:466 */
+			reg = < 0x50016000 0x400 >,
+			      < 0x56000000 0x2000000 >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:467 */
+			interrupts = < 0x21 0x0 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:468 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:469 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:470 */
+			status = "disabled";                  /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:471 */
+		};
+
+		/* node '/soc/rtc@40004240' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:474 */
+		rtc0: rtc@40004240 {
+			compatible = "ambiq,rtc";  /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:475 */
+			reg = < 0x40004240 0xd0 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:476 */
+			interrupts = < 0x2 0x0 >;  /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:477 */
+			alarms-count = < 0x1 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:478 */
+			status = "disabled";       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:176 */
+			clock = "XTAL";            /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:177 */
+		};
+
+		/* node '/soc/spi@5000c000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:482 */
+		bleif: spi@5000c000 {
+			compatible = "ambiq,spi-bleif"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:483 */
+			reg = < 0x5000c000 0x414 >;     /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:484 */
+			interrupts = < 0xc 0x1 >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:485 */
+			#address-cells = < 0x1 >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:486 */
+			#size-cells = < 0x0 >;          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:487 */
+			pinctrl-0 = < &bleif_default >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:116 */
+			pinctrl-names = "default";      /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:117 */
+			status = "okay";                /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:118 */
+
+			/* node '/soc/spi@5000c000/bt-hci@0' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:490 */
+			bt_hci_apollo: bt-hci@0 {
+				compatible = "ambiq,bt-hci-spi";  /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:491 */
+				spi-max-frequency = < 0x5b8d80 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:492 */
+				reg = < 0x0 >;                    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:493 */
+			};
+		};
+
+		/* node '/soc/pin-controller@40010000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:497 */
+		pinctrl: pin-controller@40010000 {
+			compatible = "ambiq,apollo3-pinctrl"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:498 */
+			reg = < 0x40010000 0x800 >;           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:499 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:500 */
+			#size-cells = < 0x0 >;                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:501 */
+
+			/* node '/soc/pin-controller@40010000/gpio@40010000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:503 */
+			gpio: gpio@40010000 {
+				compatible = "ambiq,gpio";                                                                        /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:504 */
+				gpio-map-mask = < 0xffffffe0 0xffffffc0 >;                                                        /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:505 */
+				gpio-map-pass-thru = < 0x1f 0x3f >;                                                               /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:506 */
+				gpio-map = < 0x0 0x0 &gpio0_31 0x0 0x0 0x20 0x0 &gpio32_63 0x0 0x0 0x40 0x0 &gpio64_95 0x0 0x0 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:507 */
+				reg = < 0x40010000 >;                                                                             /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:510 */
+				#gpio-cells = < 0x2 >;                                                                            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:511 */
+				#address-cells = < 0x1 >;                                                                         /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:512 */
+				#size-cells = < 0x0 >;                                                                            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:513 */
+				ranges;                                                                                           /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:514 */
+
+				/* node '/soc/pin-controller@40010000/gpio@40010000/gpio0_31@0' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:516 */
+				gpio0_31: gpio0_31@0 {
+					compatible = "ambiq,gpio-bank"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:517 */
+					gpio-controller;                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:518 */
+					#gpio-cells = < 0x2 >;          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:519 */
+					reg = < 0x0 >;                  /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:520 */
+					interrupts = < 0xd 0x0 >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:521 */
+					status = "okay";                /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:187 */
+					phandle = < 0x6 >;              /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:142 */
+				};
+
+				/* node '/soc/pin-controller@40010000/gpio@40010000/gpio32_63@20' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:525 */
+				gpio32_63: gpio32_63@20 {
+					compatible = "ambiq,gpio-bank"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:526 */
+					gpio-controller;                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:527 */
+					#gpio-cells = < 0x2 >;          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:528 */
+					reg = < 0x20 >;                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:529 */
+					interrupts = < 0xd 0x0 >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:530 */
+					status = "okay";                /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:191 */
+					phandle = < 0x8 >;              /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:153 */
+				};
+
+				/* node '/soc/pin-controller@40010000/gpio@40010000/gpio64_95@40' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:534 */
+				gpio64_95: gpio64_95@40 {
+					compatible = "ambiq,gpio-bank"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:535 */
+					gpio-controller;                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:536 */
+					#gpio-cells = < 0x2 >;          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:537 */
+					reg = < 0x40 >;                 /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:538 */
+					interrupts = < 0xd 0x0 >;       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:539 */
+					ngpios = < 0xa >;               /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:541 */
+					status = "okay";                /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:195 */
+					phandle = < 0xb >;              /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:507 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/uart0_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:11 */
+			uart0_default: uart0_default {
+				phandle = < 0x4 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:123 */
+
+				/* node '/soc/pin-controller@40010000/uart0_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:12 */
+				group1 {
+					pinmux = < 0x160 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:13 */
+				};
+
+				/* node '/soc/pin-controller@40010000/uart0_default/group2' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:16 */
+				group2 {
+					pinmux = < 0x170 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:17 */
+					input-enable;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:18 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/itm_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:22 */
+			itm_default: itm_default {
+				phandle = < 0xe >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:129 */
+
+				/* node '/soc/pin-controller@40010000/itm_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:23 */
+				group1 {
+					pinmux = < 0x292 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:24 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/i2c0_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:28 */
+			i2c0_default: i2c0_default {
+
+				/* node '/soc/pin-controller@40010000/i2c0_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:29 */
+				group1 {
+					pinmux = < 0x50 >,
+					         < 0x60 >;      /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:30 */
+					drive-open-drain;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:31 */
+					drive-strength = "0.5"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:32 */
+					bias-pull-up;           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:33 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/i2c1_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:37 */
+			i2c1_default: i2c1_default {
+
+				/* node '/soc/pin-controller@40010000/i2c1_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:38 */
+				group1 {
+					pinmux = < 0x80 >,
+					         < 0x90 >;      /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:39 */
+					drive-open-drain;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:40 */
+					drive-strength = "0.5"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:41 */
+					bias-pull-up;           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:42 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/i2c2_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:46 */
+			i2c2_default: i2c2_default {
+
+				/* node '/soc/pin-controller@40010000/i2c2_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:47 */
+				group1 {
+					pinmux = < 0x1b4 >,
+					         < 0x194 >;     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:48 */
+					drive-open-drain;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:49 */
+					drive-strength = "0.5"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:50 */
+					bias-pull-up;           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:51 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/i2c3_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:55 */
+			i2c3_default: i2c3_default {
+				phandle = < 0x7 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:150 */
+
+				/* node '/soc/pin-controller@40010000/i2c3_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:56 */
+				group1 {
+					pinmux = < 0x2a4 >,
+					         < 0x2b4 >;     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:57 */
+					drive-open-drain;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:58 */
+					drive-strength = "0.5"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:59 */
+					bias-pull-up;           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:60 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/i2c4_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:64 */
+			i2c4_default: i2c4_default {
+
+				/* node '/soc/pin-controller@40010000/i2c4_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:65 */
+				group1 {
+					pinmux = < 0x274 >,
+					         < 0x284 >;     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:66 */
+					drive-open-drain;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:67 */
+					drive-strength = "0.5"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:68 */
+					bias-pull-up;           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:69 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/i2c5_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:73 */
+			i2c5_default: i2c5_default {
+
+				/* node '/soc/pin-controller@40010000/i2c5_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:74 */
+				group1 {
+					pinmux = < 0x304 >,
+					         < 0x314 >;     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:75 */
+					drive-open-drain;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:76 */
+					drive-strength = "0.5"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:77 */
+					bias-pull-up;           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:78 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/spid0_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:82 */
+			spid0_default: spid0_default {
+
+				/* node '/soc/pin-controller@40010000/spid0_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:83 */
+				group1 {
+					pinmux = < 0x1 >,
+					         < 0x21 >,
+					         < 0x11 >,
+					         < 0x31 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:84 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/spi0_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:88 */
+			spi0_default: spi0_default {
+				phandle = < 0x5 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:140 */
+
+				/* node '/soc/pin-controller@40010000/spi0_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:89 */
+				group1 {
+					pinmux = < 0x51 >,
+					         < 0x61 >,
+					         < 0x71 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:90 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/spi1_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:94 */
+			spi1_default: spi1_default {
+
+				/* node '/soc/pin-controller@40010000/spi1_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:95 */
+				group1 {
+					pinmux = < 0x81 >,
+					         < 0x91 >,
+					         < 0xa1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:96 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/spi2_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:100 */
+			spi2_default: spi2_default {
+
+				/* node '/soc/pin-controller@40010000/spi2_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:101 */
+				group1 {
+					pinmux = < 0x1b5 >,
+					         < 0x195 >,
+					         < 0x1c5 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:102 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/spi3_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:106 */
+			spi3_default: spi3_default {
+
+				/* node '/soc/pin-controller@40010000/spi3_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:107 */
+				group1 {
+					pinmux = < 0x2a5 >,
+					         < 0x2b5 >,
+					         < 0x265 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:108 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/spi4_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:112 */
+			spi4_default: spi4_default {
+
+				/* node '/soc/pin-controller@40010000/spi4_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:113 */
+				group1 {
+					pinmux = < 0x275 >,
+					         < 0x285 >,
+					         < 0x2c5 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:114 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/spi5_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:118 */
+			spi5_default: spi5_default {
+
+				/* node '/soc/pin-controller@40010000/spi5_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:119 */
+				group1 {
+					pinmux = < 0x305 >,
+					         < 0x315 >,
+					         < 0x2f5 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:120 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/adc0_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:124 */
+			adc0_default: adc0_default {
+				phandle = < 0x9 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:181 */
+
+				/* node '/soc/pin-controller@40010000/adc0_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:125 */
+				group1 {
+					pinmux = < 0x200 >,
+					         < 0x230 >;     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:126 */
+					drive-strength = "0.1"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:127 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/mspi0_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:131 */
+			mspi0_default: mspi0_default {
+
+				/* node '/soc/pin-controller@40010000/mspi0_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:132 */
+				group1 {
+					pinmux = < 0x166 >,
+					         < 0x1a5 >,
+					         < 0x47 >,
+					         < 0x176 >,
+					         < 0x182 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:133 */
+				};
+
+				/* node '/soc/pin-controller@40010000/mspi0_default/group2' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:140 */
+				group2 {
+					pinmux = < 0x251 >;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:141 */
+					drive-push-pull;          /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:142 */
+					drive-strength = "0.5";   /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:143 */
+					ambiq,iom-mspi = < 0x0 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:144 */
+					ambiq,nce-src = < 0x0 >;  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:145 */
+					ambiq,iom-num = < 0x0 >;  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:146 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/mspi1_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:150 */
+			mspi1_default: mspi1_default {
+
+				/* node '/soc/pin-controller@40010000/mspi1_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:151 */
+				group1 {
+					pinmux = < 0x330 >,
+					         < 0x340 >,
+					         < 0x350 >,
+					         < 0x360 >,
+					         < 0x370 >,
+					         < 0x380 >,
+					         < 0x390 >,
+					         < 0x3a0 >,
+					         < 0x3b0 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:152 */
+				};
+
+				/* node '/soc/pin-controller@40010000/mspi1_default/group2' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:163 */
+				group2 {
+					pinmux = < 0x321 >;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:164 */
+					drive-push-pull;          /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:165 */
+					drive-strength = "0.5";   /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:166 */
+					ambiq,iom-mspi = < 0x0 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:167 */
+					ambiq,nce-src = < 0x0 >;  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:168 */
+					ambiq,iom-num = < 0x1 >;  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:169 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/mspi2_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:173 */
+			mspi2_default: mspi2_default {
+
+				/* node '/soc/pin-controller@40010000/mspi2_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:174 */
+				group1 {
+					pinmux = < 0x400 >,
+					         < 0x410 >,
+					         < 0x420 >,
+					         < 0x430 >,
+					         < 0x440 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:175 */
+				};
+
+				/* node '/soc/pin-controller@40010000/mspi2_default/group2' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:182 */
+				group2 {
+					pinmux = < 0x3f1 >;       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:183 */
+					drive-push-pull;          /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:184 */
+					drive-strength = "0.5";   /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:185 */
+					ambiq,iom-mspi = < 0x0 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:186 */
+					ambiq,nce-src = < 0x0 >;  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:187 */
+					ambiq,iom-num = < 0x2 >;  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:188 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/bleif_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:192 */
+			bleif_default: bleif_default {
+				phandle = < 0xa >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:116 */
+
+				/* node '/soc/pin-controller@40010000/bleif_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:193 */
+				group1 {
+					pinmux = < 0x1e6 >,
+					         < 0x1f6 >,
+					         < 0x206 >,
+					         < 0x214 >,
+					         < 0x237 >,
+					         < 0x291 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:194 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40010000/pwm2_default' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:203 */
+			pwm2_default: pwm2_default {
+				phandle = < 0x2 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:169 */
+
+				/* node '/soc/pin-controller@40010000/pwm2_default/group1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:204 */
+				group1 {
+					pinmux = < 0x1e3 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb-pinctrl.dtsi:205 */
+				};
+			};
+		};
+
+		/* node '/soc/watchdog@40024000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:546 */
+		wdt0: watchdog@40024000 {
+			compatible = "ambiq,watchdog"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:547 */
+			reg = < 0x40024000 0x400 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:548 */
+			interrupts = < 0x1 0x0 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:549 */
+			clock-frequency = < 0x10 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:550 */
+			status = "okay";               /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:135 */
+		};
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:12 */
+	clocks {
+
+		/* node '/clocks/apb-pclk' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:13 */
+		uartclk: apb-pclk {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:14 */
+			clock-frequency = < 0x16e3600 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:15 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:16 */
+			phandle = < 0x3 >;               /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:277 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:20 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:21 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:22 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:24 */
+		cpu0: cpu@0 {
+			compatible = "arm,cortex-m4f";                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:25 */
+			reg = < 0x0 >;                                /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:26 */
+			cpu-power-states = < &idle &suspend_to_ram >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:27 */
+			#address-cells = < 0x1 >;                     /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:28 */
+			#size-cells = < 0x1 >;                        /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:29 */
+
+			/* node '/cpus/cpu@0/itm@e0000000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:31 */
+			itm: itm@e0000000 {
+				compatible = "arm,armv7m-itm";    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:32 */
+				reg = < 0xe0000000 0x1000 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:33 */
+				swo-ref-frequency = < 0x5b8d80 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:34 */
+				pinctrl-0 = < &itm_default >;     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:129 */
+				pinctrl-names = "default";        /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:130 */
+				status = "okay";                  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:131 */
+			};
+		};
+
+		/* node '/cpus/power-states' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:38 */
+		power-states {
+
+			/* node '/cpus/power-states/idle' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:39 */
+			idle: idle {
+				compatible = "zephyr,power-state";    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:40 */
+				power-state-name = "suspend-to-idle"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:41 */
+				min-residency-us = < 0x64 >;          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:46 */
+				exit-latency-us = < 0x5 >;            /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:47 */
+				phandle = < 0xc >;                    /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:27 */
+			};
+
+			/* node '/cpus/power-states/suspend_to_ram' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:50 */
+			suspend_to_ram: suspend_to_ram {
+				compatible = "zephyr,power-state";   /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:51 */
+				power-state-name = "suspend-to-ram"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:52 */
+				min-residency-us = < 0x7d0 >;        /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:58 */
+				exit-latency-us = < 0x7d >;          /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:59 */
+				phandle = < 0xd >;                   /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:27 */
+			};
+		};
+	};
+
+	/* node '/tcm@10000000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:65 */
+	tcm: tcm@10000000 {
+		compatible = "zephyr,memory-region"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:66 */
+		reg = < 0x10000000 0x10000 >;        /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:67 */
+		zephyr,memory-region = "ITCM";       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:68 */
+	};
+
+	/* node '/memory@10010000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:72 */
+	sram0: memory@10010000 {
+		compatible = "mmio-sram";     /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:73 */
+		reg = < 0x10010000 0xb0000 >; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:74 */
+	};
+
+	/* node '/memory@52000000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:77 */
+	xip0: memory@52000000 {
+		compatible = "zephyr,memory-region"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:78 */
+		reg = < 0x52000000 0x2000000 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:79 */
+		zephyr,memory-region = "XIP0";       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:80 */
+	};
+
+	/* node '/memory@54000000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:83 */
+	xip1: memory@54000000 {
+		compatible = "zephyr,memory-region"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:84 */
+		reg = < 0x54000000 0x2000000 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:85 */
+		zephyr,memory-region = "XIP1";       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:86 */
+	};
+
+	/* node '/memory@56000000' defined in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:89 */
+	xip2: memory@56000000 {
+		compatible = "zephyr,memory-region"; /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:90 */
+		reg = < 0x56000000 0x2000000 >;      /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:91 */
+		zephyr,memory-region = "XIP2";       /* in zephyr/dts/arm/ambiq/ambiq_apollo3p_blue.dtsi:92 */
+	};
+
+	/* node '/connector' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb_connector.dtsi:8 */
+	ambiq_header: connector {
+		compatible = "ambiq-header";                 /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb_connector.dtsi:9 */
+		#gpio-cells = < 0x2 >;                       /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb_connector.dtsi:10 */
+		gpio-map-mask = < 0xffffffff 0xffffff80 >;   /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb_connector.dtsi:11 */
+		gpio-map-pass-thru = < 0x0 0x7f >;           /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb_connector.dtsi:12 */
+		gpio-map = < 0x0 0x0 &gpio0_31 0x0 0x0 >,
+		           < 0x1 0x0 &gpio0_31 0x1 0x0 >,
+		           < 0x2 0x0 &gpio0_31 0x2 0x0 >,
+		           < 0x3 0x0 &gpio0_31 0x3 0x0 >,
+		           < 0x4 0x0 &gpio0_31 0x4 0x0 >,
+		           < 0x5 0x0 &gpio0_31 0x5 0x0 >,
+		           < 0x6 0x0 &gpio0_31 0x6 0x0 >,
+		           < 0x7 0x0 &gpio0_31 0x7 0x0 >,
+		           < 0x8 0x0 &gpio0_31 0x8 0x0 >,
+		           < 0x9 0x0 &gpio0_31 0x9 0x0 >,
+		           < 0xa 0x0 &gpio0_31 0xa 0x0 >,
+		           < 0xb 0x0 &gpio0_31 0xb 0x0 >,
+		           < 0xc 0x0 &gpio0_31 0xc 0x0 >,
+		           < 0xd 0x0 &gpio0_31 0xd 0x0 >,
+		           < 0xe 0x0 &gpio0_31 0xe 0x0 >,
+		           < 0xf 0x0 &gpio0_31 0xf 0x0 >,
+		           < 0x10 0x0 &gpio0_31 0x10 0x0 >,
+		           < 0x11 0x0 &gpio0_31 0x11 0x0 >,
+		           < 0x12 0x0 &gpio0_31 0x12 0x0 >,
+		           < 0x13 0x0 &gpio0_31 0x13 0x0 >,
+		           < 0x14 0x0 &gpio0_31 0x14 0x0 >,
+		           < 0x15 0x0 &gpio0_31 0x15 0x0 >,
+		           < 0x16 0x0 &gpio0_31 0x16 0x0 >,
+		           < 0x17 0x0 &gpio0_31 0x17 0x0 >,
+		           < 0x18 0x0 &gpio0_31 0x18 0x0 >,
+		           < 0x19 0x0 &gpio0_31 0x19 0x0 >,
+		           < 0x1a 0x0 &gpio0_31 0x1a 0x0 >,
+		           < 0x1b 0x0 &gpio0_31 0x1b 0x0 >,
+		           < 0x1c 0x0 &gpio0_31 0x1c 0x0 >,
+		           < 0x1d 0x0 &gpio0_31 0x1d 0x0 >,
+		           < 0x1e 0x0 &gpio0_31 0x1e 0x0 >,
+		           < 0x1f 0x0 &gpio0_31 0x1f 0x0 >,
+		           < 0x20 0x0 &gpio32_63 0x0 0x0 >,
+		           < 0x21 0x0 &gpio32_63 0x1 0x0 >,
+		           < 0x22 0x0 &gpio32_63 0x2 0x0 >,
+		           < 0x23 0x0 &gpio32_63 0x3 0x0 >,
+		           < 0x24 0x0 &gpio32_63 0x4 0x0 >,
+		           < 0x25 0x0 &gpio32_63 0x5 0x0 >,
+		           < 0x26 0x0 &gpio32_63 0x6 0x0 >,
+		           < 0x27 0x0 &gpio32_63 0x7 0x0 >,
+		           < 0x28 0x0 &gpio32_63 0x8 0x0 >,
+		           < 0x29 0x0 &gpio32_63 0x9 0x0 >,
+		           < 0x2a 0x0 &gpio32_63 0xa 0x0 >,
+		           < 0x2b 0x0 &gpio32_63 0xb 0x0 >,
+		           < 0x2c 0x0 &gpio32_63 0xc 0x0 >,
+		           < 0x2d 0x0 &gpio32_63 0xd 0x0 >,
+		           < 0x2e 0x0 &gpio32_63 0xe 0x0 >,
+		           < 0x2f 0x0 &gpio32_63 0xf 0x0 >,
+		           < 0x30 0x0 &gpio32_63 0x10 0x0 >,
+		           < 0x31 0x0 &gpio32_63 0x11 0x0 >,
+		           < 0x32 0x0 &gpio32_63 0x12 0x0 >,
+		           < 0x33 0x0 &gpio32_63 0x13 0x0 >,
+		           < 0x34 0x0 &gpio32_63 0x14 0x0 >,
+		           < 0x35 0x0 &gpio32_63 0x15 0x0 >,
+		           < 0x36 0x0 &gpio32_63 0x16 0x0 >,
+		           < 0x37 0x0 &gpio32_63 0x17 0x0 >,
+		           < 0x38 0x0 &gpio32_63 0x18 0x0 >,
+		           < 0x39 0x0 &gpio32_63 0x19 0x0 >,
+		           < 0x3a 0x0 &gpio32_63 0x1a 0x0 >,
+		           < 0x3b 0x0 &gpio32_63 0x1b 0x0 >,
+		           < 0x3c 0x0 &gpio32_63 0x1c 0x0 >,
+		           < 0x3d 0x0 &gpio32_63 0x1d 0x0 >,
+		           < 0x3e 0x0 &gpio32_63 0x1e 0x0 >,
+		           < 0x3f 0x0 &gpio32_63 0x1f 0x0 >,
+		           < 0x40 0x0 &gpio64_95 0x0 0x0 >,
+		           < 0x41 0x0 &gpio64_95 0x1 0x0 >,
+		           < 0x42 0x0 &gpio64_95 0x2 0x0 >,
+		           < 0x43 0x0 &gpio64_95 0x3 0x0 >,
+		           < 0x44 0x0 &gpio64_95 0x4 0x0 >,
+		           < 0x45 0x0 &gpio64_95 0x5 0x0 >,
+		           < 0x46 0x0 &gpio64_95 0x6 0x0 >,
+		           < 0x47 0x0 &gpio64_95 0x7 0x0 >,
+		           < 0x48 0x0 &gpio64_95 0x8 0x0 >,
+		           < 0x49 0x0 &gpio64_95 0x9 0x0 >,
+		           < 0x4a 0x0 &gpio64_95 0xa 0x0 >;  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb_connector.dtsi:13 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:32 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:33 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:35 */
+		led0: led_0 {
+			gpios = < &gpio0_31 0xa 0x1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:36 */
+			label = "LED 0";               /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:37 */
+		};
+
+		/* node '/leds/led_1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:40 */
+		led1: led_1 {
+			gpios = < &gpio0_31 0x1e 0x1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:41 */
+			label = "LED 1";                /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:42 */
+		};
+
+		/* node '/leds/led_2' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:45 */
+		led2: led_2 {
+			gpios = < &gpio0_31 0xf 0x1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:46 */
+			label = "LED 2";               /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:47 */
+		};
+
+		/* node '/leds/led_3' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:50 */
+		led3: led_3 {
+			gpios = < &gpio0_31 0xe 0x1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:51 */
+			label = "LED 3";               /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:52 */
+		};
+
+		/* node '/leds/led_4' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:55 */
+		led4: led_4 {
+			gpios = < &gpio0_31 0x11 0x1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:56 */
+			label = "LED 4";                /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:57 */
+		};
+	};
+
+	/* node '/buttons' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:61 */
+	buttons {
+		compatible = "gpio-keys"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:62 */
+
+		/* node '/buttons/button_0' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:64 */
+		button0: button_0 {
+			gpios = < &gpio0_31 0x10 0x1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:65 */
+			label = "BTN0";                 /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:66 */
+			zephyr,code = < 0xb >;          /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:67 */
+		};
+
+		/* node '/buttons/button_1' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:70 */
+		button1: button_1 {
+			gpios = < &gpio0_31 0x12 0x1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:71 */
+			label = "BTN1";                 /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:72 */
+			zephyr,code = < 0x2 >;          /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:73 */
+		};
+
+		/* node '/buttons/button_2' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:76 */
+		button2: button_2 {
+			gpios = < &gpio0_31 0x13 0x1 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:77 */
+			label = "BTN2";                 /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:78 */
+			zephyr,code = < 0x3 >;          /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:79 */
+		};
+	};
+
+	/* node '/pwmleds' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:83 */
+	pwmleds: pwmleds {
+		compatible = "pwm-leds"; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:84 */
+		status = "disabled";     /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:85 */
+
+		/* node '/pwmleds/pwm_led_0' defined in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:87 */
+		pwm_led0: pwm_led_0 {
+			pwms = < &pwm2 0x0 0x1312d00 0x0 >; /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:88 */
+			label = "PWM_LED";                  /* in zephyr/boards/ambiq/apollo3p_evb/apollo3p_evb.dts:89 */
+		};
+	};
+};

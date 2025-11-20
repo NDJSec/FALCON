@@ -1,0 +1,1010 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;         /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;            /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "NXP FRDM-MCXE247 board"; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:15 */
+	compatible = "nxp,mcxe247",
+	             "nxp,mcx";           /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:16 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,flash-controller = &ftfc; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:20 */
+		zephyr,sram = &sram_l;           /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:28 */
+		zephyr,flash = &flash0;          /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:29 */
+		zephyr,console = &lpuart2;       /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:30 */
+		zephyr,shell-uart = &lpuart2;    /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:31 */
+		zephyr,canbus = &flexcan0;       /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:32 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		watchdog0 = &wdog;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:16 */
+		led0 = &red_led;      /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:19 */
+		led1 = &green_led;    /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:20 */
+		led2 = &blue_led;     /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:21 */
+		sw0 = &user_button_2; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:22 */
+		sw1 = &user_button_3; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:23 */
+		rtc = &counter_rtc;   /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:24 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x4 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:635 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/scg@40064000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:41 */
+		scg: scg@40064000 {
+			compatible = "nxp,kinetis-scg"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:42 */
+			sosc-mode = < 0x4 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:43 */
+			reg = < 0x40064000 0x1000 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:44 */
+			#clock-cells = < 0x1 >;         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:45 */
+			phandle = < 0x9 >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:217 */
+
+			/* node '/soc/scg@40064000/sosc_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:47 */
+			sosc_clk: sosc_clk {
+				compatible = "fixed-clock";     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:48 */
+				#clock-cells = < 0x0 >;         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:49 */
+				clock-frequency = < 0x7a1200 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:105 */
+				status = "okay";                /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:106 */
+				phandle = < 0x2 >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:55 */
+			};
+
+			/* node '/soc/scg@40064000/pll' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:53 */
+			pll: pll {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:54 */
+				clocks = < &sosc_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:55 */
+				clock-div = < 0x1 >;               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:56 */
+				clock-mult = < 0x28 >;             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:57 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:58 */
+				phandle = < 0x3 >;                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:63 */
+			};
+
+			/* node '/soc/scg@40064000/spll_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:61 */
+			spll_clk: spll_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:62 */
+				clocks = < &pll >;                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:63 */
+				clock-div = < 0x2 >;               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:64 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:65 */
+				status = "okay";                   /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:110 */
+				phandle = < 0x4 >;                 /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:114 */
+			};
+
+			/* node '/soc/scg@40064000/sirc_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:69 */
+			sirc_clk: sirc_clk {
+				compatible = "fixed-clock";     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:70 */
+				clock-frequency = < 0x7a1200 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:71 */
+				#clock-cells = < 0x0 >;         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:72 */
+				phandle = < 0x6 >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:132 */
+			};
+
+			/* node '/soc/scg@40064000/firc_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:75 */
+			firc_clk: firc_clk {
+				compatible = "fixed-clock";      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:76 */
+				clock-frequency = < 0x2dc6c00 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:77 */
+				#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:78 */
+				phandle = < 0x7 >;               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:146 */
+			};
+
+			/* node '/soc/scg@40064000/core_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:81 */
+			core_clk: core_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:82 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:85 */
+				clocks = < &spll_clk >;            /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:114 */
+				clock-div = < 0x2 >;               /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:115 */
+				phandle = < 0x5 >;                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:90 */
+			};
+
+			/* node '/soc/scg@40064000/bus_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:88 */
+			bus_clk: bus_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:89 */
+				clocks = < &core_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:90 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:92 */
+				clock-div = < 0x2 >;               /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:119 */
+			};
+
+			/* node '/soc/scg@40064000/slow_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:95 */
+			slow_clk: slow_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:96 */
+				clocks = < &core_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:97 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:99 */
+				clock-div = < 0x4 >;               /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:123 */
+			};
+
+			/* node '/soc/scg@40064000/splldiv1_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:102 */
+			splldiv1_clk: splldiv1_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:103 */
+				clocks = < &spll_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:104 */
+				clock-div = < 0x0 >;               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:105 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:106 */
+			};
+
+			/* node '/soc/scg@40064000/splldiv2_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:109 */
+			splldiv2_clk: splldiv2_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:110 */
+				clocks = < &spll_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:111 */
+				clock-div = < 0x0 >;               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:112 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:113 */
+			};
+
+			/* node '/soc/scg@40064000/soscdiv1_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:116 */
+			soscdiv1_clk: soscdiv1_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:117 */
+				clocks = < &sosc_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:118 */
+				clock-div = < 0x0 >;               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:119 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:120 */
+			};
+
+			/* node '/soc/scg@40064000/soscdiv2_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:123 */
+			soscdiv2_clk: soscdiv2_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:124 */
+				clocks = < &sosc_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:125 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:127 */
+				clock-div = < 0x1 >;               /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:131 */
+			};
+
+			/* node '/soc/scg@40064000/sircdiv1_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:130 */
+			sircdiv1_clk: sircdiv1_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:131 */
+				clocks = < &sirc_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:132 */
+				clock-div = < 0x0 >;               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:133 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:134 */
+			};
+
+			/* node '/soc/scg@40064000/sircdiv2_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:137 */
+			sircdiv2_clk: sircdiv2_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:138 */
+				clocks = < &sirc_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:139 */
+				clock-div = < 0x0 >;               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:140 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:141 */
+			};
+
+			/* node '/soc/scg@40064000/fircdiv1_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:144 */
+			fircdiv1_clk: fircdiv1_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:145 */
+				clocks = < &firc_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:146 */
+				clock-div = < 0x0 >;               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:147 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:148 */
+			};
+
+			/* node '/soc/scg@40064000/fircdiv2_clk' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:151 */
+			fircdiv2_clk: fircdiv2_clk {
+				compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:152 */
+				clocks = < &firc_clk >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:153 */
+				#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:155 */
+				clock-div = < 0x1 >;               /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:127 */
+			};
+		};
+
+		/* node '/soc/pcc@40065000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:159 */
+		pcc: pcc@40065000 {
+			compatible = "nxp,kinetis-pcc"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:160 */
+			reg = < 0x40065000 0x1000 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:161 */
+			#clock-cells = < 0x2 >;         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:162 */
+			phandle = < 0x8 >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:195 */
+		};
+
+		/* node '/soc/flash-controller@40020000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:165 */
+		ftfc: flash-controller@40020000 {
+			compatible = "nxp,kinetis-ftfc";      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:166 */
+			reg = < 0x40020000 0x1000 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:167 */
+			interrupts = < 0x12 0x0 >,
+			             < 0x13 0x0 >,
+			             < 0x15 0x0 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:168 */
+			interrupt-names = "command-complete",
+			                  "read-collision",
+			                  "double-bit";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:169 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:170 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:171 */
+			status = "disabled";                  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:172 */
+
+			/* node '/soc/flash-controller@40020000/flash@0' defined in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:30 */
+			flash0: flash@0 {
+				compatible = "soc-nv-flash";   /* in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:31 */
+				reg = < 0x0 0x180000 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:32 */
+				erase-block-size = < 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:33 */
+				write-block-size = < 0x8 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:34 */
+			};
+		};
+
+		/* node '/soc/dma-controller@40008000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:175 */
+		edma: dma-controller@40008000 {
+			compatible = "nxp,mcux-edma"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:176 */
+			nxp,version = < 0x2 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:177 */
+			dma-channels = < 0x10 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:178 */
+			dma-requests = < 0x40 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:179 */
+			nxp,mem2mem;                  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:180 */
+			reg = < 0x40008000 0x1000 >,
+			      < 0x40021000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:181 */
+			interrupts = < 0x0 0x0 >,
+			             < 0x1 0x0 >,
+			             < 0x2 0x0 >,
+			             < 0x3 0x0 >,
+			             < 0x4 0x0 >,
+			             < 0x5 0x0 >,
+			             < 0x6 0x0 >,
+			             < 0x7 0x0 >,
+			             < 0x8 0x0 >,
+			             < 0x9 0x0 >,
+			             < 0xa 0x0 >,
+			             < 0xb 0x0 >,
+			             < 0xc 0x0 >,
+			             < 0xd 0x0 >,
+			             < 0xe 0x0 >,
+			             < 0xf 0x0 >,
+			             < 0x10 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:182 */
+			#dma-cells = < 0x2 >;         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:187 */
+			status = "okay";              /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:169 */
+			phandle = < 0x11 >;           /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:505 */
+		};
+
+		/* node '/soc/adc@4003b000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:191 */
+		adc0: adc@4003b000 {
+			compatible = "nxp,adc12";    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:192 */
+			reg = < 0x4003b000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:193 */
+			interrupts = < 0x27 0x0 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:194 */
+			clocks = < &pcc 0xec 0x3 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:195 */
+			clk-source = < 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:196 */
+			clk-divider = < 0x1 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:197 */
+			#io-channel-cells = < 0x1 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:198 */
+			status = "disabled";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:199 */
+		};
+
+		/* node '/soc/adc@40027000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:202 */
+		adc1: adc@40027000 {
+			compatible = "nxp,adc12";    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:203 */
+			reg = < 0x40027000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:204 */
+			interrupts = < 0x28 0x0 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:205 */
+			clocks = < &pcc 0x9c 0x3 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:206 */
+			clk-source = < 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:207 */
+			clk-divider = < 0x1 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:208 */
+			#io-channel-cells = < 0x1 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:209 */
+			status = "disabled";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:210 */
+		};
+
+		/* node '/soc/cmp@40073000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:213 */
+		cmp0: cmp@40073000 {
+			compatible = "nxp,kinetis-acmp"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:214 */
+			reg = < 0x40073000 0x1000 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:215 */
+			interrupts = < 0x29 0x0 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:216 */
+			clocks = < &scg 0x1 >;           /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:217 */
+			status = "disabled";             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:218 */
+		};
+
+		/* node '/soc/ethernet@40079000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:221 */
+		enet: ethernet@40079000 {
+			compatible = "nxp,enet";    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:222 */
+			reg = < 0x40079000 0x620 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:223 */
+			clocks = < &core_clk >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:224 */
+
+			/* node '/soc/ethernet@40079000/ethernet' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:226 */
+			enet_mac: ethernet {
+				compatible = "nxp,enet-mac";     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:227 */
+				interrupts = < 0x49 0x0 >,
+				             < 0x4a 0x0 >,
+				             < 0x4b 0x0 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:228 */
+				interrupt-names = "TX",
+				                  "RX",
+				                  "ERR";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:229 */
+				nxp,mdio = < &enet_mdio >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:230 */
+				ptp-clock = < &enet_ptp_clock >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:231 */
+				phy-connection-type = "rmii";    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:232 */
+				status = "disabled";             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:233 */
+			};
+
+			/* node '/soc/ethernet@40079000/mdio' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:236 */
+			enet_mdio: mdio {
+				compatible = "nxp,enet-mdio"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:237 */
+				#address-cells = < 0x1 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:238 */
+				#size-cells = < 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:239 */
+				status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:240 */
+				phandle = < 0xa >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:230 */
+			};
+
+			/* node '/soc/ethernet@40079000/ptp_clock' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:243 */
+			enet_ptp_clock: ptp_clock {
+				compatible = "nxp,enet-ptp-clock"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:244 */
+				interrupts = < 0x48 0x0 >;         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:245 */
+				interrupt-names = "IEEE1588_TMR";  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:246 */
+				clocks = < &pcc 0x1e4 0x6 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:247 */
+				status = "disabled";               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:248 */
+				phandle = < 0xb >;                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:231 */
+			};
+		};
+
+		/* node '/soc/ewm@40061000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:252 */
+		ewm0: ewm@40061000 {
+			compatible = "nxp,ewm";    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:253 */
+			reg = < 0x40061000 0x6 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:254 */
+			interrupts = < 0x16 0x0 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:255 */
+			clk-divider = < 0x0 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:256 */
+			status = "disabled";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:257 */
+		};
+
+		/* node '/soc/can@40024000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:260 */
+		flexcan0: can@40024000 {
+			compatible = "nxp,flexcan-fd",
+			             "nxp,flexcan";               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:261 */
+			reg = < 0x40024000 0x1000 >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:262 */
+			interrupts = < 0x4e 0x0 >,
+			             < 0x4f 0x0 >,
+			             < 0x50 0x0 >,
+			             < 0x51 0x0 >,
+			             < 0x52 0x0 >;                /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:263 */
+			interrupt-names = "ored-warning-bus-off",
+			                  "error",
+			                  "wake-up",
+			                  "mb-0-15",
+			                  "mb-16-31";             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:264 */
+			clocks = < &scg 0x0 >;                    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:266 */
+			clk-source = < 0x0 >;                     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:267 */
+			status = "disabled";                      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:268 */
+		};
+
+		/* node '/soc/can@40025000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:271 */
+		flexcan1: can@40025000 {
+			compatible = "nxp,flexcan-fd",
+			             "nxp,flexcan";               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:272 */
+			reg = < 0x40025000 0x1000 >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:273 */
+			interrupts = < 0x55 0x0 >,
+			             < 0x56 0x0 >,
+			             < 0x58 0x0 >,
+			             < 0x59 0x0 >;                /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:274 */
+			interrupt-names = "ored-warning-bus-off",
+			                  "error",
+			                  "mb-0-15",
+			                  "mb-16-31";             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:275 */
+			clocks = < &scg 0x0 >;                    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:276 */
+			clk-source = < 0x0 >;                     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:277 */
+			status = "disabled";                      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:278 */
+		};
+
+		/* node '/soc/can@4002b000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:281 */
+		flexcan2: can@4002b000 {
+			compatible = "nxp,flexcan-fd",
+			             "nxp,flexcan";               /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:282 */
+			reg = < 0x4002b000 0x1000 >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:283 */
+			interrupts = < 0x5c 0x0 >,
+			             < 0x5d 0x0 >,
+			             < 0x5f 0x0 >,
+			             < 0x60 0x0 >;                /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:284 */
+			interrupt-names = "ored-warning-bus-off",
+			                  "error",
+			                  "mb-0-15",
+			                  "mb-16-31";             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:285 */
+			clocks = < &scg 0x0 >;                    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:286 */
+			clk-source = < 0x0 >;                     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:287 */
+			status = "disabled";                      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:288 */
+		};
+
+		/* node '/soc/flexio@4005a000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:291 */
+		flexio0: flexio@4005a000 {
+			compatible = "nxp,flexio";   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:292 */
+			reg = < 0x4005a000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:293 */
+			interrupts = < 0x45 0x0 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:294 */
+			clocks = < &pcc 0x168 0x3 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:295 */
+			status = "disabled";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:296 */
+		};
+
+		/* node '/soc/ftm@40038000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:299 */
+		ftm0: ftm@40038000 {
+			compatible = "nxp,ftm";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:300 */
+			reg = < 0x40038000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:301 */
+			interrupts = < 0x63 0x0 >,
+			             < 0x64 0x0 >,
+			             < 0x65 0x0 >,
+			             < 0x66 0x0 >,
+			             < 0x68 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:302 */
+			interrupt-names = "0-1",
+			                  "2-3",
+			                  "4-5",
+			                  "6-7",
+			                  "overflow"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:303 */
+			clocks = < &pcc 0xe0 0x3 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:304 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:305 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:306 */
+		};
+
+		/* node '/soc/ftm@40039000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:309 */
+		ftm1: ftm@40039000 {
+			compatible = "nxp,ftm";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:310 */
+			reg = < 0x40039000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:311 */
+			interrupts = < 0x69 0x0 >,
+			             < 0x6a 0x0 >,
+			             < 0x6b 0x0 >,
+			             < 0x6c 0x0 >,
+			             < 0x6e 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:312 */
+			interrupt-names = "0-1",
+			                  "2-3",
+			                  "4-5",
+			                  "6-7",
+			                  "overflow"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:313 */
+			clocks = < &pcc 0xe4 0x3 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:314 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:315 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:316 */
+		};
+
+		/* node '/soc/ftm@4003a000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:319 */
+		ftm2: ftm@4003a000 {
+			compatible = "nxp,ftm";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:320 */
+			reg = < 0x4003a000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:321 */
+			interrupts = < 0x6f 0x0 >,
+			             < 0x70 0x0 >,
+			             < 0x71 0x0 >,
+			             < 0x72 0x0 >,
+			             < 0x74 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:322 */
+			interrupt-names = "0-1",
+			                  "2-3",
+			                  "4-5",
+			                  "6-7",
+			                  "overflow"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:323 */
+			clocks = < &pcc 0xe8 0x3 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:324 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:325 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:326 */
+		};
+
+		/* node '/soc/ftm@40026000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:329 */
+		ftm3: ftm@40026000 {
+			compatible = "nxp,ftm";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:330 */
+			reg = < 0x40026000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:331 */
+			interrupts = < 0x75 0x0 >,
+			             < 0x76 0x0 >,
+			             < 0x77 0x0 >,
+			             < 0x78 0x0 >,
+			             < 0x7a 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:332 */
+			interrupt-names = "0-1",
+			                  "2-3",
+			                  "4-5",
+			                  "6-7",
+			                  "overflow"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:333 */
+			clocks = < &pcc 0x98 0x3 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:334 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:335 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:336 */
+		};
+
+		/* node '/soc/ftm@4006e000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:339 */
+		ftm4: ftm@4006e000 {
+			compatible = "nxp,ftm";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:340 */
+			reg = < 0x4006e000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:341 */
+			interrupts = < 0x7b 0x0 >,
+			             < 0x7c 0x0 >,
+			             < 0x7d 0x0 >,
+			             < 0x7e 0x0 >,
+			             < 0x80 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:342 */
+			interrupt-names = "0-1",
+			                  "2-3",
+			                  "4-5",
+			                  "6-7",
+			                  "overflow"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:343 */
+			clocks = < &pcc 0x1b8 0x3 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:344 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:345 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:346 */
+		};
+
+		/* node '/soc/ftm@4006f000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:349 */
+		ftm5: ftm@4006f000 {
+			compatible = "nxp,ftm";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:350 */
+			reg = < 0x4006f000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:351 */
+			interrupts = < 0x81 0x0 >,
+			             < 0x82 0x0 >,
+			             < 0x83 0x0 >,
+			             < 0x84 0x0 >,
+			             < 0x86 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:352 */
+			interrupt-names = "0-1",
+			                  "2-3",
+			                  "4-5",
+			                  "6-7",
+			                  "overflow"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:353 */
+			clocks = < &pcc 0x1bc 0x3 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:354 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:355 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:356 */
+		};
+
+		/* node '/soc/ftm@40070000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:359 */
+		ftm6: ftm@40070000 {
+			compatible = "nxp,ftm";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:360 */
+			reg = < 0x40070000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:361 */
+			interrupts = < 0x87 0x0 >,
+			             < 0x88 0x0 >,
+			             < 0x89 0x0 >,
+			             < 0x8a 0x0 >,
+			             < 0x8c 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:362 */
+			interrupt-names = "0-1",
+			                  "2-3",
+			                  "4-5",
+			                  "6-7",
+			                  "overflow"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:363 */
+			clocks = < &pcc 0x1c0 0x3 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:364 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:365 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:366 */
+		};
+
+		/* node '/soc/ftm@40071000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:369 */
+		ftm7: ftm@40071000 {
+			compatible = "nxp,ftm";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:370 */
+			reg = < 0x40071000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:371 */
+			interrupts = < 0x8d 0x0 >,
+			             < 0x8e 0x0 >,
+			             < 0x8f 0x0 >,
+			             < 0x90 0x0 >,
+			             < 0x92 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:372 */
+			interrupt-names = "0-1",
+			                  "2-3",
+			                  "4-5",
+			                  "6-7",
+			                  "overflow"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:373 */
+			clocks = < &pcc 0x1c4 0x3 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:374 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:375 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:376 */
+		};
+
+		/* node '/soc/gpio@400ff000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:379 */
+		gpioa: gpio@400ff000 {
+			compatible = "nxp,kinetis-gpio"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:380 */
+			reg = < 0x400ff000 0x40 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:381 */
+			interrupts = < 0x3b 0x2 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:382 */
+			gpio-controller;                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:383 */
+			#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:384 */
+			nxp,kinetis-port = < &porta >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:385 */
+			status = "okay";                 /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:135 */
+			phandle = < 0x17 >;              /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:59 */
+		};
+
+		/* node '/soc/gpio@400ff040' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:389 */
+		gpiob: gpio@400ff040 {
+			compatible = "nxp,kinetis-gpio"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:390 */
+			reg = < 0x400ff040 0x40 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:391 */
+			interrupts = < 0x3c 0x2 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:392 */
+			gpio-controller;                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:393 */
+			#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:394 */
+			nxp,kinetis-port = < &portb >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:395 */
+			status = "okay";                 /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:139 */
+			phandle = < 0x16 >;              /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:44 */
+		};
+
+		/* node '/soc/gpio@400ff080' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:399 */
+		gpioc: gpio@400ff080 {
+			compatible = "nxp,kinetis-gpio"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:400 */
+			reg = < 0x400ff080 0x40 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:401 */
+			interrupts = < 0x3d 0x2 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:402 */
+			gpio-controller;                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:403 */
+			#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:404 */
+			nxp,kinetis-port = < &portc >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:405 */
+			status = "okay";                 /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:143 */
+			phandle = < 0x15 >;              /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:39 */
+		};
+
+		/* node '/soc/gpio@400ff0c0' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:409 */
+		gpiod: gpio@400ff0c0 {
+			compatible = "nxp,kinetis-gpio"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:410 */
+			reg = < 0x400ff0c0 0x40 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:411 */
+			interrupts = < 0x3e 0x2 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:412 */
+			gpio-controller;                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:413 */
+			#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:414 */
+			nxp,kinetis-port = < &portd >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:415 */
+			status = "okay";                 /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:147 */
+			phandle = < 0x18 >;              /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:75 */
+		};
+
+		/* node '/soc/gpio@400ff100' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:419 */
+		gpioe: gpio@400ff100 {
+			compatible = "nxp,kinetis-gpio"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:420 */
+			reg = < 0x400ff100 0x40 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:421 */
+			interrupts = < 0x3f 0x2 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:422 */
+			gpio-controller;                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:423 */
+			#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:424 */
+			nxp,kinetis-port = < &porte >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:425 */
+			status = "okay";                 /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:151 */
+			phandle = < 0x19 >;              /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:75 */
+		};
+
+		/* node '/soc/i2c@40066000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:429 */
+		lpi2c0: i2c@40066000 {
+			compatible = "nxp,lpi2c";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:430 */
+			clock-frequency = < 0x186a0 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:431 */
+			#address-cells = < 0x1 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:432 */
+			#size-cells = < 0x0 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:433 */
+			reg = < 0x40066000 0x1000 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:434 */
+			interrupts = < 0x18 0x0 >,
+			             < 0x19 0x0 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:435 */
+			interrupt-names = "controller",
+			                  "target";     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:436 */
+			clocks = < &pcc 0x198 0x3 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:437 */
+			status = "disabled";            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:438 */
+		};
+
+		/* node '/soc/i2c@40067000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:441 */
+		lpi2c1: i2c@40067000 {
+			compatible = "nxp,lpi2c";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:442 */
+			clock-frequency = < 0x186a0 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:443 */
+			#address-cells = < 0x1 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:444 */
+			#size-cells = < 0x0 >;          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:445 */
+			reg = < 0x40067000 0x1000 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:446 */
+			interrupts = < 0x1d 0x0 >,
+			             < 0x1e 0x0 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:447 */
+			interrupt-names = "controller",
+			                  "target";     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:448 */
+			clocks = < &pcc 0x19c 0x3 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:449 */
+			status = "disabled";            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:450 */
+		};
+
+		/* node '/soc/spi@4002c000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:453 */
+		lpspi0: spi@4002c000 {
+			compatible = "nxp,lpspi";    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:454 */
+			reg = < 0x4002c000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:455 */
+			interrupts = < 0x1a 0x0 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:456 */
+			clocks = < &pcc 0xb0 0x3 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:457 */
+			#address-cells = < 0x1 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:458 */
+			#size-cells = < 0x0 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:459 */
+			tx-fifo-size = < 0x4 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:460 */
+			rx-fifo-size = < 0x4 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:461 */
+			status = "disabled";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:462 */
+		};
+
+		/* node '/soc/spi@4002d000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:465 */
+		lpspi1: spi@4002d000 {
+			compatible = "nxp,lpspi";    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:466 */
+			reg = < 0x4002d000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:467 */
+			interrupts = < 0x1b 0x0 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:468 */
+			clocks = < &pcc 0xb4 0x3 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:469 */
+			#address-cells = < 0x1 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:470 */
+			#size-cells = < 0x0 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:471 */
+			tx-fifo-size = < 0x4 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:472 */
+			rx-fifo-size = < 0x4 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:473 */
+			status = "disabled";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:474 */
+		};
+
+		/* node '/soc/spi@4002e000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:477 */
+		lpspi2: spi@4002e000 {
+			compatible = "nxp,lpspi";    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:478 */
+			reg = < 0x4002e000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:479 */
+			interrupts = < 0x1c 0x0 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:480 */
+			clocks = < &pcc 0xb8 0x3 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:481 */
+			#address-cells = < 0x1 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:482 */
+			#size-cells = < 0x0 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:483 */
+			tx-fifo-size = < 0x4 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:484 */
+			rx-fifo-size = < 0x4 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:485 */
+			status = "disabled";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:486 */
+		};
+
+		/* node '/soc/lptmr@40040000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:489 */
+		lptmr0: lptmr@40040000 {
+			compatible = "nxp,lptmr";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:490 */
+			reg = < 0x40040000 0x1000 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:491 */
+			interrupts = < 0x3a 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:492 */
+			clock-frequency = < 0x3e8 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:493 */
+			prescale-glitch-filter = < 0x0 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:494 */
+			clk-source = < 0x1 >;             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:495 */
+			resolution = < 0x10 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:496 */
+			status = "disabled";              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:497 */
+		};
+
+		/* node '/soc/uart@4006a000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:500 */
+		lpuart0: uart@4006a000 {
+			compatible = "nxp,lpuart";   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:501 */
+			reg = < 0x4006a000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:502 */
+			interrupts = < 0x1f 0x0 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:503 */
+			clocks = < &pcc 0x1a8 0x3 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:504 */
+			dmas = < &edma 0x0 0x2 >,
+			       < &edma 0x1 0x3 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:505 */
+			dma-names = "rx",
+			            "tx";            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:506 */
+			status = "disabled";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:507 */
+		};
+
+		/* node '/soc/uart@4006b000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:510 */
+		lpuart1: uart@4006b000 {
+			compatible = "nxp,lpuart";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:511 */
+			reg = < 0x4006b000 0x1000 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:512 */
+			interrupts = < 0x21 0x0 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:513 */
+			clocks = < &pcc 0x1ac 0x3 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:514 */
+			dmas = < &edma 0x2 0x4 >,
+			       < &edma 0x3 0x5 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:515 */
+			dma-names = "rx",
+			            "tx";                /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:516 */
+			status = "okay";                 /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:155 */
+			current-speed = < 0x1c200 >;     /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:156 */
+			pinctrl-0 = < &pinmux_lpuart1 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:157 */
+			pinctrl-names = "default";       /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:158 */
+		};
+
+		/* node '/soc/uart@4006c000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:520 */
+		lpuart2: uart@4006c000 {
+			compatible = "nxp,lpuart";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:521 */
+			reg = < 0x4006c000 0x1000 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:522 */
+			interrupts = < 0x23 0x0 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:523 */
+			clocks = < &pcc 0x1b0 0x3 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:524 */
+			dmas = < &edma 0x4 0x6 >,
+			       < &edma 0x5 0x7 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:525 */
+			dma-names = "rx",
+			            "tx";                /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:526 */
+			status = "okay";                 /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:162 */
+			current-speed = < 0x1c200 >;     /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:163 */
+			pinctrl-0 = < &pinmux_lpuart2 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:164 */
+			pinctrl-names = "default";       /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:165 */
+		};
+
+		/* node '/soc/mpu@4000d000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:530 */
+		mpu: mpu@4000d000 {
+			compatible = "nxp,sysmpu";   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:531 */
+			reg = < 0x4000d000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:532 */
+			status = "disabled";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:533 */
+		};
+
+		/* node '/soc/pmc@4007d000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:536 */
+		pmc: pmc@4007d000 {
+			reg = < 0x4007d000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:537 */
+
+			/* node '/soc/pmc@4007d000/lpo128k' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:539 */
+			lpo: lpo128k {
+				compatible = "fixed-clock";    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:540 */
+				clock-frequency = < 0x1f400 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:541 */
+				#clock-cells = < 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:542 */
+				phandle = < 0x14 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:626 */
+			};
+		};
+
+		/* node '/soc/pinmux@40049000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:546 */
+		porta: pinmux@40049000 {
+			compatible = "nxp,port-pinmux"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:547 */
+			reg = < 0x40049000 0x1000 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:548 */
+			clocks = < &pcc 0x124 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:549 */
+			phandle = < 0xc >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:385 */
+		};
+
+		/* node '/soc/pinmux@4004a000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:552 */
+		portb: pinmux@4004a000 {
+			compatible = "nxp,port-pinmux"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:553 */
+			reg = < 0x4004a000 0x1000 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:554 */
+			clocks = < &pcc 0x128 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:555 */
+			phandle = < 0xd >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:395 */
+		};
+
+		/* node '/soc/pinmux@4004b000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:558 */
+		portc: pinmux@4004b000 {
+			compatible = "nxp,port-pinmux"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:559 */
+			reg = < 0x4004b000 0x1000 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:560 */
+			clocks = < &pcc 0x12c 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:561 */
+			phandle = < 0xe >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:405 */
+		};
+
+		/* node '/soc/pinmux@4004c000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:564 */
+		portd: pinmux@4004c000 {
+			compatible = "nxp,port-pinmux"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:565 */
+			reg = < 0x4004c000 0x1000 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:566 */
+			clocks = < &pcc 0x130 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:567 */
+			phandle = < 0xf >;              /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:415 */
+		};
+
+		/* node '/soc/pinmux@4004d000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:570 */
+		porte: pinmux@4004d000 {
+			compatible = "nxp,port-pinmux"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:571 */
+			reg = < 0x4004d000 0x1000 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:572 */
+			clocks = < &pcc 0x134 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:573 */
+			phandle = < 0x10 >;             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:425 */
+		};
+
+		/* node '/soc/rtc@4003d000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:576 */
+		rtc: rtc@4003d000 {
+			compatible = "nxp,rtc";       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:577 */
+			reg = < 0x4003d000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:578 */
+			interrupts = < 0x2e 0x0 >,
+			             < 0x2f 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:579 */
+			interrupt-names = "alarm",
+			                  "seconds";  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:580 */
+			clock-frequency = < 0x8000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:581 */
+			prescaler = < 0x8000 >;       /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:582 */
+			status = "okay";              /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:173 */
+
+			/* node '/soc/rtc@4003d000/counter-rtc' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:585 */
+			counter_rtc: counter-rtc {
+				compatible = "zephyr,rtc-counter"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:586 */
+				alarms-count = < 0x1 >;            /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:587 */
+				status = "okay";                   /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:177 */
+			};
+		};
+
+		/* node '/soc/sai@40054000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:592 */
+		sai0: sai@40054000 {
+			compatible = "nxp,mcux-i2s";  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:593 */
+			reg = < 0x40054000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:594 */
+			clocks = < &scg 0x1 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:595 */
+			interrupts = < 0x46 0x0 >,
+			             < 0x47 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:596 */
+			dmas = < &edma 0x6 0x3c >,
+			       < &edma 0x7 0x3d >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:597 */
+			dma-names = "rx",
+			            "tx";             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:598 */
+			nxp,rx-dma-channel = < 0x6 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:599 */
+			nxp,tx-dma-channel = < 0x7 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:600 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:601 */
+			#size-cells = < 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:602 */
+			#pinmux-cells = < 0x2 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:603 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:604 */
+		};
+
+		/* node '/soc/sai@40055000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:607 */
+		sai1: sai@40055000 {
+			compatible = "nxp,mcux-i2s";  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:608 */
+			reg = < 0x40055000 0x1000 >;  /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:609 */
+			clocks = < &scg 0x1 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:610 */
+			interrupts = < 0x37 0x0 >,
+			             < 0x38 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:611 */
+			dmas = < &edma 0x8 0xc >,
+			       < &edma 0x9 0xd >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:612 */
+			dma-names = "rx",
+			            "tx";             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:613 */
+			nxp,rx-dma-channel = < 0x8 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:614 */
+			nxp,tx-dma-channel = < 0x9 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:615 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:616 */
+			#size-cells = < 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:617 */
+			#pinmux-cells = < 0x2 >;      /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:618 */
+			status = "disabled";          /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:619 */
+		};
+
+		/* node '/soc/watchdog@40052000' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:622 */
+		wdog: watchdog@40052000 {
+			compatible = "nxp,wdog32";   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:623 */
+			reg = < 0x40052000 0x1000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:624 */
+			interrupts = < 0x16 0x0 >;   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:625 */
+			clocks = < &lpo >;           /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:626 */
+			clk-source = < 0x1 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:627 */
+			clk-divider = < 0x100 >;     /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:628 */
+			status = "disabled";         /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:629 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:23 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:24 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:25 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:27 */
+		cpu0: cpu@0 {
+			device_type = "cpu";             /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:28 */
+			compatible = "arm,cortex-m4f";   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:29 */
+			reg = < 0x0 >;                   /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:30 */
+			clock-frequency = < 0x4c4b400 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:101 */
+		};
+	};
+
+	/* node '/pinctrl' defined in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:35 */
+	pinctrl: pinctrl {
+		compatible = "nxp,port-pinctrl"; /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:36 */
+		status = "okay";                 /* in zephyr/dts/arm/nxp/nxp_mcxe24x_common.dtsi:37 */
+
+		/* node '/pinctrl/pinmux_lpuart1' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:11 */
+		pinmux_lpuart1: pinmux_lpuart1 {
+			phandle = < 0x12 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:157 */
+
+			/* node '/pinctrl/pinmux_lpuart1/group0' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:12 */
+			group0 {
+				pinmux = < 0x22000200 >,
+				         < 0x22400200 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:13 */
+				drive-strength = "low";  /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:15 */
+				slew-rate = "fast";      /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:16 */
+				input-enable;            /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:17 */
+			};
+		};
+
+		/* node '/pinctrl/pinmux_lpuart2' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:21 */
+		pinmux_lpuart2: pinmux_lpuart2 {
+			phandle = < 0x13 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:164 */
+
+			/* node '/pinctrl/pinmux_lpuart2/group0' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:22 */
+			group0 {
+				pinmux = < 0x34400300 >,
+				         < 0x43000300 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:23 */
+				drive-strength = "low";  /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:25 */
+				slew-rate = "slow";      /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247-pinctrl.dtsi:26 */
+			};
+		};
+	};
+
+	/* node '/sram@1ffe0000' defined in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:17 */
+	sram_l: sram@1ffe0000 {
+		compatible = "mmio-sram";     /* in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:18 */
+		reg = < 0x1ffe0000 0x20000 >; /* in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:19 */
+	};
+
+	/* node '/sram@20000000' defined in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:22 */
+	sram_u: sram@20000000 {
+		compatible = "zephyr,memory-region",
+		             "mmio-sram";            /* in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:23 */
+		reg = < 0x20000000 0x1f000 >;        /* in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:24 */
+		zephyr,memory-region = "SRAMU";      /* in zephyr/dts/arm/nxp/nxp_mcxe247.dtsi:25 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:35 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:36 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:38 */
+		red_led: led_0 {
+			gpios = < &gpioc 0xd 0x1 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:39 */
+			label = "Red LED";          /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:40 */
+		};
+
+		/* node '/leds/led_1' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:43 */
+		green_led: led_1 {
+			gpios = < &gpiob 0xb 0x1 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:44 */
+			label = "Green LED";        /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:45 */
+		};
+
+		/* node '/leds/led_2' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:48 */
+		blue_led: led_2 {
+			gpios = < &gpioc 0xc 0x1 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:49 */
+			label = "Blue LED";         /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:50 */
+		};
+	};
+
+	/* node '/gpio_keys' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:54 */
+	gpio_keys {
+		compatible = "gpio-keys"; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:55 */
+
+		/* node '/gpio_keys/button_2' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:57 */
+		user_button_2: button_2 {
+			label = "User SW2";         /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:58 */
+			gpios = < &gpioa 0x9 0x1 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:59 */
+			zephyr,code = < 0xb >;      /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:60 */
+		};
+
+		/* node '/gpio_keys/button_3' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:63 */
+		user_button_3: button_3 {
+			label = "User SW3";         /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:64 */
+			gpios = < &gpioc 0xa 0x1 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:65 */
+			zephyr,code = < 0x2 >;      /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:66 */
+		};
+	};
+
+	/* node '/connector' defined in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:70 */
+	arduino_header: connector {
+		compatible = "arduino-header-r3";          /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:71 */
+		#gpio-cells = < 0x2 >;                     /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:72 */
+		gpio-map-mask = < 0xffffffff 0xffffffc0 >; /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:73 */
+		gpio-map-pass-thru = < 0x0 0x3f >;         /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:74 */
+		gpio-map = < 0x0 0x0 &gpioa 0xf 0x0 >,
+		           < 0x1 0x0 &gpioa 0x6 0x0 >,
+		           < 0x2 0x0 &gpiod 0x4 0x0 >,
+		           < 0x3 0x0 &gpioc 0xe 0x0 >,
+		           < 0x4 0x0 &gpioa 0x0 0x0 >,
+		           < 0x5 0x0 &gpioa 0x1 0x0 >,
+		           < 0x6 0x0 &gpiod 0x11 0x0 >,
+		           < 0x7 0x0 &gpioe 0xc 0x0 >,
+		           < 0x8 0x0 &gpiod 0x6 0x0 >,
+		           < 0x9 0x0 &gpioe 0x9 0x0 >,
+		           < 0xa 0x0 &gpiob 0x8 0x0 >,
+		           < 0xb 0x0 &gpioc 0xb 0x0 >,
+		           < 0xc 0x0 &gpiod 0xf 0x0 >,
+		           < 0xd 0x0 &gpiob 0x9 0x0 >,
+		           < 0xe 0x0 &gpiob 0xa 0x0 >,
+		           < 0xf 0x0 &gpioe 0xf 0x0 >,
+		           < 0x10 0x0 &gpioa 0x10 0x0 >,
+		           < 0x11 0x0 &gpiod 0x2 0x0 >,
+		           < 0x12 0x0 &gpiob 0xf 0x0 >,
+		           < 0x13 0x0 &gpiob 0xe 0x0 >,
+		           < 0x14 0x0 &gpiod 0x8 0x0 >,
+		           < 0x15 0x0 &gpiod 0x9 0x0 >;    /* in zephyr/boards/nxp/frdm_mcxe247/frdm_mcxe247.dts:75 */
+	};
+};

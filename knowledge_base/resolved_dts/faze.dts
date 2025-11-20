@@ -1,0 +1,460 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                     /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                        /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Seagate FireCuda Gaming SSD (FaZe)"; /* in zephyr/boards/seagate/faze/faze.dts:16 */
+	compatible = "faze",
+	             "seagate,faze";                  /* in zephyr/boards/seagate/faze/faze.dts:17 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &sram0;       /* in zephyr/boards/seagate/faze/faze.dts:20 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/seagate/faze/faze.dts:21 */
+		zephyr,console = &uart0;    /* in zephyr/boards/seagate/faze/faze.dts:22 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/seagate/faze/faze.dts:23 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &sata_led;                     /* in zephyr/boards/seagate/faze/faze.dts:28 */
+		sw0 = &usb_sleep_button;              /* in zephyr/boards/seagate/faze/faze.dts:29 */
+		eeprom-0 = &eeprom0;                  /* in zephyr/boards/seagate/faze/faze.dts:30 */
+		led-controller-0 = &led_controller_0; /* in zephyr/boards/seagate/faze/faze.dts:31 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv6-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv6-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv6-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv6-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv6-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv6-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv6-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv6-m.dtsi:14 */
+			compatible = "arm,v6m-nvic";         /* in zephyr/dts/arm/armv6-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv6-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv6-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv6-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x2 >; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:205 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv6-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv6-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv6m-systick"; /* in zephyr/dts/arm/armv6-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv6-m.dtsi:23 */
+		};
+
+		/* node '/soc/flash@0' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:40 */
+		flash0: flash@0 {
+			compatible = "soc-nv-flash"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:41 */
+			reg = < 0x0 0x20000 >;       /* in zephyr/dts/arm/nxp/nxp_lpc11u67.dtsi:17 */
+		};
+
+		/* node '/soc/eeprom_0' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:45 */
+		eeprom0: eeprom_0 {
+			compatible = "nxp,lpc11u6x-eeprom"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:46 */
+			size = < 0xfc0 >;                   /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:51 */
+			status = "okay";                    /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:52 */
+		};
+
+		/* node '/soc/iocon@40044000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:55 */
+		iocon: iocon@40044000 {
+			compatible = "nxp,lpc-iocon";      /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:56 */
+			reg = < 0x40044000 0x150 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:57 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:58 */
+			#size-cells = < 0x1 >;             /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:59 */
+			ranges = < 0x0 0x40044000 0x150 >; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:60 */
+
+			/* node '/soc/iocon@40044000/pinctrl' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:62 */
+			pinctrl: pinctrl {
+				compatible = "nxp,lpc11u6x-pinctrl"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:63 */
+
+				/* node '/soc/iocon@40044000/pinctrl/uart0_default' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:9 */
+				uart0_default: uart0_default {
+					phandle = < 0x7 >; /* in zephyr/boards/seagate/faze/faze.dts:56 */
+
+					/* node '/soc/iocon@40044000/pinctrl/uart0_default/group0' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:10 */
+					group0 {
+						pinmux = < 0x1200001 >,
+						         < 0x1300001 >;    /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:11 */
+						nxp,disable-analog-filter; /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:13 */
+					};
+				};
+
+				/* node '/soc/iocon@40044000/pinctrl/i2c0_default' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:17 */
+				i2c0_default: i2c0_default {
+					phandle = < 0x8 >; /* in zephyr/boards/seagate/faze/faze.dts:63 */
+
+					/* node '/soc/iocon@40044000/pinctrl/i2c0_default/group0' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:18 */
+					group0 {
+						pinmux = < 0x440001 >,
+						         < 0x540001 >;     /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:19 */
+						nxp,i2c-mode;              /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:21 */
+						nxp,i2c-filter = "slow";   /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:22 */
+						nxp,disable-analog-filter; /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:23 */
+					};
+				};
+
+				/* node '/soc/iocon@40044000/pinctrl/i2c0_fast' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:27 */
+				i2c0_fast: i2c0_fast {
+					phandle = < 0x9 >; /* in zephyr/boards/seagate/faze/faze.dts:64 */
+
+					/* node '/soc/iocon@40044000/pinctrl/i2c0_fast/group0' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:28 */
+					group0 {
+						pinmux = < 0x440001 >,
+						         < 0x540001 >;     /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:29 */
+						nxp,i2c-mode;              /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:31 */
+						nxp,i2c-filter = "fast";   /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:32 */
+						nxp,disable-analog-filter; /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:33 */
+					};
+				};
+
+				/* node '/soc/iocon@40044000/pinctrl/i2c1_default' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:37 */
+				i2c1_default: i2c1_default {
+					phandle = < 0xb >; /* in zephyr/boards/seagate/faze/faze.dts:76 */
+
+					/* node '/soc/iocon@40044000/pinctrl/i2c1_default/group0' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:38 */
+					group0 {
+						pinmux = < 0x700003 >,
+						         < 0x3000002 >;    /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:39 */
+						drive-open-drain;          /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:41 */
+						nxp,i2c-mode;              /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:42 */
+						nxp,i2c-filter = "slow";   /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:43 */
+						nxp,disable-analog-filter; /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:44 */
+					};
+				};
+
+				/* node '/soc/iocon@40044000/pinctrl/i2c1_fast' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:48 */
+				i2c1_fast: i2c1_fast {
+					phandle = < 0xc >; /* in zephyr/boards/seagate/faze/faze.dts:77 */
+
+					/* node '/soc/iocon@40044000/pinctrl/i2c1_fast/group0' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:49 */
+					group0 {
+						pinmux = < 0x700003 >,
+						         < 0x3000002 >;    /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:50 */
+						drive-open-drain;          /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:52 */
+						nxp,i2c-mode;              /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:53 */
+						nxp,i2c-filter = "fast";   /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:54 */
+						nxp,disable-analog-filter; /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:55 */
+					};
+				};
+
+				/* node '/soc/iocon@40044000/pinctrl/syscon_default' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:59 */
+				syscon_default: syscon_default {
+					phandle = < 0x6 >; /* in zephyr/boards/seagate/faze/faze.dts:137 */
+
+					/* node '/soc/iocon@40044000/pinctrl/syscon_default/group0' defined in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:60 */
+					group0 {
+						pinmux = < 0x3d80001 >,
+						         < 0x3c80001 >; /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:61 */
+						nxp,analog-mode;        /* in zephyr/boards/seagate/faze/faze-pinctrl.dtsi:63 */
+					};
+				};
+			};
+
+			/* node '/soc/iocon@40044000/pio0@0' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:67 */
+			pio0: pio0@0 {
+				compatible = "nxp,lpc-iocon-pio"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:68 */
+				reg = < 0x0 0x60 >;               /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:69 */
+				phandle = < 0x3 >;                /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:97 */
+			};
+
+			/* node '/soc/iocon@40044000/pio1@60' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:73 */
+			pio1: pio1@60 {
+				compatible = "nxp,lpc-iocon-pio"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:74 */
+				reg = < 0x60 0x7c >;              /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:75 */
+				phandle = < 0x4 >;                /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:113 */
+			};
+
+			/* node '/soc/iocon@40044000/pio2@f0' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:79 */
+			pio2: pio2@f0 {
+				compatible = "nxp,lpc-iocon-pio"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:80 */
+				reg = < 0xf0 0x60 >;              /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:81 */
+				phandle = < 0x5 >;                /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:131 */
+			};
+		};
+
+		/* node '/soc/gpio@0' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:86 */
+		gpio0: gpio@0 {
+			compatible = "nxp,lpc11u6x-gpio"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:87 */
+			reg = < 0xa0000000 0x8000 >,
+			      < 0x40048000 0x400 >;       /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:88 */
+			interrupts = < 0x0 0x2 >,
+			             < 0x1 0x2 >,
+			             < 0x2 0x2 >,
+			             < 0x3 0x2 >,
+			             < 0x4 0x2 >,
+			             < 0x5 0x2 >,
+			             < 0x6 0x2 >,
+			             < 0x7 0x2 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:89 */
+			gpio-controller;                  /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:92 */
+			#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:93 */
+			ngpios = < 0x18 >;                /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:94 */
+			clocks = < &syscon 0x2 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:96 */
+			iocon = < &pio0 >;                /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:97 */
+			status = "okay";                  /* in zephyr/boards/seagate/faze/faze.dts:146 */
+			phandle = < 0xa >;                /* in zephyr/boards/seagate/faze/faze.dts:70 */
+		};
+
+		/* node '/soc/gpio@1' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:103 */
+		gpio1: gpio@1 {
+			compatible = "nxp,lpc11u6x-gpio"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:104 */
+			reg = < 0xa0000000 0x8000 >,
+			      < 0x40048000 0x400 >;       /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:105 */
+			interrupts = < 0x0 0x2 >,
+			             < 0x1 0x2 >,
+			             < 0x2 0x2 >,
+			             < 0x3 0x2 >,
+			             < 0x4 0x2 >,
+			             < 0x5 0x2 >,
+			             < 0x6 0x2 >,
+			             < 0x7 0x2 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:106 */
+			gpio-controller;                  /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:109 */
+			#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:110 */
+			clocks = < &syscon 0x2 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:112 */
+			iocon = < &pio1 >;                /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:113 */
+			status = "okay";                  /* in zephyr/boards/seagate/faze/faze.dts:150 */
+			phandle = < 0xd >;                /* in zephyr/boards/seagate/faze/faze.dts:49 */
+		};
+
+		/* node '/soc/gpio@2' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:119 */
+		gpio2: gpio@2 {
+			compatible = "nxp,lpc11u6x-gpio"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:120 */
+			reg = < 0xa0000000 0x8000 >,
+			      < 0x40048000 0x400 >;       /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:121 */
+			interrupts = < 0x0 0x2 >,
+			             < 0x1 0x2 >,
+			             < 0x2 0x2 >,
+			             < 0x3 0x2 >,
+			             < 0x4 0x2 >,
+			             < 0x5 0x2 >,
+			             < 0x6 0x2 >,
+			             < 0x7 0x2 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:122 */
+			gpio-controller;                  /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:125 */
+			#gpio-cells = < 0x2 >;            /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:126 */
+			base = < 0x2 >;                   /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:127 */
+			ngpios = < 0x16 >;                /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:128 */
+			clocks = < &syscon 0x2 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:130 */
+			iocon = < &pio2 >;                /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:131 */
+			status = "okay";                  /* in zephyr/boards/seagate/faze/faze.dts:154 */
+		};
+
+		/* node '/soc/clock-controller@40048000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:136 */
+		syscon: clock-controller@40048000 {
+			compatible = "nxp,lpc11u6x-syscon"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:137 */
+			#clock-cells = < 0x1 >;             /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:138 */
+			reg = < 0x40048000 0x400 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:139 */
+			pinctrl-0 = < &syscon_default >;    /* in zephyr/boards/seagate/faze/faze.dts:137 */
+			pinctrl-names = "default";          /* in zephyr/boards/seagate/faze/faze.dts:138 */
+			phandle = < 0x2 >;                  /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:96 */
+		};
+
+		/* node '/soc/serial@40008000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:142 */
+		uart0: serial@40008000 {
+			compatible = "nxp,lpc11u6x-uart"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:143 */
+			clocks = < &syscon 0x3 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:144 */
+			interrupts = < 0x15 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:145 */
+			reg = < 0x40008000 0x60 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:146 */
+			pinctrl-0 = < &uart0_default >;   /* in zephyr/boards/seagate/faze/faze.dts:56 */
+			pinctrl-names = "default";        /* in zephyr/boards/seagate/faze/faze.dts:57 */
+			current-speed = < 0x1c200 >;      /* in zephyr/boards/seagate/faze/faze.dts:58 */
+			status = "okay";                  /* in zephyr/boards/seagate/faze/faze.dts:59 */
+		};
+
+		/* node '/soc/serial@4006c000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:150 */
+		uart1: serial@4006c000 {
+			compatible = "nxp,lpc11u6x-uart"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:151 */
+			clocks = < &syscon 0x4 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:152 */
+			interrupts = < 0xb 0x0 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:153 */
+			reg = < 0x4006c000 0x30 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:154 */
+			status = "disabled";              /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:155 */
+		};
+
+		/* node '/soc/serial@40070000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:158 */
+		uart2: serial@40070000 {
+			compatible = "nxp,lpc11u6x-uart"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:159 */
+			clocks = < &syscon 0x5 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:160 */
+			interrupts = < 0xc 0x0 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:161 */
+			reg = < 0x40070000 0x30 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:162 */
+			status = "disabled";              /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:163 */
+		};
+
+		/* node '/soc/serial@40074000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:166 */
+		uart3: serial@40074000 {
+			compatible = "nxp,lpc11u6x-uart"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:167 */
+			clocks = < &syscon 0x6 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:168 */
+			interrupts = < 0xc 0x0 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:169 */
+			reg = < 0x40074000 0x30 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:170 */
+			status = "disabled";              /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:171 */
+		};
+
+		/* node '/soc/serial@4004c000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:174 */
+		uart4: serial@4004c000 {
+			compatible = "nxp,lpc11u6x-uart"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:175 */
+			clocks = < &syscon 0x7 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:176 */
+			interrupts = < 0xb 0x0 >;         /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:177 */
+			reg = < 0x4004c000 0x30 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:178 */
+			status = "disabled";              /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:179 */
+		};
+
+		/* node '/soc/i2c@40000000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:182 */
+		i2c0: i2c@40000000 {
+			compatible = "nxp,lpc11u6x-i2c"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:183 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:184 */
+			#size-cells = < 0x0 >;           /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:185 */
+			reg = < 0x40000000 0x40 >;       /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:186 */
+			clocks = < &syscon 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:187 */
+			interrupts = < 0xf 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:188 */
+			pinctrl-0 = < &i2c0_default >;   /* in zephyr/boards/seagate/faze/faze.dts:63 */
+			pinctrl-1 = < &i2c0_fast >;      /* in zephyr/boards/seagate/faze/faze.dts:64 */
+			pinctrl-names = "default",
+			                "fast-plus";     /* in zephyr/boards/seagate/faze/faze.dts:65 */
+			status = "okay";                 /* in zephyr/boards/seagate/faze/faze.dts:66 */
+
+			/* node '/soc/i2c@40000000/asm2364@30' defined in zephyr/boards/seagate/faze/faze.dts:68 */
+			asm2364: asm2364@30 {
+				compatible = "asmedia,asm2364"; /* in zephyr/boards/seagate/faze/faze.dts:69 */
+				int-gpios = < &gpio0 0x2 0x0 >; /* in zephyr/boards/seagate/faze/faze.dts:70 */
+				reg = < 0x30 >;                 /* in zephyr/boards/seagate/faze/faze.dts:71 */
+			};
+		};
+
+		/* node '/soc/i2c@40020000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:192 */
+		i2c1: i2c@40020000 {
+			compatible = "nxp,lpc11u6x-i2c"; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:193 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:194 */
+			#size-cells = < 0x0 >;           /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:195 */
+			reg = < 0x40020000 0x40 >;       /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:196 */
+			clocks = < &syscon 0x1 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:197 */
+			interrupts = < 0xa 0x0 >;        /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:198 */
+			pinctrl-0 = < &i2c1_default >;   /* in zephyr/boards/seagate/faze/faze.dts:76 */
+			pinctrl-1 = < &i2c1_fast >;      /* in zephyr/boards/seagate/faze/faze.dts:77 */
+			pinctrl-names = "default",
+			                "fast-plus";     /* in zephyr/boards/seagate/faze/faze.dts:78 */
+			status = "okay";                 /* in zephyr/boards/seagate/faze/faze.dts:79 */
+
+			/* node '/soc/i2c@40020000/lp5030@30' defined in zephyr/boards/seagate/faze/faze.dts:82 */
+			led_controller_0: lp5030@30 {
+				compatible = "ti,lp5030"; /* in zephyr/boards/seagate/faze/faze.dts:83 */
+				reg = < 0x30 >;           /* in zephyr/boards/seagate/faze/faze.dts:84 */
+
+				/* node '/soc/i2c@40020000/lp5030@30/led_0' defined in zephyr/boards/seagate/faze/faze.dts:86 */
+				led0: led_0 {
+					label = "LED LP5030 0";  /* in zephyr/boards/seagate/faze/faze.dts:87 */
+					index = < 0x0 >;         /* in zephyr/boards/seagate/faze/faze.dts:88 */
+					color-mapping = < 0x1 >,
+					                < 0x2 >,
+					                < 0x3 >; /* in zephyr/boards/seagate/faze/faze.dts:89 */
+				};
+
+				/* node '/soc/i2c@40020000/lp5030@30/led_1' defined in zephyr/boards/seagate/faze/faze.dts:94 */
+				led1: led_1 {
+					label = "LED LP5030 1";  /* in zephyr/boards/seagate/faze/faze.dts:95 */
+					index = < 0x1 >;         /* in zephyr/boards/seagate/faze/faze.dts:96 */
+					color-mapping = < 0x1 >,
+					                < 0x2 >,
+					                < 0x3 >; /* in zephyr/boards/seagate/faze/faze.dts:97 */
+				};
+
+				/* node '/soc/i2c@40020000/lp5030@30/led_2' defined in zephyr/boards/seagate/faze/faze.dts:102 */
+				led2: led_2 {
+					label = "LED LP5030 2";  /* in zephyr/boards/seagate/faze/faze.dts:103 */
+					index = < 0x2 >;         /* in zephyr/boards/seagate/faze/faze.dts:104 */
+					color-mapping = < 0x1 >,
+					                < 0x2 >,
+					                < 0x3 >; /* in zephyr/boards/seagate/faze/faze.dts:105 */
+				};
+
+				/* node '/soc/i2c@40020000/lp5030@30/led_3' defined in zephyr/boards/seagate/faze/faze.dts:110 */
+				led3: led_3 {
+					label = "LED LP5030 3";  /* in zephyr/boards/seagate/faze/faze.dts:111 */
+					index = < 0x3 >;         /* in zephyr/boards/seagate/faze/faze.dts:112 */
+					color-mapping = < 0x1 >,
+					                < 0x2 >,
+					                < 0x3 >; /* in zephyr/boards/seagate/faze/faze.dts:113 */
+				};
+
+				/* node '/soc/i2c@40020000/lp5030@30/led_4' defined in zephyr/boards/seagate/faze/faze.dts:118 */
+				led4: led_4 {
+					label = "LED LP5030 4";  /* in zephyr/boards/seagate/faze/faze.dts:119 */
+					index = < 0x4 >;         /* in zephyr/boards/seagate/faze/faze.dts:120 */
+					color-mapping = < 0x1 >,
+					                < 0x2 >,
+					                < 0x3 >; /* in zephyr/boards/seagate/faze/faze.dts:121 */
+				};
+
+				/* node '/soc/i2c@40020000/lp5030@30/led_5' defined in zephyr/boards/seagate/faze/faze.dts:126 */
+				led5: led_5 {
+					label = "LED LP5030 5";  /* in zephyr/boards/seagate/faze/faze.dts:127 */
+					index = < 0x5 >;         /* in zephyr/boards/seagate/faze/faze.dts:128 */
+					color-mapping = < 0x1 >,
+					                < 0x2 >,
+					                < 0x3 >; /* in zephyr/boards/seagate/faze/faze.dts:129 */
+				};
+			};
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:13 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:14 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:15 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:17 */
+		cpu0: cpu@0 {
+			compatible = "arm,cortex-m0+";   /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:18 */
+			reg = < 0x0 >;                   /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:19 */
+			clock-frequency = < 0x2dc6c00 >; /* in zephyr/boards/seagate/faze/faze.dts:142 */
+		};
+	};
+
+	/* node '/memory@10000000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:23 */
+	sram0: memory@10000000 {
+		compatible = "mmio-sram";    /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:24 */
+		reg = < 0x10000000 0x4000 >; /* in zephyr/dts/arm/nxp/nxp_lpc11u67.dtsi:12 */
+	};
+
+	/* node '/memory@20000000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:27 */
+	sram1: memory@20000000 {
+		compatible = "zephyr,memory-region",
+		             "mmio-sram";            /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:28 */
+		reg = < 0x20000000 0x800 >;          /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:29 */
+		zephyr,memory-region = "SRAM1";      /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:30 */
+	};
+
+	/* node '/memory@20004000' defined in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:33 */
+	sram2: memory@20004000 {
+		compatible = "zephyr,memory-region",
+		             "mmio-sram";            /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:34 */
+		reg = < 0x20004000 0x800 >;          /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:35 */
+		zephyr,memory-region = "SRAM2";      /* in zephyr/dts/arm/nxp/nxp_lpc11u6x.dtsi:36 */
+	};
+
+	/* node '/gpio_keys' defined in zephyr/boards/seagate/faze/faze.dts:34 */
+	gpio_keys {
+		compatible = "gpio-keys"; /* in zephyr/boards/seagate/faze/faze.dts:35 */
+
+		/* node '/gpio_keys/button_0' defined in zephyr/boards/seagate/faze/faze.dts:38 */
+		usb_sleep_button: button_0 {
+			gpios = < &gpio0 0x14 0x0 >; /* in zephyr/boards/seagate/faze/faze.dts:39 */
+			label = "USB sleep button";  /* in zephyr/boards/seagate/faze/faze.dts:40 */
+			zephyr,code = < 0x8e >;      /* in zephyr/boards/seagate/faze/faze.dts:41 */
+		};
+	};
+
+	/* node '/leds' defined in zephyr/boards/seagate/faze/faze.dts:45 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/seagate/faze/faze.dts:46 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/seagate/faze/faze.dts:48 */
+		sata_led: led_0 {
+			gpios = < &gpio1 0x17 0x1 >; /* in zephyr/boards/seagate/faze/faze.dts:49 */
+			label = "SSD activity LED";  /* in zephyr/boards/seagate/faze/faze.dts:50 */
+		};
+	};
+};

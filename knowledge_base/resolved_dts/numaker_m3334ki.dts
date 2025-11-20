@@ -1,0 +1,391 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                   /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Nuvoton NuMaker M3334KI board"; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:14 */
+	compatible = "nuvoton,numaker-m3334ki";  /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:15 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,flash-controller = &fmc;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:16 */
+		zephyr,console = &uart0;                  /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:22 */
+		zephyr,shell-uart = &uart0;               /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:23 */
+		zephyr,sram = &sram0;                     /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:24 */
+		zephyr,flash = &flash0;                   /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:25 */
+		zephyr,code-partition = &slot0_partition; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:26 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		rtc = &rtc;      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:20 */
+		led0 = &red_led; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:18 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv8-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv8-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv8-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv8-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv8-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv8-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv8-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv8-m.dtsi:14 */
+			compatible = "arm,v8m-nvic";         /* in zephyr/dts/arm/armv8-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv8-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv8-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv8-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:267 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv8-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv8-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv8m-systick"; /* in zephyr/dts/arm/armv8-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv8-m.dtsi:23 */
+		};
+
+		/* node '/soc/system-clock-controller@40000200' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:41 */
+		scc: system-clock-controller@40000200 {
+			compatible = "nuvoton,numaker-scc"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:42 */
+			reg = < 0x40000200 0x100 >;         /* in zephyr/dts/arm/nuvoton/m333x.dtsi:43 */
+			#clock-cells = < 0x0 >;             /* in zephyr/dts/arm/nuvoton/m333x.dtsi:44 */
+			lxt = "enable";                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:45 */
+			hirc48m = "enable";                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:46 */
+			clk-pclkdiv = < 0x11 >;             /* in zephyr/dts/arm/nuvoton/m333x.dtsi:47 */
+			core-clock = < 0xaba9500 >;         /* in zephyr/dts/arm/nuvoton/m333x.dtsi:49 */
+			powerdown-mode = < 0x6 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:50 */
+
+			/* node '/soc/system-clock-controller@40000200/peripheral-clock-controller' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:52 */
+			pcc: peripheral-clock-controller {
+				compatible = "nuvoton,numaker-pcc"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:53 */
+				#clock-cells = < 0x3 >;             /* in zephyr/dts/arm/nuvoton/m333x.dtsi:54 */
+				phandle = < 0x3 >;                  /* in zephyr/dts/arm/nuvoton/m333x.dtsi:82 */
+			};
+		};
+
+		/* node '/soc/reset-controller@40000000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:58 */
+		rst: reset-controller@40000000 {
+			compatible = "nuvoton,numaker-rst"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:59 */
+			reg = < 0x40000000 0x20 >;          /* in zephyr/dts/arm/nuvoton/m333x.dtsi:60 */
+			#reset-cells = < 0x1 >;             /* in zephyr/dts/arm/nuvoton/m333x.dtsi:61 */
+			phandle = < 0x2 >;                  /* in zephyr/dts/arm/nuvoton/m333x.dtsi:81 */
+		};
+
+		/* node '/soc/flash-controller@4000c000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:64 */
+		fmc: flash-controller@4000c000 {
+			compatible = "nuvoton,numaker-fmc"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:65 */
+			reg = < 0x4000c000 0x1000 >;        /* in zephyr/dts/arm/nuvoton/m333x.dtsi:66 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:67 */
+			#size-cells = < 0x1 >;              /* in zephyr/dts/arm/nuvoton/m333x.dtsi:68 */
+
+			/* node '/soc/flash-controller@4000c000/flash@0' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:70 */
+			flash0: flash@0 {
+				compatible = "soc-nv-flash";  /* in zephyr/dts/arm/nuvoton/m333x.dtsi:71 */
+				erase-block-size = < 0x400 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:72 */
+				write-block-size = < 0x4 >;   /* in zephyr/dts/arm/nuvoton/m333x.dtsi:73 */
+				reg = < 0x0 0x80000 >;        /* in zephyr/dts/arm/nuvoton/m3334kig.dtsi:19 */
+
+				/* node '/soc/flash-controller@4000c000/flash@0/partitions' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:44 */
+				partitions {
+					compatible = "fixed-partitions"; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:45 */
+					#address-cells = < 0x1 >;        /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:46 */
+					#size-cells = < 0x1 >;           /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:47 */
+
+					/* node '/soc/flash-controller@4000c000/flash@0/partitions/partition@0' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:49 */
+					boot_partition: partition@0 {
+						label = "mcuboot";    /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:50 */
+						reg = < 0x0 0x8000 >; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:51 */
+					};
+
+					/* node '/soc/flash-controller@4000c000/flash@0/partitions/partition@8000' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:54 */
+					slot0_partition: partition@8000 {
+						label = "image-0";        /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:55 */
+						reg = < 0x8000 0x38000 >; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:56 */
+					};
+
+					/* node '/soc/flash-controller@4000c000/flash@0/partitions/partition@40000' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:59 */
+					slot1_partition: partition@40000 {
+						label = "image-1";         /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:60 */
+						reg = < 0x40000 0x38000 >; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:61 */
+					};
+
+					/* node '/soc/flash-controller@4000c000/flash@0/partitions/partition@78000' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:64 */
+					storage_partition: partition@78000 {
+						label = "storage";        /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:65 */
+						reg = < 0x78000 0x8000 >; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:66 */
+					};
+				};
+			};
+		};
+
+		/* node '/soc/serial@40070000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:77 */
+		uart0: serial@40070000 {
+			compatible = "nuvoton,numaker-uart";        /* in zephyr/dts/arm/nuvoton/m333x.dtsi:78 */
+			reg = < 0x40070000 0x1000 >;                /* in zephyr/dts/arm/nuvoton/m333x.dtsi:79 */
+			interrupts = < 0x24 0x0 >;                  /* in zephyr/dts/arm/nuvoton/m333x.dtsi:80 */
+			resets = < &rst 0x4000010 >;                /* in zephyr/dts/arm/nuvoton/m333x.dtsi:81 */
+			clocks = < &pcc 0x24f03d10 0x3000000 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:82 */
+			current-speed = < 0x1c200 >;                /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:76 */
+			pinctrl-0 = < &uart0_default >;             /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:77 */
+			pinctrl-names = "default";                  /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:78 */
+			status = "okay";                            /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:79 */
+		};
+
+		/* node '/soc/serial@40071000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:87 */
+		uart1: serial@40071000 {
+			compatible = "nuvoton,numaker-uart";        /* in zephyr/dts/arm/nuvoton/m333x.dtsi:88 */
+			reg = < 0x40071000 0x1000 >;                /* in zephyr/dts/arm/nuvoton/m333x.dtsi:89 */
+			interrupts = < 0x25 0x0 >;                  /* in zephyr/dts/arm/nuvoton/m333x.dtsi:90 */
+			resets = < &rst 0x4000011 >;                /* in zephyr/dts/arm/nuvoton/m333x.dtsi:91 */
+			clocks = < &pcc 0x24f43d91 0xc000000 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:92 */
+			status = "disabled";                        /* in zephyr/dts/arm/nuvoton/m333x.dtsi:94 */
+		};
+
+		/* node '/soc/serial@40072000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:97 */
+		uart2: serial@40072000 {
+			compatible = "nuvoton,numaker-uart";        /* in zephyr/dts/arm/nuvoton/m333x.dtsi:98 */
+			reg = < 0x40072000 0x1000 >;                /* in zephyr/dts/arm/nuvoton/m333x.dtsi:99 */
+			interrupts = < 0x30 0x0 >;                  /* in zephyr/dts/arm/nuvoton/m333x.dtsi:100 */
+			resets = < &rst 0x4000012 >;                /* in zephyr/dts/arm/nuvoton/m333x.dtsi:101 */
+			clocks = < &pcc 0x2cf07c12 0x3000000 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:102 */
+			status = "disabled";                        /* in zephyr/dts/arm/nuvoton/m333x.dtsi:104 */
+		};
+
+		/* node '/soc/serial@40073000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:107 */
+		uart3: serial@40073000 {
+			compatible = "nuvoton,numaker-uart";        /* in zephyr/dts/arm/nuvoton/m333x.dtsi:108 */
+			reg = < 0x40073000 0x1000 >;                /* in zephyr/dts/arm/nuvoton/m333x.dtsi:109 */
+			interrupts = < 0x31 0x0 >;                  /* in zephyr/dts/arm/nuvoton/m333x.dtsi:110 */
+			resets = < &rst 0x4000013 >;                /* in zephyr/dts/arm/nuvoton/m333x.dtsi:111 */
+			clocks = < &pcc 0x2cf47c93 0xc000000 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:112 */
+			status = "disabled";                        /* in zephyr/dts/arm/nuvoton/m333x.dtsi:114 */
+		};
+
+		/* node '/soc/serial@40074000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:117 */
+		uart4: serial@40074000 {
+			compatible = "nuvoton,numaker-uart";         /* in zephyr/dts/arm/nuvoton/m333x.dtsi:118 */
+			reg = < 0x40074000 0x1000 >;                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:119 */
+			interrupts = < 0x4a 0x0 >;                   /* in zephyr/dts/arm/nuvoton/m333x.dtsi:120 */
+			resets = < &rst 0x4000014 >;                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:121 */
+			clocks = < &pcc 0x2cf87d14 0x30000000 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:122 */
+			status = "disabled";                         /* in zephyr/dts/arm/nuvoton/m333x.dtsi:124 */
+		};
+
+		/* node '/soc/pin-controller@40000080' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:127 */
+		pinctrl: pin-controller@40000080 {
+			compatible = "nuvoton,numaker-pinctrl";    /* in zephyr/dts/arm/nuvoton/m333x.dtsi:128 */
+			reg = < 0x40000080 0x20 0x40000500 0x80 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:129 */
+			reg-names = "mfos",
+			            "mfp";                         /* in zephyr/dts/arm/nuvoton/m333x.dtsi:131 */
+
+			/* node '/soc/pin-controller@40000080/uart0_default' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki-pinctrl.dtsi:10 */
+			uart0_default: uart0_default {
+				phandle = < 0x4 >; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:77 */
+
+				/* node '/soc/pin-controller@40000080/uart0_default/group0' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki-pinctrl.dtsi:11 */
+				group0 {
+					pinmux = < 0x1c000006 >,
+					         < 0x1d000006 >; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki-pinctrl.dtsi:12 */
+				};
+			};
+
+			/* node '/soc/pin-controller@40000080/uart1_default' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki-pinctrl.dtsi:18 */
+			uart1_default: uart1_default {
+
+				/* node '/soc/pin-controller@40000080/uart1_default/group0' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki-pinctrl.dtsi:19 */
+				group0 {
+					pinmux = < 0x19000006 >,
+					         < 0x18000006 >,
+					         < 0x12000006 >,
+					         < 0x13000006 >,
+					         < 0x29000000 >; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki-pinctrl.dtsi:20 */
+				};
+			};
+		};
+
+		/* node '/soc/gpio@40004000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:134 */
+		gpioa: gpio@40004000 {
+			compatible = "nuvoton,numaker-gpio"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:135 */
+			gpio-controller;                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:136 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:137 */
+			reg = < 0x40004000 0x40 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:138 */
+			clocks = < &pcc 0x18 0x0 0x0 >;      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:139 */
+			status = "disabled";                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:140 */
+			interrupts = < 0x10 0x2 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:141 */
+		};
+
+		/* node '/soc/gpio@40004040' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:144 */
+		gpiob: gpio@40004040 {
+			compatible = "nuvoton,numaker-gpio"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:145 */
+			gpio-controller;                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:146 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:147 */
+			reg = < 0x40004040 0x40 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:148 */
+			clocks = < &pcc 0x19 0x0 0x0 >;      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:149 */
+			status = "disabled";                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:150 */
+			interrupts = < 0x11 0x2 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:151 */
+		};
+
+		/* node '/soc/gpio@40004080' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:154 */
+		gpioc: gpio@40004080 {
+			compatible = "nuvoton,numaker-gpio"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:155 */
+			gpio-controller;                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:156 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:157 */
+			reg = < 0x40004080 0x40 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:158 */
+			clocks = < &pcc 0x1a 0x0 0x0 >;      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:159 */
+			interrupts = < 0x12 0x2 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:161 */
+			status = "okay";                     /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:40 */
+			phandle = < 0x5 >;                   /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:33 */
+		};
+
+		/* node '/soc/gpio@400040c0' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:164 */
+		gpiod: gpio@400040c0 {
+			compatible = "nuvoton,numaker-gpio"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:165 */
+			gpio-controller;                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:166 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:167 */
+			reg = < 0x400040c0 0x40 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:168 */
+			clocks = < &pcc 0x1b 0x0 0x0 >;      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:169 */
+			status = "disabled";                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:170 */
+			interrupts = < 0x13 0x2 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:171 */
+		};
+
+		/* node '/soc/gpio@40004100' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:174 */
+		gpioe: gpio@40004100 {
+			compatible = "nuvoton,numaker-gpio"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:175 */
+			gpio-controller;                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:176 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:177 */
+			reg = < 0x40004100 0x40 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:178 */
+			clocks = < &pcc 0x1c 0x0 0x0 >;      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:179 */
+			status = "disabled";                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:180 */
+			interrupts = < 0x14 0x2 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:181 */
+		};
+
+		/* node '/soc/gpio@40004140' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:184 */
+		gpiof: gpio@40004140 {
+			compatible = "nuvoton,numaker-gpio"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:185 */
+			gpio-controller;                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:186 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:187 */
+			reg = < 0x40004140 0x40 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:188 */
+			clocks = < &pcc 0x1d 0x0 0x0 >;      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:189 */
+			status = "disabled";                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:190 */
+			interrupts = < 0x15 0x2 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:191 */
+		};
+
+		/* node '/soc/gpio@40004180' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:194 */
+		gpiog: gpio@40004180 {
+			compatible = "nuvoton,numaker-gpio"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:195 */
+			gpio-controller;                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:196 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:197 */
+			reg = < 0x40004180 0x40 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:198 */
+			clocks = < &pcc 0x1e 0x0 0x0 >;      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:199 */
+			status = "disabled";                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:200 */
+			interrupts = < 0x48 0x2 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:201 */
+		};
+
+		/* node '/soc/gpio@400041c0' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:204 */
+		gpioh: gpio@400041c0 {
+			compatible = "nuvoton,numaker-gpio"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:205 */
+			gpio-controller;                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:206 */
+			#gpio-cells = < 0x2 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:207 */
+			reg = < 0x400041c0 0x40 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:208 */
+			clocks = < &pcc 0x1f 0x0 0x0 >;      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:209 */
+			status = "disabled";                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:210 */
+			interrupts = < 0x58 0x2 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:211 */
+		};
+
+		/* node '/soc/rtc@40041000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:214 */
+		rtc: rtc@40041000 {
+			compatible = "nuvoton,numaker-rtc";   /* in zephyr/dts/arm/nuvoton/m333x.dtsi:215 */
+			reg = < 0x40041000 0x138 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:216 */
+			interrupts = < 0x6 0x0 >;             /* in zephyr/dts/arm/nuvoton/m333x.dtsi:217 */
+			oscillator = "lxt";                   /* in zephyr/dts/arm/nuvoton/m333x.dtsi:218 */
+			clocks = < &pcc 0x20000001 0x0 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:219 */
+			alarms-count = < 0x1 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:220 */
+		};
+
+		/* node '/soc/watchdog@40096000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:223 */
+		wwdt: watchdog@40096000 {
+			compatible = "nuvoton,numaker-wwdt";         /* in zephyr/dts/arm/nuvoton/m333x.dtsi:224 */
+			reg = < 0x40096000 0x10 >;                   /* in zephyr/dts/arm/nuvoton/m333x.dtsi:225 */
+			interrupts = < 0x9 0x0 >;                    /* in zephyr/dts/arm/nuvoton/m333x.dtsi:226 */
+			clocks = < &pcc 0x24f80018 0x30000000 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:227 */
+			status = "disabled";                         /* in zephyr/dts/arm/nuvoton/m333x.dtsi:228 */
+		};
+
+		/* node '/soc/spi@40061000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:231 */
+		spi0: spi@40061000 {
+			compatible = "nuvoton,numaker-spi";    /* in zephyr/dts/arm/nuvoton/m333x.dtsi:232 */
+			reg = < 0x40061000 0x1000 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:233 */
+			interrupts = < 0x17 0x0 >;             /* in zephyr/dts/arm/nuvoton/m333x.dtsi:234 */
+			resets = < &rst 0x400000d >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:235 */
+			clocks = < &pcc 0x28c8000d 0x30 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:236 */
+			#address-cells = < 0x1 >;              /* in zephyr/dts/arm/nuvoton/m333x.dtsi:237 */
+			#size-cells = < 0x0 >;                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:238 */
+			status = "disabled";                   /* in zephyr/dts/arm/nuvoton/m333x.dtsi:239 */
+		};
+
+		/* node '/soc/spi@40062000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:242 */
+		spi1: spi@40062000 {
+			compatible = "nuvoton,numaker-spi";    /* in zephyr/dts/arm/nuvoton/m333x.dtsi:243 */
+			reg = < 0x40062000 0x1000 >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:244 */
+			interrupts = < 0x33 0x0 >;             /* in zephyr/dts/arm/nuvoton/m333x.dtsi:245 */
+			resets = < &rst 0x400000e >;           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:246 */
+			clocks = < &pcc 0x28cc000e 0xc0 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:247 */
+			#address-cells = < 0x1 >;              /* in zephyr/dts/arm/nuvoton/m333x.dtsi:248 */
+			#size-cells = < 0x0 >;                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:249 */
+			status = "disabled";                   /* in zephyr/dts/arm/nuvoton/m333x.dtsi:250 */
+		};
+
+		/* node '/soc/spi@40063000' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:253 */
+		spi2: spi@40063000 {
+			compatible = "nuvoton,numaker-spi";      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:254 */
+			reg = < 0x40063000 0x1000 >;             /* in zephyr/dts/arm/nuvoton/m333x.dtsi:255 */
+			interrupts = < 0x34 0x0 >;               /* in zephyr/dts/arm/nuvoton/m333x.dtsi:256 */
+			resets = < &rst 0x400000f >;             /* in zephyr/dts/arm/nuvoton/m333x.dtsi:257 */
+			clocks = < &pcc 0x28d8000f 0x3000 0x0 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:258 */
+			#address-cells = < 0x1 >;                /* in zephyr/dts/arm/nuvoton/m333x.dtsi:259 */
+			#size-cells = < 0x0 >;                   /* in zephyr/dts/arm/nuvoton/m333x.dtsi:260 */
+			status = "disabled";                     /* in zephyr/dts/arm/nuvoton/m333x.dtsi:261 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:23 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:24 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/nuvoton/m333x.dtsi:25 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:27 */
+		cpu@0 {
+			device_type = "cpu";           /* in zephyr/dts/arm/nuvoton/m333x.dtsi:28 */
+			compatible = "arm,cortex-m33"; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:29 */
+			reg = < 0x0 >;                 /* in zephyr/dts/arm/nuvoton/m333x.dtsi:30 */
+		};
+	};
+
+	/* node '/system-clock' defined in zephyr/dts/arm/nuvoton/m333x.dtsi:34 */
+	sysclk: system-clock {
+		compatible = "fixed-clock";      /* in zephyr/dts/arm/nuvoton/m333x.dtsi:35 */
+		clock-frequency = < 0xaba9500 >; /* in zephyr/dts/arm/nuvoton/m333x.dtsi:36 */
+		#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/nuvoton/m333x.dtsi:37 */
+	};
+
+	/* node '/memory@20000000' defined in zephyr/dts/arm/nuvoton/m3334kig.dtsi:11 */
+	sram0: memory@20000000 {
+		compatible = "mmio-sram";     /* in zephyr/dts/arm/nuvoton/m3334kig.dtsi:12 */
+		reg = < 0x20000000 0x50000 >; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:72 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:29 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:30 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:32 */
+		red_led: led_0 {
+			gpios = < &gpioc 0xe 0x1 >; /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:33 */
+			label = "User LD0";         /* in zephyr/boards/nuvoton/numaker_m3334ki/numaker_m3334ki.dts:34 */
+		};
+	};
+};

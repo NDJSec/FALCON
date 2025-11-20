@@ -1,0 +1,995 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;            /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;               /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Silicon Labs BG27-RB4111B"; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb4111b.dts:12 */
+	compatible = "silabs,bg27_rb4111b",
+	             "silabs,efr32bg27";     /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb4111b.dts:13 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		silabs,sleeptimer = &rtcc0;               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:18 */
+		zephyr,entropy = &trng;                   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:19 */
+		zephyr,flash-controller = &msc;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:20 */
+		zephyr,bt-hci = &bt_hci_silabs;           /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:15 */
+		zephyr,code-partition = &slot0_partition; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:16 */
+		zephyr,console = &usart1;                 /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:17 */
+		zephyr,flash = &flash0;                   /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:18 */
+		zephyr,shell-uart = &usart1;              /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:19 */
+		zephyr,sram = &sram0;                     /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:20 */
+		zephyr,uart-pipe = &usart1;               /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:21 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led0 = &led0;          /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:25 */
+		led1 = &led1;          /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:26 */
+		pwm-led0 = &pwm_led0;  /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:27 */
+		spi-flash0 = &mx25r80; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:28 */
+		sw0 = &button0;        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:29 */
+		sw1 = &button1;        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:30 */
+		watchdog0 = &wdog0;    /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:31 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv8-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;                    /* in zephyr/dts/arm/armv8-m.dtsi:7 */
+		#size-cells = < 0x1 >;                       /* in zephyr/dts/arm/armv8-m.dtsi:8 */
+		interrupt-parent = < &nvic >;                /* in zephyr/dts/arm/armv8-m.dtsi:10 */
+		ranges;                                      /* in zephyr/dts/arm/armv8-m.dtsi:11 */
+		compatible = "silabs,efr32bg27c320f768gj39",
+		             "silabs,efr32bg27",
+		             "silabs,xg27",
+		             "silabs,efr32",
+		             "simple-bus";                   /* in zephyr/dts/arm/silabs/xg27/efr32bg27c320f768gj39.dtsi:12 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv8-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv8-m.dtsi:14 */
+			compatible = "arm,v8m-nvic";         /* in zephyr/dts/arm/armv8-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv8-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv8-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv8-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x4 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:587 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv8-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv8-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv8m-systick"; /* in zephyr/dts/arm/armv8-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv8-m.dtsi:23 */
+		};
+
+		/* node '/soc/clock@50008000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:190 */
+		cmu: clock@50008000 {
+			compatible = "silabs,series-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:191 */
+			reg = < 0x50008000 0x4000 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:192 */
+			#clock-cells = < 0x2 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:193 */
+			interrupt-names = "cmu";            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:194 */
+			interrupts = < 0x34 0x2 >;          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:195 */
+			status = "okay";                    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:196 */
+			phandle = < 0x2 >;                  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:204 */
+		};
+
+		/* node '/soc/hfxo@5000c000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:199 */
+		clk_hfxo: hfxo: hfxo@5000c000 {
+			compatible = "silabs,hfxo";      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:200 */
+			reg = < 0x5000c000 0x4000 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:201 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:202 */
+			clock-frequency = < 0x249f000 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:203 */
+			clocks = < &cmu 0x13 0x23 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:204 */
+			interrupt-names = "hfxo0";       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:206 */
+			interrupts = < 0x32 0x2 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:207 */
+			ctune = < 0x8c >;                /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:100 */
+			precision = < 0x32 >;            /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:101 */
+			status = "okay";                 /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:102 */
+			phandle = < 0x3 >;               /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:113 */
+		};
+
+		/* node '/soc/hfrcodpll@50010000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:212 */
+		hfrcodpll: hfrcodpll@50010000 {
+			compatible = "silabs,series2-hfrcodpll"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:213 */
+			reg = < 0x50010000 0x4000 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:214 */
+			#clock-cells = < 0x0 >;                  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:215 */
+			interrupt-names = "hfrco0";              /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:217 */
+			interrupts = < 0x33 0x2 >;               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:218 */
+			clock-frequency = < 0x493e000 >;         /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:112 */
+			clocks = < &hfxo >;                      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:113 */
+			dpll-autorecover;                        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:114 */
+			dpll-edge = "fall";                      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:115 */
+			dpll-lock = "phase";                     /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:116 */
+			dpll-m = < 0x77f >;                      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:117 */
+			dpll-n = < 0xeff >;                      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:118 */
+			phandle = < 0x8 >;                       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:27 */
+		};
+
+		/* node '/soc/fsrco@50018000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:221 */
+		fsrco: fsrco@50018000 {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:222 */
+			reg = < 0x50018000 0x4000 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:223 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:224 */
+			clock-frequency = < 0x1312d00 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:225 */
+			clocks = < &cmu 0x14 0x23 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:226 */
+		};
+
+		/* node '/soc/lfxo@50020000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:229 */
+		lfxo: lfxo@50020000 {
+			compatible = "silabs,series2-lfxo"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:230 */
+			reg = < 0x50020000 0x4000 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:231 */
+			#clock-cells = < 0x0 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:232 */
+			clock-frequency = < 0x8000 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:233 */
+			clocks = < &cmu 0x16 0x23 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:234 */
+			interrupt-names = "lfxo";           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:236 */
+			interrupts = < 0x1b 0x2 >;          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:237 */
+			timeout = < 0x1000 >;               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:239 */
+			ctune = < 0x3f >;                   /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:106 */
+			precision = < 0x32 >;               /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:107 */
+			status = "okay";                    /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:108 */
+			phandle = < 0x9 >;                  /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:122 */
+		};
+
+		/* node '/soc/lfrco@50024000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:243 */
+		lfrco: lfrco@50024000 {
+			compatible = "silabs,series2-lfrco"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:244 */
+			reg = < 0x50024000 0x4000 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:245 */
+			#clock-cells = < 0x0 >;              /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:246 */
+			clock-frequency = < 0x8000 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:247 */
+			clocks = < &cmu 0x15 0x23 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:248 */
+			interrupt-names = "lfrco";           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:249 */
+			interrupts = < 0x1c 0x2 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:250 */
+			phandle = < 0xe >;                   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:103 */
+		};
+
+		/* node '/soc/ulfrco@50028000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:253 */
+		ulfrco: ulfrco@50028000 {
+			compatible = "fixed-clock";  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:254 */
+			reg = < 0x50028000 0x4000 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:255 */
+			#clock-cells = < 0x0 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:256 */
+			clock-frequency = < 0x3e8 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:257 */
+			clocks = < &cmu 0x17 0x23 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:258 */
+			interrupt-names = "ulfrco";  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:259 */
+			interrupts = < 0x1d 0x2 >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:260 */
+		};
+
+		/* node '/soc/flash-controller@50030000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:263 */
+		msc: flash-controller@50030000 {
+			compatible = "silabs,series2-flash-controller"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:264 */
+			reg = < 0x50030000 0x4000 >;                    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:265 */
+			#address-cells = < 0x1 >;                       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:266 */
+			#size-cells = < 0x1 >;                          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:267 */
+			clocks = < &cmu 0x51 0x1 >;                     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:268 */
+			interrupt-names = "msc";                        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:269 */
+			interrupts = < 0x37 0x2 >;                      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:270 */
+
+			/* node '/soc/flash-controller@50030000/flash@8000000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:272 */
+			flash0: flash@8000000 {
+				compatible = "soc-nv-flash";   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:273 */
+				erase-block-size = < 0x2000 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:274 */
+				write-block-size = < 0x4 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:275 */
+				reg = < 0x8000000 0xc0000 >;   /* in zephyr/dts/arm/silabs/xg27/efr32bg27c320f768gj39.dtsi:18 */
+
+				/* node '/soc/flash-controller@50030000/flash@8000000/partitions' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:225 */
+				partitions {
+					compatible = "fixed-partitions"; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:226 */
+					#address-cells = < 0x1 >;        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:227 */
+					#size-cells = < 0x1 >;           /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:228 */
+
+					/* node '/soc/flash-controller@50030000/flash@8000000/partitions/partition@0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:230 */
+					boot_partition: partition@0 {
+						reg = < 0x0 0xc000 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:231 */
+						label = "mcuboot";    /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:232 */
+					};
+
+					/* node '/soc/flash-controller@50030000/flash@8000000/partitions/partition@c000' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:235 */
+					slot0_partition: partition@c000 {
+						reg = < 0xc000 0x56000 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:236 */
+						label = "image-0";        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:237 */
+					};
+
+					/* node '/soc/flash-controller@50030000/flash@8000000/partitions/partition@62000' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:240 */
+					slot1_partition: partition@62000 {
+						reg = < 0x62000 0x56000 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:241 */
+						label = "image-1";         /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:242 */
+					};
+
+					/* node '/soc/flash-controller@50030000/flash@8000000/partitions/partition@b8000' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:245 */
+					storage_partition: partition@b8000 {
+						reg = < 0xb8000 0x8000 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:246 */
+						label = "storage";        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:247 */
+					};
+				};
+			};
+		};
+
+		/* node '/soc/gpio@5003c000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:279 */
+		gpio: gpio@5003c000 {
+			compatible = "silabs,gpio";    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:280 */
+			reg = < 0x5003c000 0x4000 >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:281 */
+			ranges;                        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:282 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:283 */
+			#size-cells = < 0x1 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:284 */
+			clocks = < &cmu 0x1a 0x3 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:285 */
+			interrupt-names = "gpio_odd",
+			                  "gpio_even"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:286 */
+			interrupts = < 0x1e 0x2 >,
+			             < 0x1f 0x2 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:287 */
+			status = "okay";               /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:179 */
+
+			/* node '/soc/gpio@5003c000/gpio@5003c030' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:289 */
+			gpioa: gpio@5003c030 {
+				compatible = "silabs,gpio-port"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:290 */
+				reg = < 0x5003c030 0x30 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:291 */
+				#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:292 */
+				gpio-controller;                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:293 */
+				silabs,wakeup-ints = < 0x0 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:294 */
+				silabs,wakeup-pins = < 0x5 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:295 */
+				status = "okay";                 /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:183 */
+				phandle = < 0x15 >;              /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:75 */
+			};
+
+			/* node '/soc/gpio@5003c000/gpio@5003c060' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:299 */
+			gpiob: gpio@5003c060 {
+				compatible = "silabs,gpio-port"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:300 */
+				reg = < 0x5003c060 0x30 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:301 */
+				#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:302 */
+				gpio-controller;                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:303 */
+				silabs,wakeup-ints = < 0x3 >,
+				                     < 0x4 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:304 */
+				silabs,wakeup-pins = < 0x1 >,
+				                     < 0x3 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:305 */
+				status = "okay";                 /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:187 */
+				phandle = < 0x13 >;              /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:38 */
+
+				/* node '/soc/gpio@5003c000/gpio@5003c060/vcom-enable' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:189 */
+				vcom-enable {
+					gpio-hog;            /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:190 */
+					gpios = < 0x0 0x0 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:191 */
+					output-high;         /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:192 */
+				};
+			};
+
+			/* node '/soc/gpio@5003c000/gpio@5003c090' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:309 */
+			gpioc: gpio@5003c090 {
+				compatible = "silabs,gpio-port"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:310 */
+				reg = < 0x5003c090 0x30 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:311 */
+				#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:312 */
+				gpio-controller;                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:313 */
+				silabs,wakeup-ints = < 0x6 >,
+				                     < 0x7 >,
+				                     < 0x8 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:314 */
+				silabs,wakeup-pins = < 0x0 >,
+				                     < 0x5 >,
+				                     < 0x7 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:315 */
+				status = "okay";                 /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:197 */
+				phandle = < 0x7 >;               /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:152 */
+			};
+
+			/* node '/soc/gpio@5003c000/gpio@5003c0c0' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:319 */
+			gpiod: gpio@5003c0c0 {
+				compatible = "silabs,gpio-port"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:320 */
+				reg = < 0x5003c0c0 0x30 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:321 */
+				#gpio-cells = < 0x2 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:322 */
+				gpio-controller;                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:323 */
+				silabs,wakeup-ints = < 0x9 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:324 */
+				silabs,wakeup-pins = < 0x2 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:325 */
+				status = "okay";                 /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:201 */
+			};
+		};
+
+		/* node '/soc/pin-controller@5003c440' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:330 */
+		pinctrl: pin-controller@5003c440 {
+			compatible = "silabs,dbus-pinctrl"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:331 */
+			reg = < 0x5003c440 0xbc0 >,
+			      < 0x5003c320 0x40 >;          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:332 */
+			reg-names = "dbus",
+			            "abus";                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:333 */
+
+			/* node '/soc/pin-controller@5003c440/eusart0_default' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:10 */
+			eusart0_default: eusart0_default {
+				phandle = < 0x6 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:148 */
+
+				/* node '/soc/pin-controller@5003c440/eusart0_default/group0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:11 */
+				group0 {
+					pins = < 0x26241352 >,
+					       < 0x251c1322 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:12 */
+					drive-push-pull;       /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:13 */
+					output-high;           /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:14 */
+				};
+
+				/* node '/soc/pin-controller@5003c440/eusart0_default/group1' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:17 */
+				group1 {
+					pins = < 0x24141332 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:18 */
+					input-enable;          /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:19 */
+					silabs,input-filter;   /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:20 */
+				};
+			};
+
+			/* node '/soc/pin-controller@5003c440/itm_default' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:24 */
+			itm_default: itm_default {
+				phandle = < 0x12 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:94 */
+
+				/* node '/soc/pin-controller@5003c440/itm_default/group0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:25 */
+				group0 {
+					pins = < 0x40130 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:26 */
+					drive-push-pull;    /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:27 */
+					output-high;        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:28 */
+				};
+			};
+
+			/* node '/soc/pin-controller@5003c440/letimer0_default' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:32 */
+			letimer0_default: letimer0_default {
+				phandle = < 0x5 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:172 */
+
+				/* node '/soc/pin-controller@5003c440/letimer0_default/group0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:33 */
+				group0 {
+					pins = < 0x21042821 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:34 */
+					drive-open-drain;      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:35 */
+					bias-pull-up;          /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:36 */
+				};
+			};
+
+			/* node '/soc/pin-controller@5003c440/pti_default' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:40 */
+			pti_default: pti_default {
+
+				/* node '/soc/pin-controller@5003c440/pti_default/group0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:41 */
+				group0 {
+					pins = < 0x23141b02 >,
+					       < 0x220c1b12 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:42 */
+					drive-push-pull;       /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:43 */
+					output-high;           /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:44 */
+				};
+			};
+
+			/* node '/soc/pin-controller@5003c440/usart1_default' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:48 */
+			usart1_default: usart1_default {
+				phandle = < 0x4 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:139 */
+
+				/* node '/soc/pin-controller@5003c440/usart1_default/group0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:49 */
+				group0 {
+					pins = < 0x26248550 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:50 */
+					drive-push-pull;       /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:51 */
+					output-high;           /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:52 */
+				};
+
+				/* node '/soc/pin-controller@5003c440/usart1_default/group1' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:55 */
+				group1 {
+					pins = < 0x24148560 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:56 */
+					input-enable;          /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:57 */
+					silabs,input-filter;   /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb-pinctrl.dtsi:58 */
+				};
+			};
+		};
+
+		/* node '/soc/clkin0@5003c460' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:336 */
+		clkin0: clkin0@5003c460 {
+			compatible = "fixed-clock";      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:337 */
+			reg = < 0x5003c460 0x4 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:338 */
+			#clock-cells = < 0x0 >;          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:339 */
+			clock-frequency = < 0x243d580 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:340 */
+		};
+
+		/* node '/soc/dma@50040000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:343 */
+		dma0: dma@50040000 {
+			compatible = "silabs,ldma";  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:344 */
+			reg = < 0x50040000 0x4000 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:345 */
+			#dma-cells = < 0x1 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:346 */
+			clocks = < &cmu 0x0 0x1 >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:347 */
+			dma-channels = < 0x8 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:348 */
+			interrupt-names = "ldma";    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:349 */
+			interrupts = < 0x1a 0x2 >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:350 */
+			status = "disabled";         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:351 */
+		};
+
+		/* node '/soc/timer@50048000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:354 */
+		timer0: timer@50048000 {
+			compatible = "silabs,series2-timer"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:355 */
+			reg = < 0x50048000 0x4000 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:356 */
+			channels = < 0x3 >;                  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:357 */
+			clocks = < &cmu 0x4 0x8 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:358 */
+			counter-size = < 0x20 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:359 */
+			interrupt-names = "timer0";          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:360 */
+			interrupts = < 0xa 0x2 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:361 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:362 */
+
+			/* node '/soc/timer@50048000/pwm' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:364 */
+			pwm {
+				compatible = "silabs,timer-pwm"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:365 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:366 */
+				status = "disabled";             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:367 */
+			};
+		};
+
+		/* node '/soc/timer@5004c000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:371 */
+		timer1: timer@5004c000 {
+			compatible = "silabs,series2-timer"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:372 */
+			reg = < 0x5004c000 0x4000 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:373 */
+			channels = < 0x3 >;                  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:374 */
+			clocks = < &cmu 0x5 0x8 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:375 */
+			counter-size = < 0x20 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:376 */
+			interrupt-names = "timer1";          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:377 */
+			interrupts = < 0xb 0x2 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:378 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:379 */
+
+			/* node '/soc/timer@5004c000/pwm' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:381 */
+			pwm {
+				compatible = "silabs,timer-pwm"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:382 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:383 */
+				status = "disabled";             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:384 */
+			};
+		};
+
+		/* node '/soc/timer@50050000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:388 */
+		timer2: timer@50050000 {
+			compatible = "silabs,series2-timer"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:389 */
+			reg = < 0x50050000 0x4000 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:390 */
+			channels = < 0x3 >;                  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:391 */
+			clocks = < &cmu 0x6 0x8 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:392 */
+			counter-size = < 0x10 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:393 */
+			interrupt-names = "timer2";          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:394 */
+			interrupts = < 0xc 0x2 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:395 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:396 */
+
+			/* node '/soc/timer@50050000/pwm' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:398 */
+			pwm {
+				compatible = "silabs,timer-pwm"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:399 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:400 */
+				status = "disabled";             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:401 */
+			};
+		};
+
+		/* node '/soc/timer@50054000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:405 */
+		timer3: timer@50054000 {
+			compatible = "silabs,series2-timer"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:406 */
+			reg = < 0x50054000 0x4000 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:407 */
+			channels = < 0x3 >;                  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:408 */
+			clocks = < &cmu 0x7 0x8 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:409 */
+			counter-size = < 0x10 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:410 */
+			interrupt-names = "timer3";          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:411 */
+			interrupts = < 0xd 0x2 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:412 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:413 */
+
+			/* node '/soc/timer@50054000/pwm' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:415 */
+			pwm {
+				compatible = "silabs,timer-pwm"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:416 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:417 */
+				status = "disabled";             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:418 */
+			};
+		};
+
+		/* node '/soc/timer@50058000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:422 */
+		timer4: timer@50058000 {
+			compatible = "silabs,series2-timer"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:423 */
+			reg = < 0x50058000 0x4000 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:424 */
+			channels = < 0x3 >;                  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:425 */
+			clocks = < &cmu 0x52 0x8 >;          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:426 */
+			counter-size = < 0x10 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:427 */
+			interrupt-names = "timer4";          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:428 */
+			interrupts = < 0xe 0x2 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:429 */
+			status = "disabled";                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:430 */
+
+			/* node '/soc/timer@50058000/pwm' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:432 */
+			pwm {
+				compatible = "silabs,timer-pwm"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:433 */
+				#pwm-cells = < 0x3 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:434 */
+				status = "disabled";             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:435 */
+			};
+		};
+
+		/* node '/soc/usart@5005c000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:439 */
+		usart0: usart@5005c000 {
+			compatible = "silabs,usart-spi"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:440 */
+			reg = < 0x5005c000 0x4000 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:441 */
+			clocks = < &cmu 0x8 0x3 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:442 */
+			interrupt-names = "rx",
+			                  "tx";          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:443 */
+			interrupts = < 0x10 0x2 >,
+			             < 0x11 0x2 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:444 */
+			status = "disabled";             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:445 */
+		};
+
+		/* node '/soc/usart@50060000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:448 */
+		usart1: usart@50060000 {
+			compatible = "silabs,usart-uart"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:449 */
+			reg = < 0x50060000 0x4000 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:450 */
+			clocks = < &cmu 0x9 0x3 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:451 */
+			interrupt-names = "rx",
+			                  "tx";           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:452 */
+			interrupts = < 0x12 0x2 >,
+			             < 0x13 0x2 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:453 */
+			current-speed = < 0x1c200 >;      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:138 */
+			pinctrl-0 = < &usart1_default >;  /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:139 */
+			pinctrl-names = "default";        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:140 */
+			status = "okay";                  /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:141 */
+		};
+
+		/* node '/soc/burtc@50064000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:457 */
+		burtc0: burtc@50064000 {
+			compatible = "silabs,gecko-burtc"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:458 */
+			reg = < 0x50064000 0x4000 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:459 */
+			clocks = < &cmu 0x1d 0xd >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:460 */
+			interrupt-names = "burtc";         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:461 */
+			interrupts = < 0x17 0x2 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:462 */
+			status = "disabled";               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:463 */
+		};
+
+		/* node '/soc/i2c@50068000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:466 */
+		i2c1: i2c@50068000 {
+			compatible = "silabs,i2c";     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:467 */
+			reg = < 0x50068000 0x4000 >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:468 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:469 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:470 */
+			clock-frequency = < 0x186a0 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:471 */
+			clocks = < &cmu 0xf 0x3 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:472 */
+			interrupt-names = "i2c1";      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:473 */
+			interrupts = < 0x21 0x2 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:474 */
+			status = "disabled";           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:475 */
+		};
+
+		/* node '/soc/retained-memory@50080000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:478 */
+		buram: retained-memory@50080000 {
+			compatible = "silabs,buram"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:479 */
+			reg = < 0x50080000 0x80 >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:480 */
+			clocks = < &cmu 0x1c 0x3 >;  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:481 */
+			status = "disabled";         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:482 */
+		};
+
+		/* node '/soc/dcdc@50094000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:485 */
+		dcdc: dcdc@50094000 {
+			compatible = "silabs,series2-dcdc";      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:486 */
+			reg = < 0x50094000 0x4000 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:487 */
+			clocks = < &cmu 0x1f 0x23 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:488 */
+			interrupt-names = "dcdc";                /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:489 */
+			interrupts = < 0x8 0x2 >;                /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:490 */
+			regulator-boot-on;                       /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb4111b.dts:17 */
+			regulator-init-microvolt = < 0x1b7740 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb4111b.dts:18 */
+			regulator-initial-mode = < 0x1 >;        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb4111b.dts:19 */
+			status = "okay";                         /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb4111b.dts:20 */
+		};
+
+		/* node '/soc/rtcc@58000000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:494 */
+		rtcc0: rtcc@58000000 {
+			compatible = "silabs,rtcc";   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:495 */
+			reg = < 0x58000000 0x4000 >;  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:496 */
+			clock-frequency = < 0x8000 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:497 */
+			clocks = < &cmu 0x1e 0x12 >;  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:498 */
+			interrupt-names = "rtcc";     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:499 */
+			interrupts = < 0xf 0x2 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:500 */
+			prescaler = < 0x1 >;          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:501 */
+			status = "okay";              /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:209 */
+		};
+
+		/* node '/soc/letimer@5a000000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:505 */
+		letimer0: letimer@5a000000 {
+			compatible = "silabs,series2-letimer"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:506 */
+			reg = < 0x5a000000 0x4000 >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:507 */
+			clocks = < &cmu 0xc 0xc >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:508 */
+			interrupt-names = "letimer0";          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:509 */
+			interrupts = < 0x18 0x2 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:510 */
+			status = "okay";                       /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:169 */
+
+			/* node '/soc/letimer@5a000000/pwm' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:513 */
+			letimer0_pwm: pwm {
+				compatible = "silabs,letimer-pwm"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:514 */
+				#pwm-cells = < 0x3 >;              /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:515 */
+				pinctrl-0 = < &letimer0_default >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:172 */
+				pinctrl-names = "default";         /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:173 */
+				status = "okay";                   /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:174 */
+				phandle = < 0x14 >;                /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:52 */
+			};
+		};
+
+		/* node '/soc/adc@5a004000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:520 */
+		adc0: adc@5a004000 {
+			compatible = "silabs,iadc";  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:521 */
+			reg = < 0x5a004000 0x4000 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:522 */
+			#io-channel-cells = < 0x1 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:523 */
+			clocks = < &cmu 0xa 0xf >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:524 */
+			interrupt-names = "iadc";    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:525 */
+			interrupts = < 0x36 0x2 >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:526 */
+			status = "disabled";         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:527 */
+		};
+
+		/* node '/soc/acmp@5a008000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:530 */
+		acmp0: acmp@5a008000 {
+			compatible = "silabs,acmp";  /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:531 */
+			reg = < 0x5a008000 0x4000 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:532 */
+			clocks = < &cmu 0x53 0x23 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:533 */
+			interrupt-names = "acmp0";   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:534 */
+			interrupts = < 0x30 0x2 >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:535 */
+			status = "disabled";         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:536 */
+		};
+
+		/* node '/soc/i2c@5a010000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:539 */
+		i2c0: i2c@5a010000 {
+			compatible = "silabs,i2c";     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:540 */
+			reg = < 0x5a010000 0x4000 >;   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:541 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:542 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:543 */
+			clock-frequency = < 0x186a0 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:544 */
+			clocks = < &cmu 0xe 0x4 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:545 */
+			interrupt-names = "i2c0";      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:546 */
+			interrupts = < 0x20 0x2 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:547 */
+			status = "disabled";           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:548 */
+		};
+
+		/* node '/soc/wdog@5a018000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:551 */
+		wdog0: wdog@5a018000 {
+			compatible = "silabs,gecko-wdog"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:552 */
+			reg = < 0x5a018000 0x4000 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:553 */
+			clocks = < &cmu 0xd 0x10 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:554 */
+			interrupt-names = "wdog0";        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:555 */
+			interrupts = < 0x31 0x2 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:556 */
+			peripheral-id = < 0x0 >;          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:557 */
+			status = "okay";                  /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:205 */
+		};
+
+		/* node '/soc/eusart@5a040000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:561 */
+		eusart0: eusart@5a040000 {
+			compatible = "silabs,eusart-spi"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:562 */
+			reg = < 0x5a040000 0x4000 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:563 */
+			clocks = < &cmu 0x54 0x15 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:564 */
+			interrupt-names = "rx",
+			                  "tx";           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:565 */
+			interrupts = < 0x14 0x2 >,
+			             < 0x15 0x2 >;        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:566 */
+			#address-cells = < 0x1 >;         /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:145 */
+			#size-cells = < 0x0 >;            /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:146 */
+			clock-frequency = < 0x7a1200 >;   /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:147 */
+			pinctrl-0 = < &eusart0_default >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:148 */
+			pinctrl-names = "default";        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:149 */
+			status = "okay";                  /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:150 */
+			cs-gpios = < &gpioc 0x4 0x1 >;    /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:152 */
+
+			/* node '/soc/eusart@5a040000/mx25r8035f@0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:154 */
+			mx25r80: mx25r8035f@0 {
+				compatible = "jedec,spi-nor";                 /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:155 */
+				reg = < 0x0 >;                                /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:156 */
+				dpd-wakeup-sequence = < 0x7530 0x14 0x88b8 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:157 */
+				has-dpd;                                      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:158 */
+				jedec-id = [ C2 28 14 ];                      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:159 */
+				mxicy,mx25r-power-mode = "low-power";         /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:160 */
+				size = < 0x800000 >;                          /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:161 */
+				spi-max-frequency = < 0x1f78a40 >;            /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:162 */
+				t-enter-dpd = < 0x0 >;                        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:163 */
+				zephyr,pm-device-runtime-auto;                /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:164 */
+			};
+		};
+
+		/* node '/soc/cryptoacc@5c020000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:570 */
+		trng: cryptoacc@5c020000 {
+			compatible = "silabs,gecko-trng"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:571 */
+			reg = < 0x5c020000 0xc000 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:572 */
+			clocks = < &cmu 0x4d 0x23 >;      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:573 */
+			interrupt-names = "cryptoacc",
+			                  "trng",
+			                  "pke";          /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:574 */
+			interrupts = < 0x0 0x2 >,
+			             < 0x1 0x2 >,
+			             < 0x2 0x2 >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:575 */
+			status = "okay";                  /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:213 */
+		};
+
+		/* node '/soc/radio@b0000000' defined in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:11 */
+		radio: radio@b0000000 {
+			compatible = "silabs,series2-radio"; /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:12 */
+			reg = < 0xb0000000 0x1000000 >;      /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:13 */
+			interrupt-names = "agc",
+			                  "bufc",
+			                  "frc_pri",
+			                  "frc",
+			                  "modem",
+			                  "protimer",
+			                  "rac_rsm",
+			                  "rac_seq",
+			                  "rdmailbox",
+			                  "rfsense",
+			                  "synth",
+			                  "prortc";          /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:14 */
+			interrupts = < 0x24 0x1 >,
+			             < 0x25 0x1 >,
+			             < 0x26 0x1 >,
+			             < 0x27 0x1 >,
+			             < 0x28 0x1 >,
+			             < 0x29 0x1 >,
+			             < 0x2a 0x1 >,
+			             < 0x2b 0x1 >,
+			             < 0x2c 0x1 >,
+			             < 0x2d 0x1 >,
+			             < 0x2e 0x1 >,
+			             < 0x2f 0x1 >;           /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:17 */
+			pa-2p4ghz = "highest";               /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:19 */
+			pa-initial-power-dbm = < 0xa >;      /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:20 */
+			pa-ramp-time-us = < 0x2 >;           /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:21 */
+			pa-voltage-mv = < 0x708 >;           /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:217 */
+
+			/* node '/soc/radio@b0000000/bt_hci_silabs' defined in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:24 */
+			bt_hci_silabs: bt_hci_silabs {
+				compatible = "silabs,bt-hci-efr32"; /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:25 */
+				status = "okay";                    /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:221 */
+			};
+
+			/* node '/soc/radio@b0000000/pti' defined in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:29 */
+			pti: pti {
+				compatible = "silabs,pti";      /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:30 */
+				clock-frequency = < 0x186a00 >; /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:31 */
+				mode = "uart";                  /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:32 */
+				status = "disabled";            /* in zephyr/dts/arm/silabs/xg27/efr32xg27.dtsi:33 */
+			};
+		};
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:23 */
+	clocks {
+
+		/* node '/clocks/em01grpaclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:24 */
+		em01grpaclk: em01grpaclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:25 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:26 */
+			clocks = < &hfrcodpll >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:27 */
+			phandle = < 0xa >;                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:51 */
+		};
+
+		/* node '/clocks/em01grpbclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:30 */
+		em01grpbclk: em01grpbclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:31 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:32 */
+			clocks = < &hfrcodpll >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:33 */
+		};
+
+		/* node '/clocks/em23grpaclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:36 */
+		em23grpaclk: em23grpaclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:37 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:38 */
+			clocks = < &lfxo >;                /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:122 */
+		};
+
+		/* node '/clocks/em4grpaclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:42 */
+		em4grpaclk: em4grpaclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:43 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:44 */
+			clocks = < &lfxo >;                /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:126 */
+		};
+
+		/* node '/clocks/eusart0clk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:48 */
+		eusart0clk: eusart0clk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:49 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:50 */
+			clocks = < &em01grpaclk >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:51 */
+		};
+
+		/* node '/clocks/hclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:54 */
+		hclk: hclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:55 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:56 */
+			clock-div = < 0x1 >;               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:57 */
+			clocks = < &sysclk >;              /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:58 */
+			phandle = < 0xc >;                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:65 */
+		};
+
+		/* node '/clocks/hclkdiv1024' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:61 */
+		hclkdiv1024: hclkdiv1024 {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:62 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:63 */
+			clock-div = < 0x400 >;             /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:64 */
+			clocks = < &hclk >;                /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:65 */
+		};
+
+		/* node '/clocks/hfrcodpllrt' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:68 */
+		hfrcodpllrt: hfrcodpllrt {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:69 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:70 */
+			clocks = < &hfrcodpll >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:71 */
+		};
+
+		/* node '/clocks/hfxort' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:74 */
+		hfxort: hfxort {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:75 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:76 */
+			clocks = < &hfxo >;                /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:77 */
+		};
+
+		/* node '/clocks/iadcclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:80 */
+		iadcclk: iadcclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:81 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:82 */
+			clocks = < &em01grpaclk >;         /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:83 */
+		};
+
+		/* node '/clocks/lspclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:86 */
+		lspclk: lspclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:87 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:88 */
+			clock-div = < 0x2 >;               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:89 */
+			clocks = < &pclk >;                /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:90 */
+		};
+
+		/* node '/clocks/pclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:93 */
+		pclk: pclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:94 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:95 */
+			clock-div = < 0x2 >;               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:96 */
+			clocks = < &hclk >;                /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:97 */
+			phandle = < 0xd >;                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:90 */
+		};
+
+		/* node '/clocks/prortcclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:100 */
+		prortcclk: prortcclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:101 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:102 */
+			clocks = < &lfrco >;               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:103 */
+		};
+
+		/* node '/clocks/rtccclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:106 */
+		rtccclk: rtccclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:107 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:108 */
+			clocks = < &lfxo >;                /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:130 */
+		};
+
+		/* node '/clocks/sysclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:112 */
+		sysclk: sysclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:113 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:114 */
+			clocks = < &hfrcodpll >;           /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:115 */
+			phandle = < 0xb >;                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:58 */
+		};
+
+		/* node '/clocks/systickclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:118 */
+		systickclk: systickclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:119 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:120 */
+			clocks = < &hclk >;                /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:121 */
+		};
+
+		/* node '/clocks/traceclk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:124 */
+		traceclk: traceclk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:125 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:126 */
+			clock-div = < 0x1 >;               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:127 */
+			clocks = < &sysclk >;              /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:128 */
+		};
+
+		/* node '/clocks/wdog0clk' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:131 */
+		wdog0clk: wdog0clk {
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:132 */
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:133 */
+			clocks = < &lfxo >;                /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:134 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:138 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:139 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:140 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:142 */
+		cpu0: cpu@0 {
+			compatible = "arm,cortex-m33";                              /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:143 */
+			reg = < 0x0 >;                                              /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:144 */
+			#address-cells = < 0x1 >;                                   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:145 */
+			#size-cells = < 0x1 >;                                      /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:146 */
+			cpu-power-states = < &pstate_em1 &pstate_em2 &pstate_em4 >; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:151 */
+			device_type = "cpu";                                        /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:152 */
+			clock-frequency = < 0x493e000 >;                            /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:90 */
+
+			/* node '/cpus/cpu@0/itm@e0000000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:154 */
+			itm: itm@e0000000 {
+				compatible = "arm,armv8m-itm";     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:155 */
+				reg = < 0xe0000000 0x1000 >;       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:156 */
+				pinctrl-0 = < &itm_default >;      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:94 */
+				pinctrl-names = "default";         /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:95 */
+				swo-ref-frequency = < 0x493e000 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:96 */
+			};
+
+			/* node '/cpus/cpu@0/mpu@e000ed90' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:159 */
+			mpu: mpu@e000ed90 {
+				compatible = "arm,armv8m-mpu"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:160 */
+				reg = < 0xe000ed90 0x40 >;     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:161 */
+			};
+		};
+
+		/* node '/cpus/power-states' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:165 */
+		power-states {
+
+			/* node '/cpus/power-states/em1' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:166 */
+			pstate_em1: em1 {
+				compatible = "zephyr,power-state"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:167 */
+				power-state-name = "runtime-idle"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:168 */
+				phandle = < 0xf >;                 /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:151 */
+			};
+
+			/* node '/cpus/power-states/em2' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:171 */
+			pstate_em2: em2 {
+				compatible = "zephyr,power-state";    /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:172 */
+				power-state-name = "suspend-to-idle"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:173 */
+				phandle = < 0x10 >;                   /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:151 */
+			};
+
+			/* node '/cpus/power-states/em4' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:176 */
+			pstate_em4: em4 {
+				compatible = "zephyr,power-state"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:177 */
+				power-state-name = "soft-off";     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:178 */
+				status = "disabled";               /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:179 */
+				phandle = < 0x11 >;                /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:151 */
+			};
+		};
+	};
+
+	/* node '/hwinfo' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:184 */
+	hwinfo: hwinfo {
+		compatible = "silabs,gecko-hwinfo"; /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:185 */
+		status = "disabled";                /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:186 */
+	};
+
+	/* node '/memory@20000000' defined in zephyr/dts/arm/silabs/xg27/xg27.dtsi:580 */
+	sram0: memory@20000000 {
+		compatible = "mmio-sram";     /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:581 */
+		device_type = "memory";       /* in zephyr/dts/arm/silabs/xg27/xg27.dtsi:582 */
+		reg = < 0x20000000 0x10000 >; /* in zephyr/dts/arm/silabs/xg27/efr32bg27c320f768gj39.dtsi:22 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:34 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:35 */
+
+		/* node '/leds/led_0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:37 */
+		led0: led_0 {
+			gpios = < &gpiob 0x2 0x1 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:38 */
+			label = "LED 0";            /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:39 */
+		};
+
+		/* node '/leds/led_1' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:42 */
+		led1: led_1 {
+			gpios = < &gpiob 0x1 0x1 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:43 */
+			label = "LED 1";            /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:44 */
+		};
+	};
+
+	/* node '/pwmleds' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:48 */
+	pwmleds {
+		compatible = "pwm-leds"; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:49 */
+
+		/* node '/pwmleds/pwm_led_0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:51 */
+		pwm_led0: pwm_led_0 {
+			pwms = < &letimer0_pwm 0x0 0x1312d00 0x1 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:52 */
+		};
+	};
+
+	/* node '/buttons' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:56 */
+	buttons {
+		compatible = "gpio-keys"; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:57 */
+
+		/* node '/buttons/button_0' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:59 */
+		button0: button_0 {
+			gpios = < &gpiob 0x2 0x1 >;   /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:60 */
+			label = "User Push Button 0"; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:61 */
+			zephyr,code = < 0xb >;        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:62 */
+		};
+
+		/* node '/buttons/button_1' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:65 */
+		button1: button_1 {
+			gpios = < &gpiob 0x1 0x1 >;   /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:66 */
+			label = "User Push Button 1"; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:67 */
+			zephyr,code = < 0x2 >;        /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:68 */
+		};
+	};
+
+	/* node '/exp-header' defined in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:72 */
+	exp_header: exp-header {
+		compatible = "silabs,exp-header";      /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:73 */
+		#gpio-cells = < 0x2 >;                 /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:74 */
+		gpio-map = < 0x3 0x0 &gpioa 0x4 0x0 >,
+		           < 0x4 0x0 &gpioc 0x5 0x0 >,
+		           < 0x6 0x0 &gpioc 0x3 0x0 >,
+		           < 0x7 0x0 &gpiob 0x2 0x0 >,
+		           < 0x8 0x0 &gpioc 0x2 0x0 >,
+		           < 0x9 0x0 &gpiob 0x1 0x0 >,
+		           < 0xa 0x0 &gpioc 0x6 0x0 >,
+		           < 0xc 0x0 &gpioa 0x5 0x0 >,
+		           < 0xe 0x0 &gpioa 0x6 0x0 >; /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:75 */
+		gpio-map-mask = < 0xffffffff 0x0 >;    /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:84 */
+		gpio-map-pass-thru = < 0x0 0x7f >;     /* in zephyr/boards/silabs/radio_boards/xg27/bg27_rb411xb.dtsi:85 */
+	};
+};

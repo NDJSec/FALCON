@@ -1,0 +1,129 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >; /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;    /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "ACRN";           /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:17 */
+	compatible = "acrn";      /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:18 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &dram0;       /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:26 */
+		zephyr,console = &uart0;    /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:27 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:28 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		uart-0 = &uart0; /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:21 */
+		uart-1 = &uart1; /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:22 */
+	};
+
+	/* node '/cpus' defined in zephyr/dts/x86/intel/atom.dtsi:11 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/x86/intel/atom.dtsi:12 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/x86/intel/atom.dtsi:13 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/x86/intel/atom.dtsi:15 */
+		cpu: cpu@0 {
+			device_type = "cpu";          /* in zephyr/dts/x86/intel/atom.dtsi:16 */
+			d-cache-line-size = < 0x40 >; /* in zephyr/dts/x86/intel/atom.dtsi:17 */
+			reg = < 0x0 >;                /* in zephyr/dts/x86/intel/atom.dtsi:18 */
+			compatible = "intel,x86_64";  /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:51 */
+		};
+	};
+
+	/* node '/ioapic@fec00000' defined in zephyr/dts/x86/intel/atom.dtsi:22 */
+	intc: ioapic@fec00000 {
+		compatible = "intel,ioapic"; /* in zephyr/dts/x86/intel/atom.dtsi:23 */
+		#address-cells = < 0x1 >;    /* in zephyr/dts/x86/intel/atom.dtsi:24 */
+		#interrupt-cells = < 0x3 >;  /* in zephyr/dts/x86/intel/atom.dtsi:25 */
+		reg = < 0xfec00000 0x1000 >; /* in zephyr/dts/x86/intel/atom.dtsi:26 */
+		interrupt-controller;        /* in zephyr/dts/x86/intel/atom.dtsi:27 */
+		phandle = < 0x1 >;           /* in zephyr/dts/x86/intel/atom.dtsi:55 */
+	};
+
+	/* node '/loapic@fee00000' defined in zephyr/dts/x86/intel/atom.dtsi:30 */
+	intc_loapic: loapic@fee00000 {
+		compatible = "intel,loapic"; /* in zephyr/dts/x86/intel/atom.dtsi:31 */
+		reg = < 0xfee00000 0x1000 >; /* in zephyr/dts/x86/intel/atom.dtsi:32 */
+		interrupt-controller;        /* in zephyr/dts/x86/intel/atom.dtsi:33 */
+		#interrupt-cells = < 0x3 >;  /* in zephyr/dts/x86/intel/atom.dtsi:34 */
+		#address-cells = < 0x1 >;    /* in zephyr/dts/x86/intel/atom.dtsi:35 */
+	};
+
+	/* node '/memory@0' defined in zephyr/dts/x86/intel/atom.dtsi:38 */
+	dram0: memory@0 {
+		device_type = "memory"; /* in zephyr/dts/x86/intel/atom.dtsi:39 */
+		reg = < 0x0 0x800000 >; /* in zephyr/dts/x86/intel/atom.dtsi:40 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/x86/intel/atom.dtsi:43 */
+	soc {
+		#address-cells = < 0x1 >;  /* in zephyr/dts/x86/intel/atom.dtsi:44 */
+		#size-cells = < 0x1 >;     /* in zephyr/dts/x86/intel/atom.dtsi:45 */
+		compatible = "simple-bus"; /* in zephyr/dts/x86/intel/atom.dtsi:46 */
+		ranges;                    /* in zephyr/dts/x86/intel/atom.dtsi:47 */
+
+		/* node '/soc/uart@3f8' defined in zephyr/dts/x86/intel/atom.dtsi:49 */
+		uart0: uart@3f8 {
+			compatible = "ns16550";         /* in zephyr/dts/x86/intel/atom.dtsi:50 */
+			reg = < 0x3f8 0x100 >;          /* in zephyr/dts/x86/intel/atom.dtsi:51 */
+			io-mapped;                      /* in zephyr/dts/x86/intel/atom.dtsi:52 */
+			clock-frequency = < 0x1c2000 >; /* in zephyr/dts/x86/intel/atom.dtsi:53 */
+			interrupts = < 0x4 0x100 0x3 >; /* in zephyr/dts/x86/intel/atom.dtsi:54 */
+			interrupt-parent = < &intc >;   /* in zephyr/dts/x86/intel/atom.dtsi:55 */
+			reg-shift = < 0x0 >;            /* in zephyr/dts/x86/intel/atom.dtsi:56 */
+			status = "okay";                /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:41 */
+			current-speed = < 0x1c200 >;    /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:42 */
+		};
+
+		/* node '/soc/uart@2f8' defined in zephyr/dts/x86/intel/atom.dtsi:60 */
+		uart1: uart@2f8 {
+			compatible = "ns16550";         /* in zephyr/dts/x86/intel/atom.dtsi:61 */
+			reg = < 0x2f8 0x100 >;          /* in zephyr/dts/x86/intel/atom.dtsi:62 */
+			io-mapped;                      /* in zephyr/dts/x86/intel/atom.dtsi:63 */
+			clock-frequency = < 0x1c2000 >; /* in zephyr/dts/x86/intel/atom.dtsi:64 */
+			interrupts = < 0x3 0x100 0x3 >; /* in zephyr/dts/x86/intel/atom.dtsi:65 */
+			interrupt-parent = < &intc >;   /* in zephyr/dts/x86/intel/atom.dtsi:66 */
+			reg-shift = < 0x0 >;            /* in zephyr/dts/x86/intel/atom.dtsi:67 */
+			status = "okay";                /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:46 */
+			current-speed = < 0x1c200 >;    /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:47 */
+		};
+
+		/* node '/soc/hpet@fed00000' defined in zephyr/dts/x86/intel/atom.dtsi:71 */
+		hpet: hpet@fed00000 {
+			compatible = "intel,hpet";    /* in zephyr/dts/x86/intel/atom.dtsi:72 */
+			reg = < 0xfed00000 0x400 >;   /* in zephyr/dts/x86/intel/atom.dtsi:73 */
+			interrupts = < 0x2 0x0 0x4 >; /* in zephyr/dts/x86/intel/atom.dtsi:74 */
+			interrupt-parent = < &intc >; /* in zephyr/dts/x86/intel/atom.dtsi:75 */
+			status = "disabled";          /* in zephyr/dts/x86/intel/atom.dtsi:77 */
+		};
+
+		/* node '/soc/mfd@70' defined in zephyr/dts/x86/intel/atom.dtsi:80 */
+		mfd: mfd@70 {
+			compatible = "motorola,mc146818-mfd";          /* in zephyr/dts/x86/intel/atom.dtsi:81 */
+			reg = < 0x70 0x1 0x71 0x1 0x72 0x1 0x73 0x1 >; /* in zephyr/dts/x86/intel/atom.dtsi:82 */
+			status = "okay";                               /* in zephyr/dts/x86/intel/atom.dtsi:93 */
+
+			/* node '/soc/mfd@70/rtc' defined in zephyr/dts/x86/intel/atom.dtsi:84 */
+			rtc: counter: rtc {
+				compatible = "motorola,mc146818"; /* in zephyr/dts/x86/intel/atom.dtsi:85 */
+				interrupts = < 0x8 0x100 0x3 >;   /* in zephyr/dts/x86/intel/atom.dtsi:86 */
+				interrupt-parent = < &intc >;     /* in zephyr/dts/x86/intel/atom.dtsi:87 */
+				alarms-count = < 0x1 >;           /* in zephyr/dts/x86/intel/atom.dtsi:88 */
+				status = "okay";                  /* in zephyr/dts/x86/intel/atom.dtsi:90 */
+			};
+		};
+	};
+
+	/* node '/pcie0' defined in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:31 */
+	pcie0: pcie0 {
+		#address-cells = < 0x1 >;       /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:32 */
+		#size-cells = < 0x1 >;          /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:33 */
+		compatible = "pcie-controller"; /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:34 */
+		acpi-hid = "PNP0A03";           /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:35 */
+		ranges;                         /* in zephyr/boards/acrn/acrn/acrn_adl_crb.dts:36 */
+	};
+};

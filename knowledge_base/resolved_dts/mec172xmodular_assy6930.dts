@@ -1,0 +1,2410 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                                     /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                                        /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "Microchip MEC172XMODULAR_ASSY6930 evaluation board"; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:13 */
+	compatible = "microchip,mec172xmodular_assy6930",
+	             "microchip,mec172xnsz";                          /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:14 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &sram0;    /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:17 */
+		zephyr,flash = &flash0;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:18 */
+		zephyr,console = &uart1; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:19 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		led1 = &led3;      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:23 */
+		led2 = &led2;      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:24 */
+		i2c0 = &i2c_smb_0; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:25 */
+		i2c1 = &i2c_smb_1; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:26 */
+		i2c7 = &i2c_smb_2; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:27 */
+		pwm-0 = &pwm0;     /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:28 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "simple-bus";    /* in zephyr/dts/arm/armv7-m.dtsi:9 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:73 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+			status = "disabled";               /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:77 */
+		};
+
+		/* node '/soc/ecs@4000fc00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:7 */
+		ecs: ecs@4000fc00 {
+			reg = < 0x4000fc00 0x200 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:8 */
+		};
+
+		/* node '/soc/pcr@40080100' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:11 */
+		pcr: pcr@40080100 {
+			compatible = "microchip,xec-pcr";            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:12 */
+			reg = < 0x40080100 0x100 0x4000a400 0x100 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:13 */
+			reg-names = "pcrr",
+			            "vbatr";                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:14 */
+			interrupts = < 0xae 0x0 >;                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:15 */
+			core-clock-div = < 0x1 >;                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:16 */
+			pll-32k-src = < 0x0 >;                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:18 */
+			periph-32k-src = < 0x0 >;                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:19 */
+			clk32kmon-period-min = < 0x59b >;            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:20 */
+			clk32kmon-period-max = < 0x5d7 >;            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:21 */
+			clk32kmon-duty-cycle-var-max = < 0x84 >;     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:22 */
+			clk32kmon-valid-min = < 0x4 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:23 */
+			xtal-enable-delay-ms = < 0x12c >;            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:24 */
+			pll-lock-timeout-ms = < 0x1e >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:25 */
+			#clock-cells = < 0x3 >;                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:26 */
+			status = "okay";                             /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:74 */
+			phandle = < 0x2 >;                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:33 */
+		};
+
+		/* node '/soc/ecia@4000e000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:29 */
+		ecia: ecia@4000e000 {
+			compatible = "microchip,xec-ecia";                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:30 */
+			reg = < 0x4000e000 0x400 >;                                                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:31 */
+			direct-capable-girqs = < 0xd 0xe 0xf 0x10 0x11 0x12 0x13 0x14 0x15 0x17 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:32 */
+			clocks = < &pcr 0x1 0x0 0x3 >;                                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:33 */
+			#address-cells = < 0x1 >;                                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:34 */
+			#size-cells = < 0x1 >;                                                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:35 */
+			ranges = < 0x0 0x4000e000 0x400 >;                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:37 */
+			status = "okay";                                                           /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:57 */
+
+			/* node '/soc/ecia@4000e000/girq8@0' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:39 */
+			girq8: girq8@0 {
+				compatible = "microchip,xec-ecia-girq";                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:40 */
+				reg = < 0x0 0x14 >;                                                                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:41 */
+				interrupts = < 0x0 0x0 >;                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:42 */
+				girq-id = < 0x0 >;                                                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:43 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x15
+				            0x16 0x18 0x19 0x1a 0x1b 0x1c 0x1d >;                                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:44 */
+				status = "disabled";                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:48 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq9@14' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:51 */
+			girq9: girq9@14 {
+				compatible = "microchip,xec-ecia-girq";                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:52 */
+				reg = < 0x14 0x14 >;                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:53 */
+				interrupts = < 0x1 0x0 >;                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:54 */
+				girq-id = < 0x1 >;                                                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:55 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13
+				            0x14 0x15 0x16 0x17 0x18 0x19 0x1a 0x1b 0x1c 0x1d >;                                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:56 */
+				status = "disabled";                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:60 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq10@28' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:63 */
+			girq10: girq10@28 {
+				compatible = "microchip,xec-ecia-girq";                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:64 */
+				reg = < 0x28 0x14 >;                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:65 */
+				interrupts = < 0x2 0x0 >;                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:66 */
+				girq-id = < 0x2 >;                                                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:67 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13
+				            0x14 0x15 0x16 0x17 0x18 0x19 0x1a 0x1b 0x1c 0x1d 0x1e >;                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:68 */
+				status = "disabled";                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:72 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq11@3c' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:75 */
+			girq11: girq11@3c {
+				compatible = "microchip,xec-ecia-girq";                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:76 */
+				reg = < 0x3c 0x14 >;                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:77 */
+				interrupts = < 0x3 0x0 >;                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:78 */
+				girq-id = < 0x3 >;                                                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:79 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13
+				            0x14 0x15 0x16 0x17 0x18 0x19 0x1a 0x1b 0x1c 0x1d 0x1e >;                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:80 */
+				status = "disabled";                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:84 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq12@50' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:87 */
+			girq12: girq12@50 {
+				compatible = "microchip,xec-ecia-girq";                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:88 */
+				reg = < 0x50 0x14 >;                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:89 */
+				interrupts = < 0x4 0x0 >;                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:90 */
+				girq-id = < 0x4 >;                                                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:91 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13
+				            0x14 0x15 0x16 0x17 0x18 0x19 0x1a 0x1b 0x1c 0x1d 0x1e >;                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:92 */
+				status = "disabled";                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:96 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq13@64' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:99 */
+			girq13: girq13@64 {
+				compatible = "microchip,xec-ecia-girq"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:100 */
+				reg = < 0x64 0x14 >;                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:101 */
+				interrupts = < 0x5 0x0 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:102 */
+				girq-id = < 0x5 >;                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:103 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:104 */
+				status = "disabled";                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:105 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq14@78' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:108 */
+			girq14: girq14@78 {
+				compatible = "microchip,xec-ecia-girq";                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:109 */
+				reg = < 0x78 0x14 >;                                                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:110 */
+				interrupts = < 0x6 0x0 >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:111 */
+				girq-id = < 0x6 >;                                                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:112 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:113 */
+				status = "disabled";                                                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:115 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq15@8c' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:118 */
+			girq15: girq15@8c {
+				compatible = "microchip,xec-ecia-girq";                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:119 */
+				reg = < 0x8c 0x14 >;                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:120 */
+				interrupts = < 0x7 0x0 >;                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:121 */
+				girq-id = < 0x7 >;                                                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:122 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13
+				            0x14 0x16 >;                                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:123 */
+				status = "disabled";                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:126 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq16@a0' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:129 */
+			girq16: girq16@a0 {
+				compatible = "microchip,xec-ecia-girq"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:130 */
+				reg = < 0xa0 0x14 >;                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:131 */
+				interrupts = < 0x8 0x0 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:132 */
+				girq-id = < 0x8 >;                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:133 */
+				sources = < 0x0 0x2 0x3 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:134 */
+				status = "disabled";                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:135 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq17@b4' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:138 */
+			girq17: girq17@b4 {
+				compatible = "microchip,xec-ecia-girq";                                                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:139 */
+				reg = < 0xb4 0x14 >;                                                                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:140 */
+				interrupts = < 0x9 0x0 >;                                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:141 */
+				girq-id = < 0x9 >;                                                                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:142 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x14 0x15 0x16 0x17 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:143 */
+				status = "disabled";                                                                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:145 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq18@c8' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:148 */
+			girq18: girq18@c8 {
+				compatible = "microchip,xec-ecia-girq";                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:149 */
+				reg = < 0xc8 0x14 >;                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:150 */
+				interrupts = < 0xa 0x0 >;                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:151 */
+				girq-id = < 0xa >;                                                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:152 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0xa 0x14 0x15 0x16 0x17 0x18 0x19 0x1a 0x1b 0x1c >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:153 */
+				status = "disabled";                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:156 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq19@dc' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:159 */
+			girq19: girq19@dc {
+				compatible = "microchip,xec-ecia-girq";                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:160 */
+				reg = < 0xdc 0x14 >;                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:161 */
+				interrupts = < 0xb 0x0 >;                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:162 */
+				girq-id = < 0xb >;                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:163 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:164 */
+				status = "disabled";                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:165 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq20@f0' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:168 */
+			girq20: girq20@f0 {
+				compatible = "microchip,xec-ecia-girq"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:169 */
+				reg = < 0xf0 0x14 >;                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:170 */
+				interrupts = < 0xc 0x0 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:171 */
+				girq-id = < 0xc >;                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:172 */
+				sources = < 0x3 0x9 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:173 */
+				status = "disabled";                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:174 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq21@104' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:177 */
+			girq21: girq21@104 {
+				compatible = "microchip,xec-ecia-girq";                                                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:178 */
+				reg = < 0x104 0x14 >;                                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:179 */
+				interrupts = < 0xd 0x0 >;                                                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:180 */
+				girq-id = < 0xd >;                                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:181 */
+				sources = < 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x12 0x13 0x19 0x1a >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:182 */
+				status = "disabled";                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:184 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq22@118' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:187 */
+			girq22: girq22@118 {
+				compatible = "microchip,xec-ecia-girq";        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:188 */
+				reg = < 0x118 0x14 >;                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:189 */
+				interrupts = < 0xff 0x0 >;                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:190 */
+				girq-id = < 0xe >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:191 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x9 0xf >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:192 */
+				status = "disabled";                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:193 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq23@12c' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:196 */
+			girq23: girq23@12c {
+				compatible = "microchip,xec-ecia-girq";                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:197 */
+				reg = < 0x12c 0x14 >;                                                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:198 */
+				interrupts = < 0xe 0x0 >;                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:199 */
+				girq-id = < 0xf >;                                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:200 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0x10 0x11 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:201 */
+				status = "disabled";                                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:202 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq24@140' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:205 */
+			girq24: girq24@140 {
+				compatible = "microchip,xec-ecia-girq";                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:206 */
+				reg = < 0x140 0x14 >;                                                                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:207 */
+				interrupts = < 0xf 0x0 >;                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:208 */
+				girq-id = < 0x10 >;                                                                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:209 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13
+				            0x14 0x15 0x16 0x17 0x18 0x19 0x1a 0x1b >;                                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:210 */
+				status = "okay";                                                                                /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:62 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq25@154' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:216 */
+			girq25: girq25@154 {
+				compatible = "microchip,xec-ecia-girq";                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:217 */
+				reg = < 0x154 0x14 >;                                                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:218 */
+				interrupts = < 0x10 0x0 >;                                                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:219 */
+				girq-id = < 0x11 >;                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:220 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:221 */
+				status = "okay";                                                               /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:66 */
+			};
+
+			/* node '/soc/ecia@4000e000/girq26@168' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:226 */
+			girq26: girq26@168 {
+				compatible = "microchip,xec-ecia-girq";            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:227 */
+				reg = < 0x168 0x14 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:228 */
+				interrupts = < 0x11 0x0 >;                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:229 */
+				girq-id = < 0x12 >;                                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:230 */
+				sources = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0xc 0xd >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:231 */
+				status = "disabled";                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:232 */
+			};
+		};
+
+		/* node '/soc/pin-controller@40081000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:236 */
+		pinctrl: pin-controller@40081000 {
+			compatible = "microchip,xec-pinctrl"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:237 */
+			#address-cells = < 0x1 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:238 */
+			#size-cells = < 0x1 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:239 */
+			reg = < 0x40081000 0x1000 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:240 */
+
+			/* node '/soc/pin-controller@40081000/gpio@40081000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:242 */
+			gpio_000_036: gpio@40081000 {
+				compatible = "microchip,xec-gpio-v2";                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:243 */
+				reg = < 0x40081000 0x80 0x40081300 0x4 0x40081380 0x4 0x400813fc 0x4 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:244 */
+				interrupts = < 0x3 0x2 >;                                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:246 */
+				gpio-controller;                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:247 */
+				port-id = < 0x0 >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:248 */
+				girq-id = < 0xb >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:249 */
+				#gpio-cells = < 0x2 >;                                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:250 */
+			};
+
+			/* node '/soc/pin-controller@40081000/gpio@40081080' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:253 */
+			gpio_040_076: gpio@40081080 {
+				compatible = "microchip,xec-gpio-v2";                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:254 */
+				reg = < 0x40081080 0x80 0x40081304 0x4 0x40081384 0x4 0x400813f8 0x4 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:255 */
+				interrupts = < 0x2 0x2 >;                                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:257 */
+				gpio-controller;                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:258 */
+				port-id = < 0x1 >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:259 */
+				girq-id = < 0xa >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:260 */
+				#gpio-cells = < 0x2 >;                                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:261 */
+			};
+
+			/* node '/soc/pin-controller@40081000/gpio@40081100' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:264 */
+			gpio_100_136: gpio@40081100 {
+				compatible = "microchip,xec-gpio-v2";                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:265 */
+				reg = < 0x40081100 0x80 0x40081308 0x4 0x40081388 0x4 0x400813f4 0x4 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:266 */
+				gpio-controller;                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:268 */
+				interrupts = < 0x1 0x2 >;                                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:269 */
+				port-id = < 0x2 >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:270 */
+				girq-id = < 0x9 >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:271 */
+				#gpio-cells = < 0x2 >;                                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:272 */
+			};
+
+			/* node '/soc/pin-controller@40081000/gpio@40081180' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:275 */
+			gpio_140_176: gpio@40081180 {
+				compatible = "microchip,xec-gpio-v2";                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:276 */
+				reg = < 0x40081180 0x80 0x4008130c 0x4 0x4008138c 0x4 0x400813f0 0x4 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:277 */
+				gpio-controller;                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:279 */
+				interrupts = < 0x0 0x2 >;                                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:280 */
+				port-id = < 0x3 >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:281 */
+				girq-id = < 0x8 >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:282 */
+				#gpio-cells = < 0x2 >;                                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:283 */
+				phandle = < 0x50 >;                                                     /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:38 */
+			};
+
+			/* node '/soc/pin-controller@40081000/gpio@40081200' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:286 */
+			gpio_200_236: gpio@40081200 {
+				compatible = "microchip,xec-gpio-v2";                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:287 */
+				reg = < 0x40081200 0x80 0x40081310 0x4 0x40081390 0x4 0x400813ec 0x4 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:288 */
+				gpio-controller;                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:290 */
+				interrupts = < 0x4 0x2 >;                                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:291 */
+				port-id = < 0x4 >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:292 */
+				girq-id = < 0xc >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:293 */
+				#gpio-cells = < 0x2 >;                                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:294 */
+			};
+
+			/* node '/soc/pin-controller@40081000/gpio@40081280' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:297 */
+			gpio_240_276: gpio@40081280 {
+				compatible = "microchip,xec-gpio-v2";                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:298 */
+				reg = < 0x40081280 0x80 0x40081314 0x4 0x40081394 0x4 0x400813e8 0x4 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:299 */
+				gpio-controller;                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:301 */
+				interrupts = < 0x11 0x2 >;                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:302 */
+				port-id = < 0x5 >;                                                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:303 */
+				girq-id = < 0x1a >;                                                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:304 */
+				#gpio-cells = < 0x2 >;                                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:305 */
+			};
+
+			/* node '/soc/pin-controller@40081000/adc00_gpio200' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:11 */
+			adc00_gpio200: adc00_gpio200 {
+				pinmux = < 0x204 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:12 */
+				phandle = < 0xe >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:86 */
+			};
+
+			/* node '/soc/pin-controller@40081000/adc03_gpio203' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:23 */
+			adc03_gpio203: adc03_gpio203 {
+				pinmux = < 0x234 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:24 */
+				phandle = < 0xf >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:86 */
+			};
+
+			/* node '/soc/pin-controller@40081000/adc04_gpio204' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:27 */
+			adc04_gpio204: adc04_gpio204 {
+				pinmux = < 0x244 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:28 */
+				phandle = < 0x10 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:86 */
+			};
+
+			/* node '/soc/pin-controller@40081000/adc05_gpio205' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:31 */
+			adc05_gpio205: adc05_gpio205 {
+				pinmux = < 0x254 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:32 */
+				phandle = < 0x11 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:86 */
+			};
+
+			/* node '/soc/pin-controller@40081000/espi_reset_n_gpio061' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:90 */
+			espi_reset_n_gpio061: espi_reset_n_gpio061 {
+				pinmux = < 0x311 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:91 */
+				phandle = < 0x46 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:93 */
+			};
+
+			/* node '/soc/pin-controller@40081000/espi_alert_n_gpio063' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:94 */
+			espi_alert_n_gpio063: espi_alert_n_gpio063 {
+				pinmux = < 0x331 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:95 */
+				phandle = < 0x48 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:93 */
+			};
+
+			/* node '/soc/pin-controller@40081000/espi_clk_gpio065' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:98 */
+			espi_clk_gpio065: espi_clk_gpio065 {
+				pinmux = < 0x351 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:99 */
+				phandle = < 0x49 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:93 */
+			};
+
+			/* node '/soc/pin-controller@40081000/espi_cs_n_gpio066' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:102 */
+			espi_cs_n_gpio066: espi_cs_n_gpio066 {
+				pinmux = < 0x361 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:103 */
+				phandle = < 0x47 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:93 */
+			};
+
+			/* node '/soc/pin-controller@40081000/espi_io0_gpio070' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:106 */
+			espi_io0_gpio070: espi_io0_gpio070 {
+				pinmux = < 0x381 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:107 */
+				phandle = < 0x4a >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:93 */
+			};
+
+			/* node '/soc/pin-controller@40081000/espi_io1_gpio071' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:110 */
+			espi_io1_gpio071: espi_io1_gpio071 {
+				pinmux = < 0x391 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:111 */
+				phandle = < 0x4b >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:93 */
+			};
+
+			/* node '/soc/pin-controller@40081000/espi_io2_gpio072' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:114 */
+			espi_io2_gpio072: espi_io2_gpio072 {
+				pinmux = < 0x3a1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:115 */
+				phandle = < 0x4c >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:93 */
+			};
+
+			/* node '/soc/pin-controller@40081000/espi_io3_gpio073' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:118 */
+			espi_io3_gpio073: espi_io3_gpio073 {
+				pinmux = < 0x3b1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:119 */
+				phandle = < 0x4d >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:93 */
+			};
+
+			/* node '/soc/pin-controller@40081000/i2c00_scl_gpio004' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:193 */
+			i2c00_scl_gpio004: i2c00_scl_gpio004 {
+				pinmux = < 0x240 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:194 */
+				drive-open-drain;   /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:131 */
+				output-enable;      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:132 */
+				output-high;        /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:133 */
+				phandle = < 0x4 >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:126 */
+			};
+
+			/* node '/soc/pin-controller@40081000/i2c00_sda_gpio003' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:197 */
+			i2c00_sda_gpio003: i2c00_sda_gpio003 {
+				pinmux = < 0x230 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:198 */
+				drive-open-drain;   /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:137 */
+				output-enable;      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:138 */
+				output-high;        /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:139 */
+				phandle = < 0x5 >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:126 */
+			};
+
+			/* node '/soc/pin-controller@40081000/i2c01_scl_gpio131' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:201 */
+			i2c01_scl_gpio131: i2c01_scl_gpio131 {
+				pinmux = < 0x392 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:202 */
+				drive-open-drain;   /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:150 */
+				output-enable;      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:151 */
+				output-high;        /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:152 */
+				phandle = < 0x6 >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:145 */
+			};
+
+			/* node '/soc/pin-controller@40081000/i2c01_sda_gpio130' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:205 */
+			i2c01_sda_gpio130: i2c01_sda_gpio130 {
+				pinmux = < 0x382 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:206 */
+				drive-open-drain;   /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:156 */
+				output-enable;      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:157 */
+				output-high;        /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:158 */
+				phandle = < 0x7 >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:145 */
+			};
+
+			/* node '/soc/pin-controller@40081000/i2c07_scl_gpio013' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:257 */
+			i2c07_scl_gpio013: i2c07_scl_gpio013 {
+				pinmux = < 0x2b0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:258 */
+				drive-open-drain;   /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:169 */
+				output-enable;      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:170 */
+				output-high;        /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:171 */
+				phandle = < 0x8 >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:164 */
+			};
+
+			/* node '/soc/pin-controller@40081000/i2c07_sda_gpio012' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:261 */
+			i2c07_sda_gpio012: i2c07_sda_gpio012 {
+				pinmux = < 0x2a0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:262 */
+				drive-open-drain;   /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:175 */
+				output-enable;      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:176 */
+				output-high;        /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:177 */
+				phandle = < 0x9 >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:164 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi0_gpio017' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:437 */
+			ksi0_gpio017: ksi0_gpio017 {
+				pinmux = < 0x2f0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:438 */
+				bias-pull-up;       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:219 */
+				phandle = < 0x12 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi1_gpio020' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:441 */
+			ksi1_gpio020: ksi1_gpio020 {
+				pinmux = < 0x300 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:442 */
+				bias-pull-up;       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:223 */
+				phandle = < 0x13 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi2_gpio021' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:445 */
+			ksi2_gpio021: ksi2_gpio021 {
+				pinmux = < 0x310 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:446 */
+				bias-pull-up;       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:227 */
+				phandle = < 0x14 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi3_gpio026' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:449 */
+			ksi3_gpio026: ksi3_gpio026 {
+				pinmux = < 0x360 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:450 */
+				bias-pull-up;       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:231 */
+				phandle = < 0x15 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi4_gpio027' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:453 */
+			ksi4_gpio027: ksi4_gpio027 {
+				pinmux = < 0x370 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:454 */
+				bias-pull-up;       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:235 */
+				phandle = < 0x16 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi5_gpio030' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:457 */
+			ksi5_gpio030: ksi5_gpio030 {
+				pinmux = < 0x380 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:458 */
+				bias-pull-up;       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:239 */
+				phandle = < 0x17 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi6_gpio031' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:461 */
+			ksi6_gpio031: ksi6_gpio031 {
+				pinmux = < 0x390 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:462 */
+				bias-pull-up;       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:243 */
+				phandle = < 0x18 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi7_gpio032' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:465 */
+			ksi7_gpio032: ksi7_gpio032 {
+				pinmux = < 0x3a0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:466 */
+				bias-pull-up;       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:247 */
+				phandle = < 0x19 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso00_gpio040' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:469 */
+			kso00_gpio040: kso00_gpio040 {
+				pinmux = < 0x401 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:470 */
+				phandle = < 0x1a >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso01_gpio045' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:473 */
+			kso01_gpio045: kso01_gpio045 {
+				pinmux = < 0x251 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:474 */
+				phandle = < 0x1b >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso02_gpio046' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:477 */
+			kso02_gpio046: kso02_gpio046 {
+				pinmux = < 0x261 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:478 */
+				phandle = < 0x1c >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso03_gpio047' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:481 */
+			kso03_gpio047: kso03_gpio047 {
+				pinmux = < 0x271 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:482 */
+				phandle = < 0x1d >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso04_gpio107' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:485 */
+			kso04_gpio107: kso04_gpio107 {
+				pinmux = < 0x472 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:486 */
+				phandle = < 0x1e >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso05_gpio112' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:489 */
+			kso05_gpio112: kso05_gpio112 {
+				pinmux = < 0x2a2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:490 */
+				phandle = < 0x1f >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso06_gpio113' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:493 */
+			kso06_gpio113: kso06_gpio113 {
+				pinmux = < 0x2b2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:494 */
+				phandle = < 0x20 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso07_gpio120' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:497 */
+			kso07_gpio120: kso07_gpio120 {
+				pinmux = < 0x302 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:498 */
+				phandle = < 0x21 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso08_gpio121' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:501 */
+			kso08_gpio121: kso08_gpio121 {
+				pinmux = < 0x512 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:502 */
+				phandle = < 0x22 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso09_gpio122' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:505 */
+			kso09_gpio122: kso09_gpio122 {
+				pinmux = < 0x522 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:506 */
+				phandle = < 0x23 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso10_gpio123' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:509 */
+			kso10_gpio123: kso10_gpio123 {
+				pinmux = < 0x532 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:510 */
+				phandle = < 0x24 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso11_gpio124' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:513 */
+			kso11_gpio124: kso11_gpio124 {
+				pinmux = < 0x542 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:514 */
+				phandle = < 0x25 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso12_gpio125' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:517 */
+			kso12_gpio125: kso12_gpio125 {
+				pinmux = < 0x552 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:518 */
+				phandle = < 0x26 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso13_gpio126' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:521 */
+			kso13_gpio126: kso13_gpio126 {
+				pinmux = < 0x562 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:522 */
+				phandle = < 0x27 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			};
+
+			/* node '/soc/pin-controller@40081000/shd_cs0_n_gpio055' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:568 */
+			shd_cs0_n_gpio055: shd_cs0_n_gpio055 {
+				pinmux = < 0x4d1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:569 */
+				phandle = < 0x3e >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:187 */
+			};
+
+			/* node '/soc/pin-controller@40081000/shd_clk_gpio056' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:576 */
+			shd_clk_gpio056: shd_clk_gpio056 {
+				pinmux = < 0x4e1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:577 */
+				phandle = < 0x3f >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:187 */
+			};
+
+			/* node '/soc/pin-controller@40081000/shd_io0_gpio223' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:580 */
+			shd_io0_gpio223: shd_io0_gpio223 {
+				pinmux = < 0x334 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:581 */
+				phandle = < 0x40 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:187 */
+			};
+
+			/* node '/soc/pin-controller@40081000/shd_io1_gpio224' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:584 */
+			shd_io1_gpio224: shd_io1_gpio224 {
+				pinmux = < 0x544 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:585 */
+				phandle = < 0x41 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:187 */
+			};
+
+			/* node '/soc/pin-controller@40081000/shd_io2_gpio227' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:588 */
+			shd_io2_gpio227: shd_io2_gpio227 {
+				pinmux = < 0x374 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:589 */
+				phandle = < 0x42 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:187 */
+			};
+
+			/* node '/soc/pin-controller@40081000/shd_io3_gpio016' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:592 */
+			shd_io3_gpio016: shd_io3_gpio016 {
+				pinmux = < 0x4e0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:593 */
+				phandle = < 0x43 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:187 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ps2_clk0a_gpio114' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:721 */
+			ps2_clk0a_gpio114: ps2_clk0a_gpio114 {
+				pinmux = < 0x2c2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:722 */
+				phandle = < 0xa >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:264 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ps2_dat0a_gpio115' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:725 */
+			ps2_dat0a_gpio115: ps2_dat0a_gpio115 {
+				pinmux = < 0x2d2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:726 */
+				phandle = < 0xb >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:264 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm0_gpio053' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:738 */
+			pwm0_gpio053: pwm0_gpio053 {
+				pinmux = < 0x2b1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:739 */
+				phandle = < 0xc >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:252 */
+			};
+
+			/* node '/soc/pin-controller@40081000/tach0_gpio050' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:900 */
+			tach0_gpio050: tach0_gpio050 {
+				pinmux = < 0x281 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:901 */
+				phandle = < 0xd >;  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:258 */
+			};
+
+			/* node '/soc/pin-controller@40081000/uart1_tx_gpio170' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:987 */
+			uart1_tx_gpio170: uart1_tx_gpio170 {
+				pinmux = < 0x383 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:988 */
+				phandle = < 0x44 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:80 */
+			};
+
+			/* node '/soc/pin-controller@40081000/uart1_rx_gpio171' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:991 */
+			uart1_rx_gpio171: uart1_rx_gpio171 {
+				pinmux = < 0x393 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:992 */
+				phandle = < 0x45 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:80 */
+			};
+
+			/* node '/soc/pin-controller@40081000/adc00_gpio200_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1089 */
+			adc00_gpio200_sleep: adc00_gpio200_sleep {
+				pinmux = < 0x204 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1090 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1091 */
+			};
+
+			/* node '/soc/pin-controller@40081000/adc03_gpio203_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1094 */
+			adc03_gpio203_sleep: adc03_gpio203_sleep {
+				pinmux = < 0x234 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1095 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1096 */
+			};
+
+			/* node '/soc/pin-controller@40081000/adc04_gpio204_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1099 */
+			adc04_gpio204_sleep: adc04_gpio204_sleep {
+				pinmux = < 0x244 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1100 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1101 */
+			};
+
+			/* node '/soc/pin-controller@40081000/adc05_gpio205_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1104 */
+			adc05_gpio205_sleep: adc05_gpio205_sleep {
+				pinmux = < 0x254 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1105 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1106 */
+			};
+
+			/* node '/soc/pin-controller@40081000/peci_dat_gpio042_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1109 */
+			peci_dat_gpio042_sleep: peci_dat_gpio042_sleep {
+				pinmux = < 0x221 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1110 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1111 */
+			};
+
+			/* node '/soc/pin-controller@40081000/vref_vtt_gpio044_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1114 */
+			vref_vtt_gpio044_sleep: vref_vtt_gpio044_sleep {
+				pinmux = < 0x241 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1115 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1116 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ps2_clk0a_gpio114_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1119 */
+			ps2_clk0a_gpio114_sleep: ps2_clk0a_gpio114_sleep {
+				pinmux = < 0x2c2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1120 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1121 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ps2_dat0a_gpio115_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1124 */
+			ps2_dat0a_gpio115_sleep: ps2_dat0a_gpio115_sleep {
+				pinmux = < 0x2d2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1125 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1126 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm0_gpio053_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1130 */
+			pwm0_gpio053_sleep: pwm0_gpio053_sleep {
+				pinmux = < 0x2b1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1131 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1132 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm0_alt_gpio241_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1135 */
+			pwm0_alt_gpio241_sleep: pwm0_alt_gpio241_sleep {
+				pinmux = < 0x815 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1136 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1137 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm1_gpio054_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1140 */
+			pwm1_gpio054_sleep: pwm1_gpio054_sleep {
+				pinmux = < 0x2c1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1141 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1142 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm2_gpio055_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1145 */
+			pwm2_gpio055_sleep: pwm2_gpio055_sleep {
+				pinmux = < 0x2d1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1146 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1147 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm2_alt_gpio045_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1150 */
+			pwm2_alt_gpio045_sleep: pwm2_alt_gpio045_sleep {
+				pinmux = < 0x451 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1151 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1152 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm3_gpio056_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1155 */
+			pwm3_gpio056_sleep: pwm3_gpio056_sleep {
+				pinmux = < 0x2e1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1156 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1157 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm3_alt_gpio047_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1160 */
+			pwm3_alt_gpio047_sleep: pwm3_alt_gpio047_sleep {
+				pinmux = < 0x471 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1161 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1162 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm4_gpio011_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1165 */
+			pwm4_gpio011_sleep: pwm4_gpio011_sleep {
+				pinmux = < 0x490 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1166 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1167 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm5_gpio002_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1170 */
+			pwm5_gpio002_sleep: pwm5_gpio002_sleep {
+				pinmux = < 0x220 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1171 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1172 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm6_gpio014_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1175 */
+			pwm6_gpio014_sleep: pwm6_gpio014_sleep {
+				pinmux = < 0x2c0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1176 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1177 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm6_alt_gpio063_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1180 */
+			pwm6_alt_gpio063_sleep: pwm6_alt_gpio063_sleep {
+				pinmux = < 0x531 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1181 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1182 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm7_gpio015_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1185 */
+			pwm7_gpio015_sleep: pwm7_gpio015_sleep {
+				pinmux = < 0x2d0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1186 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1187 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm8_gpio035_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1190 */
+			pwm8_gpio035_sleep: pwm8_gpio035_sleep {
+				pinmux = < 0x3d0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1191 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1192 */
+			};
+
+			/* node '/soc/pin-controller@40081000/pwm8_alt_gpio175_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1195 */
+			pwm8_alt_gpio175_sleep: pwm8_alt_gpio175_sleep {
+				pinmux = < 0x7d3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1196 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1197 */
+			};
+
+			/* node '/soc/pin-controller@40081000/eeprom_cs_gpio116_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1201 */
+			eeprom_cs_gpio116_sleep: eeprom_cs_gpio116_sleep {
+				pinmux = < 0x4e2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1202 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1203 */
+			};
+
+			/* node '/soc/pin-controller@40081000/eeprom_clk_gpio117_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1206 */
+			eeprom_clk_gpio117_sleep: eeprom_clk_gpio117_sleep {
+				pinmux = < 0x4f2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1207 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1208 */
+			};
+
+			/* node '/soc/pin-controller@40081000/eeprom_mosi_gpio074_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1211 */
+			eeprom_mosi_gpio074_sleep: eeprom_mosi_gpio074_sleep {
+				pinmux = < 0x5c1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1212 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1213 */
+			};
+
+			/* node '/soc/pin-controller@40081000/eeprom_miso_gpio075_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1216 */
+			eeprom_miso_gpio075_sleep: eeprom_miso_gpio075_sleep {
+				pinmux = < 0x5d1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1217 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1218 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi0_gpio017_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1222 */
+			ksi0_gpio017_sleep: ksi0_gpio017_sleep {
+				pinmux = < 0x2f0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1223 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1224 */
+				phandle = < 0x28 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi1_gpio020_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1227 */
+			ksi1_gpio020_sleep: ksi1_gpio020_sleep {
+				pinmux = < 0x300 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1228 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1229 */
+				phandle = < 0x29 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi2_gpio021_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1232 */
+			ksi2_gpio021_sleep: ksi2_gpio021_sleep {
+				pinmux = < 0x310 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1233 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1234 */
+				phandle = < 0x2a >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi3_gpio026_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1237 */
+			ksi3_gpio026_sleep: ksi3_gpio026_sleep {
+				pinmux = < 0x360 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1238 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1239 */
+				phandle = < 0x2b >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi4_gpio027_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1242 */
+			ksi4_gpio027_sleep: ksi4_gpio027_sleep {
+				pinmux = < 0x370 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1243 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1244 */
+				phandle = < 0x2c >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi5_gpio030_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1247 */
+			ksi5_gpio030_sleep: ksi5_gpio030_sleep {
+				pinmux = < 0x380 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1248 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1249 */
+				phandle = < 0x2d >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi6_gpio031_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1252 */
+			ksi6_gpio031_sleep: ksi6_gpio031_sleep {
+				pinmux = < 0x390 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1253 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1254 */
+				phandle = < 0x2e >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/ksi7_gpio032_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1257 */
+			ksi7_gpio032_sleep: ksi7_gpio032_sleep {
+				pinmux = < 0x3a0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1258 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1259 */
+				phandle = < 0x2f >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso00_gpio040_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1262 */
+			kso00_gpio040_sleep: kso00_gpio040_sleep {
+				pinmux = < 0x401 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1263 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1264 */
+				phandle = < 0x30 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso01_gpio045_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1267 */
+			kso01_gpio045_sleep: kso01_gpio045_sleep {
+				pinmux = < 0x251 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1268 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1269 */
+				phandle = < 0x31 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso02_gpio046_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1272 */
+			kso02_gpio046_sleep: kso02_gpio046_sleep {
+				pinmux = < 0x261 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1273 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1274 */
+				phandle = < 0x32 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso03_gpio047_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1277 */
+			kso03_gpio047_sleep: kso03_gpio047_sleep {
+				pinmux = < 0x271 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1278 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1279 */
+				phandle = < 0x33 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso04_gpio107_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1282 */
+			kso04_gpio107_sleep: kso04_gpio107_sleep {
+				pinmux = < 0x472 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1283 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1284 */
+				phandle = < 0x34 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso05_gpio112_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1287 */
+			kso05_gpio112_sleep: kso05_gpio112_sleep {
+				pinmux = < 0x2a2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1288 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1289 */
+				phandle = < 0x35 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso06_gpio113_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1292 */
+			kso06_gpio113_sleep: kso06_gpio113_sleep {
+				pinmux = < 0x2b2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1293 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1294 */
+				phandle = < 0x36 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso07_gpio120_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1297 */
+			kso07_gpio120_sleep: kso07_gpio120_sleep {
+				pinmux = < 0x302 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1298 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1299 */
+				phandle = < 0x37 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso08_gpio121_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1302 */
+			kso08_gpio121_sleep: kso08_gpio121_sleep {
+				pinmux = < 0x512 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1303 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1304 */
+				phandle = < 0x38 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso09_gpio122_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1307 */
+			kso09_gpio122_sleep: kso09_gpio122_sleep {
+				pinmux = < 0x522 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1308 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1309 */
+				phandle = < 0x39 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso10_gpio123_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1312 */
+			kso10_gpio123_sleep: kso10_gpio123_sleep {
+				pinmux = < 0x532 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1313 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1314 */
+				phandle = < 0x3a >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso11_gpio124_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1317 */
+			kso11_gpio124_sleep: kso11_gpio124_sleep {
+				pinmux = < 0x542 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1318 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1319 */
+				phandle = < 0x3b >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso12_gpio125_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1322 */
+			kso12_gpio125_sleep: kso12_gpio125_sleep {
+				pinmux = < 0x552 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1323 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1324 */
+				phandle = < 0x3c >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso13_gpio126_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1327 */
+			kso13_gpio126_sleep: kso13_gpio126_sleep {
+				pinmux = < 0x562 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1328 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1329 */
+				phandle = < 0x3d >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso14_gpio152_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1332 */
+			kso14_gpio152_sleep: kso14_gpio152_sleep {
+				pinmux = < 0x2a3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1333 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1334 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso15_gpio151_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1337 */
+			kso15_gpio151_sleep: kso15_gpio151_sleep {
+				pinmux = < 0x493 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1338 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1339 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso16_gpio132_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1342 */
+			kso16_gpio132_sleep: kso16_gpio132_sleep {
+				pinmux = < 0x5a2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1343 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1344 */
+			};
+
+			/* node '/soc/pin-controller@40081000/kso17_gpio140_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1347 */
+			kso17_gpio140_sleep: kso17_gpio140_sleep {
+				pinmux = < 0x603 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1348 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1349 */
+			};
+
+			/* node '/soc/pin-controller@40081000/led0_gpio156_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1353 */
+			led0_gpio156_sleep: led0_gpio156_sleep {
+				pinmux = < 0x2e3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1354 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1355 */
+			};
+
+			/* node '/soc/pin-controller@40081000/led1_gpio157_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1358 */
+			led1_gpio157_sleep: led1_gpio157_sleep {
+				pinmux = < 0x2f3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1359 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1360 */
+			};
+
+			/* node '/soc/pin-controller@40081000/led2_gpio153_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1363 */
+			led2_gpio153_sleep: led2_gpio153_sleep {
+				pinmux = < 0x2b3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1364 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1365 */
+			};
+
+			/* node '/soc/pin-controller@40081000/led3_gpio035_sleep' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1368 */
+			led3_gpio035_sleep: led3_gpio035_sleep {
+				pinmux = < 0x9d0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1369 */
+				low-power-enable;   /* in zephyr/dts/arm/microchip/mec/mec172x/mec172xnsz-pinctrl.dtsi:1370 */
+			};
+		};
+
+		/* node '/soc/watchdog@40000400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:309 */
+		wdog: watchdog@40000400 {
+			compatible = "microchip,xec-watchdog"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:310 */
+			reg = < 0x40000400 0x400 >;            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:311 */
+			interrupts = < 0xab 0x0 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:312 */
+			girqs = < 0x15 0x2 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:313 */
+			pcrs = < 0x1 0x9 >;                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:314 */
+		};
+
+		/* node '/soc/timer@40007400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:317 */
+		rtimer: timer@40007400 {
+			compatible = "microchip,xec-rtos-timer"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:318 */
+			reg = < 0x40007400 0x10 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:319 */
+			interrupts = < 0x6f 0x0 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:320 */
+			clock-frequency = < 0x8000 >;            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:321 */
+			girqs = < 0x17 0xa >;                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:322 */
+			busy-wait-timer = < &timer5 >;           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:323 */
+			status = "okay";                         /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:70 */
+		};
+
+		/* node '/soc/timer@40000c00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:326 */
+		timer0: timer@40000c00 {
+			compatible = "microchip,xec-timer"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:327 */
+			clock-frequency = < 0x2dc6c00 >;    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:328 */
+			reg = < 0x40000c00 0x20 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:329 */
+			interrupts = < 0x88 0x0 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:330 */
+			girqs = < 0x17 0x0 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:331 */
+			pcrs = < 0x1 0x1e >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:332 */
+			max-value = < 0xffff >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:333 */
+			prescaler = < 0x0 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:334 */
+			status = "disabled";                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:335 */
+		};
+
+		/* node '/soc/timer@40000c20' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:338 */
+		timer1: timer@40000c20 {
+			compatible = "microchip,xec-timer"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:339 */
+			clock-frequency = < 0x2dc6c00 >;    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:340 */
+			reg = < 0x40000c20 0x20 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:341 */
+			interrupts = < 0x89 0x0 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:342 */
+			girqs = < 0x17 0x1 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:343 */
+			pcrs = < 0x1 0x1f >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:344 */
+			max-value = < 0xffff >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:345 */
+			prescaler = < 0x0 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:346 */
+			status = "disabled";                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:347 */
+		};
+
+		/* node '/soc/timer@40000c40' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:350 */
+		timer2: timer@40000c40 {
+			compatible = "microchip,xec-timer"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:351 */
+			clock-frequency = < 0x2dc6c00 >;    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:352 */
+			reg = < 0x40000c40 0x20 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:353 */
+			interrupts = < 0x8a 0x0 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:354 */
+			girqs = < 0x17 0x2 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:355 */
+			pcrs = < 0x3 0x15 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:356 */
+			max-value = < 0xffff >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:357 */
+			prescaler = < 0x0 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:358 */
+			status = "disabled";                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:359 */
+		};
+
+		/* node '/soc/timer@40000c60' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:362 */
+		timer3: timer@40000c60 {
+			compatible = "microchip,xec-timer"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:363 */
+			clock-frequency = < 0x2dc6c00 >;    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:364 */
+			reg = < 0x40000c60 0x20 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:365 */
+			interrupts = < 0x8b 0x0 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:366 */
+			girqs = < 0x17 0x3 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:367 */
+			pcrs = < 0x3 0x16 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:368 */
+			max-value = < 0xffff >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:369 */
+			prescaler = < 0x0 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:370 */
+			status = "disabled";                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:371 */
+		};
+
+		/* node '/soc/timer@40000c80' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:379 */
+		timer4: timer@40000c80 {
+			compatible = "microchip,xec-timer"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:380 */
+			clock-frequency = < 0x2dc6c00 >;    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:381 */
+			reg = < 0x40000c80 0x20 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:382 */
+			interrupts = < 0x8c 0x0 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:383 */
+			girqs = < 0x17 0x4 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:384 */
+			pcrs = < 0x3 0x17 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:385 */
+			max-value = < 0xffffffff >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:386 */
+			prescaler = < 0x0 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:387 */
+			status = "disabled";                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:388 */
+		};
+
+		/* node '/soc/timer@40000ca0' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:391 */
+		timer5: timer@40000ca0 {
+			compatible = "microchip,xec-timer"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:392 */
+			clock-frequency = < 0x2dc6c00 >;    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:393 */
+			reg = < 0x40000ca0 0x20 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:394 */
+			interrupts = < 0x8d 0x0 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:395 */
+			girqs = < 0x17 0x5 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:396 */
+			pcrs = < 0x3 0x18 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:397 */
+			max-value = < 0xffffffff >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:398 */
+			prescaler = < 0x0 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:399 */
+			status = "disabled";                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:400 */
+			phandle = < 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:323 */
+		};
+
+		/* node '/soc/timer@40000d00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:403 */
+		cntr0: timer@40000d00 {
+			reg = < 0x40000d00 0x20 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:404 */
+			interrupts = < 0x8e 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:405 */
+			girqs = < 0x17 0x6 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:406 */
+			pcrs = < 0x4 0x2 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:407 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:408 */
+		};
+
+		/* node '/soc/timer@40000d20' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:411 */
+		cntr1: timer@40000d20 {
+			reg = < 0x40000d20 0x20 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:412 */
+			interrupts = < 0x8f 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:413 */
+			girqs = < 0x17 0x7 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:414 */
+			pcrs = < 0x4 0x3 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:415 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:416 */
+		};
+
+		/* node '/soc/timer@40000d40' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:419 */
+		cntr2: timer@40000d40 {
+			reg = < 0x40000d40 0x20 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:420 */
+			interrupts = < 0x90 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:421 */
+			girqs = < 0x17 0x8 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:422 */
+			pcrs = < 0x4 0x3 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:423 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:424 */
+		};
+
+		/* node '/soc/timer@40000d60' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:427 */
+		cntr3: timer@40000d60 {
+			reg = < 0x40000d60 0x20 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:428 */
+			interrupts = < 0x91 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:429 */
+			girqs = < 0x17 0x9 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:430 */
+			pcrs = < 0x4 0x4 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:431 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:432 */
+		};
+
+		/* node '/soc/timer@40001000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:435 */
+		cctmr0: timer@40001000 {
+			reg = < 0x40001000 0x40 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:436 */
+			interrupts = < 0x92 0x0 >,
+			             < 0x93 0x0 >,
+			             < 0x94 0x0 >,
+			             < 0x95 0x0 >,
+			             < 0x96 0x0 >,
+			             < 0x97 0x0 >,
+			             < 0x98 0x0 >,
+			             < 0x99 0x0 >,
+			             < 0x9a 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:437 */
+			girqs = < 0x12 0x14 >,
+			        < 0x12 0x15 >,
+			        < 0x12 0x16 >,
+			        < 0x12 0x17 >,
+			        < 0x12 0x18 >,
+			        < 0x12 0x19 >,
+			        < 0x12 0x1a >,
+			        < 0x12 0x1b >,
+			        < 0x12 0x1c >;     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:440 */
+			pcrs = < 0x3 0x1e >;       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:442 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:443 */
+		};
+
+		/* node '/soc/timer@40009800' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:446 */
+		hibtimer0: timer@40009800 {
+			reg = < 0x40009800 0x20 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:447 */
+			interrupts = < 0x70 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:448 */
+			girqs = < 0x17 0x10 >;     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:449 */
+		};
+
+		/* node '/soc/timer@40009820' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:452 */
+		hibtimer1: timer@40009820 {
+			reg = < 0x40009820 0x20 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:453 */
+			interrupts = < 0x71 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:454 */
+			girqs = < 0x17 0x11 >;     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:455 */
+		};
+
+		/* node '/soc/timer@4000ac80' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:458 */
+		weektmr0: timer@4000ac80 {
+			reg = < 0x4000ac80 0x80 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:459 */
+			interrupts = < 0x72 0x0 >,
+			             < 0x73 0x0 >,
+			             < 0x74 0x0 >,
+			             < 0x75 0x0 >,
+			             < 0x76 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:460 */
+			girqs = < 0x15 0x3 >,
+			        < 0x15 0x4 >,
+			        < 0x15 0x5 >,
+			        < 0x15 0x6 >,
+			        < 0x15 0x7 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:462 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:463 */
+		};
+
+		/* node '/soc/bb-ram@4000a800' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:466 */
+		bbram: bb-ram@4000a800 {
+			compatible = "microchip,xec-bbram"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:467 */
+			reg = < 0x4000a800 0x100 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:468 */
+			reg-names = "memory";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:469 */
+		};
+
+		/* node '/soc/vci@4000ae00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:472 */
+		vci0: vci@4000ae00 {
+			reg = < 0x4000ae00 0x40 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:473 */
+			interrupts = < 0x79 0x0 >,
+			             < 0x7a 0x0 >,
+			             < 0x7b 0x0 >,
+			             < 0x7c 0x0 >,
+			             < 0x7d 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:474 */
+			girqs = < 0x15 0xa >,
+			        < 0x15 0xb >,
+			        < 0x15 0xc >,
+			        < 0x15 0xd >,
+			        < 0x15 0xe >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:476 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:477 */
+		};
+
+		/* node '/soc/dmac@40002400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:480 */
+		dmac: dmac@40002400 {
+			compatible = "microchip,xec-dmac";                                                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:481 */
+			reg = < 0x40002400 0xc00 >;                                                                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:482 */
+			interrupts = < 0x18 0x1 >,
+			             < 0x19 0x1 >,
+			             < 0x1a 0x1 >,
+			             < 0x1b 0x1 >,
+			             < 0x1c 0x1 >,
+			             < 0x1d 0x1 >,
+			             < 0x1e 0x1 >,
+			             < 0x1f 0x1 >,
+			             < 0x20 0x1 >,
+			             < 0x21 0x1 >,
+			             < 0x22 0x1 >,
+			             < 0x23 0x1 >,
+			             < 0x24 0x1 >,
+			             < 0x25 0x1 >,
+			             < 0x26 0x1 >,
+			             < 0x27 0x1 >;                                                                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:483 */
+			girqs = < 0x1806000e 0x1906010e 0x1a06020e 0x1b06030e 0x1c06040e 0x1d06050e 0x1e06060e 0x1f06070e
+			          0x2006080e 0x2106090e 0x22060a0e 0x23060b0e 0x24060c0e 0x25060d0e 0x26060e0e 0x27060f0e >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:487 */
+			pcrs = < 0x1 0x6 >;                                                                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:503 */
+			#dma-cells = < 0x2 >;                                                                                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:504 */
+			dma-channels = < 0x10 >;                                                                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:505 */
+			dma-requests = < 0x10 >;                                                                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:506 */
+			status = "disabled";                                                                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:507 */
+		};
+
+		/* node '/soc/i2c@40004000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:510 */
+		i2c_smb_0: i2c@40004000 {
+			compatible = "microchip,xec-i2c-v2";                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:511 */
+			reg = < 0x40004000 0x80 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:512 */
+			clock-frequency = < 0x186a0 >;                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:513 */
+			interrupts = < 0x14 0x1 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:514 */
+			girqs = < 0xd 0x0 >;                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:515 */
+			pcrs = < 0x1 0xa >;                                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:516 */
+			#address-cells = < 0x1 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:517 */
+			#size-cells = < 0x0 >;                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:518 */
+			status = "okay";                                       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:123 */
+			port-sel = < 0x0 >;                                    /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:124 */
+			pinctrl-0 = < &i2c00_scl_gpio004 &i2c00_sda_gpio003 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:126 */
+			pinctrl-names = "default";                             /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:127 */
+		};
+
+		/* node '/soc/i2c@40004400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:522 */
+		i2c_smb_1: i2c@40004400 {
+			compatible = "microchip,xec-i2c-v2";                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:523 */
+			reg = < 0x40004400 0x80 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:524 */
+			clock-frequency = < 0x186a0 >;                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:525 */
+			interrupts = < 0x15 0x1 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:526 */
+			girqs = < 0xd 0x1 >;                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:527 */
+			pcrs = < 0x3 0xd >;                                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:528 */
+			#address-cells = < 0x1 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:529 */
+			#size-cells = < 0x0 >;                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:530 */
+			status = "okay";                                       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:143 */
+			port-sel = < 0x1 >;                                    /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:144 */
+			pinctrl-0 = < &i2c01_scl_gpio131 &i2c01_sda_gpio130 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:145 */
+			pinctrl-names = "default";                             /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:146 */
+		};
+
+		/* node '/soc/i2c@40004800' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:534 */
+		i2c_smb_2: i2c@40004800 {
+			compatible = "microchip,xec-i2c-v2";                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:535 */
+			reg = < 0x40004800 0x80 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:536 */
+			clock-frequency = < 0x186a0 >;                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:537 */
+			interrupts = < 0x16 0x1 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:538 */
+			girqs = < 0xd 0x2 >;                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:539 */
+			pcrs = < 0x3 0xe >;                                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:540 */
+			#address-cells = < 0x1 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:541 */
+			#size-cells = < 0x0 >;                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:542 */
+			status = "okay";                                       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:162 */
+			port-sel = < 0x7 >;                                    /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:163 */
+			pinctrl-0 = < &i2c07_scl_gpio013 &i2c07_sda_gpio012 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:164 */
+			pinctrl-names = "default";                             /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:165 */
+		};
+
+		/* node '/soc/i2c@40004c00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:546 */
+		i2c_smb_3: i2c@40004c00 {
+			compatible = "microchip,xec-i2c-v2"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:547 */
+			reg = < 0x40004c00 0x80 >;           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:548 */
+			clock-frequency = < 0x186a0 >;       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:549 */
+			interrupts = < 0x17 0x1 >;           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:550 */
+			girqs = < 0xd 0x3 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:551 */
+			pcrs = < 0x3 0xf >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:552 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:553 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:554 */
+			status = "disabled";                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:555 */
+		};
+
+		/* node '/soc/i2c@40005000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:558 */
+		i2c_smb_4: i2c@40005000 {
+			compatible = "microchip,xec-i2c-v2"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:559 */
+			reg = < 0x40005000 0x80 >;           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:560 */
+			clock-frequency = < 0x186a0 >;       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:561 */
+			interrupts = < 0x9e 0x1 >;           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:562 */
+			girqs = < 0xd 0x4 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:563 */
+			pcrs = < 0x3 0x14 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:564 */
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:565 */
+			#size-cells = < 0x0 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:566 */
+			status = "disabled";                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:567 */
+		};
+
+		/* node '/soc/ps2@40009000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:570 */
+		ps2_0: ps2@40009000 {
+			compatible = "microchip,xec-ps2";                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:571 */
+			reg = < 0x40009000 0x40 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:572 */
+			interrupts = < 0x64 0x1 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:573 */
+			girqs = < 0x12 0xa >,
+			        < 0x15 0x12 >;                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:574 */
+			pcrs = < 0x3 0x5 >;                                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:575 */
+			#address-cells = < 0x1 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:576 */
+			#size-cells = < 0x0 >;                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:577 */
+			status = "okay";                                       /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:263 */
+			pinctrl-0 = < &ps2_clk0a_gpio114 &ps2_dat0a_gpio115 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:264 */
+			pinctrl-names = "default";                             /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:265 */
+		};
+
+		/* node '/soc/pwm@40005800' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:581 */
+		pwm0: pwm@40005800 {
+			compatible = "microchip,xec-pwm"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:582 */
+			reg = < 0x40005800 0x20 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:583 */
+			pcrs = < 0x1 0x4 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:584 */
+			#pwm-cells = < 0x3 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:586 */
+			status = "okay";                  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:251 */
+			pinctrl-0 = < &pwm0_gpio053 >;    /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:252 */
+			pinctrl-names = "default";        /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:253 */
+		};
+
+		/* node '/soc/pwm@40005810' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:589 */
+		pwm1: pwm@40005810 {
+			compatible = "microchip,xec-pwm"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:590 */
+			reg = < 0x40005810 0x20 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:591 */
+			pcrs = < 0x1 0x14 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:592 */
+			status = "disabled";              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:593 */
+			#pwm-cells = < 0x3 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:594 */
+		};
+
+		/* node '/soc/pwm@40005820' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:597 */
+		pwm2: pwm@40005820 {
+			compatible = "microchip,xec-pwm"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:598 */
+			reg = < 0x40005820 0x20 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:599 */
+			pcrs = < 0x1 0x15 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:600 */
+			status = "disabled";              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:601 */
+			#pwm-cells = < 0x3 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:602 */
+		};
+
+		/* node '/soc/pwm@40005830' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:605 */
+		pwm3: pwm@40005830 {
+			compatible = "microchip,xec-pwm"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:606 */
+			reg = < 0x40005830 0x20 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:607 */
+			pcrs = < 0x1 0x16 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:608 */
+			status = "disabled";              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:609 */
+			#pwm-cells = < 0x3 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:610 */
+		};
+
+		/* node '/soc/pwm@40005840' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:613 */
+		pwm4: pwm@40005840 {
+			compatible = "microchip,xec-pwm"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:614 */
+			reg = < 0x40005840 0x20 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:615 */
+			pcrs = < 0x1 0x17 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:616 */
+			status = "disabled";              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:617 */
+			#pwm-cells = < 0x3 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:618 */
+		};
+
+		/* node '/soc/pwm@40005850' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:621 */
+		pwm5: pwm@40005850 {
+			compatible = "microchip,xec-pwm"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:622 */
+			reg = < 0x40005850 0x20 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:623 */
+			pcrs = < 0x1 0x18 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:624 */
+			status = "disabled";              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:625 */
+			#pwm-cells = < 0x3 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:626 */
+		};
+
+		/* node '/soc/pwm@40005860' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:629 */
+		pwm6: pwm@40005860 {
+			compatible = "microchip,xec-pwm"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:630 */
+			reg = < 0x40005860 0x20 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:631 */
+			pcrs = < 0x1 0x19 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:632 */
+			status = "disabled";              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:633 */
+			#pwm-cells = < 0x3 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:634 */
+		};
+
+		/* node '/soc/pwm@40005870' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:637 */
+		pwm7: pwm@40005870 {
+			compatible = "microchip,xec-pwm"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:638 */
+			reg = < 0x40005870 0x20 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:639 */
+			pcrs = < 0x1 0x1a >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:640 */
+			status = "disabled";              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:641 */
+			#pwm-cells = < 0x3 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:642 */
+		};
+
+		/* node '/soc/pwm@40005880' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:645 */
+		pwm8: pwm@40005880 {
+			compatible = "microchip,xec-pwm"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:646 */
+			reg = < 0x40005880 0x20 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:647 */
+			pcrs = < 0x1 0x1b >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:648 */
+			status = "disabled";              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:649 */
+			#pwm-cells = < 0x3 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:650 */
+		};
+
+		/* node '/soc/tach@40006000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:653 */
+		tach0: tach@40006000 {
+			compatible = "microchip,xec-tach"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:654 */
+			reg = < 0x40006000 0x10 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:655 */
+			interrupts = < 0x47 0x4 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:656 */
+			girqs = < 0x11 0x1 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:657 */
+			pcrs = < 0x1 0x2 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:658 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:659 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:660 */
+			status = "okay";                   /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:257 */
+			pinctrl-0 = < &tach0_gpio050 >;    /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:258 */
+			pinctrl-names = "default";         /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:259 */
+		};
+
+		/* node '/soc/tach@40006010' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:664 */
+		tach1: tach@40006010 {
+			compatible = "microchip,xec-tach"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:665 */
+			reg = < 0x40006010 0x10 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:666 */
+			interrupts = < 0x48 0x4 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:667 */
+			girqs = < 0x11 0x2 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:668 */
+			pcrs = < 0x1 0xb >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:669 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:670 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:671 */
+			status = "disabled";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:672 */
+		};
+
+		/* node '/soc/tach@40006020' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:675 */
+		tach2: tach@40006020 {
+			compatible = "microchip,xec-tach"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:676 */
+			reg = < 0x40006020 0x10 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:677 */
+			interrupts = < 0x49 0x4 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:678 */
+			girqs = < 0x11 0x3 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:679 */
+			pcrs = < 0x1 0xc >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:680 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:681 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:682 */
+			status = "disabled";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:683 */
+		};
+
+		/* node '/soc/tach@40006030' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:686 */
+		tach3: tach@40006030 {
+			compatible = "microchip,xec-tach"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:687 */
+			reg = < 0x40006030 0x10 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:688 */
+			interrupts = < 0x9f 0x4 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:689 */
+			girqs = < 0x11 0x4 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:690 */
+			pcrs = < 0x1 0xd >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:691 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:692 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:693 */
+			status = "disabled";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:694 */
+		};
+
+		/* node '/soc/rpmfan@4000a000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:697 */
+		rpmfan0: rpmfan@4000a000 {
+			reg = < 0x4000a000 0x80 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:698 */
+			interrupts = < 0x4a 0x1 >,
+			             < 0x4b 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:699 */
+			girqs = < 0x11 0x14 >,
+			        < 0x11 0x15 >;     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:700 */
+			pcrs = < 0x3 0xc >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:701 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:702 */
+		};
+
+		/* node '/soc/rpmfan@4000a080' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:705 */
+		rpmfan1: rpmfan@4000a080 {
+			reg = < 0x4000a080 0x80 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:706 */
+			interrupts = < 0x4c 0x1 >,
+			             < 0x4d 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:707 */
+			girqs = < 0x11 0x16 >,
+			        < 0x11 0x17 >;     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:708 */
+			pcrs = < 0x4 0x7 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:709 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:710 */
+		};
+
+		/* node '/soc/adc@40007c00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:713 */
+		adc0: adc@40007c00 {
+			compatible = "microchip,xec-adc";                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:714 */
+			reg = < 0x40007c00 0x90 >;                                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:715 */
+			interrupts = < 0x4e 0x0 >,
+			             < 0x4f 0x0 >;                                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:716 */
+			girqs = < 0x11 0x8 >,
+			        < 0x11 0x9 >;                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:717 */
+			pcrs = < 0x3 0x3 >;                                                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:718 */
+			#io-channel-cells = < 0x1 >;                                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:720 */
+			clktime = < 0x20 >;                                                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:721 */
+			channels = < 0x8 >;                                                          /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:81 */
+			status = "okay";                                                             /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:85 */
+			pinctrl-0 = < &adc00_gpio200 &adc03_gpio203 &adc04_gpio204 &adc05_gpio205 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:86 */
+			pinctrl-names = "default";                                                   /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:88 */
+		};
+
+		/* node '/soc/kbd@40009c00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:725 */
+		kbd0: kbd@40009c00 {
+			compatible = "microchip,xec-kbd";                                                                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:726 */
+			reg = < 0x40009c00 0x18 >;                                                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:727 */
+			interrupts = < 0x87 0x0 >;                                                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:728 */
+			girqs = < 0x15 0x19 >;                                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:729 */
+			pcrs = < 0x3 0xb >;                                                                                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:730 */
+			#address-cells = < 0x1 >;                                                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:732 */
+			#size-cells = < 0x0 >;                                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:733 */
+			status = "okay";                                                                                                  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:197 */
+			pinctrl-0 = < &ksi0_gpio017 &ksi1_gpio020 &ksi2_gpio021 &ksi3_gpio026 &ksi4_gpio027 &ksi5_gpio030
+			              &ksi6_gpio031 &ksi7_gpio032 &kso00_gpio040 &kso01_gpio045 &kso02_gpio046 &kso03_gpio047
+			              &kso04_gpio107 &kso05_gpio112 &kso06_gpio113 &kso07_gpio120 &kso08_gpio121 &kso09_gpio122
+			              &kso10_gpio123 &kso11_gpio124 &kso12_gpio125 &kso13_gpio126 >;                                      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:199 */
+			pinctrl-1 = < &ksi0_gpio017_sleep &ksi1_gpio020_sleep &ksi2_gpio021_sleep &ksi3_gpio026_sleep &ksi4_gpio027_sleep
+			              &ksi5_gpio030_sleep &ksi6_gpio031_sleep &ksi7_gpio032_sleep &kso00_gpio040_sleep
+			              &kso01_gpio045_sleep &kso02_gpio046_sleep &kso03_gpio047_sleep &kso04_gpio107_sleep
+			              &kso05_gpio112_sleep &kso06_gpio113_sleep &kso07_gpio120_sleep &kso08_gpio121_sleep
+			              &kso09_gpio122_sleep &kso10_gpio123_sleep &kso11_gpio124_sleep &kso12_gpio125_sleep
+			              &kso13_gpio126_sleep >;                                                                             /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:205 */
+			pinctrl-names = "default",
+			                "sleep";                                                                                          /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:213 */
+			row-size = < 0x8 >;                                                                                               /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:214 */
+			col-size = < 0x10 >;                                                                                              /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:215 */
+		};
+
+		/* node '/soc/peci@40006400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:736 */
+		peci0: peci@40006400 {
+			compatible = "microchip,xec-peci"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:737 */
+			reg = < 0x40006400 0x80 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:738 */
+			interrupts = < 0x46 0x4 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:739 */
+			girqs = < 0x11 0x0 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:740 */
+			pcrs = < 0x1 0x1 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:741 */
+			#address-cells = < 0x1 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:742 */
+			#size-cells = < 0x0 >;             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:743 */
+		};
+
+		/* node '/soc/spi@40070000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:746 */
+		spi0: spi@40070000 {
+			reg = < 0x40070000 0x400 >;                                                                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:747 */
+			interrupts = < 0x5b 0x2 >;                                                                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:748 */
+			girqs = < 0x5b0a0112 >;                                                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:749 */
+			clocks = < &pcr 0x4 0x8 0x3 >;                                                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:750 */
+			#address-cells = < 0x1 >;                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:754 */
+			#size-cells = < 0x0 >;                                                                               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:755 */
+			status = "okay";                                                                                     /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:181 */
+			compatible = "microchip,xec-qmspi-ldma";                                                             /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:182 */
+			clock-frequency = < 0x3d0900 >;                                                                      /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:183 */
+			lines = < 0x4 >;                                                                                     /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:184 */
+			chip-select = < 0x0 >;                                                                               /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:185 */
+			pinctrl-0 = < &shd_cs0_n_gpio055 &shd_clk_gpio056 &shd_io0_gpio223 &shd_io1_gpio224 &shd_io2_gpio227
+			              &shd_io3_gpio016 >;                                                                    /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:187 */
+			pinctrl-names = "default";                                                                           /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:193 */
+		};
+
+		/* node '/soc/spi@40009400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:759 */
+		spi1: spi@40009400 {
+			reg = < 0x40009400 0x80 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:760 */
+			interrupts = < 0x5c 0x2 >,
+			             < 0x5d 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:761 */
+			girqs = < 0x12 0x2 >,
+			        < 0x12 0x3 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:762 */
+			pcrs = < 0x3 0x9 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:763 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:764 */
+		};
+
+		/* node '/soc/spi@40009480' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:767 */
+		spi2: spi@40009480 {
+			reg = < 0x40009480 0x80 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:768 */
+			interrupts = < 0x5e 0x2 >,
+			             < 0x5f 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:769 */
+			girqs = < 0x12 0x4 >,
+			        < 0x12 0x5 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:770 */
+			pcrs = < 0x4 0x16 >;       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:771 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:772 */
+		};
+
+		/* node '/soc/prochot@40003400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:775 */
+		prochot0: prochot@40003400 {
+			reg = < 0x40003400 0x20 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:776 */
+			interrupts = < 0x57 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:777 */
+			girqs = < 0x11 0x11 >;     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:778 */
+			pcrs = < 0x4 0xd >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:779 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:780 */
+		};
+
+		/* node '/soc/rcid@40001400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:783 */
+		rcid0: rcid@40001400 {
+			reg = < 0x40001400 0x80 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:784 */
+			interrupts = < 0x50 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:785 */
+			girqs = < 0x11 0xa >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:786 */
+			pcrs = < 0x4 0xa >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:787 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:788 */
+		};
+
+		/* node '/soc/rcid@40001480' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:791 */
+		rcid1: rcid@40001480 {
+			reg = < 0x40001480 0x80 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:792 */
+			interrupts = < 0x51 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:793 */
+			girqs = < 0x11 0xb >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:794 */
+			pcrs = < 0x4 0xb >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:795 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:796 */
+		};
+
+		/* node '/soc/rcid@40001500' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:799 */
+		rcid2: rcid@40001500 {
+			reg = < 0x40001500 0x80 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:800 */
+			interrupts = < 0x52 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:801 */
+			girqs = < 0x11 0xc >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:802 */
+			pcrs = < 0x4 0xc >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:803 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:804 */
+		};
+
+		/* node '/soc/spip@40007000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:807 */
+		spip0: spip@40007000 {
+			reg = < 0x40007000 0x100 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:808 */
+			interrupts = < 0x5a 0x0 >;  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:809 */
+			girqs = < 0x12 0x0 >;       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:810 */
+			pcrs = < 0x4 0x10 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:811 */
+			status = "disabled";        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:812 */
+		};
+
+		/* node '/soc/bbled@4000b800' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:815 */
+		bbled0: bbled@4000b800 {
+			reg = < 0x4000b800 0x100 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:816 */
+			interrupts = < 0x53 0x0 >;  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:817 */
+			girqs = < 0x11 0xd >;       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:818 */
+			pcrs = < 0x3 0x10 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:819 */
+			status = "disabled";        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:820 */
+		};
+
+		/* node '/soc/bbled@4000b900' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:823 */
+		bbled1: bbled@4000b900 {
+			reg = < 0x4000b900 0x100 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:824 */
+			interrupts = < 0x54 0x0 >;  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:825 */
+			girqs = < 0x11 0xe >;       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:826 */
+			pcrs = < 0x3 0x11 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:827 */
+			status = "disabled";        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:828 */
+		};
+
+		/* node '/soc/bbled@4000ba00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:831 */
+		bbled2: bbled@4000ba00 {
+			reg = < 0x4000ba00 0x100 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:832 */
+			interrupts = < 0x55 0x0 >;  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:833 */
+			girqs = < 0x11 0xf >;       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:834 */
+			pcrs = < 0x3 0x12 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:835 */
+			status = "disabled";        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:836 */
+		};
+
+		/* node '/soc/bbled@4000bb00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:839 */
+		bbled3: bbled@4000bb00 {
+			reg = < 0x4000bb00 0x100 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:840 */
+			interrupts = < 0x56 0x0 >;  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:841 */
+			girqs = < 0x11 0x10 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:842 */
+			pcrs = < 0x3 0x19 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:843 */
+			status = "disabled";        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:844 */
+		};
+
+		/* node '/soc/bclink@4000cd00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:847 */
+		bclink0: bclink@4000cd00 {
+			reg = < 0x4000cd00 0x20 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:848 */
+			interrupts = < 0x60 0x0 >,
+			             < 0x61 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:849 */
+			girqs = < 0x12 0x7 >,
+			        < 0x12 0x6 >;      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:850 */
+			pcrs = < 0x3 0x13 >;       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:851 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:852 */
+		};
+
+		/* node '/soc/tfdp@40008c00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:855 */
+		tfdp0: tfdp@40008c00 {
+			reg = < 0x40008c00 0x10 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:856 */
+			pcrs = < 0x1 0x7 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:857 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:858 */
+		};
+
+		/* node '/soc/glblcfg@400fff00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:861 */
+		glblcfg0: glblcfg@400fff00 {
+			reg = < 0x400fff00 0x40 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:862 */
+			pcrs = < 0x2 0xc >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:863 */
+			status = "disabled";       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:864 */
+		};
+
+		/* node '/soc/uart@400f2400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:867 */
+		uart0: uart@400f2400 {
+			compatible = "microchip,xec-uart"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:868 */
+			reg = < 0x400f2400 0x400 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:869 */
+			interrupts = < 0x28 0x1 >;         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:870 */
+			clock-frequency = < 0x1c2000 >;    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:871 */
+			current-speed = < 0x9600 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:872 */
+			girqs = < 0xf 0x0 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:873 */
+			pcrs = < 0x2 0x1 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:874 */
+			ldn = < 0x9 >;                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:875 */
+			status = "disabled";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:876 */
+		};
+
+		/* node '/soc/uart@400f2800' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:879 */
+		uart1: uart@400f2800 {
+			compatible = "microchip,xec-uart";                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:880 */
+			reg = < 0x400f2800 0x400 >;                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:881 */
+			interrupts = < 0x29 0x1 >;                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:882 */
+			clock-frequency = < 0x1c2000 >;                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:883 */
+			girqs = < 0xf 0x1 >;                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:885 */
+			pcrs = < 0x2 0x2 >;                                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:886 */
+			ldn = < 0xa >;                                       /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:887 */
+			status = "okay";                                     /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:78 */
+			current-speed = < 0x1c200 >;                         /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:79 */
+			pinctrl-0 = < &uart1_tx_gpio170 &uart1_rx_gpio171 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:80 */
+			pinctrl-names = "default";                           /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:81 */
+		};
+
+		/* node '/soc/espi@400f3400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:891 */
+		espi0: espi@400f3400 {
+			compatible = "microchip,xec-espi-v2";                                                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:892 */
+			#address-cells = < 0x1 >;                                                                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:896 */
+			#size-cells = < 0x1 >;                                                                            /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:897 */
+			reg = < 0x400f3400 0x400 0x400f3800 0x400 0x400f9c00 0x400 >;                                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:898 */
+			reg-names = "io",
+			            "mem",
+			            "vw";                                                                                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:901 */
+			interrupts = < 0x67 0x3 >,
+			             < 0x68 0x3 >,
+			             < 0x69 0x3 >,
+			             < 0x6a 0x3 >,
+			             < 0x6b 0x3 >,
+			             < 0x6c 0x3 >,
+			             < 0x6d 0x3 >,
+			             < 0x6e 0x2 >,
+			             < 0x9c 0x3 >;                                                                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:902 */
+			interrupt-names = "pc",
+			                  "bm1",
+			                  "bm2",
+			                  "ltr",
+			                  "oob_up",
+			                  "oob_dn",
+			                  "fc",
+			                  "rst",
+			                  "vw_chan_en";                                                                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:905 */
+			girqs = < 0x670b0013 0x680b0113 0x690b0213 0x6a0b0313 0x6b0b0413 0x6c0b0513 0x6d0b0613 0x6e0b0713
+			          0x9c0b0813 >;                                                                           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:907 */
+			pcrs = < 0x2 0x13 >;                                                                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:916 */
+			status = "okay";                                                                                  /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:92 */
+			pinctrl-0 = < &espi_reset_n_gpio061 &espi_cs_n_gpio066 &espi_alert_n_gpio063 &espi_clk_gpio065
+			              &espi_io0_gpio070 &espi_io1_gpio071 &espi_io2_gpio072 &espi_io3_gpio073 >;          /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:93 */
+			pinctrl-names = "default";                                                                        /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:97 */
+
+			/* node '/soc/espi@400f3400/espi_saf@40008000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:919 */
+			espi_saf0: espi_saf@40008000 {
+				compatible = "microchip,xec-espi-saf-v2"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:920 */
+				reg = < 0x40008000 0x400 >,
+				      < 0x40070000 0x400 >,
+				      < 0x40071000 0x400 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:921 */
+				reg-names = "safbr",
+				            "safqspi",
+				            "safcomm";                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:923 */
+				interrupts = < 0xa6 0x3 >,
+				             < 0xa7 0x3 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:924 */
+				interrupt-names = "done",
+				                  "err";                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:925 */
+				girqs = < 0xa60b0913 >,
+				        < 0xa70b0a13 >;                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:926 */
+				pcrs = < 0x2 0x1b >;                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:928 */
+				status = "disabled";                      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:929 */
+			};
+
+			/* node '/soc/espi@400f3400/mbox@400f0000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:932 */
+			mbox0: mbox@400f0000 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:933 */
+				reg = < 0x400f0000 0x200 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:934 */
+				interrupts = < 0x3c 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:935 */
+				girqs = < 0x3c07140f >;                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:936 */
+				pcrs = < 0x2 0x11 >;                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:937 */
+				ldn = < 0x0 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:938 */
+				status = "disabled";                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:939 */
+			};
+
+			/* node '/soc/espi@400f3400/kbc@400f0400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:942 */
+			kbc0: kbc@400f0400 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:943 */
+				reg = < 0x400f0400 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:944 */
+				interrupts = < 0x3a 0x3 >,
+				             < 0x3b 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:945 */
+				interrupt-names = "kbc_obe",
+				                  "kbc_ibf";                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:946 */
+				girqs = < 0x3a07120f 0x3b07130f >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:947 */
+				ldn = < 0x1 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:949 */
+				status = "okay";                            /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:102 */
+			};
+
+			/* node '/soc/espi@400f3400/acpi_ec@400f0800' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:953 */
+			acpi_ec0: acpi_ec@400f0800 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:954 */
+				reg = < 0x400f0800 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:955 */
+				interrupts = < 0x2d 0x3 >,
+				             < 0x2e 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:956 */
+				interrupt-names = "acpi_ibf",
+				                  "acpi_obe";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:957 */
+				girqs = < 0x2d07050f 0x2e07060f >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:958 */
+				ldn = < 0x2 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:960 */
+				status = "okay";                            /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:106 */
+			};
+
+			/* node '/soc/espi@400f3400/acpi_ec@400f0c00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:964 */
+			acpi_ec1: acpi_ec@400f0c00 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:965 */
+				reg = < 0x400f0c00 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:966 */
+				interrupts = < 0x2f 0x3 >,
+				             < 0x30 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:967 */
+				interrupt-names = "acpi_ibf",
+				                  "acpi_obe";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:968 */
+				girqs = < 0x2f07070f 0x3007080f >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:969 */
+				ldn = < 0x3 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:971 */
+				status = "okay";                            /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:110 */
+			};
+
+			/* node '/soc/espi@400f3400/acpi_ec@400f1000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:975 */
+			acpi_ec2: acpi_ec@400f1000 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:976 */
+				reg = < 0x400f1000 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:977 */
+				interrupts = < 0x31 0x3 >,
+				             < 0x32 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:978 */
+				interrupt-names = "acpi_ibf",
+				                  "acpi_obe";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:979 */
+				girqs = < 0x3107090f 0x32070a0f >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:980 */
+				ldn = < 0x4 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:982 */
+				status = "disabled";                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:983 */
+			};
+
+			/* node '/soc/espi@400f3400/acpi_ec@400f1400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:986 */
+			acpi_ec3: acpi_ec@400f1400 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:987 */
+				reg = < 0x400f1400 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:988 */
+				interrupts = < 0x33 0x3 >,
+				             < 0x34 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:989 */
+				interrupt-names = "acpi_ibf",
+				                  "acpi_obe";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:990 */
+				girqs = < 0x33070b0f 0x34070c0f >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:991 */
+				ldn = < 0x5 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:993 */
+				status = "disabled";                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:994 */
+			};
+
+			/* node '/soc/espi@400f3400/acpi_ec@400f1800' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:997 */
+			acpi_ec4: acpi_ec@400f1800 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:998 */
+				reg = < 0x400f1800 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:999 */
+				interrupts = < 0x35 0x3 >,
+				             < 0x36 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1000 */
+				interrupt-names = "acpi_ibf",
+				                  "acpi_obe";               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1001 */
+				girqs = < 0x35070d0f 0x36070e0f >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1002 */
+				ldn = < 0x6 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1004 */
+				status = "disabled";                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1005 */
+			};
+
+			/* node '/soc/espi@400f3400/acpi_pm1@400f1c00' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1008 */
+			acpi_pm1: acpi_pm1@400f1c00 {
+				compatible = "microchip,xec-espi-host-dev";   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1009 */
+				reg = < 0x400f1c00 0x400 >;                   /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1010 */
+				interrupts = < 0x37 0x3 >,
+				             < 0x38 0x3 >,
+				             < 0x39 0x3 >;                    /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1011 */
+				interrupt-names = "pm1_ctl",
+				                  "pm1_en",
+				                  "pm1_sts";                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1012 */
+				girqs = < 0x37070f0f 0x3807100f 0x3907110f >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1013 */
+				ldn = < 0x7 >;                                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1016 */
+				status = "disabled";                          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1017 */
+			};
+
+			/* node '/soc/espi@400f3400/port92@400f2000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1020 */
+			port92: port92@400f2000 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1021 */
+				reg = < 0x400f2000 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1022 */
+				ldn = < 0x8 >;                              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1023 */
+				status = "disabled";                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1024 */
+			};
+
+			/* node '/soc/espi@400f3400/emi@400f4000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1027 */
+			emi0: emi@400f4000 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1028 */
+				reg = < 0x400f4000 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1029 */
+				interrupts = < 0x2a 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1030 */
+				girqs = < 0x2a07020f >;                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1031 */
+				ldn = < 0x10 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1032 */
+				status = "okay";                            /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:114 */
+			};
+
+			/* node '/soc/espi@400f3400/emi@400f4400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1036 */
+			emi1: emi@400f4400 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1037 */
+				reg = < 0x400f4400 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1038 */
+				interrupts = < 0x2b 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1039 */
+				girqs = < 0x2b07030f >;                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1040 */
+				ldn = < 0x11 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1041 */
+				status = "disabled";                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1042 */
+			};
+
+			/* node '/soc/espi@400f3400/emi@400f4800' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1045 */
+			emi2: emi@400f4800 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1046 */
+				reg = < 0x400f4800 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1047 */
+				interrupts = < 0x2c 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1048 */
+				girqs = < 0x2c07040f >;                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1049 */
+				ldn = < 0x12 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1050 */
+				status = "disabled";                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1051 */
+			};
+
+			/* node '/soc/espi@400f3400/rtc@400f5000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1054 */
+			rtc0: rtc@400f5000 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1055 */
+				reg = < 0x400f5000 0x100 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1056 */
+				interrupts = < 0x77 0x3 >,
+				             < 0x78 0x3 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1057 */
+				girqs = < 0x770d0815 0x780d0915 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1058 */
+				pcrs = < 0x2 0x12 >;                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1060 */
+				ldn = < 0x14 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1061 */
+				status = "disabled";                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1062 */
+			};
+
+			/* node '/soc/espi@400f3400/p80bd@400f8000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1066 */
+			p80bd0: p80bd@400f8000 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1067 */
+				reg = < 0x400f8000 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1068 */
+				interrupts = < 0x3e 0x0 >;                  /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1069 */
+				girqs = < 0x3e07160f >;                     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1070 */
+				pcrs = < 0x2 0x19 >;                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1071 */
+				ldn = < 0x20 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1072 */
+				status = "okay";                            /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:118 */
+			};
+
+			/* node '/soc/espi@400f3400/p80bd@400f8400' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1077 */
+			p80bd0_alias: p80bd@400f8400 {
+				compatible = "microchip,xec-espi-host-dev"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1078 */
+				reg = < 0x400f8400 0x400 >;                 /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1079 */
+				ldn = < 0x21 >;                             /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1080 */
+				host-io = < 0x90 >;                         /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1081 */
+				host-io-addr-mask = < 0x1 >;                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1083 */
+				status = "disabled";                        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1084 */
+			};
+		};
+
+		/* node '/soc/symcr@40100000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1088 */
+		symcr: symcr@40100000 {
+			compatible = "microchip,xec-symcr"; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1089 */
+			reg = < 0x40100000 0x1000 >;        /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1090 */
+			interrupts = < 0x44 0x1 >;          /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1091 */
+			clocks = < &pcr 0x3 0x1a 0x3 >;     /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1092 */
+			girqs = < 0x10 0x3 >;               /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1093 */
+			status = "disabled";                /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1094 */
+			#address-cells = < 0x1 >;           /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1095 */
+			#size-cells = < 0x1 >;              /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1096 */
+		};
+
+		/* node '/soc/rom_api@1f000' defined in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1099 */
+		rom_api: rom_api@1f000 {
+			reg = < 0x1f000 0x1000 >; /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1100 */
+			status = "disabled";      /* in zephyr/dts/arm/microchip/mec/mec172x_common.dtsi:1101 */
+		};
+
+		/* node '/soc/eeprom@40002c00' defined in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:60 */
+		eeprom: eeprom@40002c00 {
+			compatible = "microchip,xec-eeprom"; /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:61 */
+			reg = < 0x40002c00 0x400 >;          /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:62 */
+			interrupts = < 0x9b 0x2 >;           /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:63 */
+			size = < 0x800 >;                    /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:64 */
+			girqs = < 0x12 0xd >;                /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:65 */
+			pcrs = < 0x4 0xe >;                  /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:66 */
+			status = "disabled";                 /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:67 */
+		};
+	};
+
+	/* node '/mchp-xec-espi-vw-routing' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:11 */
+	mchp-xec-espi-vw-routing {
+		compatible = "microchip,xec-espi-vw-routing"; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:12 */
+
+		/* node '/mchp-xec-espi-vw-routing/vw_slp_s3_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:15 */
+		vw_slp_s3_n: vw_slp_s3_n {
+			vw-reg = < 0x2 0x1 0x0 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:17 */
+			vw-girq = < 0x18 0x0 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:18 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:19 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_slp_s4_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:22 */
+		vw_slp_s4_n: vw_slp_s4_n {
+			vw-reg = < 0x2 0x1 0x0 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:23 */
+			vw-girq = < 0x18 0x1 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:24 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:25 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_slp_s5_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:28 */
+		vw_slp_s5_n: vw_slp_s5_n {
+			vw-reg = < 0x2 0x1 0x0 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:29 */
+			vw-girq = < 0x18 0x2 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:30 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:31 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_sus_stat_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:34 */
+		vw_sus_stat_n: vw_sus_stat_n {
+			vw-reg = < 0x3 0x1 0x1 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:35 */
+			vw-girq = < 0x18 0x4 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:36 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:37 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_pltrst_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:40 */
+		vw_pltrst_n: vw_pltrst_n {
+			vw-reg = < 0x3 0x1 0x1 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:41 */
+			vw-girq = < 0x18 0x5 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:42 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:43 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_oob_rst_warn' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:46 */
+		vw_oob_rst_warn: vw_oob_rst_warn {
+			vw-reg = < 0x3 0x1 0x1 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:47 */
+			vw-girq = < 0x18 0x6 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:48 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:49 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_host_rst_warn' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:52 */
+		vw_host_rst_warn: vw_host_rst_warn {
+			vw-reg = < 0x7 0x1 0x2 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:53 */
+			vw-girq = < 0x18 0x8 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:54 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:55 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_smiout_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:58 */
+		vw_smiout_n: vw_smiout_n {
+			vw-reg = < 0x7 0x1 0x2 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:59 */
+			vw-girq = < 0x18 0x9 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:60 */
+			status = "disabled";          /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:61 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_nmiout_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:64 */
+		vw_nmiout_n: vw_nmiout_n {
+			vw-reg = < 0x7 0x1 0x2 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:65 */
+			vw-girq = < 0x18 0xa >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:66 */
+			status = "disabled";          /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:67 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_sus_warn_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:70 */
+		vw_sus_warn_n: vw_sus_warn_n {
+			vw-reg = < 0x41 0x1 0x3 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:71 */
+			vw-girq = < 0x18 0xc >;        /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:72 */
+			status = "okay";               /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:73 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_sus_pwrdn_ack' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:76 */
+		vw_sus_pwrdn_ack: vw_sus_pwrdn_ack {
+			vw-reg = < 0x41 0x1 0x3 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:77 */
+			vw-girq = < 0x18 0xd >;        /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:78 */
+			status = "okay";               /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:79 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_slp_a_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:82 */
+		vw_slp_a_n: vw_slp_a_n {
+			vw-reg = < 0x41 0x1 0x3 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:83 */
+			vw-girq = < 0x18 0xf >;        /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:84 */
+			status = "okay";               /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:85 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_slp_lan_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:88 */
+		vw_slp_lan_n: vw_slp_lan_n {
+			vw-reg = < 0x42 0x1 0x4 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:89 */
+			vw-girq = < 0x18 0x10 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:90 */
+			status = "okay";               /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:91 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_slp_wlan_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:94 */
+		vw_slp_wlan_n: vw_slp_wlan_n {
+			vw-reg = < 0x42 0x1 0x4 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:95 */
+			vw-girq = < 0x18 0x11 >;       /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:96 */
+			status = "okay";               /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:97 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_host_c10' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:100 */
+		vw_host_c10: vw_host_c10 {
+			vw-reg = < 0x47 0x1 0x7 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:101 */
+			vw-girq = < 0x19 0x0 >;        /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:102 */
+			status = "okay";               /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:103 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_dnx_warn' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:106 */
+		vw_dnx_warn: vw_dnx_warn {
+			vw-reg = < 0x4a 0x1 0x8 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:107 */
+			vw-girq = < 0x19 0x5 >;        /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:108 */
+			status = "okay";               /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:109 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_oob_rst_ack' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:113 */
+		vw_oob_rst_ack: vw_oob_rst_ack {
+			vw-reg = < 0x4 0x0 0x0 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:114 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:115 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_wake_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:118 */
+		vw_wake_n: vw_wake_n {
+			vw-reg = < 0x4 0x0 0x0 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:119 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:120 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_pme_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:123 */
+		vw_pme_n: vw_pme_n {
+			vw-reg = < 0x4 0x0 0x0 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:124 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:125 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_target_boot_done' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:128 */
+		vw_target_boot_done: vw_target_boot_done {
+			vw-reg = < 0x5 0x0 0x1 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:129 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:130 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_error_fatal' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:133 */
+		vw_error_fatal: vw_error_fatal {
+			vw-reg = < 0x5 0x0 0x1 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:134 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:135 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_error_non_fatal' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:138 */
+		vw_error_non_fatal: vw_error_non_fatal {
+			vw-reg = < 0x5 0x0 0x1 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:139 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:140 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_target_boot_status' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:143 */
+		vw_target_boot_status: vw_target_boot_status {
+			vw-reg = < 0x5 0x0 0x1 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:144 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:145 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_sci_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:148 */
+		vw_sci_n: vw_sci_n {
+			vw-reg = < 0x6 0x0 0x2 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:149 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:150 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_smi_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:153 */
+		vw_smi_n: vw_smi_n {
+			vw-reg = < 0x6 0x0 0x2 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:154 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:155 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_rcin_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:158 */
+		vw_rcin_n: vw_rcin_n {
+			vw-reg = < 0x6 0x0 0x2 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:159 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:160 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_host_rst_ack' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:163 */
+		vw_host_rst_ack: vw_host_rst_ack {
+			vw-reg = < 0x6 0x0 0x2 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:164 */
+			status = "okay";              /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:165 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_sus_ack_n' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:168 */
+		vw_sus_ack_n: vw_sus_ack_n {
+			vw-reg = < 0x40 0x0 0x3 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:169 */
+			status = "okay";               /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:170 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_dnx_ack' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:173 */
+		vw_dnx_ack: vw_dnx_ack {
+			vw-reg = < 0x40 0x0 0x3 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:174 */
+			status = "okay";               /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:175 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_0' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:178 */
+		vw_t2c_gpio_0: vw_t2c_gpio_0 {
+			vw-reg = < 0x50 0x0 0x6 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:179 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:180 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_1' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:183 */
+		vw_t2c_gpio_1: vw_t2c_gpio_1 {
+			vw-reg = < 0x50 0x0 0x6 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:184 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:185 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_2' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:188 */
+		vw_t2c_gpio_2: vw_t2c_gpio_2 {
+			vw-reg = < 0x50 0x0 0x6 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:189 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:190 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_3' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:193 */
+		vw_t2c_gpio_3: vw_t2c_gpio_3 {
+			vw-reg = < 0x50 0x0 0x6 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:194 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:195 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_4' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:198 */
+		vw_t2c_gpio_4: vw_t2c_gpio_4 {
+			vw-reg = < 0x51 0x0 0x7 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:199 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:200 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_5' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:203 */
+		vw_t2c_gpio_5: vw_t2c_gpio_5 {
+			vw-reg = < 0x51 0x0 0x7 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:204 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:205 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_6' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:208 */
+		vw_t2c_gpio_6: vw_t2c_gpio_6 {
+			vw-reg = < 0x51 0x0 0x7 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:209 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:210 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_7' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:213 */
+		vw_t2c_gpio_7: vw_t2c_gpio_7 {
+			vw-reg = < 0x51 0x0 0x7 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:214 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:215 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_8' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:218 */
+		vw_t2c_gpio_8: vw_t2c_gpio_8 {
+			vw-reg = < 0x52 0x0 0x8 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:219 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:220 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_9' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:223 */
+		vw_t2c_gpio_9: vw_t2c_gpio_9 {
+			vw-reg = < 0x52 0x0 0x8 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:224 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:225 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_10' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:228 */
+		vw_t2c_gpio_10: vw_t2c_gpio_10 {
+			vw-reg = < 0x52 0x0 0x8 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:229 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:230 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_11' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:233 */
+		vw_t2c_gpio_11: vw_t2c_gpio_11 {
+			vw-reg = < 0x52 0x0 0x8 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:234 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:235 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_12' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:238 */
+		vw_t2c_gpio_12: vw_t2c_gpio_12 {
+			vw-reg = < 0x53 0x0 0x9 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:239 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:240 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_13' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:243 */
+		vw_t2c_gpio_13: vw_t2c_gpio_13 {
+			vw-reg = < 0x53 0x0 0x9 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:244 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:245 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_14' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:248 */
+		vw_t2c_gpio_14: vw_t2c_gpio_14 {
+			vw-reg = < 0x53 0x0 0x9 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:249 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:250 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_15' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:253 */
+		vw_t2c_gpio_15: vw_t2c_gpio_15 {
+			vw-reg = < 0x53 0x0 0x9 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:254 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:255 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_16' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:258 */
+		vw_t2c_gpio_16: vw_t2c_gpio_16 {
+			vw-reg = < 0x54 0x0 0xa 0x0 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:259 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:260 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_17' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:263 */
+		vw_t2c_gpio_17: vw_t2c_gpio_17 {
+			vw-reg = < 0x54 0x0 0xa 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:264 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:265 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_18' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:268 */
+		vw_t2c_gpio_18: vw_t2c_gpio_18 {
+			vw-reg = < 0x54 0x0 0xa 0x2 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:269 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:270 */
+		};
+
+		/* node '/mchp-xec-espi-vw-routing/vw_t2c_gpio_19' defined in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:273 */
+		vw_t2c_gpio_19: vw_t2c_gpio_19 {
+			vw-reg = < 0x54 0x0 0xa 0x3 >; /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:274 */
+			status = "disabled";           /* in zephyr/dts/arm/microchip/mec/mec172x/mec172x-vw-routing.dtsi:275 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:21 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:22 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:23 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:25 */
+		cpu0: cpu@0 {
+			device_type = "cpu";                          /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:26 */
+			compatible = "arm,cortex-m4";                 /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:27 */
+			reg = < 0x0 >;                                /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:28 */
+			cpu-power-states = < &idle &suspend_to_ram >; /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:30 */
+			clock-frequency = < 0x5b8d800 >;              /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:51 */
+			status = "okay";                              /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:52 */
+		};
+
+		/* node '/cpus/power-states' defined in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:33 */
+		power-states {
+
+			/* node '/cpus/power-states/idle' defined in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:34 */
+			idle: idle {
+				compatible = "zephyr,power-state";    /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:35 */
+				power-state-name = "suspend-to-idle"; /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:36 */
+				min-residency-us = < 0xf4240 >;       /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:37 */
+				phandle = < 0x4e >;                   /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:30 */
+			};
+
+			/* node '/cpus/power-states/suspend_to_ram' defined in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:40 */
+			suspend_to_ram: suspend_to_ram {
+				compatible = "zephyr,power-state";   /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:41 */
+				power-state-name = "suspend-to-ram"; /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:42 */
+				min-residency-us = < 0x1e8480 >;     /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:43 */
+				phandle = < 0x4f >;                  /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:30 */
+			};
+		};
+	};
+
+	/* node '/flash@c0000' defined in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:48 */
+	flash0: flash@c0000 {
+		reg = < 0xc0000 0x58000 >; /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:49 */
+	};
+
+	/* node '/memory@118000' defined in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:52 */
+	sram0: memory@118000 {
+		compatible = "mmio-sram";   /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:53 */
+		reg = < 0x118000 0x10000 >; /* in zephyr/dts/arm/microchip/mec/mec172xnsz.dtsi:54 */
+	};
+
+	/* node '/leds' defined in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:31 */
+	leds {
+		compatible = "gpio-leds"; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:32 */
+
+		/* node '/leds/led_1' defined in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:34 */
+		led3: led_1 {
+			gpios = < &gpio_140_176 0xf 0x0 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:38 */
+		};
+
+		/* node '/leds/led_2' defined in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:41 */
+		led2: led_2 {
+			gpios = < &gpio_140_176 0xb 0x0 >; /* in zephyr/boards/microchip/mec172xmodular_assy6930/mec172xmodular_assy6930.dts:45 */
+		};
+	};
+};

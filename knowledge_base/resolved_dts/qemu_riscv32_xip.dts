@@ -1,0 +1,377 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:7 */
+/ {
+	#address-cells = < 0x1 >;      /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:8 */
+	#size-cells = < 0x1 >;         /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:9 */
+	model = "SiFive HiFive 1";     /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:13 */
+	compatible = "sifive,hifive1"; /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:14 */
+
+	/* node '/clocks' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:13 */
+	clocks {
+
+		/* node '/clocks/core-clk' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:14 */
+		coreclk: core-clk {
+			#clock-cells = < 0x0 >;         /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:15 */
+			compatible = "fixed-clock";     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:16 */
+			clock-frequency = < 0xf42400 >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:17 */
+			phandle = < 0x1 >;              /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:23 */
+		};
+
+		/* node '/clocks/tl-clk' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:20 */
+		tlclk: tl-clk {
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:21 */
+			compatible = "fixed-factor-clock"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:22 */
+			clocks = < &coreclk >;             /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:23 */
+			clock-div = < 0x1 >;               /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:24 */
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:28 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:29 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:30 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:32 */
+		cpu: cpu@0 {
+			compatible = "sifive,e31",
+			             "riscv";                  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:33 */
+			device_type = "cpu";                   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:34 */
+			reg = < 0x0 >;                         /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:35 */
+			riscv,isa = "rv32imac_zicsr_zifencei"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:36 */
+			status = "okay";                       /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:37 */
+
+			/* node '/cpus/cpu@0/interrupt-controller' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:39 */
+			hlic: interrupt-controller {
+				compatible = "riscv,cpu-intc"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:40 */
+				#address-cells = < 0x0 >;      /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:41 */
+				#interrupt-cells = < 0x1 >;    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:42 */
+				interrupt-controller;          /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:43 */
+				phandle = < 0x3 >;             /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:73 */
+			};
+		};
+	};
+
+	/* node '/soc' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:48 */
+	soc {
+		#address-cells = < 0x1 >;                 /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:49 */
+		#size-cells = < 0x1 >;                    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:50 */
+		compatible = "sifive,FE310G-0002-Z0-soc",
+		             "fe310-soc",
+		             "sifive-soc",
+		             "simple-bus";                /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:51 */
+		ranges;                                   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:53 */
+
+		/* node '/soc/wdog@10000000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:55 */
+		wdog0: wdog@10000000 {
+			compatible = "sifive,wdt";    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:56 */
+			interrupt-parent = < &plic >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:57 */
+			interrupts = < 0x1 0x1 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:58 */
+			reg = < 0x10000000 0x40 >;    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:59 */
+			reg-names = "control";        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:60 */
+		};
+
+		/* node '/soc/aon@10000040' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:63 */
+		aon: aon@10000040 {
+			compatible = "sifive,aon0";   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:64 */
+			interrupt-parent = < &plic >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:65 */
+			interrupts = < 0x2 0x1 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:66 */
+			reg = < 0x10000040 0x9c0 >;   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:67 */
+			reg-names = "control";        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:68 */
+		};
+
+		/* node '/soc/clint@2000000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:71 */
+		clint: clint@2000000 {
+			compatible = "sifive,clint0";                  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:72 */
+			interrupts-extended = < &hlic 0x3 &hlic 0x7 >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:73 */
+			reg = < 0x2000000 0x10000 >;                   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:74 */
+		};
+
+		/* node '/soc/timer@200bff8' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:77 */
+		mtimer: timer@200bff8 {
+			compatible = "riscv,machine-timer";    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:78 */
+			interrupts-extended = < &hlic 0x7 >;   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:79 */
+			reg = < 0x200bff8 0x8 0x2004000 0x8 >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:80 */
+			reg-names = "mtime",
+			            "mtimecmp";                /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:81 */
+		};
+
+		/* node '/soc/debug-controller@0' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:84 */
+		debug: debug-controller@0 {
+			compatible = "sifive,debug-013",
+			             "riscv,debug-013";         /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:85 */
+			interrupts-extended = < &hlic 0xffff >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:86 */
+			reg = < 0x0 0x1000 >;                   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:87 */
+			reg-names = "control";                  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:88 */
+		};
+
+		/* node '/soc/dtim@80000000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:91 */
+		dtim: dtim@80000000 {
+			compatible = "sifive,dtim0"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:92 */
+			reg = < 0x80000000 0x4000 >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:93 */
+			reg-names = "mem";           /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:94 */
+		};
+
+		/* node '/soc/error-device@3000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:97 */
+		error-device@3000 {
+			compatible = "sifive,error0"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:98 */
+			reg = < 0x3000 0x1000 >;      /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:99 */
+			reg-names = "mem";            /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:100 */
+		};
+
+		/* node '/soc/gpio@10012000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:103 */
+		gpio0: gpio@10012000 {
+			compatible = "sifive,gpio0";  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:104 */
+			gpio-controller;              /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:105 */
+			interrupt-parent = < &plic >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:106 */
+			interrupts = < 0x8 0x1 >,
+			             < 0x9 0x1 >,
+			             < 0xa 0x1 >,
+			             < 0xb 0x1 >,
+			             < 0xc 0x1 >,
+			             < 0xd 0x1 >,
+			             < 0xe 0x1 >,
+			             < 0xf 0x1 >,
+			             < 0x10 0x1 >,
+			             < 0x11 0x1 >,
+			             < 0x12 0x1 >,
+			             < 0x13 0x1 >,
+			             < 0x14 0x1 >,
+			             < 0x15 0x1 >,
+			             < 0x16 0x1 >,
+			             < 0x17 0x1 >,
+			             < 0x18 0x1 >,
+			             < 0x19 0x1 >,
+			             < 0x1a 0x1 >,
+			             < 0x1b 0x1 >,
+			             < 0x1c 0x1 >,
+			             < 0x1d 0x1 >,
+			             < 0x1e 0x1 >,
+			             < 0x1f 0x1 >,
+			             < 0x20 0x1 >,
+			             < 0x21 0x1 >,
+			             < 0x22 0x1 >,
+			             < 0x23 0x1 >,
+			             < 0x24 0x1 >,
+			             < 0x25 0x1 >,
+			             < 0x26 0x1 >,
+			             < 0x27 0x1 >;    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:107 */
+			reg = < 0x10012000 0x1000 >;  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:115 */
+			reg-names = "control";        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:116 */
+			#gpio-cells = < 0x2 >;        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:118 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:120 */
+			#size-cells = < 0x1 >;        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:121 */
+			ranges;                       /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:122 */
+			status = "okay";              /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:25 */
+
+			/* node '/soc/gpio@10012000/pinctrl@10012038' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:124 */
+			pinctrl: pinctrl@10012038 {
+				compatible = "sifive,pinctrl"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:125 */
+				reg = < 0x10012038 0x8 >;      /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:126 */
+
+				/* node '/soc/gpio@10012000/pinctrl@10012038/uart0_rx_default' defined in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip-pinctrl.dtsi:11 */
+				uart0_rx_default: uart0_rx_default {
+					pinmux = < 0x10 0x0 >; /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip-pinctrl.dtsi:12 */
+					phandle = < 0x4 >;     /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:31 */
+				};
+
+				/* node '/soc/gpio@10012000/pinctrl@10012038/uart0_tx_default' defined in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip-pinctrl.dtsi:15 */
+				uart0_tx_default: uart0_tx_default {
+					pinmux = < 0x11 0x0 >; /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip-pinctrl.dtsi:16 */
+					phandle = < 0x5 >;     /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:31 */
+				};
+			};
+		};
+
+		/* node '/soc/i2c@10016000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:130 */
+		i2c0: i2c@10016000 {
+			compatible = "sifive,i2c0";   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:131 */
+			interrupt-parent = < &plic >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:132 */
+			interrupts = < 0x34 0x1 >;    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:133 */
+			reg = < 0x10016000 0x1000 >;  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:134 */
+			reg-names = "control";        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:135 */
+			status = "disabled";          /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:136 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:137 */
+			#size-cells = < 0x0 >;        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:138 */
+		};
+
+		/* node '/soc/interrupt-controller@c000000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:141 */
+		plic: interrupt-controller@c000000 {
+			compatible = "sifive,plic-1.0.0";    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:142 */
+			#address-cells = < 0x0 >;            /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:143 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:144 */
+			interrupt-controller;                /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:145 */
+			interrupts-extended = < &hlic 0xb >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:146 */
+			reg = < 0xc000000 0x4000000 >;       /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:147 */
+			riscv,max-priority = < 0x7 >;        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:148 */
+			riscv,ndev = < 0x34 >;               /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:149 */
+			phandle = < 0x2 >;                   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:57 */
+		};
+
+		/* node '/soc/itim@8000000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:152 */
+		itim: itim@8000000 {
+			compatible = "sifive,itim0"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:153 */
+			reg = < 0x8000000 0x2000 >;  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:154 */
+			reg-names = "mem";           /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:155 */
+		};
+
+		/* node '/soc/otp@10010000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:158 */
+		otp: otp@10010000 {
+			compatible = "sifive,otp0";                 /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:159 */
+			reg = < 0x10010000 0x1000 0x20000 0x2000 >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:160 */
+			reg-names = "control",
+			            "mem";                          /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:161 */
+		};
+
+		/* node '/soc/prci@10008000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:164 */
+		prci: prci@10008000 {
+			compatible = "sifive,freedome300prci0"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:165 */
+			reg = < 0x10008000 0x1000 >;            /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:166 */
+			reg-names = "control";                  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:167 */
+		};
+
+		/* node '/soc/pwm@10015000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:170 */
+		pwm0: pwm@10015000 {
+			compatible = "sifive,pwm0";     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:171 */
+			interrupt-parent = < &plic >;   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:172 */
+			interrupts = < 0x28 0x1 >,
+			             < 0x29 0x1 >,
+			             < 0x2a 0x1 >,
+			             < 0x2b 0x1 >;      /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:173 */
+			reg = < 0x10015000 0x1000 >;    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:174 */
+			reg-names = "control";          /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:175 */
+			status = "disabled";            /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:176 */
+			sifive,compare-width = < 0x8 >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:177 */
+			#pwm-cells = < 0x2 >;           /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:178 */
+		};
+
+		/* node '/soc/pwm@10025000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:181 */
+		pwm1: pwm@10025000 {
+			compatible = "sifive,pwm0";      /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:182 */
+			interrupt-parent = < &plic >;    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:183 */
+			interrupts = < 0x2c 0x1 >,
+			             < 0x2d 0x1 >,
+			             < 0x2e 0x1 >,
+			             < 0x2f 0x1 >;       /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:184 */
+			reg = < 0x10025000 0x1000 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:185 */
+			reg-names = "control";           /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:186 */
+			status = "disabled";             /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:187 */
+			sifive,compare-width = < 0x10 >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:188 */
+			#pwm-cells = < 0x2 >;            /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:189 */
+		};
+
+		/* node '/soc/pwm@10035000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:192 */
+		pwm2: pwm@10035000 {
+			compatible = "sifive,pwm0";      /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:193 */
+			interrupt-parent = < &plic >;    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:194 */
+			interrupts = < 0x30 0x1 >,
+			             < 0x31 0x1 >,
+			             < 0x32 0x1 >,
+			             < 0x33 0x1 >;       /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:195 */
+			reg = < 0x10035000 0x1000 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:196 */
+			reg-names = "control";           /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:197 */
+			status = "disabled";             /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:198 */
+			sifive,compare-width = < 0x10 >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:199 */
+			#pwm-cells = < 0x2 >;            /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:200 */
+		};
+
+		/* node '/soc/rom@1000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:203 */
+		modeselect: rom@1000 {
+			compatible = "sifive,modeselect0"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:204 */
+			reg = < 0x1000 0x1000 >;           /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:205 */
+			reg-names = "mem";                 /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:206 */
+		};
+
+		/* node '/soc/rom@10000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:209 */
+		maskrom: rom@10000 {
+			compatible = "sifive,maskrom0"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:210 */
+			reg = < 0x10000 0x2000 >;       /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:211 */
+			reg-names = "mem";              /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:212 */
+		};
+
+		/* node '/soc/serial@10013000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:215 */
+		uart0: serial@10013000 {
+			compatible = "sifive,uart0";                         /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:216 */
+			interrupt-parent = < &plic >;                        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:217 */
+			interrupts = < 0x3 0x1 >;                            /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:218 */
+			reg = < 0x10013000 0x1000 >;                         /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:219 */
+			reg-names = "control";                               /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:220 */
+			status = "okay";                                     /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:29 */
+			current-speed = < 0x1c200 >;                         /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:30 */
+			pinctrl-0 = < &uart0_rx_default &uart0_tx_default >; /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:31 */
+			pinctrl-names = "default";                           /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:32 */
+		};
+
+		/* node '/soc/serial@10023000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:224 */
+		uart1: serial@10023000 {
+			compatible = "sifive,uart0";  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:225 */
+			interrupt-parent = < &plic >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:226 */
+			interrupts = < 0x4 0x1 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:227 */
+			reg = < 0x10023000 0x1000 >;  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:228 */
+			reg-names = "control";        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:229 */
+			status = "disabled";          /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:230 */
+		};
+
+		/* node '/soc/spi@10014000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:233 */
+		spi0: spi@10014000 {
+			compatible = "sifive,spi0";                      /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:234 */
+			interrupt-parent = < &plic >;                    /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:235 */
+			interrupts = < 0x5 0x1 >;                        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:236 */
+			reg-names = "control",
+			            "mem";                               /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:238 */
+			status = "okay";                                 /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:36 */
+			#address-cells = < 0x1 >;                        /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:38 */
+			#size-cells = < 0x0 >;                           /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:39 */
+			reg = < 0x10014000 0x1000 0x20400000 0xc00000 >; /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:40 */
+
+			/* node '/soc/spi@10014000/flash@0' defined in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:42 */
+			flash0: flash@0 {
+				compatible = "issi,is25lp128",
+				             "jedec,spi-nor";  /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:43 */
+				size = < 0x8000000 >;          /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:44 */
+				jedec-id = [ 96 60 18 ];       /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:45 */
+				reg = < 0x0 >;                 /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:46 */
+				spi-max-frequency = < 0x0 >;   /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:48 */
+			};
+		};
+
+		/* node '/soc/spi@10024000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:244 */
+		spi1: spi@10024000 {
+			compatible = "sifive,spi0";   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:245 */
+			interrupt-parent = < &plic >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:246 */
+			interrupts = < 0x6 0x1 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:247 */
+			reg = < 0x10024000 0x1000 >;  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:248 */
+			reg-names = "control";        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:249 */
+			status = "disabled";          /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:250 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:251 */
+			#size-cells = < 0x0 >;        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:252 */
+		};
+
+		/* node '/soc/spi@10034000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:255 */
+		spi2: spi@10034000 {
+			compatible = "sifive,spi0";   /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:256 */
+			interrupt-parent = < &plic >; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:257 */
+			interrupts = < 0x7 0x1 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:258 */
+			reg = < 0x10034000 0x1000 >;  /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:259 */
+			reg-names = "control";        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:260 */
+			status = "disabled";          /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:261 */
+			#address-cells = < 0x1 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:262 */
+			#size-cells = < 0x0 >;        /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:263 */
+		};
+
+		/* node '/soc/teststatus@4000' defined in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:266 */
+		teststatus: teststatus@4000 {
+			compatible = "sifive,test0"; /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:267 */
+			reg = < 0x4000 0x1000 >;     /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:268 */
+			reg-names = "control";       /* in zephyr/dts/riscv/sifive/riscv32-fe310.dtsi:269 */
+		};
+	};
+
+	/* node '/chosen' defined in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:16 */
+	chosen {
+		zephyr,console = &uart0;    /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:17 */
+		zephyr,shell-uart = &uart0; /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:18 */
+		zephyr,sram = &dtim;        /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:19 */
+		zephyr,flash = &flash0;     /* in zephyr/boards/qemu/riscv32_xip/qemu_riscv32_xip.dts:20 */
+	};
+};
